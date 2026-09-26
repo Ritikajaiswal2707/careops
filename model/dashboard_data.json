@@ -1,0 +1,376 @@
+{
+  "today": "2026-08-29",
+  "summary": {
+    "total": 95,
+    "high": 1,
+    "medium": 20,
+    "low": 74
+  },
+  "flagged": [
+    {
+      "id": "APT009737",
+      "time": "Morning",
+      "service": "Wound Dressing",
+      "risk": 0.59,
+      "tier": "High",
+      "reasons": [
+        "First-time patient",
+        "2 prior no-shows",
+        "Low message response rate",
+        "24.4km from clinician"
+      ],
+      "action": "Reschedule requested \u2014 no matching slot found, needs manual follow-up",
+      "patientSignal": {
+        "channel": "WhatsApp",
+        "message": "Doctor visit hai usi din, reschedule possible?",
+        "intent": "Reschedule",
+        "preferred_day": null,
+        "urgency": "Medium",
+        "reason": "Conflicting doctor visit"
+      },
+      "agentTrace": [
+        "Patient (PT00275, Mumbai): \"Doctor visit hai usi din, reschedule possible?\"",
+        "Extracted: intent=Reschedule, preferred_day=None, urgency=Medium, reason=Conflicting doctor visit",
+        "Checked 2026-08-30: no availability.csv data exists for this date (outside the dataset's Jun 1 - Aug 29 range) \u2014 cannot confirm, not the same as 'unavailable'.",
+        "Checked 2026-08-31: no availability.csv data exists for this date (outside the dataset's Jun 1 - Aug 29 range) \u2014 cannot confirm, not the same as 'unavailable'.",
+        "Checked 2026-09-01: no availability.csv data exists for this date (outside the dataset's Jun 1 - Aug 29 range) \u2014 cannot confirm, not the same as 'unavailable'.",
+        "No confirmable slot found in the search window \u2014 needs manual coordinator follow-up."
+      ]
+    },
+    {
+      "id": "APT009386",
+      "time": "Evening",
+      "service": "Nursing Visit",
+      "risk": 0.49,
+      "tier": "Medium",
+      "reasons": [
+        "First-time patient",
+        "23.3km from clinician",
+        "Evening slot"
+      ],
+      "action": "Patient confirmed \u2014 no action needed",
+      "patientSignal": {
+        "channel": "WhatsApp",
+        "message": "Ok confirmed",
+        "intent": "Confirm",
+        "preferred_day": null,
+        "urgency": "Low",
+        "reason": null
+      }
+    },
+    {
+      "id": "APT007546",
+      "time": "Afternoon",
+      "service": "Physiotherapy Session",
+      "risk": 0.44,
+      "tier": "Medium",
+      "reasons": [
+        "First-time patient",
+        "24.8km from clinician"
+      ],
+      "action": "Send confirmation + backup contact request"
+    },
+    {
+      "id": "APT002164",
+      "time": "Afternoon",
+      "service": "Diabetic Care Visit",
+      "risk": 0.42,
+      "tier": "Medium",
+      "reasons": [
+        "5 prior no-shows",
+        "23.7km from clinician"
+      ],
+      "action": "Patient confirmed \u2014 no action needed",
+      "patientSignal": {
+        "channel": "WhatsApp",
+        "message": "Yes that works, see you then",
+        "intent": "Confirm",
+        "preferred_day": null,
+        "urgency": "Low",
+        "reason": null
+      }
+    },
+    {
+      "id": "APT002495",
+      "time": "Evening",
+      "service": "Wound Dressing",
+      "risk": 0.41,
+      "tier": "Medium",
+      "reasons": [
+        "3 prior no-shows",
+        "Low message response rate",
+        "17.3km from clinician",
+        "Evening slot"
+      ],
+      "action": "Send confirmation + backup contact request"
+    },
+    {
+      "id": "APT004397",
+      "time": "Evening",
+      "service": "Nursing Visit",
+      "risk": 0.41,
+      "tier": "Medium",
+      "reasons": [
+        "5 prior no-shows",
+        "13.3km from clinician",
+        "Evening slot"
+      ],
+      "action": "Call to confirm 24h ahead"
+    },
+    {
+      "id": "APT001167",
+      "time": "Morning",
+      "service": "Nursing Visit",
+      "risk": 0.4,
+      "tier": "Medium",
+      "reasons": [
+        "First-time patient",
+        "2 prior no-shows",
+        "16.9km from clinician"
+      ],
+      "action": "Send confirmation + backup contact request"
+    },
+    {
+      "id": "APT007922",
+      "time": "Evening",
+      "service": "Diabetic Care Visit",
+      "risk": 0.4,
+      "tier": "Medium",
+      "reasons": [
+        "First-time patient",
+        "15.1km from clinician",
+        "Evening slot"
+      ],
+      "action": "Send confirmation + backup contact request"
+    },
+    {
+      "id": "APT001709",
+      "time": "Morning",
+      "service": "Physiotherapy Session",
+      "risk": 0.4,
+      "tier": "Medium",
+      "reasons": [
+        "First-time patient",
+        "24.7km from clinician"
+      ],
+      "action": "Patient confirmed \u2014 no action needed",
+      "patientSignal": {
+        "channel": "Call",
+        "message": "Ok confirmed",
+        "intent": "Confirm",
+        "preferred_day": null,
+        "urgency": "Low",
+        "reason": null
+      }
+    },
+    {
+      "id": "APT005944",
+      "time": "Afternoon",
+      "service": "Diabetic Care Visit",
+      "risk": 0.39,
+      "tier": "Medium",
+      "reasons": [
+        "First-time patient",
+        "2 prior no-shows",
+        "16.1km from clinician"
+      ],
+      "action": "Send confirmation + backup contact request"
+    },
+    {
+      "id": "APT004512",
+      "time": "Evening",
+      "service": "Wound Dressing",
+      "risk": 0.38,
+      "tier": "Medium",
+      "reasons": [
+        "First-time patient",
+        "14.6km from clinician",
+        "Evening slot"
+      ],
+      "action": "Send confirmation + backup contact request"
+    },
+    {
+      "id": "APT009251",
+      "time": "Evening",
+      "service": "Post-Op Care",
+      "risk": 0.37,
+      "tier": "Medium",
+      "reasons": [
+        "First-time patient",
+        "Evening slot"
+      ],
+      "action": "Patient confirmed \u2014 no action needed",
+      "patientSignal": {
+        "channel": "SMS",
+        "message": "Ok confirmed",
+        "intent": "Confirm",
+        "preferred_day": null,
+        "urgency": "Low",
+        "reason": null
+      }
+    },
+    {
+      "id": "APT009761",
+      "time": "Afternoon",
+      "service": "Post-Op Care",
+      "risk": 0.37,
+      "tier": "Medium",
+      "reasons": [
+        "3 prior no-shows",
+        "25.0km from clinician"
+      ],
+      "action": "Reschedule requested \u2014 no matching slot found, needs manual follow-up",
+      "patientSignal": {
+        "channel": "SMS",
+        "message": "Kal thoda late ho jayega, Saturday kar sakte ho?",
+        "intent": "Reschedule",
+        "preferred_day": "Saturday",
+        "urgency": "High",
+        "reason": "Provider/patient running late"
+      },
+      "agentTrace": [
+        "Patient (PT00279, Pune): \"Kal thoda late ho jayega, Saturday kar sakte ho?\"",
+        "Extracted: intent=Reschedule, preferred_day=Saturday, urgency=High, reason=Provider/patient running late",
+        "Checked 2026-09-05: no availability.csv data exists for this date (outside the dataset's Jun 1 - Aug 29 range) \u2014 cannot confirm, not the same as 'unavailable'.",
+        "No confirmable slot found in the search window \u2014 needs manual coordinator follow-up."
+      ]
+    },
+    {
+      "id": "APT005630",
+      "time": "Afternoon",
+      "service": "Diabetic Care Visit",
+      "risk": 0.36,
+      "tier": "Medium",
+      "reasons": [
+        "First-time patient",
+        "21.9km from clinician"
+      ],
+      "action": "Send confirmation + backup contact request"
+    },
+    {
+      "id": "APT005472",
+      "time": "Afternoon",
+      "service": "Vitals Check",
+      "risk": 0.35,
+      "tier": "Medium",
+      "reasons": [
+        "3 prior no-shows",
+        "21.4km from clinician"
+      ],
+      "action": "Call to confirm 24h ahead"
+    },
+    {
+      "id": "APT006389",
+      "time": "Afternoon",
+      "service": "Nursing Visit",
+      "risk": 0.34,
+      "tier": "Medium",
+      "reasons": [
+        "First-time patient",
+        "13.5km from clinician"
+      ],
+      "action": "Send confirmation + backup contact request"
+    },
+    {
+      "id": "APT009378",
+      "time": "Afternoon",
+      "service": "Diabetic Care Visit",
+      "risk": 0.33,
+      "tier": "Medium",
+      "reasons": [
+        "4 prior no-shows",
+        "16.7km from clinician"
+      ],
+      "action": "Call to confirm 24h ahead"
+    },
+    {
+      "id": "APT002040",
+      "time": "Afternoon",
+      "service": "Wound Dressing",
+      "risk": 0.33,
+      "tier": "Medium",
+      "reasons": [
+        "3 prior no-shows",
+        "23.8km from clinician"
+      ],
+      "action": "Call to confirm 24h ahead"
+    },
+    {
+      "id": "APT008100",
+      "time": "Evening",
+      "service": "Nursing Visit",
+      "risk": 0.32,
+      "tier": "Medium",
+      "reasons": [
+        "First-time patient",
+        "Evening slot"
+      ],
+      "action": "Send confirmation + backup contact request"
+    },
+    {
+      "id": "APT008593",
+      "time": "Evening",
+      "service": "Post-Op Care",
+      "risk": 0.31,
+      "tier": "Medium",
+      "reasons": [
+        "3 prior no-shows",
+        "Evening slot"
+      ],
+      "action": "Call to confirm 24h ahead"
+    },
+    {
+      "id": "APT009926",
+      "time": "Afternoon",
+      "service": "Physiotherapy Session",
+      "risk": 0.31,
+      "tier": "Medium",
+      "reasons": [
+        "2 prior no-shows",
+        "24.8km from clinician"
+      ],
+      "action": "Patient confirmed \u2014 no action needed",
+      "patientSignal": {
+        "channel": "SMS",
+        "message": "Yes that works, see you then",
+        "intent": "Confirm",
+        "preferred_day": null,
+        "urgency": "Low",
+        "reason": null
+      }
+    }
+  ],
+  "cascades": [
+    {
+      "id": "APT000022",
+      "service": "Post-Op Care",
+      "slot": "Afternoon",
+      "provider": "PR008 (Contractual)",
+      "delay": 17,
+      "buffer": 19,
+      "notified": false,
+      "locGap": false,
+      "recovery": "No backup provider with spare capacity today \u2014 needs manual coordinator call"
+    },
+    {
+      "id": "APT005111",
+      "service": "Diabetic Care Visit",
+      "slot": "Afternoon",
+      "provider": "PR007 (Full-time)",
+      "delay": 29,
+      "buffer": 39,
+      "notified": true,
+      "locGap": false
+    },
+    {
+      "id": "APT009233",
+      "service": "Physiotherapy Session",
+      "slot": "Afternoon",
+      "provider": "PR008 (Contractual)",
+      "delay": 20,
+      "buffer": 25,
+      "notified": true,
+      "locGap": false
+    }
+  ]
+}

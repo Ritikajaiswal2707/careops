@@ -1,0 +1,28 @@
+{
+  "evaluation_period": "August (test split, unseen by model)",
+  "total_appointments": 3155,
+  "assumptions": {
+    "top_k_pct_flagged": 0.2,
+    "intervention_success_rate": 0.35,
+    "coordinator_min_per_contact": 8,
+    "revenue_per_completed_visit": 800,
+    "note": "success_rate and revenue_per_completed_visit are illustrative placeholders, not measured or sourced"
+  },
+  "before": {
+    "completed": 2344,
+    "disrupted": 811,
+    "completion_rate_pct": 74.3
+  },
+  "modeled_after_intervention": {
+    "appointments_flagged_for_outreach": 631,
+    "true_disruptions_among_flagged": 264,
+    "recovered_visits": 92,
+    "completed": 2436,
+    "disrupted": 719,
+    "completion_rate_pct": 77.2
+  },
+  "cost_and_return_modeled": {
+    "coordinator_hours_spent": 84.1,
+    "estimated_contribution_recovered": 73600
+  }
+}
