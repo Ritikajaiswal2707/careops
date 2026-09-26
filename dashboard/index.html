@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Today's Care Operations</title>
+<style>
+:root{
+  --bg:#f6f7f5; --card:#ffffff; --ink:#1c2521; --sub:#5b665f; --line:#e1e6e0;
+  --high:#c0392b; --high-bg:#fdecea; --med:#b8860b; --med-bg:#fff8e6; --ok:#1f7a4d; --ok-bg:#e9f7ef;
+  --accent:#2f6b4f;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12140f; --card:#1b1f19; --ink:#eef1ea; --sub:#a3aca0; --line:#2b322b;
+    --high:#ff6b5e; --high-bg:#33201d; --med:#e0b23d; --med-bg:#332c15; --ok:#5fcf95; --ok-bg:#16261e;
+    --accent:#6fce9d;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12140f; --card:#1b1f19; --ink:#eef1ea; --sub:#a3aca0; --line:#2b322b;
+  --high:#ff6b5e; --high-bg:#33201d; --med:#e0b23d; --med-bg:#332c15; --ok:#5fcf95; --ok-bg:#16261e;
+  --accent:#6fce9d;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  min-height:100%;
+}
+.wrap{max-width:760px; margin:0 auto; padding:24px 16px 60px;}
+header h1{font-size:1.4rem; margin:0 0 2px;}
+header p{margin:0; color:var(--sub); font-size:.9rem;}
+.summary{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:20px 0 24px;}
+.pill{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 8px; text-align:center;}
+.pill .num{font-size:1.4rem; font-weight:700;}
+.pill .lbl{font-size:.72rem; color:var(--sub); margin-top:2px;}
+.pill.high .num{color:var(--high);} .pill.med .num{color:var(--med);} .pill.ok .num{color:var(--ok);}
+.tabs{display:flex; gap:8px; margin-bottom:14px; overflow-x:auto;}
+.tab{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:7px 14px; border-radius:999px; font-size:.82rem; cursor:pointer; white-space:nowrap;}
+.tab.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+.card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-bottom:10px;}
+.card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
+.meta{font-size:.78rem; color:var(--sub);}
+.badge{font-size:.7rem; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap;}
+.badge.High{background:var(--high-bg); color:var(--high);}
+.badge.Medium{background:var(--med-bg); color:var(--med);}
+.reasons{margin:8px 0 10px; font-size:.83rem; color:var(--ink);}
+.reasons span{display:inline-block; background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:3px 8px; margin:2px 4px 0 0; font-size:.76rem; color:var(--sub);}
+.action-row{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:6px;}
+.action{font-size:.83rem;}
+.action b{color:var(--ink);}
+button.approve{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:7px 14px; font-size:.8rem; cursor:pointer;}
+button.approve.done{background:var(--ok-bg); color:var(--ok); cursor:default;}
+.note{color:var(--sub); font-size:.75rem; margin-top:22px; line-height:1.5; border-top:1px solid var(--line); padding-top:14px;}
+.empty{color:var(--sub); font-size:.85rem; text-align:center; padding:30px 0;}
+.cascade-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:14px;}
+.cascade-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+.cascade-head b{font-size:.95rem;}
+.chip{font-size:.7rem; padding:3px 9px; border-radius:999px; font-weight:700;}
+.chip.ok{background:var(--ok-bg); color:var(--ok);}
+.chip.gap{background:var(--high-bg); color:var(--high);}
+.flow{display:flex; flex-direction:column; gap:6px; font-size:.85rem; margin:8px 0;}
+.flow .step{display:flex; gap:8px; align-items:flex-start;}
+.flow .dot{width:8px; height:8px; border-radius:50%; background:var(--sub); margin-top:6px; flex-shrink:0;}
+.flow .step.problem .dot{background:var(--high);}
+.flow .step.fix .dot{background:var(--ok);}
+.tag-inline{font-size:.72rem; background:var(--bg); border:1px solid var(--line); padding:2px 7px; border-radius:7px; color:var(--sub); margin-left:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Today's Care Operations</h1>
+    <p id="dateline"></p>
+  </header>
+
+  <div class="summary">
+    <div class="pill"><div class="num" id="s-total">-</div><div class="lbl">Total visits</div></div>
+    <div class="pill ok"><div class="num" id="s-ok">-</div><div class="lbl">On track</div></div>
+    <div class="pill med"><div class="num" id="s-med">-</div><div class="lbl">Need attention</div></div>
+    <div class="pill high"><div class="num" id="s-high">-</div><div class="lbl">High risk</div></div>
+  </div>
+
+  <div class="tabs" id="view-tabs">
+    <div class="tab active" data-v="risk">Risk dashboard</div>
+    <div class="tab" data-v="cascade">Delay &amp; cascade</div>
+  </div>
+
+  <div id="risk-view">
+    <div class="tabs">
+      <div class="tab active" data-f="all">All flagged</div>
+      <div class="tab" data-f="High">High risk</div>
+      <div class="tab" data-f="Medium">Medium</div>
+    </div>
+
+    <div id="list"></div>
+
+    <div class="note">
+      Risk tiers are capacity-aware, not a fixed probability cutoff: top ~10% of today's visits by predicted disruption risk are flagged High, next ~20% Medium — so the list stays reviewable in a coordinator's day rather than growing with the model's raw sensitivity. Predictions and reasons are model output (logistic regression on 6 features); recommended actions are rule-based, not yet AI-generated. This is one representative simulated day, not a cherry-picked best case — tier accuracy is directionally reliable in aggregate but noisy on any single day given current model strength.<br><br>
+      <b>Known limitation:</b> the model currently over-indexes on first-time-patient status (it dominates most High-risk flags). New patients do disrupt more often in this data, but flagging them almost by default risks blanket extra scrutiny for a group where most individuals were never going to no-show. Before any production use, this would need feature rebalancing and a fairness review — not something to paper over with a better-looking demo. All data is simulated for portfolio purposes.
+    </div>
+  </div>
+
+  <div id="cascade-view" style="display:none"></div>
+</div>
+
+<script>
+const DATA = {"summary":{"total":90,"high":9,"medium":18,"low":63},"flagged":[{"id":"APT003723","time":"Morning","service":"Post-Op Care","risk":0.71,"tier":"High","reasons":["First-time patient","5 prior no-shows","Low message response rate","18.8km from clinician"],"action":"Send confirmation + backup contact request"},{"id":"APT005649","time":"Afternoon","service":"Physiotherapy Session","risk":0.65,"tier":"High","reasons":["First-time patient","5 prior no-shows","14.1km from clinician"],"action":"Send confirmation + backup contact request"},{"id":"APT006791","time":"Evening","service":"Wound Dressing","risk":0.51,"tier":"High","reasons":["First-time patient","4 prior no-shows","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT000617","time":"Evening","service":"Wound Dressing","risk":0.5,"tier":"High","reasons":["First-time patient","2 prior no-shows","Low message response rate","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT006601","time":"Evening","service":"Diabetic Care Visit","risk":0.49,"tier":"High","reasons":["First-time patient","24.8km from clinician","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT000316","time":"Evening","service":"Wound Dressing","risk":0.45,"tier":"High","reasons":["First-time patient","16.8km from clinician","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT001368","time":"Evening","service":"Diabetic Care Visit","risk":0.44,"tier":"High","reasons":["3 prior no-shows","24.7km from clinician","Evening slot"],"action":"Call to confirm 24h ahead"},{"id":"APT008913","time":"Evening","service":"Physiotherapy Session","risk":0.43,"tier":"High","reasons":["4 prior no-shows","Low message response rate","Evening slot"],"action":"Call to confirm 24h ahead"},{"id":"APT004414","time":"Evening","service":"Diabetic Care Visit","risk":0.42,"tier":"High","reasons":["First-time patient","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT002277","time":"Evening","service":"Post-Op Care","risk":0.42,"tier":"Medium","reasons":["5 prior no-shows","Evening slot"],"action":"Call to confirm 24h ahead"},{"id":"APT005286","time":"Evening","service":"Diabetic Care Visit","risk":0.42,"tier":"Medium","reasons":["First-time patient","18.8km from clinician","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT003419","time":"Afternoon","service":"Physiotherapy Session","risk":0.41,"tier":"Medium","reasons":["First-time patient","2 prior no-shows","14.4km from clinician"],"action":"Send confirmation + backup contact request"},{"id":"APT007812","time":"Morning","service":"Post-Op Care","risk":0.41,"tier":"Medium","reasons":["First-time patient","15.7km from clinician"],"action":"Send confirmation + backup contact request"},{"id":"APT005254","time":"Morning","service":"Wound Dressing","risk":0.41,"tier":"Medium","reasons":["4 prior no-shows","20.3km from clinician"],"action":"Call to confirm 24h ahead"},{"id":"APT004952","time":"Evening","service":"Vitals Check","risk":0.4,"tier":"Medium","reasons":["First-time patient","17.7km from clinician","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT000263","time":"Evening","service":"Physiotherapy Session","risk":0.4,"tier":"Medium","reasons":["3 prior no-shows","Low message response rate","14.5km from clinician","Evening slot"],"action":"Call to confirm 24h ahead"},{"id":"APT000597","time":"Evening","service":"Wound Dressing","risk":0.4,"tier":"Medium","reasons":["First-time patient","2 prior no-shows","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT005804","time":"Afternoon","service":"Diabetic Care Visit","risk":0.39,"tier":"Medium","reasons":["First-time patient","Low message response rate","18.0km from clinician"],"action":"Send confirmation + backup contact request"},{"id":"APT002977","time":"Evening","service":"Diabetic Care Visit","risk":0.39,"tier":"Medium","reasons":["First-time patient","2 prior no-shows","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT004328","time":"Afternoon","service":"Nursing Visit","risk":0.36,"tier":"Medium","reasons":["5 prior no-shows","14.9km from clinician"],"action":"Call to confirm 24h ahead"},{"id":"APT004436","time":"Morning","service":"Physiotherapy Session","risk":0.35,"tier":"Medium","reasons":["First-time patient"],"action":"Send confirmation + backup contact request"},{"id":"APT003905","time":"Afternoon","service":"Diabetic Care Visit","risk":0.34,"tier":"Medium","reasons":["3 prior no-shows","20.1km from clinician"],"action":"Call to confirm 24h ahead"},{"id":"APT007643","time":"Morning","service":"Post-Op Care","risk":0.33,"tier":"Medium","reasons":["First-time patient","17.5km from clinician"],"action":"Send confirmation + backup contact request"},{"id":"APT005938","time":"Morning","service":"Vitals Check","risk":0.33,"tier":"Medium","reasons":["2 prior no-shows","Low message response rate","17.1km from clinician"],"action":"Call to confirm 24h ahead"},{"id":"APT004151","time":"Morning","service":"Diabetic Care Visit","risk":0.32,"tier":"Medium","reasons":["4 prior no-shows"],"action":"Call to confirm 24h ahead"},{"id":"APT008883","time":"Morning","service":"Diabetic Care Visit","risk":0.32,"tier":"Medium","reasons":["4 prior no-shows"],"action":"Call to confirm 24h ahead"},{"id":"APT001689","time":"Evening","service":"Physiotherapy Session","risk":0.31,"tier":"Medium","reasons":["22.1km from clinician","Evening slot"],"action":"Reassign to nearer clinician if available"}]}
+;
+
+document.getElementById('dateline').textContent = new Date().toLocaleDateString(undefined,{weekday:'long', month:'long', day:'numeric'}) + " · " + DATA.summary.total + " visits scheduled";
+document.getElementById('s-total').textContent = DATA.summary.total;
+document.getElementById('s-ok').textContent = DATA.summary.low;
+document.getElementById('s-med').textContent = DATA.summary.medium;
+document.getElementById('s-high').textContent = DATA.summary.high;
+
+const approved = {};
+let currentFilter = 'all';
+
+function render(){
+  const list = document.getElementById('list');
+  const items = DATA.flagged.filter(v => currentFilter==='all' || v.tier===currentFilter);
+  if(items.length===0){ list.innerHTML = '<div class="empty">Nothing in this view.</div>'; return; }
+  list.innerHTML = items.map(v => `
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="meta">${v.time} · ${v.service} · ${v.id}</div>
+        </div>
+        <span class="badge ${v.tier}">${v.tier} · ${Math.round(v.risk*100)}%</span>
+      </div>
+      <div class="reasons">${v.reasons.map(r=>`<span>${r}</span>`).join('')}</div>
+      <div class="action-row">
+        <div class="action">Suggested: <b>${v.action}</b></div>
+        <button class="approve ${approved[v.id]?'done':''}" onclick="approveItem('${v.id}')">${approved[v.id]?'Approved':'Approve'}</button>
+      </div>
+    </div>
+  `).join('');
+}
+function approveItem(id){ approved[id]=true; render(); }
+
+const CASCADES = [
+  {id:"APT008832", service:"Post-Op Care", slot:"Evening", provider:"PR011 (Contractual)", delay:20, buffer:25, notified:true, locGap:false},
+  {id:"APT001840", service:"Wound Dressing", slot:"Afternoon", provider:"PR010 (Contractual)", delay:28, buffer:31, notified:false, locGap:true},
+];
+
+function renderCascade(){
+  const el = document.getElementById('cascade-view');
+  el.innerHTML = `
+    <div class="note" style="margin-top:0; margin-bottom:16px; border-top:none; padding-top:0;">
+      Contractual providers running long, traffic, or a patient needing extra time all delay the next visit. Below: two real examples from the simulated data — one where the system caught it, one where it didn't (the gap this feature is meant to close). The availability-marketplace concept (providers marking next-day availability) is described in the case study deck, not built here — it's a scheduling-input mechanism, not something meaningful to demo standalone.
+    </div>
+    ${CASCADES.map(c => `
+      <div class="cascade-card">
+        <div class="cascade-head">
+          <b>${c.service} · ${c.slot} · ${c.id}</b>
+          <span class="chip ${c.notified ? 'ok' : 'gap'}">${c.notified ? 'Notified' : 'Gap: not notified'}</span>
+        </div>
+        <div class="flow">
+          <div class="step problem"><div class="dot"></div><div>Provider ${c.provider} ran <b>${c.delay} min</b> over on the prior visit${c.locGap ? ' (patient could not self-report exact location, adding to delay)' : ''}.</div></div>
+          <div class="step"><div class="dot"></div><div>System buffer for this slot: <b>${c.buffer} min</b> — ${c.delay <= c.buffer ? 'within buffer, no cascade' : 'exceeds buffer, next visit at risk'}.</div></div>
+          <div class="step ${c.notified ? 'fix' : 'problem'}"><div class="dot"></div><div>${c.notified ? 'Next patient auto-notified with revised ETA — no coordinator call needed.' : 'Next patient was NOT auto-notified — coordinator only finds out when the patient calls in, or the visit is already late.'}</div></div>
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
+
+document.querySelectorAll('#view-tabs .tab').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    document.querySelectorAll('#view-tabs .tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    const v = t.dataset.v;
+    document.getElementById('risk-view').style.display = v==='risk' ? '' : 'none';
+    document.getElementById('cascade-view').style.display = v==='cascade' ? '' : 'none';
+    if(v==='cascade') renderCascade();
+  });
+});
+
+document.querySelectorAll('#risk-view .tab').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    document.querySelectorAll('#risk-view .tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active'); currentFilter = t.dataset.f; render();
+  });
+});
+render();
+</script>
+</body>
+</html>

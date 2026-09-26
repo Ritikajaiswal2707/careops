@@ -1,0 +1,2001 @@
+patient_id,age_band,area,new_patient,previous_no_shows,preferred_time,communication_response_rate,latitude,longitude,location_self_reportable
+PT00001,18-30,Pune,True,2,Evening,0.49,18.56483,73.85703,True
+PT00002,31-45,Hyderabad,False,0,Morning,0.8,17.44462,78.53733,True
+PT00003,18-30,Mumbai,False,2,Afternoon,0.5,19.17397,72.82626,True
+PT00004,61-75,Mumbai,True,0,Morning,0.62,19.16467,72.82637,True
+PT00005,46-60,Mumbai,False,1,Morning,0.92,19.19915,72.85955,True
+PT00006,61-75,Hyderabad,True,1,Afternoon,0.81,17.39908,78.53732,True
+PT00007,18-30,Hyderabad,False,4,Evening,0.47,17.48521,78.52535,True
+PT00008,31-45,Hyderabad,False,4,Evening,0.53,17.30185,78.46359,True
+PT00009,76+,Hyderabad,False,2,Evening,0.88,17.32146,78.5466,False
+PT00010,18-30,Pune,False,4,Evening,0.77,18.64782,73.85866,True
+PT00011,76+,Pune,False,0,Evening,0.64,18.54878,73.93771,True
+PT00012,46-60,Pune,False,1,Afternoon,0.58,18.5436,73.78856,True
+PT00013,31-45,Bengaluru,True,0,Evening,0.35,12.87816,77.5325,True
+PT00014,76+,Mumbai,False,0,Evening,0.71,19.03767,72.83859,False
+PT00015,61-75,Delhi NCR,False,0,Afternoon,0.93,28.62099,77.23723,False
+PT00016,18-30,Mumbai,True,2,Evening,0.76,19.12718,72.82632,True
+PT00017,61-75,Hyderabad,True,3,Evening,0.71,17.47123,78.52941,True
+PT00018,61-75,Delhi NCR,False,0,Afternoon,0.44,28.55458,77.02602,False
+PT00019,61-75,Mumbai,True,1,Morning,0.91,18.95543,72.82109,False
+PT00020,76+,Mumbai,True,1,Evening,0.39,18.97441,72.83912,False
+PT00021,18-30,Hyderabad,True,0,Evening,0.8,17.45075,78.54081,True
+PT00022,46-60,Mumbai,True,1,Morning,0.8,18.99058,72.90843,True
+PT00023,61-75,Hyderabad,False,0,Morning,0.58,17.30229,78.48074,False
+PT00024,31-45,Delhi NCR,False,3,Afternoon,0.74,28.41864,77.03547,True
+PT00025,18-30,Hyderabad,False,1,Evening,0.61,17.36136,78.43108,True
+PT00026,31-45,Delhi NCR,False,1,Morning,0.67,28.55076,77.26854,True
+PT00027,18-30,Bengaluru,False,0,Afternoon,0.65,13.02589,77.5622,True
+PT00028,61-75,Hyderabad,False,0,Evening,0.79,17.32348,78.53323,False
+PT00029,31-45,Pune,True,1,Afternoon,0.69,18.57293,73.79383,True
+PT00030,46-60,Hyderabad,False,1,Afternoon,0.72,17.32671,78.38064,True
+PT00031,46-60,Pune,False,0,Evening,0.53,18.59955,73.87115,True
+PT00032,61-75,Delhi NCR,False,0,Morning,0.61,28.52475,77.16477,False
+PT00033,46-60,Delhi NCR,False,0,Afternoon,0.8,28.56126,77.19923,True
+PT00034,46-60,Mumbai,False,3,Afternoon,0.46,18.96552,72.83712,True
+PT00035,76+,Bengaluru,False,0,Evening,0.57,13.03868,77.67463,False
+PT00036,31-45,Delhi NCR,False,2,Evening,0.63,28.53402,77.21113,True
+PT00037,76+,Mumbai,True,1,Evening,0.88,18.92343,72.88463,False
+PT00038,46-60,Mumbai,False,0,Evening,0.73,19.06429,72.87582,True
+PT00039,31-45,Bengaluru,False,1,Evening,0.51,12.99318,77.52997,True
+PT00040,31-45,Mumbai,True,1,Morning,0.61,18.99844,72.87805,True
+PT00041,61-75,Pune,False,0,Morning,0.91,18.47325,73.79108,False
+PT00042,76+,Pune,True,0,Morning,0.48,18.46819,73.85208,True
+PT00043,61-75,Hyderabad,False,0,Evening,0.67,17.39069,78.45265,False
+PT00044,61-75,Delhi NCR,False,2,Evening,0.59,28.41732,77.13871,True
+PT00045,46-60,Mumbai,True,0,Afternoon,0.74,19.11698,72.85939,True
+PT00046,46-60,Hyderabad,False,0,Morning,0.43,17.46329,78.49916,True
+PT00047,61-75,Pune,True,2,Afternoon,0.3,18.56566,73.75906,False
+PT00048,76+,Hyderabad,False,1,Afternoon,0.9,17.31275,78.54882,True
+PT00049,61-75,Mumbai,False,1,Morning,0.75,18.92071,72.94007,False
+PT00050,46-60,Pune,False,0,Afternoon,0.67,18.53177,73.90379,True
+PT00051,46-60,Bengaluru,False,2,Evening,0.75,13.04146,77.69567,True
+PT00052,18-30,Bengaluru,False,2,Morning,0.88,13.01147,77.58407,True
+PT00053,31-45,Pune,False,0,Afternoon,0.31,18.64857,73.8265,True
+PT00054,18-30,Delhi NCR,False,0,Afternoon,0.88,28.66089,77.27203,True
+PT00055,18-30,Delhi NCR,False,1,Evening,0.75,28.51269,77.20482,True
+PT00056,46-60,Bengaluru,False,1,Afternoon,0.28,13.01545,77.60786,True
+PT00057,61-75,Mumbai,False,0,Evening,0.61,19.09606,72.85217,False
+PT00058,61-75,Pune,False,2,Evening,0.6,18.55745,73.85577,True
+PT00059,18-30,Pune,False,0,Morning,0.78,18.49454,73.75069,True
+PT00060,46-60,Hyderabad,True,1,Morning,0.46,17.30455,78.40967,True
+PT00061,61-75,Pune,False,1,Morning,0.73,18.5847,73.85889,False
+PT00062,76+,Hyderabad,False,0,Evening,0.71,17.46467,78.3995,False
+PT00063,31-45,Delhi NCR,True,0,Evening,0.67,28.48269,77.28122,True
+PT00064,76+,Delhi NCR,False,2,Morning,0.7,28.61751,77.03385,True
+PT00065,18-30,Bengaluru,False,0,Evening,0.9,12.95481,77.65321,True
+PT00066,18-30,Mumbai,True,1,Evening,0.62,19.16513,72.80235,True
+PT00067,76+,Pune,False,1,Afternoon,0.63,18.49122,73.77018,False
+PT00068,18-30,Mumbai,False,0,Afternoon,0.86,19.07934,72.90549,True
+PT00069,61-75,Hyderabad,False,0,Morning,0.44,17.30974,78.49811,False
+PT00070,46-60,Hyderabad,False,1,Morning,0.56,17.34687,78.39345,True
+PT00071,18-30,Bengaluru,True,2,Afternoon,0.71,13.06593,77.51129,True
+PT00072,46-60,Hyderabad,False,0,Afternoon,0.77,17.40078,78.40785,True
+PT00073,76+,Hyderabad,False,4,Evening,0.77,17.46316,78.4963,False
+PT00074,76+,Pune,False,0,Afternoon,0.86,18.56958,73.88451,False
+PT00075,61-75,Delhi NCR,False,0,Afternoon,0.79,28.49053,77.04298,False
+PT00076,61-75,Hyderabad,False,0,Morning,0.76,17.34421,78.4101,False
+PT00077,61-75,Pune,False,0,Morning,0.7,18.6397,73.92594,True
+PT00078,18-30,Hyderabad,False,0,Evening,0.49,17.4252,78.43544,True
+PT00079,18-30,Pune,False,5,Evening,0.68,18.54912,73.94446,True
+PT00080,61-75,Pune,True,0,Evening,0.45,18.63832,73.88427,True
+PT00081,18-30,Delhi NCR,False,0,Afternoon,0.47,28.49562,77.1249,True
+PT00082,61-75,Mumbai,False,1,Afternoon,0.59,18.94477,72.85647,True
+PT00083,31-45,Mumbai,False,0,Morning,0.86,19.04206,72.9274,True
+PT00084,61-75,Pune,False,3,Evening,0.32,18.51015,73.89152,True
+PT00085,61-75,Bengaluru,False,3,Afternoon,0.95,13.07869,77.61248,True
+PT00086,76+,Pune,False,0,Afternoon,0.84,18.56146,73.77682,False
+PT00087,61-75,Hyderabad,True,1,Morning,0.68,17.34067,78.47934,True
+PT00088,18-30,Bengaluru,False,0,Evening,0.69,13.06178,77.51849,True
+PT00089,61-75,Mumbai,True,0,Afternoon,0.85,19.11738,72.82857,False
+PT00090,76+,Mumbai,False,3,Evening,0.65,19.1021,72.89044,True
+PT00091,61-75,Delhi NCR,False,0,Morning,0.46,28.45645,77.22851,True
+PT00092,61-75,Bengaluru,True,5,Evening,0.96,12.98971,77.59588,True
+PT00093,18-30,Hyderabad,False,2,Afternoon,0.88,17.36659,78.5414,True
+PT00094,31-45,Bengaluru,False,2,Evening,0.81,12.85383,77.68743,True
+PT00095,46-60,Delhi NCR,False,0,Morning,0.54,28.68862,77.03519,True
+PT00096,61-75,Delhi NCR,False,0,Afternoon,0.94,28.69987,77.14368,False
+PT00097,61-75,Hyderabad,False,0,Afternoon,0.31,17.42088,78.3909,True
+PT00098,76+,Pune,False,1,Afternoon,0.88,18.56042,73.9051,False
+PT00099,76+,Mumbai,False,1,Evening,0.85,19.0601,72.85389,False
+PT00100,18-30,Delhi NCR,False,0,Morning,0.72,28.55384,77.14918,True
+PT00101,76+,Pune,False,1,Evening,0.79,18.46972,73.94626,False
+PT00102,46-60,Bengaluru,False,0,Morning,0.54,13.05993,77.68287,True
+PT00103,46-60,Bengaluru,False,4,Morning,0.64,12.94268,77.58279,True
+PT00104,31-45,Bengaluru,False,2,Evening,0.77,12.99063,77.54425,True
+PT00105,31-45,Mumbai,False,0,Morning,0.73,18.94378,72.83912,True
+PT00106,76+,Delhi NCR,True,2,Afternoon,0.39,28.68043,77.17374,False
+PT00107,46-60,Hyderabad,False,0,Afternoon,0.92,17.33048,78.41597,True
+PT00108,76+,Delhi NCR,False,2,Morning,0.47,28.51395,77.25001,False
+PT00109,61-75,Bengaluru,False,0,Afternoon,0.81,13.01365,77.63697,False
+PT00110,46-60,Pune,False,1,Evening,0.63,18.61432,73.9433,True
+PT00111,76+,Mumbai,False,0,Morning,0.69,19.09251,72.87359,False
+PT00112,46-60,Delhi NCR,False,0,Morning,0.91,28.63849,77.05078,True
+PT00113,46-60,Mumbai,False,0,Evening,0.46,19.11609,72.87325,True
+PT00114,18-30,Delhi NCR,False,0,Afternoon,0.7,28.67507,77.16264,True
+PT00115,46-60,Hyderabad,False,2,Afternoon,0.46,17.42836,78.36175,True
+PT00116,76+,Hyderabad,True,2,Evening,0.64,17.30676,78.51934,True
+PT00117,31-45,Hyderabad,False,0,Morning,0.88,17.43364,78.50287,True
+PT00118,61-75,Pune,False,0,Afternoon,0.86,18.53248,73.91851,False
+PT00119,76+,Pune,False,0,Morning,0.78,18.59143,73.75183,False
+PT00120,61-75,Hyderabad,False,1,Morning,0.87,17.37464,78.47357,False
+PT00121,31-45,Delhi NCR,False,4,Morning,0.44,28.58496,77.14496,True
+PT00122,76+,Hyderabad,False,1,Afternoon,0.39,17.39757,78.35132,False
+PT00123,61-75,Delhi NCR,True,1,Morning,0.76,28.40356,77.15883,False
+PT00124,61-75,Hyderabad,True,0,Afternoon,0.69,17.4955,78.35343,True
+PT00125,46-60,Delhi NCR,False,0,Evening,0.91,28.60221,77.24185,True
+PT00126,18-30,Mumbai,False,1,Evening,0.5,19.17293,72.81605,True
+PT00127,76+,Hyderabad,False,3,Evening,0.62,17.31926,78.37978,False
+PT00128,76+,Bengaluru,False,2,Morning,0.88,12.98161,77.66304,False
+PT00129,18-30,Hyderabad,False,0,Afternoon,0.47,17.37938,78.42461,True
+PT00130,76+,Mumbai,False,0,Afternoon,0.69,19.02181,72.88475,True
+PT00131,18-30,Hyderabad,False,2,Morning,0.6,17.34517,78.48681,True
+PT00132,46-60,Delhi NCR,False,0,Afternoon,0.66,28.65436,77.19612,True
+PT00133,76+,Pune,False,0,Evening,0.75,18.62164,73.90192,False
+PT00134,31-45,Delhi NCR,False,0,Evening,0.69,28.51378,77.16581,True
+PT00135,61-75,Delhi NCR,False,0,Evening,0.91,28.41683,77.00284,False
+PT00136,18-30,Delhi NCR,False,1,Morning,0.78,28.54996,77.13017,True
+PT00137,46-60,Bengaluru,False,0,Evening,0.96,13.04609,77.61317,True
+PT00138,31-45,Hyderabad,False,2,Morning,0.46,17.47159,78.36907,True
+PT00139,18-30,Pune,False,1,Evening,0.69,18.55563,73.75851,True
+PT00140,76+,Mumbai,False,0,Afternoon,0.75,18.96343,72.93022,True
+PT00141,76+,Hyderabad,False,2,Morning,0.91,17.3951,78.35931,False
+PT00142,46-60,Hyderabad,False,1,Evening,0.87,17.48512,78.52986,True
+PT00143,76+,Mumbai,False,0,Morning,0.65,19.06905,72.80494,True
+PT00144,46-60,Mumbai,True,5,Morning,0.86,18.99435,72.94422,True
+PT00145,31-45,Pune,False,1,Morning,0.59,18.56741,73.90045,True
+PT00146,18-30,Bengaluru,True,0,Evening,0.92,13.02818,77.57966,True
+PT00147,18-30,Hyderabad,False,1,Evening,0.44,17.31539,78.38249,True
+PT00148,18-30,Hyderabad,False,0,Morning,0.97,17.34809,78.51693,True
+PT00149,61-75,Delhi NCR,True,0,Morning,0.76,28.51675,77.26896,False
+PT00150,76+,Delhi NCR,True,0,Afternoon,0.84,28.62668,77.04199,True
+PT00151,61-75,Mumbai,False,0,Morning,0.95,19.11725,72.87512,True
+PT00152,18-30,Delhi NCR,False,2,Evening,0.65,28.41611,77.13113,True
+PT00153,46-60,Delhi NCR,False,1,Morning,0.22,28.6516,77.10218,True
+PT00154,61-75,Delhi NCR,False,3,Afternoon,0.92,28.6307,77.28646,False
+PT00155,31-45,Hyderabad,False,0,Morning,0.56,17.45471,78.35593,True
+PT00156,61-75,Delhi NCR,False,0,Evening,0.52,28.482,77.29778,False
+PT00157,18-30,Mumbai,False,1,Evening,0.5,19.00674,72.94117,True
+PT00158,76+,Mumbai,False,1,Afternoon,0.58,19.02955,72.90195,False
+PT00159,46-60,Mumbai,False,0,Morning,0.79,18.92571,72.89279,True
+PT00160,46-60,Pune,True,0,Evening,0.59,18.60961,73.89262,True
+PT00161,61-75,Mumbai,False,2,Afternoon,0.83,18.92461,72.82313,True
+PT00162,46-60,Delhi NCR,False,1,Evening,0.87,28.59017,77.2219,True
+PT00163,31-45,Mumbai,True,0,Afternoon,0.41,18.995,72.81598,True
+PT00164,76+,Bengaluru,True,1,Afternoon,0.7,12.8513,77.56165,False
+PT00165,76+,Hyderabad,True,0,Morning,0.9,17.35395,78.3765,False
+PT00166,31-45,Mumbai,False,0,Evening,0.55,19.03465,72.88321,True
+PT00167,31-45,Hyderabad,True,0,Evening,0.59,17.38161,78.35525,True
+PT00168,31-45,Mumbai,False,4,Evening,0.53,19.00617,72.81396,True
+PT00169,76+,Delhi NCR,False,0,Afternoon,0.55,28.57941,77.09733,False
+PT00170,18-30,Mumbai,False,0,Afternoon,0.84,18.98755,72.85817,True
+PT00171,46-60,Pune,True,0,Afternoon,0.8,18.46694,73.93023,True
+PT00172,31-45,Bengaluru,True,0,Afternoon,0.63,13.0763,77.69563,True
+PT00173,31-45,Mumbai,False,1,Evening,0.66,19.07159,72.82544,True
+PT00174,61-75,Mumbai,True,0,Afternoon,0.34,19.01422,72.82083,False
+PT00175,46-60,Hyderabad,True,1,Morning,0.51,17.39862,78.36265,True
+PT00176,61-75,Bengaluru,False,0,Morning,0.68,12.95867,77.58422,False
+PT00177,76+,Hyderabad,True,1,Morning,0.71,17.31538,78.40034,False
+PT00178,31-45,Hyderabad,False,2,Evening,0.73,17.42501,78.46876,True
+PT00179,31-45,Delhi NCR,False,3,Afternoon,0.37,28.45866,77.03209,True
+PT00180,76+,Hyderabad,False,0,Evening,0.66,17.36093,78.53976,False
+PT00181,76+,Delhi NCR,False,4,Evening,0.77,28.58606,77.24122,False
+PT00182,76+,Hyderabad,True,1,Morning,0.63,17.36695,78.5131,True
+PT00183,31-45,Mumbai,True,2,Evening,0.48,19.19227,72.82042,True
+PT00184,61-75,Bengaluru,False,2,Evening,0.45,12.93017,77.68946,False
+PT00185,31-45,Pune,False,0,Afternoon,0.42,18.51284,73.94291,True
+PT00186,46-60,Hyderabad,False,2,Morning,0.22,17.49375,78.40829,True
+PT00187,31-45,Pune,False,2,Afternoon,0.56,18.58899,73.8482,True
+PT00188,76+,Pune,False,1,Afternoon,0.86,18.56518,73.79848,False
+PT00189,61-75,Delhi NCR,False,0,Morning,0.77,28.64495,77.11788,False
+PT00190,31-45,Bengaluru,False,1,Evening,0.82,12.99096,77.61845,True
+PT00191,31-45,Bengaluru,False,0,Morning,0.79,12.98641,77.63634,True
+PT00192,18-30,Bengaluru,False,0,Morning,0.84,12.98752,77.6906,True
+PT00193,18-30,Pune,False,0,Morning,0.99,18.54232,73.89167,True
+PT00194,46-60,Delhi NCR,False,0,Evening,0.7,28.53154,77.0874,True
+PT00195,31-45,Pune,False,0,Evening,0.35,18.58857,73.91379,True
+PT00196,31-45,Hyderabad,False,2,Afternoon,0.93,17.45913,78.43183,True
+PT00197,31-45,Pune,False,0,Morning,0.74,18.54986,73.87667,True
+PT00198,46-60,Delhi NCR,False,1,Morning,0.87,28.47261,77.1976,True
+PT00199,46-60,Bengaluru,False,3,Afternoon,0.64,13.02881,77.65782,True
+PT00200,76+,Pune,False,0,Evening,0.7,18.46479,73.94814,False
+PT00201,76+,Pune,False,2,Afternoon,0.79,18.53016,73.85132,True
+PT00202,76+,Hyderabad,True,1,Afternoon,0.72,17.43834,78.45873,True
+PT00203,76+,Pune,False,0,Afternoon,0.46,18.52191,73.9291,False
+PT00204,46-60,Bengaluru,False,1,Morning,0.95,13.00955,77.517,True
+PT00205,18-30,Bengaluru,False,0,Afternoon,0.22,13.04224,77.63152,True
+PT00206,61-75,Delhi NCR,False,4,Afternoon,0.71,28.5065,77.1941,False
+PT00207,76+,Mumbai,False,4,Afternoon,0.55,19.19508,72.90162,False
+PT00208,18-30,Bengaluru,False,4,Afternoon,0.71,13.03817,77.69314,True
+PT00209,46-60,Mumbai,True,0,Evening,0.83,19.02914,72.80158,True
+PT00210,61-75,Hyderabad,False,1,Morning,0.6,17.35175,78.45214,False
+PT00211,18-30,Mumbai,False,2,Afternoon,0.52,19.07416,72.88629,True
+PT00212,46-60,Mumbai,False,2,Morning,0.61,19.03373,72.85867,True
+PT00213,31-45,Pune,False,1,Morning,0.8,18.60447,73.86772,True
+PT00214,61-75,Mumbai,False,0,Afternoon,0.59,19.05014,72.85175,False
+PT00215,61-75,Hyderabad,False,0,Afternoon,0.48,17.32091,78.4332,True
+PT00216,18-30,Hyderabad,False,2,Morning,0.34,17.32321,78.53814,True
+PT00217,76+,Hyderabad,True,0,Morning,0.95,17.32834,78.41238,False
+PT00218,31-45,Hyderabad,False,0,Afternoon,0.75,17.34137,78.44659,True
+PT00219,76+,Pune,False,0,Evening,0.7,18.54523,73.83763,False
+PT00220,31-45,Bengaluru,True,0,Evening,0.86,12.92973,77.56005,True
+PT00221,31-45,Pune,False,0,Evening,0.61,18.61204,73.77302,True
+PT00222,61-75,Mumbai,False,1,Afternoon,0.53,19.15475,72.8972,False
+PT00223,18-30,Hyderabad,True,1,Morning,0.75,17.33287,78.54678,True
+PT00224,76+,Pune,False,1,Morning,0.79,18.49878,73.78489,False
+PT00225,46-60,Bengaluru,False,0,Evening,0.91,12.98996,77.69169,True
+PT00226,76+,Delhi NCR,False,0,Afternoon,0.68,28.46956,77.12151,False
+PT00227,18-30,Bengaluru,False,0,Afternoon,0.68,13.01012,77.58643,True
+PT00228,76+,Bengaluru,False,2,Morning,0.44,12.8573,77.62282,False
+PT00229,18-30,Delhi NCR,False,0,Evening,0.85,28.57766,77.11665,True
+PT00230,61-75,Bengaluru,False,2,Evening,0.63,13.02618,77.54116,True
+PT00231,31-45,Bengaluru,False,0,Afternoon,0.25,13.05218,77.51251,True
+PT00232,46-60,Bengaluru,False,0,Afternoon,0.56,12.87544,77.6744,True
+PT00233,76+,Delhi NCR,False,0,Evening,0.5,28.45609,77.0978,False
+PT00234,61-75,Delhi NCR,False,0,Morning,0.83,28.47871,77.25879,False
+PT00235,76+,Hyderabad,False,0,Morning,0.4,17.42782,78.46939,False
+PT00236,18-30,Delhi NCR,False,2,Morning,0.73,28.5761,77.10438,True
+PT00237,46-60,Delhi NCR,True,0,Morning,0.46,28.65366,77.18521,True
+PT00238,46-60,Mumbai,False,0,Afternoon,0.89,19.14412,72.9059,True
+PT00239,46-60,Hyderabad,False,4,Afternoon,0.43,17.35949,78.4729,True
+PT00240,46-60,Delhi NCR,False,1,Evening,0.66,28.42543,77.04018,True
+PT00241,76+,Mumbai,False,0,Afternoon,0.92,18.93536,72.84581,False
+PT00242,76+,Mumbai,False,1,Evening,0.19,19.10803,72.87662,False
+PT00243,61-75,Pune,True,0,Afternoon,0.43,18.47757,73.82674,False
+PT00244,76+,Pune,False,0,Evening,0.56,18.5771,73.88869,False
+PT00245,46-60,Hyderabad,False,2,Morning,0.38,17.49998,78.46098,True
+PT00246,76+,Pune,False,1,Afternoon,0.63,18.54793,73.77806,False
+PT00247,61-75,Pune,False,0,Evening,0.82,18.5402,73.76072,False
+PT00248,31-45,Delhi NCR,False,0,Afternoon,0.82,28.40288,77.04096,True
+PT00249,61-75,Delhi NCR,True,1,Morning,0.71,28.64456,77.28915,False
+PT00250,31-45,Hyderabad,True,5,Morning,0.63,17.39899,78.48694,True
+PT00251,31-45,Pune,False,1,Evening,0.66,18.53313,73.91798,True
+PT00252,31-45,Delhi NCR,False,1,Morning,0.67,28.54661,77.0248,True
+PT00253,18-30,Delhi NCR,False,0,Afternoon,0.62,28.40926,77.22832,True
+PT00254,46-60,Delhi NCR,False,1,Evening,0.33,28.48763,77.08246,True
+PT00255,31-45,Delhi NCR,True,1,Afternoon,0.73,28.56128,77.05046,True
+PT00256,76+,Pune,False,1,Afternoon,0.64,18.54146,73.8985,True
+PT00257,61-75,Delhi NCR,True,1,Afternoon,0.56,28.56492,77.03396,False
+PT00258,31-45,Pune,False,0,Evening,0.72,18.60502,73.91466,True
+PT00259,31-45,Bengaluru,False,0,Morning,0.57,12.94172,77.66452,True
+PT00260,61-75,Hyderabad,False,0,Evening,0.35,17.30832,78.4938,False
+PT00261,18-30,Mumbai,False,5,Morning,0.44,19.19693,72.81536,True
+PT00262,31-45,Mumbai,False,5,Evening,0.68,19.14902,72.9127,True
+PT00263,31-45,Mumbai,False,1,Evening,0.59,18.98931,72.9499,True
+PT00264,46-60,Hyderabad,True,1,Evening,0.29,17.38995,78.41972,True
+PT00265,31-45,Mumbai,True,5,Evening,0.81,19.14502,72.86586,True
+PT00266,61-75,Pune,True,1,Morning,0.52,18.64879,73.90513,False
+PT00267,61-75,Delhi NCR,False,0,Evening,0.38,28.64321,77.17638,False
+PT00268,76+,Pune,True,2,Afternoon,0.85,18.59215,73.87655,False
+PT00269,31-45,Hyderabad,False,1,Afternoon,0.96,17.32785,78.39132,True
+PT00270,18-30,Bengaluru,False,2,Morning,0.65,12.90174,77.51187,True
+PT00271,46-60,Bengaluru,False,3,Afternoon,0.36,12.9377,77.55622,True
+PT00272,31-45,Pune,False,1,Evening,0.78,18.55775,73.81473,True
+PT00273,61-75,Bengaluru,True,1,Afternoon,0.81,13.02601,77.55787,False
+PT00274,61-75,Bengaluru,False,0,Morning,0.59,13.0645,77.6971,False
+PT00275,31-45,Mumbai,True,2,Evening,0.28,18.92857,72.94442,True
+PT00276,31-45,Pune,False,1,Afternoon,0.41,18.60714,73.93375,True
+PT00277,46-60,Mumbai,True,4,Evening,0.39,19.19775,72.93006,True
+PT00278,18-30,Delhi NCR,True,2,Evening,0.77,28.43807,77.25982,True
+PT00279,31-45,Pune,False,3,Morning,0.65,18.49994,73.89228,True
+PT00280,46-60,Mumbai,False,5,Evening,0.81,19.14854,72.91422,True
+PT00281,18-30,Bengaluru,False,5,Morning,0.87,13.01906,77.59789,True
+PT00282,76+,Pune,False,1,Afternoon,0.38,18.56549,73.80374,False
+PT00283,76+,Mumbai,False,0,Morning,0.61,19.0356,72.89504,True
+PT00284,18-30,Delhi NCR,False,1,Evening,0.81,28.42793,77.15468,True
+PT00285,31-45,Bengaluru,True,0,Morning,0.57,12.91956,77.68727,True
+PT00286,31-45,Delhi NCR,False,0,Morning,0.94,28.51072,77.28508,True
+PT00287,18-30,Pune,False,1,Afternoon,0.63,18.51546,73.75049,True
+PT00288,76+,Bengaluru,True,2,Evening,0.22,13.04353,77.64654,True
+PT00289,18-30,Hyderabad,False,0,Evening,0.82,17.39169,78.48283,True
+PT00290,46-60,Bengaluru,False,1,Morning,0.83,12.93956,77.51267,True
+PT00291,61-75,Bengaluru,False,5,Afternoon,0.93,12.98361,77.54357,False
+PT00292,46-60,Hyderabad,False,0,Evening,0.66,17.34237,78.40371,True
+PT00293,31-45,Hyderabad,False,2,Morning,0.9,17.46567,78.41755,True
+PT00294,18-30,Delhi NCR,True,1,Evening,0.73,28.57338,77.16984,True
+PT00295,61-75,Pune,False,5,Morning,0.4,18.54707,73.81875,False
+PT00296,46-60,Pune,False,1,Morning,0.62,18.45968,73.76991,True
+PT00297,18-30,Pune,False,1,Morning,0.67,18.60678,73.84192,True
+PT00298,46-60,Delhi NCR,False,1,Morning,0.27,28.43727,77.2573,True
+PT00299,31-45,Pune,False,0,Afternoon,0.32,18.53826,73.75014,True
+PT00300,18-30,Bengaluru,True,0,Evening,0.53,13.08951,77.54046,True
+PT00301,31-45,Bengaluru,False,2,Afternoon,0.74,13.02215,77.52638,True
+PT00302,61-75,Pune,False,0,Evening,0.94,18.58,73.7818,True
+PT00303,31-45,Mumbai,False,5,Afternoon,0.91,18.98221,72.89819,True
+PT00304,18-30,Bengaluru,False,3,Morning,0.85,12.9126,77.57437,True
+PT00305,76+,Pune,False,0,Afternoon,0.7,18.63076,73.78311,False
+PT00306,46-60,Delhi NCR,False,3,Morning,0.52,28.49165,77.20983,True
+PT00307,76+,Pune,True,0,Afternoon,0.54,18.49683,73.8811,True
+PT00308,76+,Bengaluru,False,0,Evening,0.62,12.85027,77.59536,False
+PT00309,61-75,Delhi NCR,True,1,Afternoon,0.5,28.46786,77.20399,False
+PT00310,76+,Mumbai,False,0,Morning,0.55,19.10868,72.92257,True
+PT00311,31-45,Hyderabad,False,1,Afternoon,0.56,17.38446,78.37644,True
+PT00312,76+,Bengaluru,False,1,Afternoon,0.69,12.86771,77.57661,True
+PT00313,18-30,Bengaluru,True,0,Morning,0.41,12.87561,77.56267,True
+PT00314,46-60,Mumbai,False,2,Afternoon,0.3,19.1643,72.82057,True
+PT00315,76+,Delhi NCR,False,0,Afternoon,0.69,28.63204,77.22595,False
+PT00316,31-45,Pune,False,0,Afternoon,0.84,18.64859,73.77857,True
+PT00317,46-60,Delhi NCR,True,0,Evening,0.13,28.55915,77.00254,True
+PT00318,76+,Bengaluru,True,2,Afternoon,0.91,13.01251,77.58802,True
+PT00319,31-45,Delhi NCR,False,3,Morning,0.53,28.58842,77.04541,True
+PT00320,46-60,Pune,True,2,Morning,0.71,18.53234,73.88731,True
+PT00321,61-75,Pune,False,0,Morning,0.85,18.62199,73.76734,False
+PT00322,61-75,Hyderabad,False,0,Evening,0.92,17.45049,78.46791,False
+PT00323,46-60,Mumbai,False,0,Morning,0.7,19.18897,72.84718,True
+PT00324,18-30,Pune,False,0,Morning,0.93,18.47797,73.80539,True
+PT00325,61-75,Hyderabad,False,4,Evening,0.78,17.31685,78.46068,False
+PT00326,76+,Pune,True,0,Afternoon,0.79,18.57152,73.90579,False
+PT00327,46-60,Bengaluru,False,0,Morning,0.6,13.06197,77.63168,True
+PT00328,76+,Pune,True,0,Afternoon,0.75,18.51033,73.85355,False
+PT00329,46-60,Hyderabad,True,0,Evening,0.79,17.44957,78.40911,True
+PT00330,76+,Mumbai,False,4,Afternoon,0.76,18.91637,72.93469,True
+PT00331,31-45,Pune,False,0,Afternoon,0.82,18.54898,73.77255,True
+PT00332,76+,Mumbai,True,2,Afternoon,0.77,19.04987,72.88909,False
+PT00333,61-75,Mumbai,False,5,Evening,0.61,19.19331,72.94803,True
+PT00334,18-30,Pune,False,2,Evening,0.63,18.4764,73.92216,True
+PT00335,76+,Hyderabad,False,2,Afternoon,0.44,17.41368,78.42308,False
+PT00336,18-30,Bengaluru,False,4,Morning,0.51,13.04068,77.69089,True
+PT00337,61-75,Hyderabad,False,0,Morning,0.46,17.45407,78.35334,False
+PT00338,61-75,Delhi NCR,False,0,Morning,0.84,28.47866,77.01195,False
+PT00339,18-30,Mumbai,True,1,Evening,0.77,19.13679,72.87599,True
+PT00340,31-45,Pune,True,1,Afternoon,0.5,18.57571,73.85021,True
+PT00341,31-45,Bengaluru,False,1,Evening,0.62,12.95386,77.64036,True
+PT00342,31-45,Bengaluru,True,0,Afternoon,0.6,12.87061,77.60731,True
+PT00343,61-75,Bengaluru,False,0,Morning,0.8,13.00401,77.55549,False
+PT00344,46-60,Delhi NCR,True,1,Afternoon,0.84,28.55339,77.06096,True
+PT00345,76+,Mumbai,False,0,Evening,0.47,19.14242,72.88046,False
+PT00346,18-30,Pune,False,2,Evening,0.69,18.57686,73.91691,True
+PT00347,46-60,Pune,False,4,Afternoon,0.75,18.58621,73.76322,True
+PT00348,76+,Bengaluru,True,1,Evening,0.79,13.02467,77.64599,True
+PT00349,46-60,Delhi NCR,False,0,Afternoon,0.79,28.41737,77.02586,True
+PT00350,76+,Pune,False,3,Evening,0.52,18.5369,73.84067,False
+PT00351,31-45,Delhi NCR,False,5,Morning,0.74,28.49279,77.22251,True
+PT00352,46-60,Mumbai,False,0,Evening,0.77,19.1222,72.81792,True
+PT00353,31-45,Delhi NCR,False,2,Morning,0.72,28.61237,77.21045,True
+PT00354,46-60,Hyderabad,False,0,Morning,0.61,17.33277,78.5406,True
+PT00355,31-45,Hyderabad,True,0,Evening,0.9,17.4046,78.5066,True
+PT00356,31-45,Delhi NCR,False,0,Evening,0.93,28.61623,77.05009,True
+PT00357,18-30,Pune,False,0,Morning,0.62,18.47539,73.90622,True
+PT00358,76+,Mumbai,False,2,Morning,0.53,18.98063,72.93296,True
+PT00359,18-30,Bengaluru,False,0,Evening,0.72,12.85734,77.66142,True
+PT00360,18-30,Mumbai,True,0,Afternoon,0.6,18.98159,72.80958,True
+PT00361,18-30,Delhi NCR,False,0,Afternoon,0.81,28.6137,77.173,True
+PT00362,46-60,Pune,False,5,Morning,0.69,18.46541,73.84104,True
+PT00363,18-30,Hyderabad,False,0,Morning,0.91,17.37202,78.44992,True
+PT00364,76+,Hyderabad,True,0,Morning,0.96,17.41338,78.42354,False
+PT00365,61-75,Bengaluru,False,0,Afternoon,0.77,12.87573,77.61478,True
+PT00366,76+,Hyderabad,False,1,Afternoon,0.9,17.34568,78.45176,False
+PT00367,31-45,Delhi NCR,False,0,Morning,0.81,28.65888,77.07337,True
+PT00368,61-75,Delhi NCR,True,3,Morning,0.51,28.54153,77.11489,False
+PT00369,18-30,Hyderabad,True,0,Evening,0.64,17.48623,78.5215,True
+PT00370,61-75,Bengaluru,True,0,Morning,0.85,12.98822,77.68279,True
+PT00371,18-30,Bengaluru,False,0,Morning,0.42,12.95484,77.56436,True
+PT00372,18-30,Delhi NCR,False,0,Morning,0.5,28.52488,77.21609,True
+PT00373,61-75,Pune,False,1,Morning,0.82,18.50425,73.76558,False
+PT00374,61-75,Hyderabad,False,0,Evening,0.78,17.40041,78.53039,False
+PT00375,31-45,Pune,False,0,Morning,0.9,18.61087,73.94628,True
+PT00376,76+,Hyderabad,True,1,Evening,0.72,17.49082,78.36379,False
+PT00377,31-45,Pune,False,0,Evening,0.5,18.50646,73.91897,True
+PT00378,18-30,Mumbai,False,1,Afternoon,0.94,18.99819,72.88296,True
+PT00379,46-60,Bengaluru,False,0,Evening,0.83,12.85199,77.54013,True
+PT00380,61-75,Bengaluru,False,2,Afternoon,0.65,12.99095,77.56078,False
+PT00381,18-30,Hyderabad,False,1,Evening,0.76,17.39279,78.46834,True
+PT00382,46-60,Bengaluru,False,4,Afternoon,0.55,12.97334,77.65452,True
+PT00383,61-75,Bengaluru,True,0,Evening,0.33,12.89886,77.68009,True
+PT00384,76+,Delhi NCR,False,0,Morning,0.82,28.47354,77.00191,False
+PT00385,18-30,Pune,True,0,Morning,0.78,18.4966,73.81928,True
+PT00386,76+,Bengaluru,False,2,Afternoon,0.65,13.05989,77.67544,True
+PT00387,18-30,Hyderabad,False,0,Evening,0.62,17.30029,78.48146,True
+PT00388,61-75,Hyderabad,False,0,Afternoon,0.51,17.4698,78.49544,False
+PT00389,46-60,Pune,False,4,Morning,0.48,18.55596,73.79763,True
+PT00390,46-60,Hyderabad,False,1,Morning,0.44,17.39841,78.36198,True
+PT00391,31-45,Hyderabad,False,0,Evening,0.68,17.49939,78.49233,True
+PT00392,61-75,Hyderabad,False,1,Afternoon,0.97,17.31861,78.53425,True
+PT00393,31-45,Delhi NCR,False,1,Morning,0.48,28.55593,77.21025,True
+PT00394,76+,Hyderabad,False,0,Evening,0.71,17.3745,78.54491,False
+PT00395,18-30,Pune,False,1,Evening,0.95,18.46912,73.7767,True
+PT00396,61-75,Mumbai,False,1,Evening,0.7,19.14599,72.81122,False
+PT00397,31-45,Delhi NCR,False,0,Evening,0.83,28.53049,77.28927,True
+PT00398,31-45,Hyderabad,False,0,Morning,0.8,17.34735,78.4022,True
+PT00399,18-30,Hyderabad,False,0,Afternoon,0.73,17.363,78.51016,True
+PT00400,31-45,Mumbai,False,0,Evening,0.57,19.11022,72.9103,True
+PT00401,46-60,Delhi NCR,False,3,Morning,0.5,28.49542,77.08159,True
+PT00402,46-60,Pune,True,0,Evening,0.79,18.46494,73.79054,True
+PT00403,61-75,Delhi NCR,False,4,Afternoon,0.2,28.63398,77.17541,False
+PT00404,61-75,Bengaluru,False,1,Evening,0.44,12.89109,77.59321,False
+PT00405,61-75,Bengaluru,True,2,Evening,0.83,12.98398,77.69293,False
+PT00406,31-45,Bengaluru,False,0,Afternoon,0.83,12.92708,77.553,True
+PT00407,61-75,Pune,False,3,Afternoon,0.54,18.47398,73.78152,False
+PT00408,76+,Bengaluru,False,1,Evening,0.47,13.0566,77.63938,False
+PT00409,46-60,Hyderabad,True,0,Afternoon,0.92,17.46718,78.41556,True
+PT00410,61-75,Hyderabad,False,0,Evening,0.37,17.31824,78.39964,False
+PT00411,76+,Hyderabad,True,4,Morning,0.2,17.40269,78.48544,False
+PT00412,46-60,Mumbai,False,0,Evening,0.68,19.1972,72.80466,True
+PT00413,76+,Bengaluru,False,1,Evening,0.76,12.9511,77.59044,True
+PT00414,76+,Pune,False,0,Afternoon,0.78,18.49997,73.84241,True
+PT00415,46-60,Pune,False,3,Evening,0.87,18.47796,73.75239,True
+PT00416,61-75,Mumbai,True,2,Morning,0.7,19.14911,72.94739,False
+PT00417,46-60,Pune,False,0,Afternoon,0.91,18.61473,73.82445,True
+PT00418,46-60,Mumbai,False,0,Morning,0.93,19.08909,72.8967,True
+PT00419,76+,Hyderabad,False,0,Evening,0.69,17.41646,78.40176,True
+PT00420,31-45,Delhi NCR,False,1,Evening,0.76,28.40654,77.01934,True
+PT00421,76+,Bengaluru,False,0,Evening,0.88,13.07562,77.58869,False
+PT00422,76+,Mumbai,False,1,Afternoon,0.85,19.17152,72.9244,False
+PT00423,76+,Delhi NCR,False,1,Afternoon,0.82,28.41281,77.1383,False
+PT00424,76+,Mumbai,False,1,Afternoon,0.39,19.07217,72.92325,False
+PT00425,31-45,Hyderabad,False,0,Afternoon,0.61,17.3059,78.48664,True
+PT00426,31-45,Mumbai,True,0,Evening,0.79,18.95184,72.83221,True
+PT00427,31-45,Pune,False,2,Evening,0.49,18.48743,73.80597,True
+PT00428,61-75,Bengaluru,True,1,Morning,0.62,13.07086,77.50693,False
+PT00429,18-30,Mumbai,True,1,Morning,0.4,18.97374,72.84427,True
+PT00430,18-30,Mumbai,False,2,Afternoon,0.63,19.0236,72.8826,True
+PT00431,76+,Delhi NCR,True,0,Evening,0.56,28.41829,77.08393,False
+PT00432,18-30,Bengaluru,True,0,Evening,0.68,12.89986,77.67693,True
+PT00433,76+,Bengaluru,False,3,Evening,0.68,12.98145,77.62615,True
+PT00434,18-30,Pune,False,1,Afternoon,0.83,18.60897,73.94788,True
+PT00435,61-75,Delhi NCR,False,0,Evening,0.8,28.63457,77.10773,False
+PT00436,31-45,Bengaluru,False,0,Evening,0.51,12.97117,77.68254,True
+PT00437,18-30,Hyderabad,True,1,Evening,0.6,17.40048,78.42768,True
+PT00438,76+,Delhi NCR,True,0,Evening,0.76,28.45394,77.09566,False
+PT00439,61-75,Hyderabad,False,2,Afternoon,0.54,17.47915,78.50571,False
+PT00440,61-75,Mumbai,False,1,Evening,0.31,19.19746,72.87941,True
+PT00441,76+,Pune,False,0,Evening,0.93,18.64992,73.9448,False
+PT00442,18-30,Mumbai,False,1,Evening,0.79,19.09706,72.83998,True
+PT00443,61-75,Pune,False,0,Evening,0.88,18.61326,73.93345,False
+PT00444,61-75,Pune,True,0,Evening,0.53,18.64928,73.79388,True
+PT00445,18-30,Delhi NCR,True,1,Morning,0.48,28.63922,77.10644,True
+PT00446,18-30,Bengaluru,False,0,Evening,0.52,13.05981,77.66904,True
+PT00447,76+,Bengaluru,True,3,Afternoon,0.67,12.89403,77.6185,True
+PT00448,76+,Delhi NCR,False,0,Evening,0.64,28.60929,77.27419,False
+PT00449,46-60,Pune,False,0,Evening,0.88,18.59011,73.93951,True
+PT00450,31-45,Mumbai,False,2,Afternoon,0.4,19.06908,72.88447,True
+PT00451,46-60,Bengaluru,False,1,Morning,0.81,12.89706,77.6976,True
+PT00452,31-45,Mumbai,True,3,Morning,0.94,19.16449,72.87383,True
+PT00453,18-30,Hyderabad,False,0,Afternoon,0.32,17.36181,78.44809,True
+PT00454,46-60,Pune,True,1,Evening,0.54,18.46805,73.79652,True
+PT00455,61-75,Hyderabad,True,2,Afternoon,0.81,17.34376,78.45529,False
+PT00456,61-75,Delhi NCR,False,1,Morning,0.9,28.67537,77.06044,False
+PT00457,31-45,Hyderabad,True,2,Afternoon,0.72,17.44339,78.53376,True
+PT00458,46-60,Delhi NCR,False,0,Afternoon,0.44,28.65329,77.09708,True
+PT00459,76+,Pune,False,2,Morning,0.74,18.45438,73.86732,True
+PT00460,61-75,Mumbai,False,0,Evening,0.49,19.13231,72.92697,True
+PT00461,76+,Bengaluru,False,1,Evening,0.67,13.09014,77.57472,True
+PT00462,46-60,Delhi NCR,False,0,Evening,0.76,28.51868,77.03031,True
+PT00463,76+,Mumbai,False,0,Evening,0.55,18.99053,72.82047,False
+PT00464,61-75,Pune,False,1,Afternoon,0.63,18.63974,73.90837,True
+PT00465,76+,Hyderabad,False,0,Morning,0.55,17.42984,78.38484,True
+PT00466,76+,Pune,True,1,Afternoon,0.63,18.58871,73.93577,True
+PT00467,31-45,Mumbai,False,0,Morning,0.92,18.96697,72.88834,True
+PT00468,18-30,Pune,False,0,Morning,0.71,18.48507,73.81136,True
+PT00469,61-75,Delhi NCR,True,3,Evening,0.81,28.60655,77.0382,True
+PT00470,46-60,Delhi NCR,False,0,Afternoon,0.77,28.68464,77.28461,True
+PT00471,76+,Pune,False,1,Evening,0.69,18.52832,73.94886,True
+PT00472,46-60,Delhi NCR,False,0,Morning,0.84,28.40971,77.18072,True
+PT00473,61-75,Pune,False,0,Afternoon,0.6,18.63421,73.94351,False
+PT00474,76+,Pune,False,0,Morning,0.92,18.56311,73.93734,False
+PT00475,76+,Delhi NCR,False,1,Evening,0.83,28.6236,77.0714,True
+PT00476,18-30,Pune,False,0,Afternoon,0.81,18.48358,73.92706,True
+PT00477,18-30,Mumbai,False,4,Afternoon,0.44,18.92662,72.90634,True
+PT00478,61-75,Mumbai,False,0,Afternoon,0.82,19.09173,72.933,False
+PT00479,18-30,Mumbai,True,0,Afternoon,0.63,18.97956,72.83743,True
+PT00480,18-30,Bengaluru,False,2,Evening,0.6,12.86695,77.55133,True
+PT00481,61-75,Bengaluru,False,0,Morning,0.75,12.87701,77.50026,False
+PT00482,18-30,Hyderabad,False,1,Afternoon,0.73,17.44652,78.54382,True
+PT00483,18-30,Mumbai,False,1,Afternoon,0.25,19.16537,72.87396,True
+PT00484,18-30,Hyderabad,False,0,Afternoon,0.57,17.37574,78.4592,True
+PT00485,76+,Delhi NCR,False,0,Evening,0.65,28.43043,77.14385,True
+PT00486,61-75,Mumbai,False,0,Evening,0.59,19.09529,72.90307,False
+PT00487,61-75,Delhi NCR,False,0,Afternoon,0.53,28.42211,77.25373,False
+PT00488,46-60,Delhi NCR,False,0,Afternoon,0.79,28.49562,77.2855,True
+PT00489,76+,Delhi NCR,False,2,Evening,0.74,28.42226,77.05103,False
+PT00490,18-30,Hyderabad,False,0,Morning,0.65,17.4464,78.45941,True
+PT00491,46-60,Bengaluru,True,0,Evening,0.69,13.07453,77.51862,True
+PT00492,61-75,Mumbai,True,0,Evening,0.72,19.07821,72.89205,False
+PT00493,18-30,Delhi NCR,True,1,Evening,0.62,28.4093,77.28273,True
+PT00494,18-30,Pune,False,3,Morning,0.32,18.483,73.92795,True
+PT00495,18-30,Hyderabad,True,2,Morning,0.92,17.33142,78.37025,True
+PT00496,18-30,Mumbai,False,1,Morning,0.5,18.96167,72.8285,True
+PT00497,76+,Pune,False,1,Evening,0.58,18.58944,73.89441,True
+PT00498,31-45,Hyderabad,False,0,Afternoon,0.67,17.35305,78.4063,True
+PT00499,76+,Delhi NCR,False,3,Afternoon,0.64,28.47126,77.01489,False
+PT00500,31-45,Pune,False,1,Evening,0.6,18.61797,73.78072,True
+PT00501,46-60,Hyderabad,True,1,Morning,0.38,17.37217,78.43552,True
+PT00502,76+,Hyderabad,False,0,Evening,0.6,17.35891,78.4824,False
+PT00503,76+,Mumbai,True,0,Afternoon,0.33,18.9599,72.80386,False
+PT00504,76+,Bengaluru,False,0,Afternoon,0.44,12.92295,77.51639,True
+PT00505,46-60,Delhi NCR,False,3,Afternoon,0.55,28.49251,77.11924,True
+PT00506,61-75,Bengaluru,False,0,Morning,0.7,12.97227,77.63221,False
+PT00507,61-75,Pune,False,0,Evening,0.77,18.55883,73.78698,True
+PT00508,18-30,Pune,False,0,Morning,0.73,18.52388,73.83916,True
+PT00509,31-45,Pune,False,1,Afternoon,0.6,18.50266,73.84301,True
+PT00510,31-45,Bengaluru,True,1,Afternoon,0.85,12.90656,77.55371,True
+PT00511,46-60,Mumbai,False,0,Evening,0.86,18.91849,72.91284,True
+PT00512,61-75,Hyderabad,True,2,Morning,0.6,17.43349,78.36714,False
+PT00513,31-45,Delhi NCR,True,1,Evening,0.78,28.56243,77.29121,True
+PT00514,31-45,Mumbai,False,1,Afternoon,0.59,19.07692,72.88304,True
+PT00515,76+,Bengaluru,True,3,Morning,0.52,13.0602,77.66368,False
+PT00516,18-30,Bengaluru,False,1,Afternoon,0.78,12.98388,77.67338,True
+PT00517,61-75,Mumbai,False,0,Evening,0.58,19.04245,72.93225,False
+PT00518,61-75,Hyderabad,False,1,Morning,0.49,17.31579,78.53056,True
+PT00519,18-30,Delhi NCR,False,1,Afternoon,0.51,28.55063,77.27014,True
+PT00520,18-30,Hyderabad,False,3,Morning,0.42,17.46009,78.48551,True
+PT00521,76+,Mumbai,False,0,Evening,0.49,19.08608,72.81804,True
+PT00522,76+,Mumbai,False,0,Afternoon,0.65,18.95186,72.94766,True
+PT00523,18-30,Hyderabad,False,0,Evening,0.23,17.46169,78.37524,True
+PT00524,61-75,Pune,False,2,Evening,0.93,18.53467,73.94766,False
+PT00525,46-60,Hyderabad,False,1,Morning,0.62,17.49945,78.47545,True
+PT00526,61-75,Mumbai,True,0,Morning,0.86,19.15023,72.83868,True
+PT00527,31-45,Mumbai,True,0,Afternoon,0.86,19.17425,72.81005,True
+PT00528,61-75,Bengaluru,False,0,Afternoon,0.72,12.94702,77.57947,False
+PT00529,18-30,Hyderabad,True,1,Afternoon,0.6,17.35524,78.44163,True
+PT00530,18-30,Mumbai,False,1,Afternoon,0.88,19.16204,72.91798,True
+PT00531,18-30,Hyderabad,False,0,Afternoon,0.64,17.42461,78.45451,True
+PT00532,31-45,Pune,False,1,Afternoon,0.13,18.53392,73.83289,True
+PT00533,18-30,Delhi NCR,False,3,Evening,0.94,28.44446,77.17638,True
+PT00534,76+,Pune,False,0,Evening,0.68,18.60168,73.93793,True
+PT00535,46-60,Hyderabad,False,0,Morning,0.63,17.41254,78.3702,True
+PT00536,46-60,Mumbai,True,4,Morning,0.47,18.98583,72.88035,True
+PT00537,31-45,Hyderabad,False,0,Afternoon,0.58,17.36877,78.43218,True
+PT00538,76+,Hyderabad,False,1,Morning,0.19,17.37661,78.44712,False
+PT00539,46-60,Delhi NCR,False,2,Morning,0.7,28.41124,77.08262,True
+PT00540,76+,Hyderabad,False,1,Morning,0.45,17.32877,78.47173,False
+PT00541,18-30,Pune,False,3,Morning,0.47,18.45776,73.92791,True
+PT00542,76+,Mumbai,False,1,Evening,0.73,18.99945,72.83564,True
+PT00543,46-60,Pune,False,1,Afternoon,0.5,18.63417,73.92941,True
+PT00544,61-75,Hyderabad,False,1,Afternoon,0.6,17.30405,78.51348,False
+PT00545,18-30,Bengaluru,True,4,Evening,0.88,12.92009,77.59832,True
+PT00546,18-30,Delhi NCR,False,0,Evening,0.43,28.60885,77.02947,True
+PT00547,46-60,Hyderabad,False,0,Morning,0.54,17.47378,78.37688,True
+PT00548,31-45,Mumbai,False,4,Afternoon,0.85,19.19227,72.86647,True
+PT00549,76+,Delhi NCR,False,0,Afternoon,0.57,28.64775,77.08083,False
+PT00550,76+,Delhi NCR,False,0,Afternoon,0.5,28.59367,77.05638,False
+PT00551,76+,Pune,True,0,Morning,0.71,18.61479,73.89819,True
+PT00552,61-75,Bengaluru,False,0,Morning,0.73,13.0668,77.6642,False
+PT00553,46-60,Bengaluru,False,0,Morning,0.66,12.88974,77.56222,True
+PT00554,61-75,Hyderabad,False,0,Afternoon,0.3,17.40136,78.37713,True
+PT00555,31-45,Mumbai,False,1,Afternoon,0.84,19.1638,72.80434,True
+PT00556,76+,Bengaluru,False,0,Morning,0.31,12.89819,77.66659,True
+PT00557,31-45,Mumbai,False,0,Evening,0.83,18.97485,72.86847,True
+PT00558,18-30,Hyderabad,False,0,Morning,0.65,17.48361,78.49093,True
+PT00559,46-60,Hyderabad,True,1,Morning,0.57,17.3548,78.5147,True
+PT00560,18-30,Bengaluru,False,0,Morning,0.59,12.97628,77.62708,True
+PT00561,61-75,Hyderabad,False,2,Afternoon,0.7,17.32477,78.35611,False
+PT00562,61-75,Hyderabad,True,4,Evening,0.55,17.41881,78.38552,True
+PT00563,31-45,Mumbai,True,0,Evening,0.76,19.07606,72.85246,True
+PT00564,46-60,Pune,False,0,Morning,0.68,18.4827,73.9289,True
+PT00565,76+,Hyderabad,True,2,Morning,0.85,17.44979,78.48777,False
+PT00566,46-60,Hyderabad,False,0,Evening,0.61,17.37731,78.38258,True
+PT00567,46-60,Mumbai,False,0,Evening,0.61,19.07168,72.94474,True
+PT00568,31-45,Bengaluru,False,1,Evening,0.64,13.06428,77.62948,True
+PT00569,61-75,Mumbai,False,1,Afternoon,0.24,19.10331,72.84036,False
+PT00570,61-75,Bengaluru,True,0,Morning,0.92,12.85501,77.65606,True
+PT00571,61-75,Hyderabad,False,1,Morning,0.66,17.30178,78.5323,False
+PT00572,61-75,Delhi NCR,False,1,Evening,0.29,28.58034,77.00254,False
+PT00573,46-60,Hyderabad,False,0,Morning,0.79,17.46102,78.41109,True
+PT00574,31-45,Pune,False,2,Afternoon,0.75,18.6434,73.87855,True
+PT00575,31-45,Pune,True,0,Evening,0.83,18.53476,73.8253,True
+PT00576,61-75,Pune,False,0,Morning,0.5,18.51974,73.8004,False
+PT00577,76+,Pune,False,2,Afternoon,0.69,18.58544,73.91486,False
+PT00578,76+,Bengaluru,False,0,Evening,0.61,12.87558,77.6023,False
+PT00579,18-30,Hyderabad,False,0,Afternoon,0.37,17.46866,78.42485,True
+PT00580,46-60,Pune,False,1,Evening,0.58,18.57947,73.87181,True
+PT00581,18-30,Delhi NCR,False,0,Morning,0.67,28.48954,77.03243,True
+PT00582,46-60,Delhi NCR,True,0,Evening,0.74,28.41915,77.29651,True
+PT00583,61-75,Hyderabad,True,0,Morning,0.73,17.42812,78.5223,False
+PT00584,46-60,Delhi NCR,True,0,Afternoon,0.43,28.61333,77.26771,True
+PT00585,31-45,Pune,False,3,Morning,0.58,18.50976,73.77999,True
+PT00586,46-60,Bengaluru,False,2,Evening,0.7,13.04137,77.67994,True
+PT00587,46-60,Bengaluru,False,0,Morning,0.41,13.05136,77.66047,True
+PT00588,76+,Mumbai,False,4,Evening,0.61,19.08001,72.89908,False
+PT00589,61-75,Pune,False,0,Evening,0.88,18.59426,73.88108,True
+PT00590,76+,Pune,False,0,Evening,0.71,18.50189,73.83371,False
+PT00591,31-45,Delhi NCR,False,0,Evening,0.53,28.4106,77.21242,True
+PT00592,46-60,Mumbai,True,1,Evening,0.37,19.07161,72.82849,True
+PT00593,18-30,Bengaluru,True,4,Evening,0.38,13.03164,77.54447,True
+PT00594,18-30,Pune,False,0,Afternoon,0.68,18.55693,73.90698,True
+PT00595,18-30,Delhi NCR,False,0,Afternoon,0.76,28.67196,77.20156,True
+PT00596,18-30,Pune,False,0,Morning,0.71,18.55146,73.91908,True
+PT00597,31-45,Hyderabad,False,2,Afternoon,0.92,17.46813,78.5253,True
+PT00598,61-75,Bengaluru,False,0,Morning,0.61,12.89528,77.51952,False
+PT00599,18-30,Hyderabad,False,0,Afternoon,0.52,17.35173,78.51167,True
+PT00600,31-45,Bengaluru,False,0,Evening,0.75,13.04073,77.53661,True
+PT00601,46-60,Pune,True,0,Evening,0.48,18.58594,73.81713,True
+PT00602,31-45,Hyderabad,True,1,Afternoon,0.77,17.31786,78.42106,True
+PT00603,61-75,Bengaluru,False,1,Afternoon,0.87,13.03605,77.56142,True
+PT00604,61-75,Pune,True,1,Evening,0.79,18.51626,73.80211,False
+PT00605,61-75,Bengaluru,True,1,Evening,0.63,13.0628,77.59411,True
+PT00606,76+,Mumbai,False,0,Morning,0.97,19.07507,72.94165,False
+PT00607,31-45,Mumbai,True,1,Evening,0.23,19.16683,72.87507,True
+PT00608,76+,Bengaluru,False,0,Morning,0.41,13.06687,77.57633,False
+PT00609,46-60,Pune,False,0,Evening,0.47,18.46081,73.92085,True
+PT00610,76+,Mumbai,False,2,Morning,0.78,18.94121,72.83004,False
+PT00611,31-45,Hyderabad,True,0,Morning,0.82,17.41388,78.53132,True
+PT00612,18-30,Bengaluru,True,3,Morning,0.83,12.96439,77.56328,True
+PT00613,61-75,Mumbai,True,2,Evening,0.73,19.1147,72.91684,False
+PT00614,76+,Mumbai,False,1,Evening,0.91,19.08931,72.82652,False
+PT00615,46-60,Hyderabad,False,0,Afternoon,0.85,17.30094,78.40471,True
+PT00616,61-75,Pune,True,2,Evening,0.75,18.60224,73.78372,True
+PT00617,61-75,Bengaluru,True,3,Morning,0.91,12.97239,77.65271,False
+PT00618,76+,Hyderabad,False,1,Morning,0.86,17.4229,78.4767,False
+PT00619,31-45,Pune,False,0,Afternoon,0.73,18.64307,73.82666,True
+PT00620,31-45,Pune,False,1,Afternoon,0.9,18.45755,73.78988,True
+PT00621,31-45,Bengaluru,False,0,Afternoon,0.79,12.94328,77.50282,True
+PT00622,76+,Mumbai,False,0,Evening,0.69,18.99666,72.92498,False
+PT00623,46-60,Pune,False,0,Evening,0.97,18.58535,73.87534,True
+PT00624,76+,Bengaluru,False,1,Afternoon,0.45,12.91221,77.6387,False
+PT00625,76+,Bengaluru,False,0,Afternoon,0.85,12.88223,77.57671,False
+PT00626,61-75,Hyderabad,False,0,Morning,0.7,17.3334,78.51477,False
+PT00627,18-30,Bengaluru,False,1,Evening,0.65,12.92271,77.64557,True
+PT00628,76+,Hyderabad,False,4,Evening,0.52,17.41927,78.41757,True
+PT00629,31-45,Hyderabad,False,0,Evening,0.9,17.49909,78.41855,True
+PT00630,76+,Mumbai,False,3,Morning,0.6,19.17042,72.85389,False
+PT00631,46-60,Delhi NCR,False,0,Evening,0.55,28.68443,77.27546,True
+PT00632,46-60,Pune,False,1,Evening,0.57,18.53068,73.79568,True
+PT00633,46-60,Bengaluru,False,0,Afternoon,0.56,13.03179,77.52624,True
+PT00634,61-75,Delhi NCR,False,3,Evening,0.92,28.62022,77.17691,False
+PT00635,76+,Delhi NCR,False,0,Afternoon,0.72,28.50998,77.19516,False
+PT00636,76+,Pune,False,1,Evening,0.71,18.62531,73.80116,False
+PT00637,46-60,Bengaluru,True,0,Afternoon,0.76,12.86215,77.69894,True
+PT00638,31-45,Mumbai,True,2,Morning,0.8,19.09859,72.89804,True
+PT00639,46-60,Mumbai,False,1,Evening,0.93,18.90592,72.90346,True
+PT00640,76+,Delhi NCR,False,1,Afternoon,0.27,28.52503,77.11408,False
+PT00641,31-45,Hyderabad,False,1,Afternoon,0.62,17.39488,78.38063,True
+PT00642,18-30,Delhi NCR,True,1,Evening,0.73,28.60856,77.18909,True
+PT00643,46-60,Mumbai,True,0,Evening,0.83,18.99033,72.89925,True
+PT00644,76+,Bengaluru,False,1,Afternoon,0.67,13.01562,77.554,False
+PT00645,46-60,Delhi NCR,False,0,Afternoon,0.83,28.44115,77.2492,True
+PT00646,61-75,Pune,True,4,Evening,0.79,18.47098,73.89375,False
+PT00647,46-60,Bengaluru,False,1,Evening,0.68,12.8785,77.52125,True
+PT00648,31-45,Mumbai,True,1,Afternoon,0.54,18.95959,72.82996,True
+PT00649,31-45,Bengaluru,False,1,Morning,0.35,12.91575,77.60463,True
+PT00650,46-60,Pune,True,1,Evening,0.56,18.49033,73.89069,True
+PT00651,76+,Delhi NCR,False,4,Evening,0.54,28.48861,77.01182,False
+PT00652,46-60,Hyderabad,False,2,Morning,0.64,17.34154,78.53662,True
+PT00653,46-60,Bengaluru,False,0,Evening,0.85,12.93265,77.50055,True
+PT00654,76+,Mumbai,False,2,Afternoon,0.85,19.10149,72.93603,True
+PT00655,18-30,Hyderabad,False,1,Morning,0.34,17.4338,78.37983,True
+PT00656,31-45,Bengaluru,True,0,Evening,0.33,12.87252,77.60234,True
+PT00657,76+,Bengaluru,False,1,Morning,0.91,13.03089,77.52026,False
+PT00658,31-45,Pune,False,1,Evening,0.84,18.49623,73.94773,True
+PT00659,18-30,Mumbai,True,1,Evening,0.76,18.98881,72.86964,True
+PT00660,18-30,Bengaluru,True,0,Afternoon,0.47,12.87495,77.53494,True
+PT00661,46-60,Bengaluru,True,0,Evening,0.44,12.85986,77.55811,True
+PT00662,18-30,Bengaluru,True,1,Evening,0.89,13.0504,77.56254,True
+PT00663,76+,Mumbai,False,1,Morning,0.91,19.12156,72.81425,True
+PT00664,46-60,Mumbai,False,0,Evening,0.06,18.91377,72.9278,True
+PT00665,61-75,Delhi NCR,False,2,Morning,0.81,28.59901,77.05115,False
+PT00666,31-45,Hyderabad,True,0,Morning,0.77,17.38754,78.47436,True
+PT00667,46-60,Delhi NCR,False,0,Morning,0.51,28.66354,77.02789,True
+PT00668,61-75,Mumbai,False,1,Afternoon,0.64,19.14449,72.82743,False
+PT00669,18-30,Pune,False,0,Afternoon,0.88,18.64246,73.80437,True
+PT00670,76+,Bengaluru,False,0,Morning,0.52,12.94643,77.67013,True
+PT00671,18-30,Mumbai,False,5,Evening,0.5,19.09465,72.91954,True
+PT00672,61-75,Delhi NCR,False,2,Evening,0.86,28.43392,77.20885,False
+PT00673,18-30,Delhi NCR,False,0,Morning,0.92,28.68274,77.04782,True
+PT00674,61-75,Hyderabad,False,4,Morning,0.43,17.38321,78.46815,True
+PT00675,61-75,Pune,True,1,Evening,0.64,18.58568,73.78625,False
+PT00676,18-30,Bengaluru,False,1,Morning,0.69,12.93965,77.50576,True
+PT00677,76+,Delhi NCR,False,0,Morning,0.54,28.60534,77.25156,True
+PT00678,61-75,Hyderabad,False,0,Evening,0.78,17.32613,78.53408,False
+PT00679,46-60,Delhi NCR,False,0,Morning,0.76,28.52339,77.01379,True
+PT00680,46-60,Pune,True,1,Afternoon,0.58,18.50232,73.81285,True
+PT00681,18-30,Delhi NCR,True,0,Morning,0.33,28.61137,77.20338,True
+PT00682,61-75,Delhi NCR,True,1,Afternoon,0.75,28.63026,77.17299,False
+PT00683,61-75,Bengaluru,False,1,Morning,0.44,13.09447,77.63397,False
+PT00684,46-60,Pune,True,1,Evening,0.59,18.55462,73.89012,True
+PT00685,18-30,Delhi NCR,False,0,Afternoon,0.74,28.42857,77.19851,True
+PT00686,76+,Hyderabad,False,0,Morning,0.39,17.34972,78.41915,False
+PT00687,76+,Delhi NCR,True,0,Afternoon,0.47,28.51546,77.25171,False
+PT00688,76+,Mumbai,False,3,Morning,0.65,19.19634,72.80818,False
+PT00689,61-75,Hyderabad,False,2,Morning,0.85,17.33139,78.51977,True
+PT00690,46-60,Pune,False,1,Morning,0.82,18.62388,73.76497,True
+PT00691,76+,Mumbai,False,0,Morning,0.52,19.04749,72.83613,True
+PT00692,18-30,Mumbai,True,0,Morning,0.48,18.91511,72.83341,True
+PT00693,18-30,Pune,False,1,Morning,0.76,18.57866,73.83066,True
+PT00694,31-45,Mumbai,True,0,Evening,0.57,18.9705,72.86886,True
+PT00695,76+,Delhi NCR,False,2,Morning,0.51,28.64038,77.13443,True
+PT00696,31-45,Pune,True,1,Morning,0.56,18.53941,73.77374,True
+PT00697,61-75,Hyderabad,False,1,Morning,0.49,17.39947,78.48067,False
+PT00698,31-45,Delhi NCR,False,3,Afternoon,0.77,28.5237,77.16714,True
+PT00699,46-60,Bengaluru,False,4,Morning,0.94,12.85004,77.51818,True
+PT00700,31-45,Mumbai,False,0,Evening,0.52,19.08126,72.89286,True
+PT00701,18-30,Pune,False,0,Afternoon,0.86,18.51092,73.85167,True
+PT00702,18-30,Delhi NCR,False,0,Evening,0.8,28.46206,77.20144,True
+PT00703,31-45,Pune,False,0,Morning,0.83,18.64007,73.82267,True
+PT00704,31-45,Hyderabad,False,1,Afternoon,0.85,17.31086,78.39458,True
+PT00705,46-60,Delhi NCR,True,1,Afternoon,0.69,28.53634,77.16805,True
+PT00706,18-30,Bengaluru,False,1,Evening,0.9,13.00494,77.59463,True
+PT00707,31-45,Bengaluru,False,0,Afternoon,0.67,13.01429,77.64318,True
+PT00708,61-75,Pune,True,1,Evening,0.39,18.4728,73.90186,False
+PT00709,31-45,Hyderabad,True,0,Afternoon,0.87,17.36827,78.51598,True
+PT00710,46-60,Mumbai,False,0,Morning,0.64,19.18933,72.8438,True
+PT00711,46-60,Pune,False,0,Evening,0.57,18.5544,73.89042,True
+PT00712,18-30,Delhi NCR,False,1,Afternoon,0.49,28.41373,77.04925,True
+PT00713,18-30,Bengaluru,True,1,Evening,0.52,12.88511,77.64337,True
+PT00714,18-30,Hyderabad,True,3,Morning,0.76,17.44431,78.37139,True
+PT00715,18-30,Delhi NCR,True,0,Morning,0.77,28.58326,77.05626,True
+PT00716,46-60,Hyderabad,False,0,Afternoon,0.84,17.48604,78.42858,True
+PT00717,31-45,Hyderabad,False,0,Evening,0.85,17.39141,78.50628,True
+PT00718,61-75,Delhi NCR,True,0,Afternoon,0.72,28.61504,77.03233,False
+PT00719,61-75,Bengaluru,False,0,Morning,0.71,13.08166,77.66749,False
+PT00720,76+,Mumbai,False,0,Morning,0.72,19.13164,72.86758,False
+PT00721,18-30,Delhi NCR,True,2,Evening,0.85,28.68686,77.04039,True
+PT00722,61-75,Pune,False,0,Afternoon,0.67,18.54977,73.85607,False
+PT00723,18-30,Hyderabad,False,0,Afternoon,0.62,17.48706,78.51776,True
+PT00724,18-30,Mumbai,True,0,Afternoon,0.49,19.04488,72.87625,True
+PT00725,61-75,Delhi NCR,False,0,Evening,0.28,28.67635,77.05316,False
+PT00726,61-75,Pune,True,0,Evening,0.43,18.5961,73.77568,False
+PT00727,61-75,Bengaluru,True,0,Afternoon,0.64,13.00014,77.67654,False
+PT00728,18-30,Pune,False,0,Morning,0.84,18.52693,73.9459,True
+PT00729,76+,Bengaluru,False,1,Evening,0.77,13.07898,77.65247,False
+PT00730,46-60,Delhi NCR,True,1,Morning,0.58,28.68908,77.29115,True
+PT00731,61-75,Delhi NCR,False,0,Evening,0.58,28.53585,77.04001,False
+PT00732,31-45,Mumbai,True,4,Evening,0.96,19.11,72.91226,True
+PT00733,61-75,Pune,False,0,Evening,0.56,18.50978,73.8903,True
+PT00734,46-60,Bengaluru,True,0,Morning,0.42,13.02797,77.6871,True
+PT00735,61-75,Mumbai,False,0,Afternoon,0.77,19.08977,72.83013,False
+PT00736,31-45,Pune,False,2,Morning,0.4,18.50812,73.81906,True
+PT00737,61-75,Hyderabad,True,0,Afternoon,0.62,17.43447,78.54627,False
+PT00738,61-75,Hyderabad,False,4,Evening,0.5,17.49167,78.45078,False
+PT00739,61-75,Mumbai,False,3,Evening,0.28,18.99671,72.81731,False
+PT00740,61-75,Bengaluru,False,1,Evening,0.94,12.97009,77.61413,False
+PT00741,46-60,Pune,True,0,Morning,0.57,18.5335,73.89957,True
+PT00742,61-75,Pune,False,3,Evening,0.73,18.61828,73.80719,True
+PT00743,31-45,Delhi NCR,False,0,Morning,0.85,28.64249,77.15682,True
+PT00744,61-75,Pune,False,0,Morning,0.75,18.45505,73.77907,False
+PT00745,31-45,Hyderabad,True,1,Morning,0.76,17.33998,78.50004,True
+PT00746,46-60,Delhi NCR,False,0,Evening,0.46,28.44828,77.08598,True
+PT00747,18-30,Pune,False,1,Morning,0.89,18.50011,73.91788,True
+PT00748,31-45,Bengaluru,False,1,Afternoon,0.55,13.02265,77.55903,True
+PT00749,18-30,Mumbai,False,1,Afternoon,0.32,19.12608,72.80485,True
+PT00750,31-45,Bengaluru,True,0,Evening,0.67,13.05351,77.5205,True
+PT00751,61-75,Mumbai,True,2,Afternoon,0.66,19.16041,72.91092,True
+PT00752,46-60,Bengaluru,False,2,Morning,0.93,13.0356,77.61225,True
+PT00753,31-45,Pune,True,0,Morning,0.65,18.49752,73.90686,True
+PT00754,76+,Delhi NCR,False,1,Evening,0.61,28.63965,77.08629,False
+PT00755,46-60,Hyderabad,False,0,Morning,0.86,17.4853,78.42751,True
+PT00756,61-75,Delhi NCR,False,2,Evening,0.74,28.68701,77.29275,False
+PT00757,31-45,Hyderabad,False,0,Afternoon,0.66,17.41042,78.35259,True
+PT00758,18-30,Bengaluru,False,1,Evening,0.53,12.91284,77.62411,True
+PT00759,18-30,Bengaluru,False,5,Afternoon,0.93,13.04523,77.67402,True
+PT00760,46-60,Hyderabad,False,0,Afternoon,0.45,17.466,78.5323,True
+PT00761,76+,Hyderabad,True,1,Afternoon,0.45,17.44093,78.47953,True
+PT00762,76+,Mumbai,True,1,Evening,0.76,19.06398,72.89051,True
+PT00763,61-75,Bengaluru,True,1,Afternoon,0.63,13.09107,77.55884,False
+PT00764,61-75,Delhi NCR,False,1,Evening,0.83,28.6048,77.05609,False
+PT00765,31-45,Hyderabad,False,1,Morning,0.95,17.40277,78.42544,True
+PT00766,18-30,Hyderabad,False,1,Morning,0.85,17.3857,78.46132,True
+PT00767,46-60,Delhi NCR,False,0,Morning,0.4,28.43902,77.1752,True
+PT00768,61-75,Bengaluru,True,0,Afternoon,0.68,12.91375,77.56611,True
+PT00769,76+,Mumbai,False,0,Evening,0.62,18.94644,72.82306,False
+PT00770,18-30,Hyderabad,False,1,Afternoon,0.71,17.31017,78.53648,True
+PT00771,61-75,Delhi NCR,False,1,Morning,0.56,28.58468,77.19857,False
+PT00772,18-30,Hyderabad,True,1,Evening,0.53,17.41454,78.42162,True
+PT00773,76+,Mumbai,False,0,Afternoon,0.66,19.13521,72.84768,False
+PT00774,76+,Hyderabad,False,0,Evening,0.85,17.33677,78.36364,False
+PT00775,76+,Delhi NCR,False,0,Morning,0.7,28.52478,77.16111,False
+PT00776,18-30,Mumbai,False,0,Afternoon,0.61,18.96636,72.832,True
+PT00777,31-45,Pune,False,0,Afternoon,0.84,18.51638,73.82216,True
+PT00778,76+,Mumbai,False,2,Evening,0.89,18.96553,72.9129,False
+PT00779,61-75,Bengaluru,False,0,Morning,0.88,13.09916,77.66474,True
+PT00780,31-45,Delhi NCR,False,1,Afternoon,0.64,28.40264,77.20068,True
+PT00781,31-45,Mumbai,False,0,Afternoon,0.3,19.0337,72.93567,True
+PT00782,61-75,Delhi NCR,False,0,Evening,0.55,28.58411,77.18634,True
+PT00783,18-30,Mumbai,False,1,Evening,0.32,19.10477,72.84814,True
+PT00784,46-60,Pune,True,1,Evening,0.83,18.63319,73.939,True
+PT00785,31-45,Delhi NCR,False,0,Afternoon,0.41,28.51576,77.16207,True
+PT00786,18-30,Bengaluru,False,0,Evening,0.59,12.92071,77.68227,True
+PT00787,18-30,Bengaluru,False,2,Morning,0.95,13.05553,77.57499,True
+PT00788,46-60,Mumbai,True,3,Evening,0.83,19.14085,72.86683,True
+PT00789,18-30,Delhi NCR,False,4,Evening,0.86,28.41316,77.26948,True
+PT00790,46-60,Hyderabad,False,0,Morning,0.65,17.3385,78.45278,True
+PT00791,18-30,Hyderabad,True,1,Morning,0.26,17.48964,78.38348,True
+PT00792,46-60,Mumbai,False,1,Morning,0.65,19.18688,72.8807,True
+PT00793,18-30,Delhi NCR,False,3,Afternoon,0.6,28.4022,77.01964,True
+PT00794,31-45,Bengaluru,True,2,Afternoon,0.73,13.01758,77.65472,True
+PT00795,18-30,Mumbai,False,3,Afternoon,0.94,19.15949,72.86363,True
+PT00796,18-30,Bengaluru,False,0,Morning,0.77,12.87598,77.60755,True
+PT00797,31-45,Delhi NCR,False,0,Afternoon,0.9,28.61082,77.29287,True
+PT00798,18-30,Pune,False,0,Morning,0.51,18.60504,73.87931,True
+PT00799,61-75,Bengaluru,False,0,Evening,0.58,13.08494,77.64938,False
+PT00800,76+,Bengaluru,False,2,Afternoon,0.72,12.96481,77.56634,False
+PT00801,18-30,Pune,False,3,Evening,0.48,18.46085,73.90884,True
+PT00802,31-45,Hyderabad,True,2,Evening,0.43,17.41162,78.46499,True
+PT00803,18-30,Bengaluru,True,0,Evening,0.49,12.90691,77.55173,True
+PT00804,31-45,Mumbai,False,3,Evening,0.96,19.01641,72.89453,True
+PT00805,18-30,Mumbai,False,1,Evening,0.9,19.02991,72.80253,True
+PT00806,18-30,Delhi NCR,True,3,Afternoon,0.68,28.60199,77.16045,True
+PT00807,46-60,Hyderabad,False,1,Afternoon,0.69,17.42828,78.47367,True
+PT00808,31-45,Pune,False,1,Afternoon,0.81,18.60119,73.86712,True
+PT00809,18-30,Bengaluru,False,0,Evening,0.68,13.02522,77.51452,True
+PT00810,18-30,Bengaluru,True,2,Afternoon,0.39,13.08201,77.52123,True
+PT00811,31-45,Mumbai,True,1,Afternoon,0.84,19.13607,72.8452,True
+PT00812,76+,Hyderabad,False,1,Evening,0.63,17.3173,78.50305,False
+PT00813,76+,Pune,False,0,Morning,0.8,18.52902,73.88214,False
+PT00814,31-45,Delhi NCR,True,0,Evening,0.55,28.56004,77.04091,True
+PT00815,31-45,Bengaluru,False,3,Evening,0.76,12.94775,77.6595,True
+PT00816,46-60,Pune,False,2,Morning,0.48,18.55914,73.94203,True
+PT00817,46-60,Hyderabad,False,0,Evening,0.83,17.32882,78.48546,True
+PT00818,61-75,Hyderabad,True,0,Afternoon,0.41,17.48283,78.509,True
+PT00819,31-45,Hyderabad,True,1,Evening,0.72,17.37463,78.53989,True
+PT00820,46-60,Delhi NCR,False,2,Morning,0.89,28.56606,77.16652,True
+PT00821,76+,Hyderabad,False,0,Morning,0.95,17.32465,78.35101,False
+PT00822,46-60,Delhi NCR,False,0,Evening,0.46,28.56115,77.28409,True
+PT00823,46-60,Bengaluru,False,1,Afternoon,0.82,12.92617,77.64966,True
+PT00824,18-30,Pune,False,1,Morning,0.85,18.63071,73.81877,True
+PT00825,61-75,Pune,False,1,Morning,0.43,18.53253,73.87919,False
+PT00826,61-75,Hyderabad,True,0,Morning,0.49,17.33219,78.39416,True
+PT00827,61-75,Pune,False,0,Afternoon,0.84,18.48887,73.78627,True
+PT00828,18-30,Mumbai,True,1,Afternoon,0.74,19.15568,72.92771,True
+PT00829,18-30,Hyderabad,False,4,Afternoon,0.5,17.48647,78.54886,True
+PT00830,18-30,Hyderabad,True,0,Evening,0.84,17.39225,78.45993,True
+PT00831,31-45,Mumbai,False,0,Evening,0.84,18.9872,72.8101,True
+PT00832,61-75,Bengaluru,False,1,Morning,0.53,12.87455,77.64512,False
+PT00833,76+,Hyderabad,False,0,Evening,0.57,17.36617,78.37564,False
+PT00834,61-75,Bengaluru,False,5,Evening,0.47,12.87501,77.6239,True
+PT00835,76+,Bengaluru,False,0,Afternoon,0.78,12.92945,77.59013,False
+PT00836,61-75,Hyderabad,False,2,Morning,0.57,17.36114,78.46683,False
+PT00837,31-45,Hyderabad,True,0,Evening,0.58,17.3729,78.41327,True
+PT00838,76+,Bengaluru,False,0,Morning,0.6,12.95708,77.50097,False
+PT00839,31-45,Hyderabad,True,0,Morning,0.29,17.34431,78.49796,True
+PT00840,31-45,Pune,True,1,Afternoon,0.58,18.53722,73.91802,True
+PT00841,18-30,Bengaluru,False,0,Morning,0.75,12.88358,77.64659,True
+PT00842,18-30,Hyderabad,True,0,Afternoon,0.71,17.47558,78.44257,True
+PT00843,46-60,Mumbai,False,0,Morning,0.45,19.00762,72.84582,True
+PT00844,76+,Bengaluru,False,1,Afternoon,0.91,12.98792,77.53515,False
+PT00845,31-45,Delhi NCR,False,0,Morning,0.66,28.65254,77.25761,True
+PT00846,18-30,Mumbai,False,0,Morning,0.73,18.942,72.88079,True
+PT00847,31-45,Hyderabad,False,0,Afternoon,0.57,17.35265,78.52727,True
+PT00848,46-60,Bengaluru,False,0,Afternoon,0.68,12.86912,77.51508,True
+PT00849,31-45,Pune,False,0,Evening,0.54,18.45373,73.85144,True
+PT00850,76+,Mumbai,True,3,Morning,0.59,18.90936,72.88728,False
+PT00851,31-45,Delhi NCR,True,4,Evening,0.61,28.57701,77.27189,True
+PT00852,76+,Pune,False,1,Evening,0.96,18.56032,73.85869,True
+PT00853,31-45,Pune,False,0,Evening,0.44,18.54442,73.90504,True
+PT00854,18-30,Mumbai,False,0,Evening,0.9,19.00975,72.8335,True
+PT00855,46-60,Bengaluru,True,0,Evening,0.58,13.04304,77.64665,True
+PT00856,31-45,Mumbai,False,1,Afternoon,0.6,18.9873,72.86971,True
+PT00857,31-45,Bengaluru,False,0,Morning,0.52,12.9776,77.57936,True
+PT00858,31-45,Mumbai,True,0,Morning,0.66,19.05065,72.8994,True
+PT00859,61-75,Bengaluru,False,0,Afternoon,0.66,13.062,77.66131,False
+PT00860,31-45,Pune,True,1,Afternoon,0.62,18.48317,73.85283,True
+PT00861,61-75,Pune,False,0,Afternoon,0.88,18.53924,73.78583,True
+PT00862,31-45,Mumbai,True,0,Evening,0.78,19.09782,72.94516,True
+PT00863,46-60,Pune,False,0,Evening,0.93,18.59718,73.8467,True
+PT00864,61-75,Delhi NCR,False,0,Evening,0.53,28.50764,77.06565,False
+PT00865,61-75,Pune,False,0,Morning,0.73,18.46257,73.82389,False
+PT00866,31-45,Delhi NCR,False,0,Evening,0.46,28.46203,77.27232,True
+PT00867,18-30,Bengaluru,False,0,Afternoon,0.8,12.94031,77.59393,True
+PT00868,46-60,Delhi NCR,False,2,Evening,0.8,28.53639,77.01393,True
+PT00869,18-30,Bengaluru,False,3,Afternoon,0.88,13.09515,77.56481,True
+PT00870,18-30,Mumbai,False,1,Morning,0.51,19.11112,72.87821,True
+PT00871,61-75,Mumbai,True,0,Morning,0.87,19.14889,72.92523,False
+PT00872,31-45,Mumbai,True,0,Evening,0.68,19.06331,72.82608,True
+PT00873,76+,Bengaluru,False,0,Morning,0.86,13.01342,77.57306,False
+PT00874,18-30,Bengaluru,True,0,Morning,0.94,13.05887,77.60333,True
+PT00875,61-75,Hyderabad,False,2,Afternoon,0.68,17.37527,78.53145,False
+PT00876,31-45,Delhi NCR,False,5,Afternoon,0.44,28.50587,77.26032,True
+PT00877,61-75,Mumbai,True,0,Morning,0.79,19.04606,72.87232,False
+PT00878,61-75,Hyderabad,False,1,Morning,0.14,17.40037,78.37779,False
+PT00879,46-60,Pune,True,4,Afternoon,0.87,18.46542,73.8787,True
+PT00880,61-75,Bengaluru,False,3,Afternoon,0.44,12.90288,77.53738,False
+PT00881,76+,Bengaluru,True,2,Morning,0.57,13.02933,77.52367,False
+PT00882,61-75,Bengaluru,False,0,Evening,0.4,13.05279,77.64405,False
+PT00883,61-75,Bengaluru,True,0,Afternoon,0.91,12.9697,77.54214,False
+PT00884,18-30,Mumbai,False,0,Evening,0.64,19.15001,72.80337,True
+PT00885,76+,Bengaluru,False,3,Afternoon,0.73,12.86079,77.6147,False
+PT00886,61-75,Mumbai,True,2,Morning,0.68,19.08886,72.80588,False
+PT00887,18-30,Hyderabad,False,0,Afternoon,0.74,17.31118,78.40165,True
+PT00888,76+,Hyderabad,False,2,Morning,0.65,17.33601,78.54165,False
+PT00889,31-45,Pune,False,4,Morning,0.61,18.56272,73.75372,True
+PT00890,76+,Delhi NCR,False,1,Evening,0.36,28.61586,77.19852,False
+PT00891,61-75,Delhi NCR,False,2,Afternoon,0.65,28.42572,77.13476,True
+PT00892,31-45,Bengaluru,False,2,Morning,0.87,13.06683,77.53411,True
+PT00893,31-45,Bengaluru,False,3,Afternoon,0.72,13.05759,77.62017,True
+PT00894,46-60,Delhi NCR,False,0,Morning,0.91,28.63838,77.24614,True
+PT00895,18-30,Delhi NCR,False,2,Morning,0.7,28.45457,77.19789,True
+PT00896,31-45,Bengaluru,False,0,Evening,0.55,12.91613,77.64484,True
+PT00897,18-30,Hyderabad,False,4,Evening,0.51,17.36853,78.44069,True
+PT00898,61-75,Pune,False,0,Evening,0.43,18.56812,73.79596,False
+PT00899,61-75,Delhi NCR,False,2,Afternoon,0.87,28.43257,77.0607,True
+PT00900,76+,Mumbai,True,1,Evening,0.69,19.05131,72.86297,False
+PT00901,61-75,Delhi NCR,False,5,Morning,0.65,28.42889,77.14276,False
+PT00902,76+,Hyderabad,False,0,Evening,0.61,17.30781,78.50677,False
+PT00903,31-45,Bengaluru,True,2,Evening,0.92,12.87938,77.59645,True
+PT00904,18-30,Hyderabad,True,1,Morning,0.57,17.32607,78.47069,True
+PT00905,18-30,Mumbai,False,0,Evening,0.68,19.14826,72.93455,True
+PT00906,46-60,Hyderabad,False,3,Morning,0.88,17.45497,78.47985,True
+PT00907,31-45,Hyderabad,False,0,Evening,0.55,17.40441,78.42408,True
+PT00908,61-75,Mumbai,False,0,Morning,0.68,18.91303,72.87947,False
+PT00909,46-60,Hyderabad,False,1,Evening,0.86,17.46046,78.50791,True
+PT00910,18-30,Hyderabad,True,0,Afternoon,0.46,17.37625,78.46781,True
+PT00911,46-60,Delhi NCR,False,1,Morning,0.55,28.62242,77.22846,True
+PT00912,46-60,Hyderabad,False,0,Afternoon,0.42,17.43934,78.36954,True
+PT00913,18-30,Bengaluru,True,0,Afternoon,0.42,12.88347,77.59543,True
+PT00914,61-75,Pune,False,1,Afternoon,0.48,18.4965,73.92181,False
+PT00915,46-60,Bengaluru,False,0,Evening,0.44,13.06919,77.58173,True
+PT00916,61-75,Hyderabad,False,5,Afternoon,0.6,17.3378,78.49183,True
+PT00917,46-60,Bengaluru,False,0,Morning,0.61,12.9945,77.52357,True
+PT00918,18-30,Pune,False,0,Evening,0.39,18.45144,73.88091,True
+PT00919,18-30,Pune,True,1,Morning,0.74,18.58755,73.81318,True
+PT00920,31-45,Hyderabad,False,1,Morning,0.61,17.37245,78.38096,True
+PT00921,31-45,Mumbai,True,1,Morning,0.71,19.09547,72.83804,True
+PT00922,18-30,Delhi NCR,False,0,Morning,0.79,28.65649,77.12707,True
+PT00923,76+,Pune,True,0,Afternoon,0.84,18.52313,73.80511,False
+PT00924,76+,Pune,True,3,Morning,0.77,18.60099,73.83265,True
+PT00925,18-30,Hyderabad,False,0,Morning,0.97,17.39649,78.42404,True
+PT00926,61-75,Pune,False,0,Afternoon,0.67,18.56098,73.80076,False
+PT00927,46-60,Pune,True,0,Evening,0.88,18.51887,73.8911,True
+PT00928,18-30,Mumbai,False,1,Afternoon,0.95,19.12073,72.92825,True
+PT00929,31-45,Delhi NCR,False,0,Afternoon,0.87,28.59778,77.22434,True
+PT00930,31-45,Delhi NCR,False,0,Evening,0.65,28.53398,77.20979,True
+PT00931,61-75,Pune,False,1,Afternoon,0.38,18.48236,73.79289,False
+PT00932,46-60,Bengaluru,False,0,Evening,0.75,12.93461,77.61012,True
+PT00933,76+,Hyderabad,True,2,Evening,0.88,17.43941,78.49136,False
+PT00934,31-45,Mumbai,False,0,Evening,0.61,19.18937,72.80079,True
+PT00935,31-45,Mumbai,False,1,Afternoon,0.79,18.92733,72.8218,True
+PT00936,46-60,Pune,True,0,Morning,0.81,18.63517,73.83708,True
+PT00937,61-75,Mumbai,True,1,Afternoon,0.59,18.91922,72.83327,False
+PT00938,46-60,Hyderabad,False,0,Afternoon,0.51,17.30755,78.42687,True
+PT00939,76+,Bengaluru,True,0,Evening,0.75,13.09611,77.62279,False
+PT00940,76+,Mumbai,True,2,Morning,0.34,19.11348,72.88962,True
+PT00941,76+,Delhi NCR,False,2,Afternoon,0.74,28.64607,77.19209,False
+PT00942,76+,Bengaluru,True,1,Afternoon,0.94,12.90043,77.63138,True
+PT00943,31-45,Pune,False,2,Evening,0.91,18.5072,73.75672,True
+PT00944,61-75,Pune,False,0,Morning,0.7,18.5699,73.85316,False
+PT00945,76+,Pune,False,3,Evening,0.81,18.4839,73.75721,False
+PT00946,31-45,Mumbai,True,1,Morning,0.81,18.90009,72.82362,True
+PT00947,31-45,Mumbai,False,0,Morning,0.82,19.19905,72.91695,True
+PT00948,46-60,Delhi NCR,False,3,Evening,0.88,28.50594,77.11854,True
+PT00949,18-30,Hyderabad,False,0,Evening,0.54,17.41722,78.45355,True
+PT00950,76+,Hyderabad,True,3,Afternoon,0.51,17.44739,78.36372,False
+PT00951,31-45,Pune,True,2,Evening,0.66,18.5069,73.91595,True
+PT00952,31-45,Mumbai,False,0,Evening,0.64,19.1745,72.85221,True
+PT00953,76+,Mumbai,True,2,Morning,0.56,19.18899,72.84148,False
+PT00954,31-45,Bengaluru,False,1,Afternoon,0.95,12.89863,77.68594,True
+PT00955,31-45,Mumbai,False,3,Afternoon,0.92,19.07247,72.83917,True
+PT00956,18-30,Hyderabad,False,4,Afternoon,0.23,17.38143,78.37129,True
+PT00957,61-75,Mumbai,True,0,Evening,0.89,18.92172,72.84414,True
+PT00958,46-60,Bengaluru,False,0,Afternoon,0.9,13.05074,77.69134,True
+PT00959,46-60,Mumbai,False,0,Evening,0.81,19.16283,72.92197,True
+PT00960,46-60,Delhi NCR,True,0,Afternoon,0.19,28.57247,77.20826,True
+PT00961,31-45,Pune,False,1,Evening,0.46,18.64321,73.86263,True
+PT00962,46-60,Pune,False,3,Afternoon,0.7,18.60399,73.90149,True
+PT00963,61-75,Bengaluru,True,0,Afternoon,0.67,13.09031,77.59177,False
+PT00964,61-75,Pune,False,0,Afternoon,0.87,18.56737,73.75547,False
+PT00965,61-75,Pune,False,3,Evening,0.64,18.46351,73.87673,True
+PT00966,31-45,Bengaluru,True,1,Morning,0.62,13.01923,77.54599,True
+PT00967,18-30,Bengaluru,False,0,Afternoon,0.91,12.92893,77.69109,True
+PT00968,61-75,Mumbai,True,4,Morning,0.48,19.05495,72.80146,True
+PT00969,46-60,Bengaluru,False,4,Evening,0.65,12.91206,77.5186,True
+PT00970,31-45,Bengaluru,True,0,Morning,0.86,13.01842,77.66421,True
+PT00971,76+,Delhi NCR,False,1,Evening,0.49,28.42281,77.27942,False
+PT00972,18-30,Hyderabad,False,0,Evening,0.56,17.37071,78.52886,True
+PT00973,46-60,Hyderabad,False,0,Evening,0.69,17.35382,78.53942,True
+PT00974,31-45,Mumbai,False,0,Morning,0.4,19.10493,72.93649,True
+PT00975,61-75,Pune,False,2,Evening,0.9,18.5498,73.78993,True
+PT00976,46-60,Bengaluru,True,0,Afternoon,0.95,13.06819,77.54136,True
+PT00977,18-30,Mumbai,False,1,Afternoon,0.82,18.96083,72.83745,True
+PT00978,61-75,Bengaluru,True,0,Morning,0.67,13.00465,77.5312,False
+PT00979,46-60,Mumbai,False,2,Morning,0.6,19.17606,72.90137,True
+PT00980,18-30,Hyderabad,False,2,Afternoon,0.79,17.43268,78.47277,True
+PT00981,18-30,Mumbai,False,0,Evening,0.87,19.12927,72.88122,True
+PT00982,76+,Hyderabad,False,1,Afternoon,0.76,17.30845,78.44646,False
+PT00983,18-30,Pune,True,4,Evening,0.67,18.54847,73.94707,True
+PT00984,18-30,Mumbai,False,0,Afternoon,0.89,19.1691,72.93032,True
+PT00985,31-45,Bengaluru,False,3,Afternoon,0.49,12.9727,77.69688,True
+PT00986,46-60,Pune,False,5,Morning,0.85,18.6332,73.80605,True
+PT00987,61-75,Hyderabad,False,0,Morning,0.58,17.34442,78.46533,False
+PT00988,61-75,Hyderabad,False,0,Evening,0.76,17.45985,78.44566,False
+PT00989,76+,Bengaluru,True,1,Morning,0.64,12.97562,77.57874,False
+PT00990,61-75,Bengaluru,False,0,Afternoon,0.73,12.8937,77.6953,False
+PT00991,61-75,Pune,True,1,Afternoon,0.36,18.54201,73.88784,False
+PT00992,18-30,Delhi NCR,False,1,Evening,0.43,28.46323,77.1743,True
+PT00993,76+,Pune,True,0,Afternoon,0.88,18.51509,73.87256,False
+PT00994,61-75,Delhi NCR,True,0,Morning,0.5,28.56457,77.07114,False
+PT00995,61-75,Hyderabad,True,1,Afternoon,0.72,17.42262,78.42318,False
+PT00996,76+,Mumbai,False,0,Afternoon,0.43,18.96316,72.90511,False
+PT00997,76+,Hyderabad,True,0,Evening,0.82,17.47087,78.40593,False
+PT00998,31-45,Pune,False,0,Morning,0.86,18.47623,73.86518,True
+PT00999,31-45,Pune,False,5,Evening,0.44,18.49571,73.76997,True
+PT01000,46-60,Mumbai,False,0,Evening,0.43,18.98098,72.83537,True
+PT01001,61-75,Pune,False,1,Afternoon,0.83,18.53644,73.82618,False
+PT01002,61-75,Pune,False,0,Evening,0.82,18.64183,73.77991,True
+PT01003,18-30,Bengaluru,False,3,Morning,0.73,12.89415,77.59992,True
+PT01004,18-30,Delhi NCR,False,1,Morning,0.62,28.69867,77.25482,True
+PT01005,18-30,Delhi NCR,False,0,Afternoon,0.52,28.5551,77.21617,True
+PT01006,46-60,Mumbai,False,0,Afternoon,0.82,19.1356,72.84501,True
+PT01007,61-75,Bengaluru,True,3,Morning,0.76,12.99053,77.61357,False
+PT01008,31-45,Hyderabad,False,0,Morning,0.62,17.43811,78.36201,True
+PT01009,76+,Pune,True,0,Evening,0.68,18.61276,73.84531,False
+PT01010,31-45,Bengaluru,False,0,Morning,0.49,12.96246,77.56693,True
+PT01011,46-60,Hyderabad,True,1,Afternoon,0.58,17.37219,78.46207,True
+PT01012,18-30,Hyderabad,False,1,Morning,0.55,17.48637,78.40154,True
+PT01013,46-60,Mumbai,True,1,Morning,0.73,18.90595,72.81819,True
+PT01014,46-60,Bengaluru,True,2,Morning,0.67,13.06684,77.69262,True
+PT01015,76+,Bengaluru,True,0,Afternoon,0.85,12.89974,77.61518,False
+PT01016,31-45,Pune,True,3,Morning,0.57,18.48491,73.90606,True
+PT01017,46-60,Pune,False,0,Morning,0.5,18.52102,73.88464,True
+PT01018,18-30,Delhi NCR,False,2,Afternoon,0.33,28.54625,77.22096,True
+PT01019,76+,Bengaluru,False,1,Morning,0.78,13.07241,77.57621,False
+PT01020,31-45,Delhi NCR,True,1,Morning,0.54,28.58951,77.04345,True
+PT01021,61-75,Mumbai,True,1,Morning,0.82,18.95027,72.92116,False
+PT01022,76+,Delhi NCR,True,1,Morning,0.69,28.58938,77.17149,True
+PT01023,76+,Delhi NCR,False,0,Evening,0.52,28.4214,77.0486,False
+PT01024,61-75,Delhi NCR,False,0,Evening,0.43,28.49506,77.08741,False
+PT01025,31-45,Bengaluru,True,0,Afternoon,0.84,13.01116,77.55425,True
+PT01026,46-60,Mumbai,False,0,Afternoon,0.86,19.03347,72.92942,True
+PT01027,18-30,Hyderabad,True,1,Evening,0.65,17.37263,78.46738,True
+PT01028,46-60,Mumbai,True,0,Afternoon,0.71,19.18966,72.8621,True
+PT01029,46-60,Hyderabad,False,0,Evening,0.99,17.33678,78.35462,True
+PT01030,61-75,Bengaluru,False,0,Evening,0.73,13.03194,77.6324,True
+PT01031,46-60,Delhi NCR,False,2,Afternoon,0.73,28.61021,77.02402,True
+PT01032,61-75,Pune,False,0,Morning,0.93,18.48338,73.7706,False
+PT01033,31-45,Bengaluru,False,2,Evening,0.92,13.06967,77.60969,True
+PT01034,76+,Bengaluru,False,2,Morning,0.82,12.85659,77.5794,True
+PT01035,46-60,Hyderabad,False,0,Afternoon,0.8,17.31665,78.40249,True
+PT01036,31-45,Hyderabad,False,0,Afternoon,0.7,17.33105,78.48097,True
+PT01037,61-75,Delhi NCR,False,0,Evening,0.5,28.66564,77.09281,False
+PT01038,31-45,Mumbai,False,0,Morning,0.42,18.98525,72.89397,True
+PT01039,46-60,Pune,False,2,Evening,0.5,18.47626,73.9177,True
+PT01040,61-75,Mumbai,True,0,Afternoon,0.27,18.90857,72.89953,True
+PT01041,18-30,Bengaluru,True,0,Afternoon,0.44,12.9313,77.59523,True
+PT01042,76+,Bengaluru,False,0,Morning,0.51,13.09375,77.60812,False
+PT01043,18-30,Bengaluru,False,0,Evening,0.67,12.96121,77.69391,True
+PT01044,18-30,Bengaluru,False,1,Morning,0.89,13.02441,77.53541,True
+PT01045,18-30,Delhi NCR,True,0,Evening,0.78,28.57928,77.18931,True
+PT01046,46-60,Pune,True,2,Morning,0.56,18.57717,73.8628,True
+PT01047,76+,Hyderabad,False,0,Afternoon,0.91,17.40469,78.47791,False
+PT01048,46-60,Pune,True,0,Morning,0.96,18.51943,73.85793,True
+PT01049,31-45,Bengaluru,False,3,Afternoon,0.81,13.05118,77.58837,True
+PT01050,76+,Delhi NCR,False,2,Evening,0.67,28.50973,77.07794,False
+PT01051,61-75,Delhi NCR,False,1,Morning,0.84,28.40003,77.24461,True
+PT01052,76+,Pune,True,1,Evening,0.85,18.51878,73.84384,False
+PT01053,31-45,Delhi NCR,False,0,Morning,0.73,28.67663,77.28409,True
+PT01054,61-75,Bengaluru,False,0,Evening,0.75,12.96927,77.50183,False
+PT01055,46-60,Delhi NCR,False,1,Afternoon,0.8,28.48788,77.06936,True
+PT01056,46-60,Hyderabad,True,1,Afternoon,0.76,17.30144,78.42473,True
+PT01057,31-45,Pune,False,0,Evening,0.81,18.53235,73.86211,True
+PT01058,18-30,Mumbai,False,0,Evening,0.95,19.01843,72.82449,True
+PT01059,18-30,Delhi NCR,True,2,Afternoon,0.9,28.62114,77.11692,True
+PT01060,18-30,Delhi NCR,True,0,Afternoon,0.77,28.51351,77.07889,True
+PT01061,46-60,Hyderabad,False,3,Evening,0.48,17.38445,78.39791,True
+PT01062,31-45,Delhi NCR,False,0,Afternoon,0.67,28.62936,77.27299,True
+PT01063,61-75,Bengaluru,True,3,Afternoon,0.64,13.05189,77.63693,False
+PT01064,61-75,Pune,False,0,Afternoon,0.21,18.59859,73.91176,False
+PT01065,31-45,Hyderabad,False,0,Morning,0.62,17.4707,78.38648,True
+PT01066,76+,Pune,False,2,Morning,0.32,18.50792,73.87738,False
+PT01067,46-60,Hyderabad,False,0,Afternoon,0.57,17.35443,78.47455,True
+PT01068,76+,Pune,True,1,Evening,0.65,18.48756,73.75388,False
+PT01069,61-75,Hyderabad,False,3,Morning,0.58,17.40699,78.38719,False
+PT01070,76+,Pune,False,0,Morning,0.77,18.50384,73.89304,True
+PT01071,46-60,Hyderabad,False,2,Evening,0.63,17.34656,78.38014,True
+PT01072,31-45,Mumbai,False,2,Evening,0.78,19.04807,72.85129,True
+PT01073,61-75,Delhi NCR,False,4,Afternoon,0.65,28.49347,77.23984,True
+PT01074,46-60,Pune,True,0,Afternoon,0.65,18.54274,73.90828,True
+PT01075,31-45,Pune,False,3,Afternoon,0.66,18.51605,73.91871,True
+PT01076,46-60,Hyderabad,False,1,Morning,0.43,17.49033,78.36121,True
+PT01077,31-45,Delhi NCR,False,0,Evening,0.66,28.6327,77.02142,True
+PT01078,76+,Hyderabad,False,1,Evening,0.52,17.39403,78.38844,True
+PT01079,61-75,Bengaluru,True,1,Evening,0.78,13.05431,77.66565,False
+PT01080,31-45,Mumbai,True,0,Morning,0.93,19.13044,72.83734,True
+PT01081,18-30,Pune,False,0,Evening,0.86,18.60425,73.83859,True
+PT01082,31-45,Hyderabad,False,0,Morning,0.69,17.44752,78.3567,True
+PT01083,76+,Mumbai,True,0,Morning,0.84,19.03825,72.91565,False
+PT01084,46-60,Pune,False,3,Morning,0.59,18.64642,73.84457,True
+PT01085,61-75,Hyderabad,False,0,Evening,0.67,17.43629,78.41242,False
+PT01086,18-30,Hyderabad,True,1,Evening,0.74,17.42583,78.35844,True
+PT01087,31-45,Delhi NCR,False,0,Afternoon,0.74,28.68123,77.15628,True
+PT01088,76+,Hyderabad,False,0,Afternoon,0.34,17.35066,78.4777,False
+PT01089,18-30,Delhi NCR,False,1,Morning,0.82,28.66626,77.2591,True
+PT01090,18-30,Mumbai,False,1,Evening,0.79,18.96534,72.81694,True
+PT01091,76+,Pune,False,0,Afternoon,0.74,18.57658,73.8149,False
+PT01092,61-75,Delhi NCR,False,0,Morning,0.75,28.48283,77.03589,True
+PT01093,18-30,Hyderabad,False,1,Afternoon,0.79,17.30179,78.3584,True
+PT01094,61-75,Bengaluru,False,0,Afternoon,0.66,13.04587,77.59505,False
+PT01095,76+,Hyderabad,True,2,Morning,0.74,17.37428,78.3679,False
+PT01096,46-60,Mumbai,False,3,Afternoon,0.92,18.92742,72.8928,True
+PT01097,46-60,Mumbai,False,0,Afternoon,0.57,19.17925,72.94955,True
+PT01098,76+,Bengaluru,True,1,Afternoon,0.83,13.00628,77.51196,False
+PT01099,76+,Mumbai,False,0,Evening,0.46,19.1104,72.91872,False
+PT01100,61-75,Bengaluru,True,0,Evening,0.87,12.90817,77.69634,True
+PT01101,61-75,Bengaluru,False,1,Afternoon,0.71,13.03917,77.66111,False
+PT01102,46-60,Bengaluru,False,1,Afternoon,0.74,12.89824,77.63785,True
+PT01103,46-60,Hyderabad,True,2,Morning,0.65,17.37163,78.37695,True
+PT01104,18-30,Bengaluru,False,1,Evening,0.47,13.07467,77.59706,True
+PT01105,61-75,Mumbai,True,4,Morning,0.71,19.03125,72.84421,False
+PT01106,46-60,Delhi NCR,False,2,Morning,0.62,28.45693,77.05599,True
+PT01107,76+,Bengaluru,True,2,Evening,0.94,12.93692,77.64648,False
+PT01108,76+,Mumbai,False,1,Evening,0.92,19.1494,72.93717,False
+PT01109,46-60,Delhi NCR,False,2,Morning,0.29,28.42066,77.04651,True
+PT01110,18-30,Mumbai,False,0,Afternoon,0.57,18.9887,72.8395,True
+PT01111,46-60,Hyderabad,False,0,Evening,0.56,17.37342,78.35014,True
+PT01112,31-45,Delhi NCR,False,0,Evening,0.73,28.59141,77.11371,True
+PT01113,61-75,Delhi NCR,False,0,Afternoon,0.93,28.45566,77.00562,True
+PT01114,18-30,Bengaluru,False,3,Afternoon,0.67,13.044,77.54776,True
+PT01115,31-45,Pune,False,0,Morning,0.57,18.5942,73.88166,True
+PT01116,31-45,Hyderabad,False,4,Evening,0.69,17.40779,78.4275,True
+PT01117,18-30,Hyderabad,False,3,Evening,0.82,17.40481,78.44951,True
+PT01118,46-60,Mumbai,False,3,Afternoon,0.59,19.06544,72.89196,True
+PT01119,18-30,Delhi NCR,False,0,Morning,0.79,28.49678,77.19227,True
+PT01120,76+,Mumbai,False,0,Morning,0.72,18.93314,72.87848,False
+PT01121,46-60,Delhi NCR,False,0,Morning,0.83,28.65056,77.03893,True
+PT01122,31-45,Mumbai,False,3,Morning,0.35,19.16205,72.83031,True
+PT01123,18-30,Mumbai,False,0,Afternoon,0.42,19.04561,72.81481,True
+PT01124,31-45,Pune,False,0,Morning,0.45,18.5642,73.91726,True
+PT01125,76+,Bengaluru,False,1,Morning,0.36,13.01448,77.60516,True
+PT01126,61-75,Mumbai,False,0,Evening,0.81,18.97678,72.85495,False
+PT01127,61-75,Mumbai,False,0,Evening,0.74,18.92126,72.93953,False
+PT01128,76+,Hyderabad,False,0,Afternoon,0.42,17.39828,78.52795,False
+PT01129,31-45,Pune,False,0,Evening,0.73,18.6102,73.76214,True
+PT01130,31-45,Delhi NCR,False,0,Afternoon,0.28,28.56741,77.28147,True
+PT01131,18-30,Hyderabad,False,0,Morning,0.71,17.38319,78.42381,True
+PT01132,76+,Pune,False,4,Evening,0.79,18.59169,73.91473,False
+PT01133,18-30,Delhi NCR,False,0,Evening,0.83,28.4122,77.02112,True
+PT01134,76+,Bengaluru,False,0,Afternoon,0.45,12.92598,77.68892,True
+PT01135,18-30,Bengaluru,True,1,Evening,0.52,12.87428,77.64503,True
+PT01136,31-45,Pune,False,0,Morning,0.7,18.55633,73.78789,True
+PT01137,61-75,Bengaluru,False,0,Evening,0.59,12.98155,77.54975,False
+PT01138,76+,Mumbai,False,0,Afternoon,0.4,18.95367,72.91238,False
+PT01139,61-75,Pune,False,3,Afternoon,0.79,18.4711,73.87772,False
+PT01140,46-60,Pune,False,4,Afternoon,0.76,18.54174,73.88305,True
+PT01141,46-60,Pune,False,1,Afternoon,0.75,18.62656,73.78336,True
+PT01142,46-60,Hyderabad,True,0,Afternoon,0.56,17.33608,78.43031,True
+PT01143,61-75,Pune,False,0,Morning,0.67,18.5175,73.78164,True
+PT01144,61-75,Mumbai,False,0,Morning,0.88,19.0329,72.85285,False
+PT01145,31-45,Hyderabad,False,1,Evening,0.18,17.49829,78.41493,True
+PT01146,76+,Bengaluru,False,0,Evening,0.61,12.94293,77.65284,False
+PT01147,31-45,Delhi NCR,False,0,Morning,0.96,28.61776,77.18252,True
+PT01148,76+,Bengaluru,False,2,Afternoon,0.84,12.99079,77.54279,True
+PT01149,18-30,Delhi NCR,False,1,Afternoon,0.58,28.67784,77.07623,True
+PT01150,18-30,Hyderabad,False,0,Evening,0.41,17.49233,78.4395,True
+PT01151,76+,Pune,True,0,Evening,0.83,18.52942,73.89526,True
+PT01152,61-75,Mumbai,True,0,Evening,0.73,19.07873,72.87764,True
+PT01153,46-60,Pune,False,0,Evening,0.96,18.51037,73.81007,True
+PT01154,46-60,Hyderabad,False,0,Afternoon,0.61,17.34438,78.52114,True
+PT01155,76+,Bengaluru,False,0,Afternoon,0.8,12.85543,77.66439,False
+PT01156,61-75,Hyderabad,True,0,Morning,0.62,17.35519,78.46073,False
+PT01157,18-30,Pune,True,2,Afternoon,0.95,18.63518,73.78094,True
+PT01158,18-30,Delhi NCR,False,1,Evening,0.84,28.41132,77.1067,True
+PT01159,61-75,Hyderabad,False,0,Evening,0.54,17.32768,78.42342,False
+PT01160,18-30,Mumbai,True,0,Morning,0.6,18.9699,72.92166,True
+PT01161,76+,Pune,False,0,Afternoon,0.35,18.46838,73.82996,True
+PT01162,46-60,Hyderabad,False,0,Evening,0.71,17.44685,78.49472,True
+PT01163,46-60,Hyderabad,False,1,Afternoon,0.64,17.45858,78.38458,True
+PT01164,61-75,Mumbai,True,0,Morning,0.91,19.14771,72.90344,False
+PT01165,76+,Pune,False,0,Morning,0.76,18.63153,73.86905,False
+PT01166,46-60,Delhi NCR,False,3,Afternoon,0.63,28.61924,77.17289,True
+PT01167,76+,Mumbai,True,0,Morning,0.68,18.92354,72.80839,True
+PT01168,76+,Hyderabad,False,0,Afternoon,0.55,17.36959,78.51343,False
+PT01169,76+,Pune,True,2,Morning,0.92,18.62357,73.92396,False
+PT01170,31-45,Pune,False,0,Afternoon,0.69,18.58056,73.87046,True
+PT01171,61-75,Delhi NCR,False,0,Morning,0.39,28.40343,77.23323,False
+PT01172,76+,Delhi NCR,False,0,Evening,0.69,28.49144,77.01235,False
+PT01173,61-75,Delhi NCR,False,1,Evening,0.92,28.44487,77.15072,False
+PT01174,46-60,Pune,True,2,Evening,0.91,18.4601,73.89632,True
+PT01175,18-30,Mumbai,False,3,Evening,0.64,19.01786,72.86684,True
+PT01176,76+,Bengaluru,False,3,Morning,0.76,12.99878,77.60095,False
+PT01177,46-60,Bengaluru,False,1,Morning,0.8,12.92245,77.57886,True
+PT01178,76+,Bengaluru,True,3,Morning,0.59,12.88305,77.51651,False
+PT01179,18-30,Pune,False,2,Morning,0.77,18.45986,73.82984,True
+PT01180,31-45,Hyderabad,False,1,Afternoon,0.85,17.31702,78.45036,True
+PT01181,76+,Delhi NCR,False,3,Evening,0.41,28.63215,77.03911,False
+PT01182,18-30,Mumbai,False,1,Afternoon,0.74,19.06779,72.87318,True
+PT01183,18-30,Delhi NCR,True,2,Afternoon,0.78,28.59567,77.05883,True
+PT01184,18-30,Mumbai,False,1,Morning,0.44,19.0848,72.91035,True
+PT01185,31-45,Mumbai,False,0,Afternoon,0.89,18.97387,72.81075,True
+PT01186,31-45,Delhi NCR,False,0,Morning,0.72,28.63303,77.09702,True
+PT01187,76+,Pune,False,2,Evening,0.77,18.63483,73.76792,False
+PT01188,46-60,Delhi NCR,True,1,Evening,0.74,28.52706,77.10449,True
+PT01189,46-60,Bengaluru,False,0,Evening,0.88,12.93018,77.61878,True
+PT01190,61-75,Hyderabad,False,0,Afternoon,0.77,17.30484,78.41096,True
+PT01191,18-30,Mumbai,False,1,Afternoon,0.36,19.08487,72.94852,True
+PT01192,76+,Hyderabad,False,1,Evening,0.76,17.38844,78.37916,False
+PT01193,61-75,Delhi NCR,True,0,Morning,0.75,28.64545,77.05991,False
+PT01194,76+,Pune,False,2,Morning,0.38,18.60155,73.92055,False
+PT01195,31-45,Hyderabad,False,4,Morning,0.79,17.31091,78.53979,True
+PT01196,31-45,Mumbai,False,0,Afternoon,0.46,19.17802,72.93031,True
+PT01197,46-60,Bengaluru,False,1,Afternoon,0.53,13.05503,77.50275,True
+PT01198,61-75,Pune,False,0,Morning,0.72,18.58876,73.77226,False
+PT01199,61-75,Hyderabad,False,1,Morning,0.76,17.30455,78.3918,False
+PT01200,18-30,Hyderabad,False,1,Afternoon,0.68,17.34076,78.45465,True
+PT01201,31-45,Pune,True,0,Afternoon,0.92,18.50173,73.84661,True
+PT01202,31-45,Pune,False,0,Morning,0.55,18.59598,73.77827,True
+PT01203,18-30,Mumbai,False,2,Evening,0.96,19.10963,72.80276,True
+PT01204,61-75,Bengaluru,False,1,Afternoon,0.57,12.99575,77.63271,False
+PT01205,61-75,Delhi NCR,False,1,Afternoon,0.52,28.4511,77.0852,True
+PT01206,18-30,Mumbai,True,3,Evening,0.5,19.08539,72.80796,True
+PT01207,18-30,Pune,False,0,Morning,0.96,18.58095,73.75167,True
+PT01208,61-75,Delhi NCR,False,0,Morning,0.77,28.51659,77.08139,True
+PT01209,46-60,Bengaluru,False,1,Afternoon,0.83,13.01503,77.67286,True
+PT01210,61-75,Delhi NCR,False,1,Afternoon,0.52,28.40572,77.26022,False
+PT01211,76+,Hyderabad,False,1,Morning,0.54,17.34623,78.42614,True
+PT01212,18-30,Pune,False,2,Evening,0.3,18.46992,73.81309,True
+PT01213,46-60,Bengaluru,False,0,Afternoon,0.63,13.06669,77.60631,True
+PT01214,18-30,Delhi NCR,False,2,Morning,0.62,28.45593,77.1502,True
+PT01215,18-30,Hyderabad,False,0,Morning,0.77,17.3916,78.53527,True
+PT01216,31-45,Delhi NCR,True,0,Evening,0.92,28.40645,77.07422,True
+PT01217,31-45,Bengaluru,False,1,Evening,0.7,12.98235,77.56671,True
+PT01218,61-75,Pune,False,0,Morning,0.59,18.52868,73.7814,False
+PT01219,61-75,Bengaluru,False,0,Evening,0.83,12.93798,77.62505,False
+PT01220,46-60,Delhi NCR,False,0,Afternoon,0.58,28.69347,77.15038,True
+PT01221,18-30,Delhi NCR,False,0,Afternoon,0.73,28.64357,77.18774,True
+PT01222,46-60,Mumbai,False,0,Evening,0.44,19.1636,72.93356,True
+PT01223,46-60,Hyderabad,False,1,Afternoon,0.39,17.46297,78.35589,True
+PT01224,31-45,Mumbai,False,3,Morning,0.7,19.06648,72.84203,True
+PT01225,61-75,Hyderabad,False,3,Afternoon,0.57,17.33034,78.52944,False
+PT01226,18-30,Hyderabad,False,1,Afternoon,0.58,17.31756,78.42644,True
+PT01227,76+,Pune,False,0,Morning,0.8,18.64212,73.87249,False
+PT01228,46-60,Mumbai,False,3,Morning,0.7,18.96823,72.83605,True
+PT01229,31-45,Pune,False,5,Morning,0.53,18.48055,73.94411,True
+PT01230,18-30,Bengaluru,False,0,Evening,0.92,13.07743,77.56586,True
+PT01231,76+,Bengaluru,False,0,Evening,0.96,12.98556,77.54135,False
+PT01232,46-60,Pune,False,1,Evening,0.65,18.55827,73.91002,True
+PT01233,61-75,Bengaluru,True,1,Afternoon,0.59,13.06565,77.5618,True
+PT01234,46-60,Mumbai,False,0,Afternoon,0.46,19.05714,72.82029,True
+PT01235,61-75,Mumbai,False,3,Afternoon,0.4,19.19871,72.94637,False
+PT01236,76+,Bengaluru,False,1,Morning,0.55,13.08326,77.68342,False
+PT01237,76+,Delhi NCR,False,1,Afternoon,0.67,28.5672,77.28458,False
+PT01238,31-45,Bengaluru,False,0,Evening,0.73,12.9294,77.67593,True
+PT01239,76+,Pune,False,1,Morning,0.68,18.59542,73.90309,True
+PT01240,31-45,Hyderabad,False,3,Afternoon,0.72,17.38281,78.43225,True
+PT01241,31-45,Delhi NCR,False,2,Evening,0.65,28.5329,77.28013,True
+PT01242,76+,Mumbai,False,2,Afternoon,0.9,19.16824,72.93999,False
+PT01243,76+,Hyderabad,False,0,Evening,0.95,17.45582,78.37135,False
+PT01244,46-60,Mumbai,False,0,Evening,0.83,19.12873,72.8918,True
+PT01245,18-30,Mumbai,False,1,Morning,0.38,18.98006,72.88506,True
+PT01246,18-30,Delhi NCR,False,0,Morning,0.82,28.46927,77.06965,True
+PT01247,31-45,Hyderabad,False,1,Evening,0.28,17.43748,78.42185,True
+PT01248,76+,Pune,False,1,Afternoon,0.76,18.58763,73.84532,False
+PT01249,76+,Delhi NCR,False,1,Afternoon,0.67,28.58141,77.21361,False
+PT01250,61-75,Bengaluru,False,1,Morning,0.83,13.06303,77.59829,False
+PT01251,46-60,Bengaluru,False,0,Afternoon,0.84,12.89831,77.50645,True
+PT01252,46-60,Delhi NCR,False,0,Afternoon,0.41,28.62936,77.0045,True
+PT01253,31-45,Mumbai,False,0,Morning,0.91,18.98096,72.86196,True
+PT01254,76+,Pune,False,5,Afternoon,0.63,18.59847,73.94765,True
+PT01255,46-60,Pune,False,1,Evening,0.46,18.46323,73.93542,True
+PT01256,46-60,Mumbai,False,4,Afternoon,0.5,19.19569,72.93007,True
+PT01257,46-60,Bengaluru,False,0,Afternoon,0.77,12.97249,77.56498,True
+PT01258,46-60,Bengaluru,True,1,Morning,0.47,12.96439,77.54936,True
+PT01259,18-30,Pune,False,4,Evening,0.6,18.53097,73.75837,True
+PT01260,46-60,Delhi NCR,False,0,Afternoon,0.6,28.6206,77.11411,True
+PT01261,31-45,Mumbai,False,0,Evening,0.69,18.99387,72.89173,True
+PT01262,46-60,Hyderabad,False,2,Afternoon,0.57,17.44849,78.46876,True
+PT01263,46-60,Delhi NCR,False,1,Afternoon,0.82,28.55757,77.26273,True
+PT01264,31-45,Delhi NCR,True,0,Evening,0.52,28.63608,77.15619,True
+PT01265,18-30,Hyderabad,False,2,Evening,0.64,17.39032,78.5154,True
+PT01266,61-75,Delhi NCR,False,2,Evening,0.73,28.41272,77.29875,False
+PT01267,31-45,Hyderabad,False,0,Morning,0.61,17.37912,78.49703,True
+PT01268,61-75,Delhi NCR,False,0,Evening,0.71,28.56731,77.15484,False
+PT01269,61-75,Bengaluru,False,0,Afternoon,0.74,12.86232,77.55824,False
+PT01270,46-60,Mumbai,False,0,Afternoon,0.82,18.99137,72.92414,True
+PT01271,76+,Mumbai,True,3,Morning,0.91,19.0384,72.86337,False
+PT01272,31-45,Hyderabad,False,2,Morning,0.75,17.31091,78.45339,True
+PT01273,61-75,Delhi NCR,True,0,Morning,0.93,28.44267,77.24897,False
+PT01274,31-45,Pune,True,0,Afternoon,0.69,18.59453,73.77263,True
+PT01275,31-45,Hyderabad,False,0,Evening,0.82,17.45575,78.53757,True
+PT01276,46-60,Delhi NCR,False,1,Morning,0.84,28.60883,77.04059,True
+PT01277,61-75,Pune,False,0,Morning,0.53,18.53271,73.84018,False
+PT01278,46-60,Delhi NCR,True,0,Morning,0.69,28.57709,77.21379,True
+PT01279,31-45,Delhi NCR,False,1,Afternoon,0.9,28.46058,77.1364,True
+PT01280,31-45,Delhi NCR,False,0,Morning,0.62,28.47502,77.20752,True
+PT01281,18-30,Bengaluru,False,1,Afternoon,0.43,13.07679,77.6593,True
+PT01282,31-45,Bengaluru,True,1,Morning,0.74,13.02959,77.52471,True
+PT01283,76+,Pune,True,5,Evening,0.78,18.47283,73.83988,False
+PT01284,76+,Bengaluru,False,1,Evening,0.92,12.98095,77.57682,True
+PT01285,31-45,Mumbai,False,2,Evening,0.63,19.0535,72.94246,True
+PT01286,46-60,Pune,False,1,Evening,0.79,18.52574,73.82612,True
+PT01287,46-60,Mumbai,False,0,Morning,0.69,19.13048,72.93684,True
+PT01288,18-30,Mumbai,False,4,Morning,0.48,19.06965,72.89893,True
+PT01289,76+,Pune,False,0,Morning,0.68,18.48002,73.92376,False
+PT01290,76+,Delhi NCR,False,1,Morning,0.58,28.61361,77.12587,False
+PT01291,46-60,Hyderabad,True,1,Afternoon,0.62,17.45373,78.43925,True
+PT01292,18-30,Bengaluru,False,4,Afternoon,0.52,13.00661,77.52351,True
+PT01293,76+,Mumbai,False,3,Evening,0.39,18.93947,72.83043,False
+PT01294,31-45,Hyderabad,False,1,Evening,0.37,17.35062,78.44173,True
+PT01295,31-45,Delhi NCR,True,5,Evening,0.45,28.65662,77.16305,True
+PT01296,31-45,Hyderabad,False,2,Evening,0.91,17.30115,78.52654,True
+PT01297,61-75,Hyderabad,False,0,Afternoon,0.78,17.34758,78.46777,False
+PT01298,76+,Hyderabad,False,0,Morning,0.76,17.38203,78.36588,False
+PT01299,31-45,Pune,False,4,Evening,0.77,18.49894,73.85947,True
+PT01300,46-60,Mumbai,False,0,Morning,0.66,19.08593,72.88363,True
+PT01301,46-60,Delhi NCR,True,0,Morning,0.51,28.64758,77.01468,True
+PT01302,61-75,Delhi NCR,False,0,Evening,0.93,28.44448,77.19598,False
+PT01303,46-60,Delhi NCR,False,3,Morning,0.85,28.65615,77.2001,True
+PT01304,61-75,Delhi NCR,True,1,Morning,0.62,28.6514,77.08953,True
+PT01305,61-75,Pune,True,0,Morning,0.84,18.45981,73.83339,False
+PT01306,46-60,Delhi NCR,True,0,Morning,0.7,28.60163,77.18333,True
+PT01307,46-60,Bengaluru,False,0,Evening,0.63,13.02288,77.61899,True
+PT01308,61-75,Bengaluru,False,3,Evening,0.93,13.04683,77.53548,False
+PT01309,31-45,Delhi NCR,False,4,Evening,0.71,28.57369,77.27944,True
+PT01310,76+,Hyderabad,True,2,Afternoon,0.63,17.31863,78.40986,False
+PT01311,76+,Mumbai,True,0,Afternoon,0.28,19.01368,72.81015,False
+PT01312,46-60,Delhi NCR,False,2,Afternoon,0.73,28.56514,77.08785,True
+PT01313,46-60,Mumbai,True,0,Evening,0.57,18.94036,72.90419,True
+PT01314,61-75,Bengaluru,False,0,Evening,0.77,12.9186,77.60541,False
+PT01315,61-75,Delhi NCR,False,0,Evening,0.67,28.60875,77.18362,False
+PT01316,61-75,Delhi NCR,False,0,Morning,0.56,28.61892,77.18869,True
+PT01317,76+,Delhi NCR,False,1,Evening,0.83,28.5451,77.2066,True
+PT01318,61-75,Delhi NCR,True,1,Afternoon,0.64,28.69588,77.08616,False
+PT01319,61-75,Bengaluru,True,5,Morning,0.72,12.92912,77.60508,True
+PT01320,31-45,Mumbai,False,5,Morning,0.52,19.00616,72.81946,True
+PT01321,76+,Mumbai,False,1,Evening,0.41,19.06879,72.87796,False
+PT01322,46-60,Delhi NCR,False,1,Afternoon,0.88,28.54775,77.05397,True
+PT01323,31-45,Delhi NCR,False,4,Evening,0.8,28.58282,77.21258,True
+PT01324,76+,Pune,False,2,Morning,0.67,18.64585,73.75032,False
+PT01325,76+,Mumbai,False,1,Evening,0.81,19.08764,72.81769,True
+PT01326,31-45,Bengaluru,False,0,Evening,0.73,13.04989,77.6998,True
+PT01327,46-60,Bengaluru,False,0,Afternoon,0.56,12.95351,77.56676,True
+PT01328,31-45,Pune,True,0,Afternoon,0.7,18.56208,73.8775,True
+PT01329,76+,Pune,True,2,Evening,0.95,18.45226,73.79024,False
+PT01330,18-30,Hyderabad,True,1,Afternoon,0.85,17.45804,78.41155,True
+PT01331,31-45,Mumbai,True,2,Afternoon,0.91,19.05201,72.84859,True
+PT01332,61-75,Pune,False,1,Afternoon,0.79,18.45123,73.88717,False
+PT01333,46-60,Pune,True,1,Afternoon,0.72,18.59488,73.8732,True
+PT01334,18-30,Hyderabad,True,1,Evening,0.64,17.30582,78.38513,True
+PT01335,18-30,Delhi NCR,False,1,Morning,0.82,28.49915,77.10138,True
+PT01336,76+,Pune,True,0,Morning,0.78,18.58449,73.93323,True
+PT01337,31-45,Hyderabad,True,0,Afternoon,0.77,17.42913,78.4463,True
+PT01338,31-45,Hyderabad,False,0,Morning,0.64,17.42544,78.52841,True
+PT01339,18-30,Hyderabad,True,0,Morning,0.67,17.40739,78.41702,True
+PT01340,61-75,Hyderabad,True,3,Evening,0.34,17.4568,78.43279,True
+PT01341,31-45,Delhi NCR,False,2,Afternoon,0.7,28.65053,77.0898,True
+PT01342,61-75,Bengaluru,False,0,Afternoon,0.78,13.03124,77.5631,False
+PT01343,18-30,Hyderabad,False,2,Morning,0.67,17.34165,78.4871,True
+PT01344,76+,Bengaluru,True,1,Afternoon,0.61,13.04988,77.67761,False
+PT01345,61-75,Hyderabad,False,1,Morning,0.92,17.49392,78.40609,False
+PT01346,31-45,Mumbai,False,0,Morning,0.71,19.19509,72.89398,True
+PT01347,61-75,Mumbai,False,0,Morning,0.34,19.15272,72.88565,False
+PT01348,31-45,Delhi NCR,False,5,Afternoon,0.55,28.57856,77.25938,True
+PT01349,61-75,Hyderabad,False,3,Evening,0.51,17.45031,78.49105,False
+PT01350,18-30,Pune,False,0,Afternoon,0.37,18.45633,73.83277,True
+PT01351,61-75,Bengaluru,False,1,Afternoon,0.81,12.97426,77.54753,False
+PT01352,61-75,Bengaluru,True,0,Afternoon,0.4,13.08768,77.54323,False
+PT01353,76+,Delhi NCR,True,0,Morning,0.79,28.43367,77.23548,True
+PT01354,31-45,Mumbai,False,2,Morning,0.79,19.17401,72.86657,True
+PT01355,18-30,Mumbai,False,0,Afternoon,0.59,18.90748,72.8724,True
+PT01356,31-45,Mumbai,False,3,Morning,0.76,19.05002,72.82853,True
+PT01357,46-60,Pune,True,3,Evening,0.58,18.63473,73.89649,True
+PT01358,61-75,Bengaluru,False,0,Morning,0.86,12.98091,77.65511,False
+PT01359,46-60,Bengaluru,True,1,Morning,0.57,13.06795,77.66443,True
+PT01360,46-60,Bengaluru,True,3,Morning,0.37,13.08451,77.63534,True
+PT01361,76+,Bengaluru,True,0,Afternoon,0.61,12.88318,77.64491,False
+PT01362,76+,Delhi NCR,False,1,Evening,0.83,28.6141,77.1567,False
+PT01363,31-45,Delhi NCR,False,0,Morning,0.42,28.6797,77.20612,True
+PT01364,18-30,Pune,False,0,Evening,0.92,18.56886,73.76742,True
+PT01365,61-75,Pune,False,0,Afternoon,0.79,18.54338,73.75923,False
+PT01366,61-75,Mumbai,False,0,Morning,0.53,19.0977,72.84687,False
+PT01367,76+,Delhi NCR,False,1,Evening,0.84,28.49364,77.26764,False
+PT01368,61-75,Bengaluru,False,0,Afternoon,0.42,12.89814,77.55533,False
+PT01369,31-45,Delhi NCR,False,0,Morning,0.75,28.53233,77.0353,True
+PT01370,31-45,Pune,False,0,Morning,0.54,18.47986,73.80473,True
+PT01371,31-45,Mumbai,False,0,Afternoon,0.4,18.90458,72.89344,True
+PT01372,76+,Hyderabad,False,1,Morning,0.88,17.40281,78.39132,False
+PT01373,46-60,Hyderabad,False,2,Evening,0.72,17.3637,78.37831,True
+PT01374,31-45,Mumbai,False,0,Evening,0.57,19.11131,72.84249,True
+PT01375,31-45,Bengaluru,False,2,Morning,0.39,12.91121,77.51425,True
+PT01376,76+,Delhi NCR,False,2,Evening,0.95,28.58398,77.10162,False
+PT01377,46-60,Delhi NCR,False,1,Afternoon,0.55,28.43902,77.14122,True
+PT01378,31-45,Delhi NCR,False,0,Morning,0.62,28.60265,77.03178,True
+PT01379,31-45,Delhi NCR,False,1,Morning,0.76,28.41614,77.12794,True
+PT01380,46-60,Delhi NCR,False,1,Afternoon,0.51,28.45369,77.17884,True
+PT01381,76+,Bengaluru,False,0,Morning,0.61,12.99819,77.66723,False
+PT01382,46-60,Pune,False,1,Evening,0.83,18.57326,73.81249,True
+PT01383,46-60,Hyderabad,True,4,Afternoon,0.48,17.46349,78.49258,True
+PT01384,18-30,Bengaluru,False,1,Morning,0.86,13.01772,77.6067,True
+PT01385,18-30,Bengaluru,True,0,Morning,0.71,13.09342,77.65115,True
+PT01386,46-60,Bengaluru,False,4,Morning,0.91,12.96642,77.52636,True
+PT01387,31-45,Mumbai,True,0,Morning,0.79,19.14386,72.93795,True
+PT01388,61-75,Hyderabad,False,1,Afternoon,0.78,17.39366,78.44112,False
+PT01389,76+,Hyderabad,False,0,Evening,0.69,17.44204,78.44308,False
+PT01390,31-45,Mumbai,False,2,Evening,0.51,18.96714,72.92916,True
+PT01391,46-60,Mumbai,False,0,Evening,0.88,19.08508,72.93693,True
+PT01392,61-75,Delhi NCR,False,0,Morning,0.91,28.51762,77.20988,False
+PT01393,18-30,Bengaluru,False,1,Afternoon,0.61,13.04719,77.67648,True
+PT01394,61-75,Delhi NCR,False,0,Afternoon,0.77,28.53598,77.00908,False
+PT01395,46-60,Pune,False,0,Afternoon,0.8,18.52029,73.84225,True
+PT01396,18-30,Mumbai,False,0,Afternoon,0.44,18.95124,72.91519,True
+PT01397,76+,Mumbai,True,0,Morning,0.69,19.08133,72.81911,False
+PT01398,76+,Delhi NCR,True,4,Afternoon,0.73,28.64527,77.23903,False
+PT01399,18-30,Delhi NCR,False,0,Morning,0.69,28.59484,77.23773,True
+PT01400,61-75,Bengaluru,False,0,Evening,0.41,12.98319,77.58016,False
+PT01401,31-45,Hyderabad,False,0,Evening,0.83,17.42417,78.45959,True
+PT01402,18-30,Pune,False,0,Morning,0.71,18.64478,73.82676,True
+PT01403,61-75,Delhi NCR,False,0,Evening,0.48,28.50221,77.24417,False
+PT01404,76+,Mumbai,False,2,Evening,0.57,19.13529,72.8653,True
+PT01405,76+,Bengaluru,False,0,Morning,0.71,12.98613,77.54723,False
+PT01406,46-60,Bengaluru,False,3,Morning,0.9,12.86947,77.68617,True
+PT01407,31-45,Mumbai,False,0,Afternoon,0.58,19.07226,72.87299,True
+PT01408,61-75,Delhi NCR,False,4,Evening,0.73,28.57765,77.13887,False
+PT01409,46-60,Bengaluru,False,1,Morning,0.8,13.05551,77.53523,True
+PT01410,18-30,Delhi NCR,True,1,Morning,0.51,28.68677,77.02088,True
+PT01411,31-45,Pune,False,0,Evening,0.62,18.47175,73.91281,True
+PT01412,31-45,Hyderabad,False,0,Morning,0.78,17.45427,78.42578,True
+PT01413,61-75,Hyderabad,True,0,Afternoon,0.79,17.39886,78.48203,False
+PT01414,46-60,Delhi NCR,False,0,Evening,0.26,28.64511,77.26618,True
+PT01415,18-30,Mumbai,True,0,Evening,0.8,19.17098,72.89542,True
+PT01416,18-30,Pune,False,0,Morning,0.65,18.45004,73.77935,True
+PT01417,31-45,Hyderabad,False,0,Morning,0.78,17.32984,78.45625,True
+PT01418,18-30,Mumbai,False,1,Morning,0.77,19.01699,72.88669,True
+PT01419,46-60,Pune,False,1,Evening,0.5,18.48913,73.8863,True
+PT01420,31-45,Hyderabad,True,0,Morning,0.58,17.36332,78.46406,True
+PT01421,31-45,Pune,True,0,Evening,0.19,18.63264,73.81091,True
+PT01422,61-75,Mumbai,False,0,Evening,0.48,19.183,72.86521,True
+PT01423,76+,Pune,True,0,Morning,0.25,18.51885,73.76786,False
+PT01424,76+,Delhi NCR,False,0,Evening,0.66,28.69593,77.12126,False
+PT01425,31-45,Hyderabad,False,1,Afternoon,0.94,17.35884,78.42384,True
+PT01426,31-45,Pune,False,2,Afternoon,0.79,18.55978,73.76063,True
+PT01427,61-75,Hyderabad,False,3,Evening,0.46,17.44067,78.51415,False
+PT01428,46-60,Bengaluru,False,2,Afternoon,0.91,13.06531,77.67314,True
+PT01429,61-75,Delhi NCR,True,1,Afternoon,0.95,28.47057,77.21067,False
+PT01430,61-75,Mumbai,True,0,Evening,0.96,18.99544,72.85742,False
+PT01431,18-30,Bengaluru,True,0,Morning,0.54,12.98628,77.6325,True
+PT01432,76+,Pune,True,0,Evening,0.51,18.54497,73.78765,False
+PT01433,18-30,Hyderabad,False,0,Evening,0.55,17.4849,78.51799,True
+PT01434,46-60,Bengaluru,False,0,Morning,0.98,12.88857,77.69949,True
+PT01435,61-75,Hyderabad,False,3,Afternoon,0.64,17.43401,78.37686,False
+PT01436,46-60,Pune,False,0,Evening,0.59,18.45314,73.89427,True
+PT01437,46-60,Pune,True,0,Afternoon,0.52,18.54734,73.83735,True
+PT01438,61-75,Delhi NCR,False,1,Morning,0.78,28.69707,77.0254,False
+PT01439,76+,Mumbai,False,0,Afternoon,0.6,19.02476,72.8684,True
+PT01440,31-45,Hyderabad,True,1,Morning,0.6,17.42089,78.43514,True
+PT01441,76+,Bengaluru,False,5,Evening,0.14,12.89495,77.60188,False
+PT01442,46-60,Pune,True,0,Evening,0.84,18.54001,73.82106,True
+PT01443,18-30,Mumbai,False,2,Afternoon,0.36,18.95574,72.89069,True
+PT01444,76+,Bengaluru,False,3,Morning,0.59,12.99448,77.66936,False
+PT01445,18-30,Mumbai,True,0,Morning,0.37,19.05052,72.86163,True
+PT01446,61-75,Bengaluru,False,0,Afternoon,0.76,12.98654,77.57339,True
+PT01447,61-75,Hyderabad,False,1,Evening,0.75,17.41363,78.49098,False
+PT01448,61-75,Hyderabad,False,1,Afternoon,0.79,17.39631,78.4881,False
+PT01449,18-30,Pune,True,0,Afternoon,0.72,18.59626,73.94672,True
+PT01450,18-30,Pune,False,1,Afternoon,0.9,18.64673,73.90577,True
+PT01451,61-75,Mumbai,False,2,Morning,0.8,19.03948,72.81174,True
+PT01452,61-75,Hyderabad,False,1,Morning,0.56,17.31769,78.44449,True
+PT01453,31-45,Bengaluru,False,0,Afternoon,0.65,13.0901,77.51562,True
+PT01454,31-45,Pune,True,0,Morning,0.51,18.57674,73.90962,True
+PT01455,18-30,Bengaluru,True,1,Morning,0.72,12.92812,77.51055,True
+PT01456,61-75,Bengaluru,False,0,Evening,0.66,12.93589,77.65571,False
+PT01457,61-75,Bengaluru,True,0,Afternoon,0.82,12.97817,77.59385,True
+PT01458,31-45,Bengaluru,True,0,Morning,0.72,12.95525,77.69212,True
+PT01459,46-60,Pune,True,0,Evening,0.5,18.60964,73.80784,True
+PT01460,31-45,Pune,True,0,Morning,0.66,18.45707,73.93457,True
+PT01461,46-60,Mumbai,False,1,Morning,0.9,19.12483,72.90905,True
+PT01462,18-30,Mumbai,False,0,Evening,0.91,19.06911,72.80921,True
+PT01463,31-45,Bengaluru,False,2,Morning,0.54,12.96829,77.53382,True
+PT01464,31-45,Delhi NCR,False,0,Afternoon,0.44,28.41549,77.29711,True
+PT01465,46-60,Pune,False,1,Morning,0.7,18.61178,73.87486,True
+PT01466,31-45,Mumbai,False,3,Afternoon,0.61,18.98604,72.81238,True
+PT01467,31-45,Bengaluru,False,1,Afternoon,0.35,12.9764,77.67029,True
+PT01468,61-75,Hyderabad,False,3,Evening,0.6,17.35557,78.37651,False
+PT01469,31-45,Pune,False,2,Evening,0.65,18.62157,73.75284,True
+PT01470,46-60,Delhi NCR,False,0,Evening,0.36,28.43346,77.05238,True
+PT01471,46-60,Delhi NCR,True,1,Afternoon,0.79,28.57753,77.04534,True
+PT01472,76+,Mumbai,False,1,Evening,0.67,19.034,72.92118,False
+PT01473,61-75,Hyderabad,False,0,Morning,0.67,17.44015,78.44698,True
+PT01474,46-60,Mumbai,False,2,Afternoon,0.49,19.1586,72.85143,True
+PT01475,46-60,Mumbai,True,0,Morning,0.36,18.92532,72.82176,True
+PT01476,31-45,Delhi NCR,False,0,Afternoon,0.81,28.68018,77.04625,True
+PT01477,61-75,Hyderabad,True,5,Afternoon,0.8,17.39919,78.54872,True
+PT01478,18-30,Bengaluru,False,2,Afternoon,0.73,12.90949,77.58804,True
+PT01479,61-75,Mumbai,True,1,Evening,0.77,19.09127,72.83163,True
+PT01480,61-75,Mumbai,True,0,Evening,0.66,19.00352,72.89634,True
+PT01481,61-75,Mumbai,False,0,Morning,0.84,18.9348,72.82514,False
+PT01482,61-75,Mumbai,True,0,Evening,0.69,18.99041,72.91192,True
+PT01483,46-60,Pune,False,0,Evening,0.88,18.5565,73.82596,True
+PT01484,61-75,Pune,True,0,Afternoon,0.97,18.59112,73.84492,False
+PT01485,61-75,Pune,False,0,Evening,0.61,18.62406,73.75237,True
+PT01486,31-45,Delhi NCR,True,0,Morning,0.76,28.53465,77.20355,True
+PT01487,46-60,Delhi NCR,False,0,Morning,0.79,28.68853,77.20486,True
+PT01488,76+,Mumbai,False,4,Morning,0.71,18.91231,72.93766,False
+PT01489,61-75,Pune,False,0,Afternoon,0.63,18.64124,73.83636,True
+PT01490,61-75,Mumbai,True,5,Evening,0.52,19.15751,72.85025,False
+PT01491,46-60,Bengaluru,False,4,Morning,0.68,12.87457,77.63087,True
+PT01492,76+,Delhi NCR,False,0,Afternoon,0.56,28.51735,77.23195,True
+PT01493,18-30,Hyderabad,True,0,Evening,0.52,17.44686,78.46774,True
+PT01494,61-75,Pune,False,0,Morning,0.25,18.48899,73.81748,False
+PT01495,46-60,Mumbai,False,2,Afternoon,0.84,18.95397,72.88214,True
+PT01496,18-30,Delhi NCR,False,0,Afternoon,0.67,28.60184,77.24951,True
+PT01497,18-30,Pune,True,0,Morning,0.64,18.45239,73.76954,True
+PT01498,61-75,Mumbai,False,0,Evening,0.59,18.93117,72.86689,False
+PT01499,61-75,Hyderabad,False,1,Afternoon,0.54,17.35666,78.38862,False
+PT01500,61-75,Delhi NCR,False,2,Afternoon,0.82,28.42758,77.28155,False
+PT01501,18-30,Hyderabad,False,2,Afternoon,0.72,17.46709,78.5401,True
+PT01502,61-75,Mumbai,False,0,Evening,0.7,19.09142,72.90621,False
+PT01503,18-30,Mumbai,False,0,Afternoon,0.68,19.15693,72.81949,True
+PT01504,61-75,Bengaluru,True,0,Morning,0.88,13.0141,77.67998,False
+PT01505,61-75,Pune,True,0,Afternoon,0.63,18.64343,73.9292,False
+PT01506,61-75,Bengaluru,False,2,Morning,0.44,12.91333,77.59339,True
+PT01507,76+,Mumbai,False,0,Afternoon,0.18,19.09163,72.9384,False
+PT01508,46-60,Delhi NCR,True,1,Evening,0.54,28.5281,77.27102,True
+PT01509,76+,Hyderabad,False,1,Morning,0.6,17.45398,78.41468,False
+PT01510,31-45,Bengaluru,False,0,Afternoon,0.73,12.8685,77.65542,True
+PT01511,76+,Mumbai,False,0,Morning,0.92,19.01484,72.8499,False
+PT01512,31-45,Pune,False,2,Morning,0.41,18.64112,73.80293,True
+PT01513,46-60,Delhi NCR,False,2,Evening,0.72,28.53217,77.14752,True
+PT01514,31-45,Mumbai,False,1,Afternoon,0.66,19.17858,72.89155,True
+PT01515,61-75,Bengaluru,False,1,Afternoon,0.58,12.89461,77.59841,False
+PT01516,31-45,Mumbai,False,2,Morning,0.72,19.13061,72.83276,True
+PT01517,31-45,Mumbai,False,0,Evening,0.44,19.093,72.93689,True
+PT01518,18-30,Delhi NCR,True,3,Afternoon,0.71,28.61462,77.03099,True
+PT01519,46-60,Mumbai,False,2,Evening,0.87,18.92188,72.8857,True
+PT01520,76+,Pune,False,0,Morning,0.77,18.50012,73.83918,True
+PT01521,61-75,Mumbai,True,0,Afternoon,0.79,18.94466,72.89605,True
+PT01522,46-60,Delhi NCR,True,0,Evening,0.04,28.59938,77.07993,True
+PT01523,61-75,Bengaluru,True,2,Afternoon,0.92,13.02501,77.68092,False
+PT01524,76+,Bengaluru,False,0,Morning,0.71,12.97885,77.68798,False
+PT01525,76+,Delhi NCR,False,0,Evening,0.57,28.53082,77.25321,True
+PT01526,61-75,Mumbai,False,0,Morning,0.72,19.13561,72.88102,False
+PT01527,31-45,Bengaluru,False,0,Afternoon,0.61,13.08854,77.6636,True
+PT01528,76+,Hyderabad,False,0,Evening,0.89,17.39641,78.46345,True
+PT01529,18-30,Bengaluru,True,0,Afternoon,0.65,12.93973,77.63637,True
+PT01530,46-60,Pune,True,2,Afternoon,0.67,18.53012,73.87645,True
+PT01531,31-45,Bengaluru,False,2,Morning,0.84,13.08971,77.51813,True
+PT01532,76+,Pune,False,0,Morning,0.59,18.55693,73.94219,False
+PT01533,76+,Delhi NCR,False,1,Morning,0.66,28.53789,77.22995,False
+PT01534,76+,Delhi NCR,False,0,Evening,0.73,28.45299,77.0118,False
+PT01535,76+,Pune,True,1,Afternoon,0.32,18.4882,73.88918,True
+PT01536,46-60,Hyderabad,True,1,Afternoon,0.9,17.42612,78.42185,True
+PT01537,46-60,Pune,True,3,Evening,0.84,18.46697,73.87656,True
+PT01538,76+,Pune,True,1,Evening,0.84,18.59706,73.77799,False
+PT01539,76+,Mumbai,False,0,Evening,0.74,19.11592,72.88894,False
+PT01540,46-60,Mumbai,False,1,Morning,0.38,18.9189,72.88108,True
+PT01541,18-30,Mumbai,False,0,Evening,0.47,18.99232,72.88009,True
+PT01542,31-45,Mumbai,False,3,Afternoon,0.57,19.15028,72.8674,True
+PT01543,18-30,Bengaluru,False,5,Morning,0.91,13.09896,77.50741,True
+PT01544,76+,Pune,False,0,Afternoon,0.91,18.46121,73.90756,False
+PT01545,61-75,Mumbai,False,0,Afternoon,0.68,18.93546,72.92107,False
+PT01546,18-30,Mumbai,True,2,Morning,0.82,19.03751,72.90171,True
+PT01547,46-60,Bengaluru,False,2,Afternoon,0.59,13.06856,77.52979,True
+PT01548,31-45,Mumbai,False,0,Afternoon,0.94,19.0738,72.93872,True
+PT01549,61-75,Hyderabad,False,0,Afternoon,0.78,17.30738,78.37832,False
+PT01550,46-60,Delhi NCR,False,0,Morning,0.4,28.54137,77.27541,True
+PT01551,31-45,Pune,False,0,Evening,0.68,18.45916,73.89026,True
+PT01552,46-60,Mumbai,False,2,Afternoon,0.88,18.93916,72.82584,True
+PT01553,31-45,Delhi NCR,False,4,Morning,0.66,28.41499,77.0922,True
+PT01554,61-75,Bengaluru,True,1,Afternoon,0.34,13.04842,77.59124,False
+PT01555,18-30,Delhi NCR,True,1,Afternoon,0.91,28.57731,77.24534,True
+PT01556,18-30,Mumbai,True,1,Afternoon,0.77,18.9319,72.87457,True
+PT01557,76+,Hyderabad,False,2,Evening,0.7,17.45984,78.39411,True
+PT01558,18-30,Delhi NCR,False,2,Afternoon,0.76,28.52786,77.24346,True
+PT01559,61-75,Bengaluru,False,0,Afternoon,0.82,13.09555,77.63568,False
+PT01560,31-45,Bengaluru,False,3,Morning,0.46,13.09396,77.61519,True
+PT01561,31-45,Mumbai,True,0,Evening,0.98,18.9412,72.92546,True
+PT01562,31-45,Pune,False,0,Morning,0.7,18.60862,73.90285,True
+PT01563,31-45,Pune,False,0,Afternoon,0.8,18.56862,73.8171,True
+PT01564,61-75,Bengaluru,False,1,Afternoon,0.59,12.88019,77.52825,False
+PT01565,76+,Bengaluru,False,2,Morning,0.36,13.02407,77.61068,False
+PT01566,31-45,Delhi NCR,False,0,Evening,0.53,28.6777,77.01221,True
+PT01567,31-45,Bengaluru,False,0,Afternoon,0.58,12.87499,77.66947,True
+PT01568,61-75,Delhi NCR,True,0,Evening,0.8,28.58373,77.2333,False
+PT01569,46-60,Bengaluru,False,0,Morning,0.78,12.97174,77.50127,True
+PT01570,61-75,Bengaluru,False,0,Morning,0.41,12.89485,77.51783,False
+PT01571,18-30,Hyderabad,False,2,Afternoon,0.61,17.47738,78.43324,True
+PT01572,61-75,Delhi NCR,True,0,Morning,0.47,28.64222,77.23177,False
+PT01573,76+,Hyderabad,False,0,Morning,0.46,17.34123,78.47797,False
+PT01574,76+,Delhi NCR,False,0,Morning,0.71,28.52361,77.28143,False
+PT01575,31-45,Hyderabad,False,0,Evening,0.89,17.30752,78.386,True
+PT01576,31-45,Bengaluru,False,1,Evening,0.82,12.97497,77.69006,True
+PT01577,46-60,Pune,True,0,Afternoon,0.6,18.57544,73.90652,True
+PT01578,46-60,Bengaluru,False,1,Evening,0.87,12.93696,77.50091,True
+PT01579,31-45,Hyderabad,False,0,Morning,0.53,17.34713,78.3735,True
+PT01580,31-45,Pune,False,3,Morning,0.53,18.55604,73.76914,True
+PT01581,46-60,Bengaluru,True,0,Morning,0.94,12.94048,77.65223,True
+PT01582,18-30,Delhi NCR,False,1,Evening,0.85,28.56192,77.06578,True
+PT01583,31-45,Bengaluru,False,0,Afternoon,0.87,13.04258,77.63187,True
+PT01584,46-60,Bengaluru,False,3,Afternoon,0.54,12.91911,77.53874,True
+PT01585,46-60,Mumbai,True,1,Morning,0.75,19.13898,72.90279,True
+PT01586,46-60,Pune,True,0,Afternoon,0.8,18.64371,73.84488,True
+PT01587,46-60,Pune,True,0,Morning,0.92,18.48526,73.88403,True
+PT01588,61-75,Bengaluru,True,2,Morning,0.8,12.86078,77.62897,False
+PT01589,46-60,Hyderabad,False,2,Evening,0.63,17.38693,78.41686,True
+PT01590,46-60,Pune,True,1,Evening,0.62,18.61103,73.90168,True
+PT01591,46-60,Hyderabad,True,0,Evening,0.88,17.30866,78.49808,True
+PT01592,61-75,Bengaluru,False,2,Morning,0.39,13.08122,77.53518,True
+PT01593,61-75,Hyderabad,False,1,Morning,0.18,17.39701,78.37321,True
+PT01594,18-30,Hyderabad,False,0,Evening,0.66,17.44428,78.46854,True
+PT01595,31-45,Mumbai,True,0,Afternoon,0.71,18.99779,72.82981,True
+PT01596,18-30,Pune,False,1,Evening,0.47,18.58537,73.81514,True
+PT01597,46-60,Bengaluru,True,5,Morning,0.67,13.04474,77.56523,True
+PT01598,18-30,Delhi NCR,True,1,Evening,0.93,28.42942,77.22132,True
+PT01599,18-30,Pune,False,4,Evening,0.65,18.62398,73.82511,True
+PT01600,31-45,Delhi NCR,False,0,Evening,0.4,28.4662,77.1413,True
+PT01601,18-30,Hyderabad,False,0,Evening,0.81,17.39688,78.5281,True
+PT01602,31-45,Mumbai,False,2,Afternoon,0.76,18.94348,72.93918,True
+PT01603,61-75,Bengaluru,True,1,Morning,0.66,12.96375,77.57747,False
+PT01604,76+,Mumbai,False,1,Evening,0.3,19.11595,72.8948,True
+PT01605,46-60,Bengaluru,False,5,Morning,0.95,12.90055,77.52544,True
+PT01606,18-30,Pune,True,1,Afternoon,0.72,18.58844,73.76193,True
+PT01607,76+,Hyderabad,True,5,Morning,0.57,17.3273,78.52033,False
+PT01608,76+,Bengaluru,True,3,Evening,0.77,12.8928,77.56872,True
+PT01609,31-45,Hyderabad,True,0,Evening,0.94,17.42073,78.50791,True
+PT01610,18-30,Mumbai,False,0,Evening,0.72,19.0914,72.89173,True
+PT01611,46-60,Pune,False,1,Morning,0.43,18.48399,73.94403,True
+PT01612,76+,Pune,True,1,Afternoon,0.71,18.621,73.76729,True
+PT01613,31-45,Delhi NCR,False,1,Afternoon,0.95,28.54676,77.2987,True
+PT01614,46-60,Delhi NCR,False,0,Morning,0.85,28.57747,77.2511,True
+PT01615,46-60,Delhi NCR,False,0,Evening,0.5,28.48375,77.21901,True
+PT01616,76+,Hyderabad,False,0,Afternoon,0.62,17.44724,78.39933,False
+PT01617,46-60,Bengaluru,False,0,Evening,0.58,12.99487,77.67836,True
+PT01618,46-60,Mumbai,False,0,Afternoon,0.88,19.07753,72.82235,True
+PT01619,18-30,Bengaluru,True,2,Evening,0.91,12.99343,77.50102,True
+PT01620,18-30,Mumbai,False,0,Morning,0.78,19.19406,72.80601,True
+PT01621,18-30,Bengaluru,False,2,Evening,0.92,12.96766,77.65372,True
+PT01622,76+,Hyderabad,False,2,Morning,0.3,17.30672,78.45622,False
+PT01623,76+,Mumbai,False,0,Evening,0.5,19.13941,72.92319,False
+PT01624,76+,Bengaluru,False,0,Afternoon,0.76,12.91013,77.6117,False
+PT01625,46-60,Mumbai,False,1,Morning,0.82,19.11954,72.94249,True
+PT01626,46-60,Bengaluru,False,2,Morning,0.65,12.88318,77.55916,True
+PT01627,61-75,Mumbai,True,0,Evening,0.46,19.09429,72.81361,False
+PT01628,46-60,Delhi NCR,False,0,Morning,0.34,28.49145,77.21099,True
+PT01629,76+,Hyderabad,False,0,Evening,0.85,17.47158,78.49946,False
+PT01630,61-75,Pune,False,0,Evening,0.67,18.54097,73.90437,True
+PT01631,18-30,Bengaluru,False,2,Morning,0.73,12.95134,77.65797,True
+PT01632,18-30,Pune,True,0,Afternoon,0.62,18.52408,73.84286,True
+PT01633,46-60,Delhi NCR,False,2,Afternoon,0.63,28.59002,77.25811,True
+PT01634,61-75,Hyderabad,False,2,Morning,0.8,17.31414,78.52869,False
+PT01635,61-75,Mumbai,False,2,Morning,0.63,18.90981,72.86389,False
+PT01636,18-30,Mumbai,True,0,Afternoon,0.89,19.18383,72.88137,True
+PT01637,18-30,Hyderabad,False,1,Evening,0.49,17.4589,78.50754,True
+PT01638,31-45,Bengaluru,False,0,Afternoon,0.4,12.87024,77.67617,True
+PT01639,76+,Hyderabad,False,1,Evening,0.53,17.44715,78.36096,True
+PT01640,61-75,Bengaluru,False,1,Afternoon,0.46,13.01866,77.6776,False
+PT01641,31-45,Delhi NCR,False,1,Afternoon,0.43,28.50968,77.18574,True
+PT01642,31-45,Mumbai,False,4,Morning,0.76,19.00967,72.82629,True
+PT01643,76+,Bengaluru,False,0,Evening,0.56,12.9897,77.5134,True
+PT01644,61-75,Bengaluru,False,0,Morning,0.74,12.90118,77.69625,False
+PT01645,76+,Delhi NCR,False,1,Evening,0.34,28.43407,77.14355,True
+PT01646,18-30,Delhi NCR,False,5,Evening,0.37,28.57404,77.28773,True
+PT01647,76+,Mumbai,False,0,Afternoon,0.59,18.96294,72.91175,False
+PT01648,76+,Pune,False,1,Evening,0.9,18.52054,73.80347,False
+PT01649,31-45,Mumbai,False,0,Afternoon,0.54,18.98314,72.80951,True
+PT01650,46-60,Pune,False,0,Morning,0.39,18.51905,73.84725,True
+PT01651,31-45,Pune,False,2,Morning,0.26,18.55534,73.77454,True
+PT01652,18-30,Bengaluru,True,3,Afternoon,0.57,13.02746,77.63566,True
+PT01653,18-30,Bengaluru,False,0,Afternoon,0.78,12.98321,77.55845,True
+PT01654,46-60,Bengaluru,False,1,Morning,0.57,13.00524,77.65998,True
+PT01655,31-45,Bengaluru,False,1,Morning,0.66,13.08634,77.66176,True
+PT01656,61-75,Mumbai,False,0,Afternoon,0.79,19.18226,72.80984,True
+PT01657,61-75,Pune,False,0,Morning,0.75,18.54157,73.76603,True
+PT01658,31-45,Delhi NCR,False,0,Morning,0.6,28.48651,77.28699,True
+PT01659,61-75,Bengaluru,True,3,Morning,0.87,12.87734,77.55519,False
+PT01660,61-75,Mumbai,False,0,Evening,0.57,19.0489,72.93125,False
+PT01661,31-45,Mumbai,False,0,Evening,0.63,19.08818,72.84398,True
+PT01662,76+,Delhi NCR,True,0,Afternoon,0.38,28.69087,77.16243,False
+PT01663,18-30,Mumbai,False,0,Evening,0.59,19.00401,72.86658,True
+PT01664,61-75,Pune,False,0,Morning,0.54,18.57894,73.8083,False
+PT01665,31-45,Bengaluru,False,1,Afternoon,0.84,13.06795,77.54647,True
+PT01666,61-75,Hyderabad,False,1,Afternoon,0.46,17.48949,78.47893,False
+PT01667,46-60,Mumbai,False,0,Afternoon,0.65,19.00284,72.89691,True
+PT01668,18-30,Pune,False,1,Morning,0.77,18.51526,73.86867,True
+PT01669,31-45,Bengaluru,False,2,Morning,0.53,13.02422,77.66838,True
+PT01670,46-60,Delhi NCR,False,0,Morning,0.66,28.53358,77.09122,True
+PT01671,31-45,Bengaluru,False,0,Morning,0.63,12.88299,77.65787,True
+PT01672,76+,Hyderabad,False,0,Afternoon,0.54,17.33435,78.402,False
+PT01673,31-45,Mumbai,False,2,Morning,0.89,19.19122,72.91546,True
+PT01674,76+,Delhi NCR,False,0,Afternoon,0.66,28.4142,77.10594,False
+PT01675,76+,Bengaluru,False,1,Afternoon,0.61,12.89159,77.68483,True
+PT01676,18-30,Pune,True,2,Morning,0.59,18.50705,73.94464,True
+PT01677,31-45,Bengaluru,False,1,Afternoon,0.51,13.05983,77.63857,True
+PT01678,76+,Pune,False,0,Morning,0.82,18.58327,73.7807,False
+PT01679,31-45,Delhi NCR,False,2,Morning,0.48,28.41235,77.09499,True
+PT01680,18-30,Pune,False,1,Evening,0.93,18.47529,73.80208,True
+PT01681,46-60,Pune,False,0,Evening,0.91,18.4869,73.8625,True
+PT01682,76+,Mumbai,False,0,Afternoon,0.55,18.91041,72.84754,False
+PT01683,76+,Delhi NCR,True,0,Morning,0.7,28.51187,77.16196,False
+PT01684,61-75,Mumbai,False,0,Morning,0.64,18.99047,72.93807,False
+PT01685,46-60,Bengaluru,False,0,Afternoon,0.4,12.97485,77.52908,True
+PT01686,46-60,Pune,True,0,Evening,0.7,18.54161,73.81404,True
+PT01687,76+,Delhi NCR,True,0,Evening,0.55,28.40129,77.22155,True
+PT01688,76+,Delhi NCR,False,1,Evening,0.44,28.49938,77.21164,False
+PT01689,46-60,Mumbai,True,0,Afternoon,0.61,18.98695,72.9416,True
+PT01690,18-30,Pune,False,1,Morning,0.28,18.64614,73.86475,True
+PT01691,18-30,Bengaluru,False,0,Morning,0.74,12.88677,77.61305,True
+PT01692,31-45,Bengaluru,True,2,Morning,0.41,13.07672,77.58842,True
+PT01693,76+,Bengaluru,True,2,Afternoon,0.95,13.02229,77.64633,True
+PT01694,31-45,Bengaluru,False,4,Morning,0.39,12.88486,77.61019,True
+PT01695,18-30,Hyderabad,False,4,Evening,0.68,17.36162,78.43033,True
+PT01696,31-45,Mumbai,False,0,Evening,0.73,19.15226,72.8669,True
+PT01697,76+,Pune,False,3,Afternoon,0.83,18.4685,73.76101,False
+PT01698,46-60,Delhi NCR,False,1,Morning,0.74,28.57503,77.06664,True
+PT01699,76+,Delhi NCR,False,1,Afternoon,0.53,28.6807,77.08338,False
+PT01700,76+,Bengaluru,False,0,Evening,0.84,12.9846,77.58909,False
+PT01701,18-30,Mumbai,False,3,Afternoon,0.83,18.92621,72.87677,True
+PT01702,18-30,Delhi NCR,False,2,Morning,0.56,28.45834,77.09533,True
+PT01703,61-75,Hyderabad,False,1,Evening,0.53,17.42102,78.53868,True
+PT01704,61-75,Mumbai,False,5,Evening,0.68,19.00832,72.82219,True
+PT01705,31-45,Bengaluru,True,1,Evening,0.43,12.94241,77.57457,True
+PT01706,31-45,Mumbai,False,0,Morning,0.66,18.9854,72.8527,True
+PT01707,18-30,Bengaluru,False,0,Afternoon,0.44,13.09438,77.67486,True
+PT01708,31-45,Pune,False,0,Evening,0.28,18.46752,73.89557,True
+PT01709,46-60,Delhi NCR,False,0,Afternoon,0.86,28.53327,77.29778,True
+PT01710,18-30,Delhi NCR,True,1,Morning,0.57,28.64111,77.08659,True
+PT01711,76+,Mumbai,False,3,Afternoon,0.28,19.1417,72.94555,False
+PT01712,31-45,Bengaluru,False,1,Morning,0.4,13.07411,77.52791,True
+PT01713,31-45,Bengaluru,False,1,Morning,0.56,12.9968,77.51722,True
+PT01714,61-75,Delhi NCR,False,0,Evening,0.41,28.46234,77.14238,True
+PT01715,46-60,Delhi NCR,False,3,Morning,0.75,28.69599,77.01983,True
+PT01716,46-60,Pune,True,3,Evening,0.82,18.64202,73.90122,True
+PT01717,61-75,Hyderabad,False,2,Morning,0.32,17.31769,78.43189,True
+PT01718,31-45,Hyderabad,True,0,Morning,0.42,17.3829,78.46116,True
+PT01719,61-75,Bengaluru,True,2,Evening,0.86,13.02756,77.65105,False
+PT01720,18-30,Mumbai,False,2,Afternoon,0.94,18.9558,72.85727,True
+PT01721,18-30,Delhi NCR,False,0,Afternoon,0.7,28.56616,77.01267,True
+PT01722,31-45,Delhi NCR,False,0,Afternoon,0.59,28.64787,77.25038,True
+PT01723,18-30,Mumbai,True,2,Afternoon,0.84,18.99117,72.88389,True
+PT01724,46-60,Bengaluru,False,2,Afternoon,0.26,12.96586,77.50537,True
+PT01725,31-45,Hyderabad,True,0,Evening,0.85,17.30049,78.40254,True
+PT01726,76+,Mumbai,True,2,Morning,0.68,19.18681,72.92514,False
+PT01727,31-45,Mumbai,True,0,Morning,0.36,19.09614,72.9339,True
+PT01728,31-45,Bengaluru,True,0,Evening,0.78,12.95429,77.59838,True
+PT01729,18-30,Bengaluru,False,3,Morning,0.56,13.02196,77.54895,True
+PT01730,31-45,Mumbai,False,2,Evening,0.77,18.93581,72.84158,True
+PT01731,61-75,Delhi NCR,False,1,Morning,0.72,28.6983,77.02002,True
+PT01732,76+,Pune,False,0,Morning,0.81,18.56621,73.86311,True
+PT01733,76+,Delhi NCR,False,0,Morning,0.7,28.5884,77.14281,False
+PT01734,61-75,Bengaluru,False,4,Evening,0.84,12.8799,77.60251,False
+PT01735,31-45,Hyderabad,False,1,Morning,0.78,17.46906,78.38257,True
+PT01736,46-60,Hyderabad,False,0,Afternoon,0.83,17.3117,78.41394,True
+PT01737,18-30,Mumbai,True,0,Afternoon,0.76,19.1635,72.82032,True
+PT01738,76+,Hyderabad,True,0,Evening,0.77,17.33266,78.40453,False
+PT01739,31-45,Mumbai,False,0,Evening,0.79,19.17363,72.8534,True
+PT01740,18-30,Mumbai,False,2,Afternoon,0.1,18.98696,72.87944,True
+PT01741,61-75,Delhi NCR,False,1,Afternoon,0.66,28.6809,77.15416,True
+PT01742,46-60,Pune,False,0,Morning,0.79,18.48665,73.7689,True
+PT01743,18-30,Bengaluru,True,0,Morning,0.75,13.03816,77.60874,True
+PT01744,61-75,Hyderabad,True,0,Afternoon,0.87,17.47449,78.51536,False
+PT01745,76+,Bengaluru,False,1,Evening,0.6,12.92527,77.63709,False
+PT01746,61-75,Bengaluru,True,1,Morning,0.9,12.87396,77.61601,True
+PT01747,18-30,Delhi NCR,False,0,Evening,0.79,28.40387,77.15545,True
+PT01748,61-75,Mumbai,False,0,Evening,0.62,19.0119,72.87273,False
+PT01749,31-45,Bengaluru,False,0,Afternoon,0.6,13.0777,77.52048,True
+PT01750,61-75,Delhi NCR,False,3,Afternoon,0.72,28.44637,77.06633,False
+PT01751,31-45,Pune,True,0,Morning,0.73,18.62941,73.87269,True
+PT01752,18-30,Bengaluru,False,2,Afternoon,0.64,13.05785,77.60513,True
+PT01753,76+,Bengaluru,False,1,Evening,0.69,12.98302,77.61022,True
+PT01754,31-45,Bengaluru,False,0,Morning,0.38,12.87849,77.5921,True
+PT01755,76+,Pune,False,0,Afternoon,0.77,18.46528,73.91377,True
+PT01756,61-75,Hyderabad,False,0,Morning,0.75,17.3959,78.41231,False
+PT01757,61-75,Bengaluru,True,0,Afternoon,0.6,13.05426,77.67795,False
+PT01758,31-45,Delhi NCR,False,0,Morning,0.66,28.62908,77.10261,True
+PT01759,18-30,Hyderabad,False,1,Morning,0.57,17.44198,78.35575,True
+PT01760,31-45,Bengaluru,True,2,Morning,0.65,13.05364,77.54447,True
+PT01761,18-30,Mumbai,False,0,Evening,0.28,19.15704,72.82135,True
+PT01762,76+,Bengaluru,True,3,Evening,0.73,12.90664,77.52507,False
+PT01763,76+,Pune,False,5,Morning,0.88,18.46572,73.88816,True
+PT01764,76+,Delhi NCR,False,1,Evening,0.71,28.42332,77.23241,True
+PT01765,46-60,Delhi NCR,False,0,Morning,0.75,28.41276,77.03235,True
+PT01766,61-75,Hyderabad,False,1,Morning,0.95,17.45861,78.4527,False
+PT01767,46-60,Pune,False,0,Morning,0.94,18.47378,73.8006,True
+PT01768,18-30,Mumbai,False,0,Afternoon,0.55,18.91987,72.90014,True
+PT01769,76+,Mumbai,False,0,Afternoon,0.62,19.12637,72.91736,True
+PT01770,31-45,Bengaluru,True,1,Morning,0.82,12.90135,77.68023,True
+PT01771,31-45,Mumbai,False,3,Evening,0.8,18.95543,72.85273,True
+PT01772,18-30,Pune,False,0,Evening,0.81,18.46816,73.91917,True
+PT01773,61-75,Delhi NCR,False,1,Afternoon,0.75,28.68255,77.28464,False
+PT01774,61-75,Hyderabad,False,0,Morning,0.73,17.33211,78.45013,True
+PT01775,46-60,Hyderabad,False,0,Evening,0.84,17.34836,78.46405,True
+PT01776,31-45,Delhi NCR,False,1,Evening,0.94,28.42973,77.17344,True
+PT01777,61-75,Pune,True,5,Evening,0.69,18.4528,73.7934,False
+PT01778,46-60,Bengaluru,True,0,Morning,0.57,12.92046,77.68033,True
+PT01779,76+,Mumbai,False,2,Morning,0.86,19.06114,72.94604,False
+PT01780,46-60,Mumbai,False,3,Morning,0.49,18.9642,72.87563,True
+PT01781,46-60,Delhi NCR,False,3,Afternoon,0.79,28.61233,77.10994,True
+PT01782,31-45,Delhi NCR,True,0,Evening,0.65,28.57681,77.1319,True
+PT01783,18-30,Hyderabad,True,3,Afternoon,0.67,17.49155,78.38617,True
+PT01784,18-30,Pune,False,1,Evening,0.54,18.52096,73.82592,True
+PT01785,18-30,Mumbai,False,2,Evening,0.6,18.96428,72.83413,True
+PT01786,76+,Hyderabad,False,0,Morning,0.63,17.32257,78.54692,False
+PT01787,76+,Pune,False,0,Evening,0.71,18.47206,73.77718,True
+PT01788,76+,Mumbai,False,0,Evening,0.35,19.11142,72.88357,False
+PT01789,61-75,Bengaluru,False,0,Morning,0.52,12.93203,77.52314,False
+PT01790,76+,Pune,True,1,Afternoon,0.48,18.57008,73.8124,True
+PT01791,46-60,Delhi NCR,False,1,Afternoon,0.61,28.53319,77.16617,True
+PT01792,31-45,Delhi NCR,False,0,Evening,0.24,28.48718,77.25661,True
+PT01793,46-60,Hyderabad,False,1,Afternoon,0.96,17.33776,78.36392,True
+PT01794,61-75,Delhi NCR,False,0,Afternoon,0.57,28.65232,77.1427,False
+PT01795,46-60,Mumbai,True,0,Evening,0.57,18.95379,72.94981,True
+PT01796,31-45,Mumbai,False,3,Afternoon,0.78,19.04749,72.81578,True
+PT01797,31-45,Bengaluru,True,1,Evening,0.85,12.95951,77.63171,True
+PT01798,61-75,Pune,False,0,Afternoon,0.77,18.467,73.77867,False
+PT01799,61-75,Bengaluru,True,1,Morning,0.84,12.99764,77.52034,True
+PT01800,46-60,Hyderabad,False,2,Evening,0.46,17.49557,78.36294,True
+PT01801,61-75,Hyderabad,False,0,Afternoon,0.63,17.49504,78.41773,False
+PT01802,76+,Hyderabad,False,0,Afternoon,0.96,17.49813,78.37455,True
+PT01803,61-75,Delhi NCR,False,0,Evening,0.94,28.61756,77.08356,True
+PT01804,61-75,Delhi NCR,True,0,Afternoon,0.75,28.57458,77.08189,True
+PT01805,31-45,Delhi NCR,False,2,Evening,0.42,28.59315,77.12007,True
+PT01806,46-60,Delhi NCR,False,0,Afternoon,0.43,28.54275,77.18095,True
+PT01807,61-75,Delhi NCR,False,0,Morning,0.18,28.52133,77.14536,False
+PT01808,76+,Hyderabad,False,0,Evening,0.9,17.4536,78.37161,False
+PT01809,31-45,Mumbai,False,2,Evening,0.72,19.04918,72.89426,True
+PT01810,76+,Hyderabad,False,2,Morning,0.76,17.32692,78.36992,False
+PT01811,61-75,Mumbai,False,0,Afternoon,0.91,18.92047,72.90172,True
+PT01812,31-45,Delhi NCR,False,2,Evening,0.89,28.51479,77.20376,True
+PT01813,18-30,Hyderabad,True,1,Afternoon,0.64,17.33055,78.47439,True
+PT01814,31-45,Delhi NCR,True,0,Evening,0.79,28.4289,77.02296,True
+PT01815,18-30,Pune,False,0,Morning,0.86,18.60032,73.90351,True
+PT01816,46-60,Mumbai,False,1,Morning,0.51,19.13782,72.83029,True
+PT01817,61-75,Hyderabad,False,3,Afternoon,0.62,17.43242,78.44805,False
+PT01818,46-60,Pune,False,0,Morning,0.87,18.51872,73.92193,True
+PT01819,76+,Hyderabad,False,2,Afternoon,0.89,17.40932,78.54052,False
+PT01820,31-45,Hyderabad,False,1,Evening,0.82,17.38608,78.53299,True
+PT01821,76+,Pune,True,5,Morning,0.63,18.52673,73.81291,False
+PT01822,18-30,Bengaluru,False,0,Morning,0.52,12.96491,77.50657,True
+PT01823,18-30,Bengaluru,False,0,Evening,0.67,12.98917,77.67207,True
+PT01824,61-75,Bengaluru,False,0,Evening,0.48,12.92576,77.64121,False
+PT01825,18-30,Pune,True,1,Evening,0.8,18.4769,73.89314,True
+PT01826,18-30,Bengaluru,True,1,Evening,0.9,12.97186,77.52188,True
+PT01827,46-60,Hyderabad,False,2,Morning,0.9,17.435,78.48202,True
+PT01828,61-75,Pune,True,3,Morning,0.6,18.58707,73.86444,False
+PT01829,31-45,Delhi NCR,True,2,Afternoon,0.62,28.65631,77.15201,True
+PT01830,76+,Pune,True,1,Evening,0.17,18.52828,73.84894,True
+PT01831,46-60,Hyderabad,True,1,Evening,0.78,17.42339,78.42055,True
+PT01832,18-30,Hyderabad,True,0,Afternoon,0.61,17.49556,78.4141,True
+PT01833,61-75,Hyderabad,True,1,Morning,0.8,17.30563,78.35902,True
+PT01834,61-75,Pune,True,0,Evening,0.83,18.51978,73.89841,False
+PT01835,46-60,Pune,False,1,Evening,0.77,18.62827,73.81825,True
+PT01836,76+,Delhi NCR,False,2,Morning,0.76,28.42921,77.10354,False
+PT01837,61-75,Pune,False,0,Morning,0.81,18.52025,73.88225,False
+PT01838,18-30,Hyderabad,False,2,Evening,0.63,17.42962,78.46851,True
+PT01839,61-75,Delhi NCR,True,3,Morning,0.69,28.67312,77.01965,False
+PT01840,46-60,Delhi NCR,True,0,Morning,0.37,28.50128,77.00591,True
+PT01841,18-30,Delhi NCR,False,2,Evening,0.73,28.49784,77.13827,True
+PT01842,18-30,Hyderabad,True,0,Evening,0.58,17.47267,78.46361,True
+PT01843,46-60,Bengaluru,False,0,Morning,0.55,13.07535,77.55332,True
+PT01844,76+,Hyderabad,False,1,Evening,0.33,17.43919,78.4676,True
+PT01845,31-45,Delhi NCR,False,1,Morning,0.78,28.51332,77.11709,True
+PT01846,46-60,Bengaluru,False,1,Morning,0.7,12.99313,77.66167,True
+PT01847,18-30,Hyderabad,False,0,Morning,0.85,17.32001,78.48502,True
+PT01848,46-60,Mumbai,False,3,Afternoon,0.75,19.00079,72.87542,True
+PT01849,18-30,Bengaluru,False,0,Afternoon,0.77,13.04123,77.56791,True
+PT01850,46-60,Hyderabad,False,1,Evening,0.8,17.42297,78.42267,True
+PT01851,76+,Hyderabad,False,0,Afternoon,0.73,17.3872,78.44939,True
+PT01852,18-30,Hyderabad,False,0,Evening,0.92,17.45743,78.51808,True
+PT01853,31-45,Bengaluru,True,1,Afternoon,0.35,12.98396,77.55747,True
+PT01854,31-45,Bengaluru,False,0,Afternoon,0.36,12.86188,77.69925,True
+PT01855,31-45,Delhi NCR,False,0,Morning,0.38,28.52061,77.06777,True
+PT01856,61-75,Pune,True,0,Evening,0.7,18.59858,73.76839,True
+PT01857,31-45,Hyderabad,False,1,Morning,0.52,17.31895,78.41737,True
+PT01858,31-45,Hyderabad,True,0,Afternoon,0.46,17.31345,78.51024,True
+PT01859,18-30,Delhi NCR,False,0,Morning,0.33,28.54258,77.06292,True
+PT01860,46-60,Delhi NCR,True,1,Afternoon,0.95,28.6387,77.19546,True
+PT01861,31-45,Bengaluru,False,0,Morning,0.71,12.92546,77.66083,True
+PT01862,31-45,Delhi NCR,False,1,Evening,0.28,28.52987,77.16198,True
+PT01863,46-60,Bengaluru,False,0,Morning,0.91,12.90002,77.58046,True
+PT01864,76+,Delhi NCR,False,2,Morning,0.16,28.58749,77.13597,True
+PT01865,46-60,Bengaluru,False,0,Evening,0.88,12.89515,77.50372,True
+PT01866,76+,Delhi NCR,False,1,Evening,0.9,28.611,77.25881,False
+PT01867,61-75,Mumbai,False,0,Afternoon,0.77,18.96389,72.94432,True
+PT01868,18-30,Mumbai,False,1,Morning,0.52,19.04019,72.94057,True
+PT01869,46-60,Bengaluru,True,0,Evening,0.42,12.98318,77.62288,True
+PT01870,18-30,Hyderabad,False,0,Evening,0.79,17.45382,78.43674,True
+PT01871,46-60,Delhi NCR,False,4,Morning,0.88,28.56983,77.18803,True
+PT01872,18-30,Bengaluru,False,0,Afternoon,0.61,12.98057,77.57285,True
+PT01873,76+,Bengaluru,True,0,Afternoon,0.94,12.88694,77.53009,False
+PT01874,61-75,Hyderabad,True,0,Evening,0.67,17.36006,78.43708,False
+PT01875,46-60,Hyderabad,False,2,Afternoon,0.47,17.46604,78.36289,True
+PT01876,18-30,Mumbai,True,0,Afternoon,0.69,18.96107,72.86187,True
+PT01877,18-30,Pune,False,0,Morning,0.61,18.61474,73.87921,True
+PT01878,31-45,Mumbai,False,2,Morning,0.33,18.97693,72.89018,True
+PT01879,76+,Hyderabad,False,0,Evening,0.64,17.38117,78.37271,False
+PT01880,76+,Bengaluru,False,2,Evening,0.42,12.9114,77.66545,False
+PT01881,76+,Mumbai,True,0,Evening,0.82,19.06795,72.86542,False
+PT01882,31-45,Pune,False,0,Morning,0.9,18.4574,73.78187,True
+PT01883,18-30,Delhi NCR,False,1,Afternoon,0.93,28.44093,77.07752,True
+PT01884,46-60,Mumbai,True,0,Evening,0.66,19.14106,72.8988,True
+PT01885,18-30,Delhi NCR,False,1,Evening,0.68,28.4528,77.25576,True
+PT01886,18-30,Hyderabad,False,0,Evening,0.87,17.49276,78.44717,True
+PT01887,61-75,Pune,True,0,Evening,0.63,18.45398,73.92192,False
+PT01888,76+,Mumbai,True,2,Afternoon,0.85,19.08048,72.93008,True
+PT01889,46-60,Bengaluru,False,0,Evening,0.51,12.95175,77.57269,True
+PT01890,31-45,Hyderabad,False,0,Morning,0.83,17.43149,78.36806,True
+PT01891,46-60,Bengaluru,True,0,Afternoon,0.51,13.08579,77.64485,True
+PT01892,46-60,Hyderabad,False,0,Morning,0.6,17.32811,78.37239,True
+PT01893,31-45,Bengaluru,True,0,Evening,0.89,13.03362,77.68659,True
+PT01894,31-45,Bengaluru,True,0,Evening,0.38,12.98049,77.6658,True
+PT01895,18-30,Pune,True,0,Morning,0.52,18.63993,73.93631,True
+PT01896,61-75,Pune,False,1,Afternoon,0.85,18.50036,73.92691,False
+PT01897,18-30,Pune,False,0,Evening,0.33,18.47446,73.91134,True
+PT01898,18-30,Delhi NCR,True,0,Evening,0.62,28.49879,77.1753,True
+PT01899,18-30,Mumbai,False,0,Afternoon,0.73,19.01699,72.91226,True
+PT01900,61-75,Pune,False,0,Morning,0.62,18.49719,73.83457,False
+PT01901,46-60,Hyderabad,False,0,Afternoon,0.77,17.33503,78.54398,True
+PT01902,31-45,Hyderabad,False,2,Morning,0.79,17.3879,78.40086,True
+PT01903,61-75,Mumbai,False,2,Morning,0.61,19.07684,72.87355,False
+PT01904,46-60,Hyderabad,False,1,Afternoon,0.72,17.48974,78.4133,True
+PT01905,18-30,Hyderabad,False,3,Evening,0.89,17.38476,78.48655,True
+PT01906,18-30,Hyderabad,False,0,Afternoon,0.67,17.49266,78.52589,True
+PT01907,46-60,Pune,False,0,Morning,0.86,18.63739,73.8226,True
+PT01908,31-45,Bengaluru,False,0,Morning,0.52,13.02892,77.66427,True
+PT01909,18-30,Delhi NCR,False,0,Afternoon,0.48,28.40632,77.29004,True
+PT01910,46-60,Pune,False,1,Afternoon,0.5,18.57116,73.91829,True
+PT01911,46-60,Mumbai,False,1,Morning,0.7,19.09867,72.94113,True
+PT01912,61-75,Bengaluru,False,2,Afternoon,0.59,13.02267,77.65776,False
+PT01913,46-60,Hyderabad,True,1,Afternoon,0.76,17.41055,78.41185,True
+PT01914,61-75,Pune,False,0,Afternoon,0.69,18.6417,73.82257,True
+PT01915,31-45,Mumbai,False,5,Evening,0.85,18.93662,72.93004,True
+PT01916,18-30,Delhi NCR,False,2,Evening,0.76,28.65729,77.11654,True
+PT01917,46-60,Delhi NCR,True,0,Morning,0.56,28.67294,77.11789,True
+PT01918,18-30,Bengaluru,False,0,Evening,0.73,13.0945,77.55111,True
+PT01919,18-30,Bengaluru,False,0,Evening,0.62,12.87256,77.66454,True
+PT01920,46-60,Mumbai,False,0,Evening,0.56,18.97064,72.83156,True
+PT01921,18-30,Bengaluru,False,1,Evening,0.8,13.07256,77.68318,True
+PT01922,61-75,Pune,False,0,Evening,0.69,18.57627,73.92589,True
+PT01923,46-60,Bengaluru,False,0,Morning,0.65,12.95157,77.50678,True
+PT01924,46-60,Delhi NCR,False,0,Evening,0.93,28.65993,77.24696,True
+PT01925,31-45,Bengaluru,False,0,Evening,0.48,13.08512,77.59422,True
+PT01926,61-75,Hyderabad,False,3,Evening,0.65,17.38259,78.51823,True
+PT01927,31-45,Hyderabad,False,0,Morning,0.65,17.47535,78.51405,True
+PT01928,31-45,Delhi NCR,False,0,Afternoon,0.7,28.64732,77.20954,True
+PT01929,31-45,Pune,True,0,Evening,0.62,18.55127,73.82037,True
+PT01930,31-45,Delhi NCR,True,1,Morning,0.72,28.58063,77.24403,True
+PT01931,18-30,Hyderabad,False,0,Morning,0.67,17.44756,78.44065,True
+PT01932,31-45,Mumbai,False,2,Morning,0.39,18.90821,72.80781,True
+PT01933,76+,Hyderabad,False,1,Morning,0.74,17.42832,78.47603,True
+PT01934,46-60,Hyderabad,False,1,Afternoon,0.81,17.32722,78.43013,True
+PT01935,31-45,Mumbai,False,0,Evening,0.51,19.08849,72.84706,True
+PT01936,46-60,Hyderabad,False,5,Evening,0.6,17.31645,78.38156,True
+PT01937,31-45,Delhi NCR,False,2,Afternoon,0.61,28.55491,77.2909,True
+PT01938,61-75,Mumbai,True,0,Evening,0.54,19.14919,72.91447,True
+PT01939,31-45,Bengaluru,False,0,Afternoon,0.67,13.02144,77.65853,True
+PT01940,31-45,Bengaluru,False,1,Morning,0.61,12.92985,77.59567,True
+PT01941,61-75,Mumbai,False,2,Evening,0.9,19.12055,72.8391,False
+PT01942,18-30,Delhi NCR,False,2,Evening,0.36,28.64803,77.23986,True
+PT01943,46-60,Bengaluru,True,0,Evening,0.94,12.89967,77.5829,True
+PT01944,61-75,Hyderabad,False,0,Evening,0.68,17.33638,78.52528,True
+PT01945,18-30,Mumbai,True,0,Morning,0.95,19.1653,72.83367,True
+PT01946,18-30,Mumbai,False,1,Morning,0.7,19.18443,72.93847,True
+PT01947,76+,Pune,False,1,Evening,0.68,18.57942,73.87533,True
+PT01948,31-45,Pune,False,0,Afternoon,0.59,18.64483,73.78965,True
+PT01949,61-75,Delhi NCR,False,2,Evening,0.66,28.61038,77.05063,False
+PT01950,31-45,Hyderabad,False,2,Evening,0.68,17.38578,78.40203,True
+PT01951,46-60,Mumbai,True,0,Evening,0.65,18.92672,72.85519,True
+PT01952,18-30,Mumbai,True,0,Morning,0.69,19.18417,72.8176,True
+PT01953,46-60,Hyderabad,False,0,Afternoon,0.99,17.44372,78.43703,True
+PT01954,61-75,Delhi NCR,False,1,Evening,0.84,28.676,77.13611,False
+PT01955,46-60,Bengaluru,False,0,Morning,0.68,12.87963,77.64271,True
+PT01956,61-75,Mumbai,True,1,Evening,0.67,18.95716,72.92929,True
+PT01957,18-30,Bengaluru,False,0,Evening,0.61,12.92199,77.59883,True
+PT01958,46-60,Hyderabad,False,0,Morning,0.74,17.32604,78.52127,True
+PT01959,31-45,Pune,False,0,Morning,0.77,18.57002,73.94904,True
+PT01960,61-75,Delhi NCR,False,0,Afternoon,0.45,28.48489,77.20316,False
+PT01961,31-45,Delhi NCR,False,0,Morning,0.91,28.52256,77.04378,True
+PT01962,31-45,Hyderabad,True,1,Evening,0.65,17.35804,78.40236,True
+PT01963,18-30,Hyderabad,False,0,Evening,0.85,17.42354,78.53147,True
+PT01964,31-45,Hyderabad,False,1,Evening,0.79,17.37393,78.48685,True
+PT01965,76+,Hyderabad,False,2,Afternoon,0.31,17.39163,78.35206,False
+PT01966,31-45,Bengaluru,False,0,Morning,0.77,12.93081,77.6386,True
+PT01967,46-60,Pune,False,0,Morning,0.69,18.58737,73.89267,True
+PT01968,18-30,Mumbai,False,0,Morning,0.86,19.11254,72.91042,True
+PT01969,31-45,Bengaluru,True,0,Afternoon,0.68,12.91406,77.51906,True
+PT01970,46-60,Hyderabad,False,0,Evening,0.77,17.31175,78.41657,True
+PT01971,76+,Hyderabad,True,2,Morning,0.69,17.34697,78.53165,True
+PT01972,61-75,Mumbai,True,0,Morning,0.45,19.1818,72.94508,False
+PT01973,18-30,Mumbai,True,1,Afternoon,0.76,19.12447,72.80683,True
+PT01974,61-75,Hyderabad,False,0,Evening,0.78,17.35073,78.47393,False
+PT01975,18-30,Hyderabad,False,2,Evening,0.81,17.37894,78.42418,True
+PT01976,76+,Bengaluru,True,0,Evening,0.46,13.09201,77.61191,False
+PT01977,46-60,Mumbai,False,0,Afternoon,0.76,18.97809,72.87556,True
+PT01978,46-60,Bengaluru,True,2,Evening,0.75,13.08258,77.67558,True
+PT01979,31-45,Mumbai,True,2,Evening,0.79,18.93958,72.8476,True
+PT01980,31-45,Mumbai,False,5,Morning,0.71,19.05913,72.82127,True
+PT01981,61-75,Mumbai,False,0,Evening,0.79,18.93505,72.80662,False
+PT01982,46-60,Delhi NCR,True,0,Morning,0.39,28.6615,77.25044,True
+PT01983,18-30,Mumbai,True,0,Morning,0.41,19.12435,72.93894,True
+PT01984,18-30,Bengaluru,False,2,Morning,0.57,12.92073,77.67539,True
+PT01985,61-75,Delhi NCR,False,3,Evening,0.87,28.58388,77.22847,False
+PT01986,61-75,Delhi NCR,False,1,Afternoon,0.41,28.4939,77.2678,False
+PT01987,18-30,Pune,False,3,Evening,0.59,18.64891,73.90274,True
+PT01988,31-45,Delhi NCR,False,0,Morning,0.88,28.44538,77.25591,True
+PT01989,46-60,Pune,False,2,Evening,0.58,18.58148,73.90964,True
+PT01990,61-75,Mumbai,False,4,Afternoon,0.9,18.91597,72.82229,False
+PT01991,61-75,Hyderabad,True,0,Evening,0.66,17.30717,78.40204,True
+PT01992,18-30,Pune,False,1,Afternoon,0.51,18.53729,73.94904,True
+PT01993,18-30,Hyderabad,False,0,Evening,0.51,17.48544,78.35816,True
+PT01994,18-30,Pune,True,3,Morning,0.57,18.5213,73.89181,True
+PT01995,61-75,Mumbai,True,0,Afternoon,0.37,19.04556,72.87395,True
+PT01996,61-75,Mumbai,False,0,Evening,0.83,19.16006,72.81855,False
+PT01997,18-30,Delhi NCR,False,3,Evening,0.68,28.66045,77.0542,True
+PT01998,46-60,Hyderabad,False,0,Evening,0.57,17.33366,78.45175,True
+PT01999,61-75,Pune,True,2,Evening,0.79,18.50456,73.92818,False
+PT02000,61-75,Pune,False,0,Morning,0.74,18.56671,73.94433,False

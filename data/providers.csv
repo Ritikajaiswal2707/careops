@@ -1,0 +1,21 @@
+provider_id,specialization,area,daily_capacity,employment_type
+PR001,General Nursing,Bengaluru,6,Contractual
+PR002,Physiotherapy,Mumbai,5,Contractual
+PR003,General Nursing,Hyderabad,4,Contractual
+PR004,Diabetic Care,Pune,4,Contractual
+PR005,General Nursing,Bengaluru,5,Full-time
+PR006,Physiotherapy,Hyderabad,8,Full-time
+PR007,General Nursing,Hyderabad,5,Full-time
+PR008,Diabetic Care,Pune,5,Contractual
+PR009,Post-Surgery Care,Hyderabad,6,Contractual
+PR010,General Nursing,Mumbai,7,Contractual
+PR011,Elder Care,Delhi NCR,5,Contractual
+PR012,Physiotherapy,Delhi NCR,4,Contractual
+PR013,General Nursing,Pune,4,Contractual
+PR014,Elder Care,Delhi NCR,8,Contractual
+PR015,Elder Care,Bengaluru,7,Contractual
+PR016,Diabetic Care,Bengaluru,7,Contractual
+PR017,General Nursing,Hyderabad,6,Contractual
+PR018,Diabetic Care,Delhi NCR,8,Contractual
+PR019,Physiotherapy,Bengaluru,4,Full-time
+PR020,Physiotherapy,Delhi NCR,4,Contractual
