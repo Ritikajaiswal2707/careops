@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Today's Care Operations</title>
+<style>
+:root{
+  --bg:#f6f7f5; --card:#ffffff; --ink:#1c2521; --sub:#5b665f; --line:#e1e6e0;
+  --high:#c0392b; --high-bg:#fdecea; --med:#b8860b; --med-bg:#fff8e6; --ok:#1f7a4d; --ok-bg:#e9f7ef;
+  --accent:#2f6b4f;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12140f; --card:#1b1f19; --ink:#eef1ea; --sub:#a3aca0; --line:#2b322b;
+    --high:#ff6b5e; --high-bg:#33201d; --med:#e0b23d; --med-bg:#332c15; --ok:#5fcf95; --ok-bg:#16261e;
+    --accent:#6fce9d;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12140f; --card:#1b1f19; --ink:#eef1ea; --sub:#a3aca0; --line:#2b322b;
+  --high:#ff6b5e; --high-bg:#33201d; --med:#e0b23d; --med-bg:#332c15; --ok:#5fcf95; --ok-bg:#16261e;
+  --accent:#6fce9d;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  min-height:100%;
+}
+.wrap{max-width:760px; margin:0 auto; padding:24px 16px 60px;}
+header h1{font-size:1.4rem; margin:0 0 2px;}
+header p{margin:0; color:var(--sub); font-size:.9rem;}
+.summary{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:20px 0 24px;}
+.pill{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 8px; text-align:center;}
+.pill .num{font-size:1.4rem; font-weight:700;}
+.pill .lbl{font-size:.72rem; color:var(--sub); margin-top:2px;}
+.pill.high .num{color:var(--high);} .pill.med .num{color:var(--med);} .pill.ok .num{color:var(--ok);}
+.tabs{display:flex; gap:8px; margin-bottom:14px; overflow-x:auto;}
+.tab{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:7px 14px; border-radius:999px; font-size:.82rem; cursor:pointer; white-space:nowrap;}
+.tab.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+.card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-bottom:10px;}
+.card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
+.meta{font-size:.78rem; color:var(--sub);}
+.badge{font-size:.7rem; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap;}
+.badge.High{background:var(--high-bg); color:var(--high);}
+.badge.Medium{background:var(--med-bg); color:var(--med);}
+.reasons{margin:8px 0 10px; font-size:.83rem; color:var(--ink);}
+.reasons span{display:inline-block; background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:3px 8px; margin:2px 4px 0 0; font-size:.76rem; color:var(--sub);}
+.action-row{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:6px;}
+.action{font-size:.83rem;}
+.action b{color:var(--ink);}
+button.approve{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:7px 14px; font-size:.8rem; cursor:pointer;}
+button.approve.done{background:var(--ok-bg); color:var(--ok); cursor:default;}
+.note{color:var(--sub); font-size:.75rem; margin-top:22px; line-height:1.5; border-top:1px solid var(--line); padding-top:14px;}
+.empty{color:var(--sub); font-size:.85rem; text-align:center; padding:30px 0;}
+.cascade-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:14px;}
+.cascade-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+.cascade-head b{font-size:.95rem;}
+.chip{font-size:.7rem; padding:3px 9px; border-radius:999px; font-weight:700;}
+.chip.ok{background:var(--ok-bg); color:var(--ok);}
+.chip.gap{background:var(--high-bg); color:var(--high);}
+.flow{display:flex; flex-direction:column; gap:6px; font-size:.85rem; margin:8px 0;}
+.flow .step{display:flex; gap:8px; align-items:flex-start;}
+.flow .dot{width:8px; height:8px; border-radius:50%; background:var(--sub); margin-top:6px; flex-shrink:0;}
+.flow .step.problem .dot{background:var(--high);}
+.flow .step.fix .dot{background:var(--ok);}
+.tag-inline{font-size:.72rem; background:var(--bg); border:1px solid var(--line); padding:2px 7px; border-radius:7px; color:var(--sub); margin-left:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Today's Care Operations</h1>
+    <p id="dateline"></p>
+  </header>
+
+  <div class="summary">
+    <div class="pill"><div class="num" id="s-total">-</div><div class="lbl">Total visits</div></div>
+    <div class="pill ok"><div class="num" id="s-ok">-</div><div class="lbl">On track</div></div>
+    <div class="pill med"><div class="num" id="s-med">-</div><div class="lbl">Need attention</div></div>
+    <div class="pill high"><div class="num" id="s-high">-</div><div class="lbl">High risk</div></div>
+  </div>
+
+  <div class="tabs" id="view-tabs">
+    <div class="tab active" data-v="risk">Risk dashboard</div>
+    <div class="tab" data-v="cascade">Delay &amp; cascade</div>
+  </div>
+
+  <div id="risk-view">
+    <div class="tabs">
+      <div class="tab active" data-f="all">All flagged</div>
+      <div class="tab" data-f="High">High risk</div>
+      <div class="tab" data-f="Medium">Medium</div>
+    </div>
+
+    <div id="list"></div>
+
+    <div class="note">
+      Risk tiers are capacity-aware, not a fixed probability cutoff: top ~10% of today's visits by predicted disruption risk are flagged High, next ~20% Medium — so the list stays reviewable in a coordinator's day rather than growing with the model's raw sensitivity. Predictions and reasons are model output (logistic regression on 6 features); recommended actions are rule-based, not yet AI-generated. This is one representative simulated day, not a cherry-picked best case — tier accuracy is directionally reliable in aggregate but noisy on any single day given current model strength.<br><br>
+      <b>Known limitation:</b> the model currently over-indexes on first-time-patient status (it dominates most High-risk flags). New patients do disrupt more often in this data, but flagging them almost by default risks blanket extra scrutiny for a group where most individuals were never going to no-show. Before any production use, this would need feature rebalancing and a fairness review — not something to paper over with a better-looking demo. All data is simulated for portfolio purposes.
+    </div>
+  </div>
+
+  <div id="cascade-view" style="display:none"></div>
+</div>
+
+<script>
+const DATA = {"today": "2026-08-29", "summary": {"total": 95, "high": 0, "medium": 31, "low": 64}, "flagged": [{"id": "APT004512", "time": "Evening", "service": "Wound Dressing", "risk": 0.45, "tier": "Medium", "reasons": ["3 prior no-shows before this visit", "14.6km from clinician", "Evening slot"], "action": "Call to confirm 24h ahead"}, {"id": "APT006955", "time": "Evening", "service": "Post-Op Care", "risk": 0.43, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "21.9km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT002040", "time": "Afternoon", "service": "Wound Dressing", "risk": 0.41, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "Low message response rate so far", "23.8km from clinician"], "action": "Send confirmation + backup contact request"}, {"id": "APT007922", "time": "Evening", "service": "Diabetic Care Visit", "risk": 0.39, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "15.1km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT009386", "time": "Evening", "service": "Nursing Visit", "risk": 0.38, "tier": "Medium", "reasons": ["23.3km from clinician", "Evening slot"], "action": "Patient confirmed \u2014 no action needed", "patientSignal": {"channel": "WhatsApp", "message": "Ok confirmed", "intent": "Confirm", "preferred_day": null, "urgency": "Low", "reason": null}}, {"id": "APT004397", "time": "Evening", "service": "Nursing Visit", "risk": 0.37, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "13.3km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT007368", "time": "Afternoon", "service": "Post-Op Care", "risk": 0.37, "tier": "Medium", "reasons": ["3 prior no-shows before this visit"], "action": "Call to confirm 24h ahead"}, {"id": "APT009378", "time": "Afternoon", "service": "Diabetic Care Visit", "risk": 0.36, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "16.7km from clinician"], "action": "Send confirmation + backup contact request"}, {"id": "APT002495", "time": "Evening", "service": "Wound Dressing", "risk": 0.35, "tier": "Medium", "reasons": ["17.3km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT004846", "time": "Evening", "service": "Post-Op Care", "risk": 0.35, "tier": "Medium", "reasons": ["Low message response rate so far", "24.8km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT007653", "time": "Morning", "service": "Wound Dressing", "risk": 0.34, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "16.3km from clinician"], "action": "Send confirmation + backup contact request"}, {"id": "APT001903", "time": "Evening", "service": "Nursing Visit", "risk": 0.34, "tier": "Medium", "reasons": ["17.7km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT007546", "time": "Afternoon", "service": "Physiotherapy Session", "risk": 0.34, "tier": "Medium", "reasons": ["24.8km from clinician"], "action": "Send confirmation + backup contact request"}, {"id": "APT009737", "time": "Morning", "service": "Wound Dressing", "risk": 0.34, "tier": "Medium", "reasons": ["24.4km from clinician"], "action": "Agent proposed: move to 2026-08-30 with PR002 \u2014 awaiting confirmation", "patientSignal": {"channel": "WhatsApp", "message": "Doctor visit hai usi din, reschedule possible?", "intent": "Reschedule", "preferred_day": null, "urgency": "Medium", "reason": "Conflicting doctor visit"}, "agentTrace": ["Patient (PT00275, Mumbai): \"Doctor visit hai usi din, reschedule possible?\"", "Extracted: intent=Reschedule, preferred_day=None, urgency=Medium, reason=Conflicting doctor visit", "Checked availability.csv for 2026-08-30: 1 provider(s) in Mumbai available with spare capacity.", "Proposed: move to 2026-08-30 with PR002 (5 slots free that day).", "Awaiting patient confirmation \u2014 not written to appointments.csv (no live booking system to write to in this environment)."], "rescheduleProposal": {"new_date": "2026-08-30", "provider_id": "PR002", "area": "Mumbai", "remaining_capacity": 5}}, {"id": "APT000881", "time": "Morning", "service": "Nursing Visit", "risk": 0.34, "tier": "Medium", "reasons": ["22.5km from clinician"], "action": "Patient confirmed \u2014 no action needed", "patientSignal": {"channel": "Call", "message": "Haan theek hai, confirm kar do", "intent": "Confirm", "preferred_day": null, "urgency": "Low", "reason": null}}, {"id": "APT006706", "time": "Evening", "service": "Physiotherapy Session", "risk": 0.34, "tier": "Medium", "reasons": ["15.4km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT006709", "time": "Afternoon", "service": "Wound Dressing", "risk": 0.34, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "13.7km from clinician"], "action": "Agent proposed: move to 2026-08-30 with PR006 \u2014 awaiting confirmation", "patientSignal": {"channel": "WhatsApp", "message": "Can we move to next week?", "intent": "Reschedule", "preferred_day": null, "urgency": "Medium", "reason": null}, "agentTrace": ["Patient (PT01801, Hyderabad): \"Can we move to next week?\"", "Extracted: intent=Reschedule, preferred_day=None, urgency=Medium, reason=None", "Checked availability.csv for 2026-08-30: 3 provider(s) in Hyderabad available with spare capacity.", "Proposed: move to 2026-08-30 with PR006 (8 slots free that day).", "Awaiting patient confirmation \u2014 not written to appointments.csv (no live booking system to write to in this environment)."], "rescheduleProposal": {"new_date": "2026-08-30", "provider_id": "PR006", "area": "Hyderabad", "remaining_capacity": 8}}, {"id": "APT005092", "time": "Afternoon", "service": "Post-Op Care", "risk": 0.33, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "15.0km from clinician"], "action": "Patient confirmed \u2014 no action needed", "patientSignal": {"channel": "WhatsApp", "message": "Yes that works, see you then", "intent": "Confirm", "preferred_day": null, "urgency": "Low", "reason": null}}, {"id": "APT003376", "time": "Morning", "service": "Physiotherapy Session", "risk": 0.33, "tier": "Medium", "reasons": ["22.9km from clinician"], "action": "Send confirmation + backup contact request"}, {"id": "APT002887", "time": "Evening", "service": "Diabetic Care Visit", "risk": 0.33, "tier": "Medium", "reasons": ["16.1km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT005630", "time": "Afternoon", "service": "Diabetic Care Visit", "risk": 0.33, "tier": "Medium", "reasons": ["21.9km from clinician"], "action": "Send confirmation + backup contact request"}, {"id": "APT009344", "time": "Afternoon", "service": "Nursing Visit", "risk": 0.33, "tier": "Medium", "reasons": ["20.6km from clinician"], "action": "Send confirmation + backup contact request"}, {"id": "APT001071", "time": "Evening", "service": "Physiotherapy Session", "risk": 0.32, "tier": "Medium", "reasons": ["23.6km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT000204", "time": "Morning", "service": "Wound Dressing", "risk": 0.32, "tier": "Medium", "reasons": ["21.2km from clinician"], "action": "Send confirmation + backup contact request"}, {"id": "APT009883", "time": "Evening", "service": "Physiotherapy Session", "risk": 0.32, "tier": "Medium", "reasons": ["14.5km from clinician", "Evening slot"], "action": "Agent proposed: move to 2026-09-05 with PR010 \u2014 awaiting confirmation", "patientSignal": {"channel": "WhatsApp", "message": "Kal thoda late ho jayega, Saturday kar sakte ho?", "intent": "Reschedule", "preferred_day": "Saturday", "urgency": "High", "reason": "Provider/patient running late"}, "agentTrace": ["Patient (PT00947, Mumbai): \"Kal thoda late ho jayega, Saturday kar sakte ho?\"", "Extracted: intent=Reschedule, preferred_day=Saturday, urgency=High, reason=Provider/patient running late", "Checked availability.csv for 2026-09-05: 2 provider(s) in Mumbai available with spare capacity.", "Proposed: move to 2026-09-05 with PR010 (7 slots free that day).", "Awaiting patient confirmation \u2014 not written to appointments.csv (no live booking system to write to in this environment)."], "rescheduleProposal": {"new_date": "2026-09-05", "provider_id": "PR010", "area": "Mumbai", "remaining_capacity": 7}}, {"id": "APT008922", "time": "Afternoon", "service": "Vitals Check", "risk": 0.32, "tier": "Medium", "reasons": ["19.8km from clinician"], "action": "Patient requested cancellation \u2014 offer next available slot", "patientSignal": {"channel": "Call", "message": "Is week cancel karna padega", "intent": "Cancel", "preferred_day": null, "urgency": "Low", "reason": null}}, {"id": "APT008100", "time": "Evening", "service": "Nursing Visit", "risk": 0.32, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT005420", "time": "Evening", "service": "Diabetic Care Visit", "risk": 0.31, "tier": "Medium", "reasons": ["22.4km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT009233", "time": "Afternoon", "service": "Physiotherapy Session", "risk": 0.31, "tier": "Medium", "reasons": ["19.7km from clinician"], "action": "Agent proposed: move to 2026-08-30 with PR004 \u2014 awaiting confirmation", "patientSignal": {"channel": "WhatsApp", "message": "Doctor visit hai usi din, reschedule possible?", "intent": "Reschedule", "preferred_day": null, "urgency": "Medium", "reason": "Conflicting doctor visit"}, "agentTrace": ["Patient (PT01896, Pune): \"Doctor visit hai usi din, reschedule possible?\"", "Extracted: intent=Reschedule, preferred_day=None, urgency=Medium, reason=Conflicting doctor visit", "Checked availability.csv for 2026-08-30: 1 provider(s) in Pune available with spare capacity.", "Proposed: move to 2026-08-30 with PR004 (4 slots free that day).", "Awaiting patient confirmation \u2014 not written to appointments.csv (no live booking system to write to in this environment)."], "rescheduleProposal": {"new_date": "2026-08-30", "provider_id": "PR004", "area": "Pune", "remaining_capacity": 4}}, {"id": "APT003983", "time": "Morning", "service": "Post-Op Care", "risk": 0.31, "tier": "Medium", "reasons": ["2 prior no-shows before this visit"], "action": "Send confirmation + backup contact request"}, {"id": "APT007931", "time": "Afternoon", "service": "Diabetic Care Visit", "risk": 0.3, "tier": "Medium", "reasons": ["18.0km from clinician"], "action": "Send confirmation + backup contact request"}], "cascades": [{"id": "APT000022", "service": "Post-Op Care", "slot": "Afternoon", "provider": "PR008 (Contractual)", "delay": 17, "buffer": 19, "notified": false, "locGap": false, "recovery": "No backup provider with spare capacity today \u2014 needs manual coordinator call"}, {"id": "APT005111", "service": "Diabetic Care Visit", "slot": "Afternoon", "provider": "PR007 (Full-time)", "delay": 29, "buffer": 39, "notified": true, "locGap": false}, {"id": "APT009233", "service": "Physiotherapy Session", "slot": "Afternoon", "provider": "PR008 (Contractual)", "delay": 20, "buffer": 25, "notified": true, "locGap": false}]};
+let currentFilter = 'all';
+
+function render(){
+  const list = document.getElementById('list');
+  const items = DATA.flagged.filter(v => currentFilter==='all' || v.tier===currentFilter);
+  if(items.length===0){ list.innerHTML = '<div class="empty">Nothing in this view.</div>'; return; }
+  list.innerHTML = items.map(v => `
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="meta">${v.time} · ${v.service} · ${v.id}</div>
+        </div>
+        <span class="badge ${v.tier}">${v.tier} · ${Math.round(v.risk*100)}%</span>
+      </div>
+      <div class="reasons">${v.reasons.map(r=>`<span>${r}</span>`).join('')}</div>
+      ${v.patientSignal ? `
+      <div class="signal" style="margin:10px 0; padding:8px 10px; background:#f6f6fb; border-radius:8px; font-size:13px;">
+        <div style="opacity:0.65;">${v.patientSignal.channel} · "${v.patientSignal.message}"</div>
+        <div style="margin-top:3px;"><b>${v.patientSignal.intent}</b>${v.patientSignal.preferred_day ? ' → ' + v.patientSignal.preferred_day : ''}${v.patientSignal.reason ? ' · ' + v.patientSignal.reason : ''}${v.patientSignal.urgency === 'High' ? ' · <span style="color:#c0392b;">urgent</span>' : ''}</div>
+        ${v.agentTrace ? `<div style="margin-top:6px; padding-top:6px; border-top:1px solid #e3e3ee; font-size:12px; opacity:0.8; line-height:1.5;">${v.agentTrace.map(l=>`· ${l}`).join('<br>')}</div>` : ''}
+      </div>` : ''}
+      ${renderActionRow(v)}
+    </div>
+  `).join('');
+}
+
+// ---- simulated execution chain ----
+// "Approve" used to just flip a boolean and relabel the button — it didn't
+// DO anything. This still doesn't call a real WhatsApp API or write to a
+// real scheduling system (no live channel exists in this environment), but
+// it now walks through the actual chain of steps a real approval would
+// trigger, one at a time, using the real recommendation/proposal data
+// already computed by the Python pipeline (not invented for the UI).
+// State lives in memory only for this browser tab — refreshing the page
+// resets it, same as re-running generate_dashboard_data.py would.
+const execState = {}; // id -> { running: bool, stepIndex: int, steps: [string] }
+
+function stepsFor(v){
+  if(v.recommendedReassignment){
+    const r = v.recommendedReassignment;
+    return [
+      'Reassignment message drafted for patient/family',
+      `Slot reserved with ${r.provider_id} (${r.remaining_capacity} slot(s) free, ${r.reasons ? r.reasons.join(', ') : ''})`,
+      `${r.provider_id} notified of new assignment`,
+      'Family / caregiver notified of provider change',
+      'Appointment marked as recovered'
+    ];
+  }
+  if(v.rescheduleProposal){
+    const p = v.rescheduleProposal;
+    return [
+      'Reschedule confirmation message drafted for patient',
+      `Slot held: ${p.new_date} with ${p.provider_id} (${p.remaining_capacity} slot(s) free)`,
+      `${p.provider_id} notified of new booking`,
+      'Patient sent final confirmation request',
+      'Awaiting patient reply — not yet written to the schedule (no live booking system to confirm against)'
+    ];
+  }
+  if(v.action && v.action.startsWith('Patient requested cancellation')){
+    return [
+      'Cancellation acknowledged to patient',
+      'Slot released back into availability',
+      'Next-available-slot options queued for patient'
+    ];
+  }
+  if(v.action && (v.action.includes('Call to confirm') || v.action.includes('Send confirmation'))){
+    return [
+      'Confirmation / reminder message sent to patient',
+      'Backup contact flagged for coordinator follow-up if no response by tomorrow'
+    ];
+  }
+  if(v.recovery && v.recovery.startsWith('Backup available')){
+    return [
+      'Delay/cascade alert drafted for downstream patient',
+      v.recovery.replace('Backup available: ', 'Backup provider engaged: '),
+      'Backup provider notified of the covering visit',
+      'Downstream patient/family notified of the change',
+      'Cascade marked as resolved'
+    ];
+  }
+  return ['Action logged', 'Marked as handled by coordinator'];
+}
+
+function renderActionRow(v){
+  if(v.action === 'Patient confirmed — no action needed'){
+    return `<div class="action-row"><div class="action">Suggested: <b>${v.action}</b></div><span class="badge Low">No action needed</span></div>`;
+  }
+  const label = v.action || v.recovery;
+  const st = execState[v.id];
+  const steps = stepsFor(v);
+  let stepsHtml = '';
+  if(st){
+    stepsHtml = `<div class="exec-steps" style="margin-top:8px; font-size:12.5px; line-height:1.7;">` +
+      steps.map((s,i) => {
+        const done = i < st.stepIndex || (i===st.stepIndex && !st.running);
+        const active = i === st.stepIndex && st.running;
+        const mark = done ? '✅' : (active ? '⏳' : '▫️');
+        return `<div style="opacity:${i<=st.stepIndex?1:0.4}">${mark} ${s}</div>`;
+      }).join('') + `</div>`;
+  }
+  const isDone = st && st.stepIndex >= steps.length - 1 && !st.running;
+  const btnLabel = !st ? 'Approve' : (st.running ? 'Running…' : (isDone ? 'Done' : 'Approve'));
+  const disabled = st && (st.running || isDone);
+  return `
+    <div class="action-row" style="flex-direction:column; align-items:stretch;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div class="action">Suggested: <b>${label}</b></div>
+        <button class="approve ${isDone?'done':''}" ${disabled?'disabled':''} onclick="approveItem('${v.id}')">${btnLabel}</button>
+      </div>
+      ${stepsHtml}
+    </div>`;
+}
+
+function approveItem(id){
+  const item = DATA.flagged.find(f => f.id === id) || DATA.cascades.find(c => c.id === id);
+  const steps = stepsFor(item);
+  execState[id] = { running: true, stepIndex: 0, steps };
+  render();
+  if(document.getElementById('cascade-view').style.display !== 'none') renderCascade();
+  runStep(id, item);
+}
+
+function runStep(id, item){
+  const st = execState[id];
+  if(!st) return;
+  setTimeout(() => {
+    if(st.stepIndex < st.steps.length - 1){
+      st.stepIndex += 1;
+      render();
+      if(document.getElementById('cascade-view').style.display !== 'none') renderCascade();
+      runStep(id, item);
+    } else {
+      st.running = false;
+      render();
+      if(document.getElementById('cascade-view').style.display !== 'none') renderCascade();
+    }
+  }, 550);
+}
+
+// Previously a second, separately hand-maintained copy of the cascade list
+// lived here (a `const CASCADES = [...]` literal) that generate_dashboard_data.py
+// never touched — so the cascade tab could silently go stale even after a
+// fresh pipeline run updated DATA above it. Now there is exactly one source
+// of truth: DATA.cascades, produced by the Python pipeline.
+function renderCascade(){
+  const CASCADES = DATA.cascades;
+  const el = document.getElementById('cascade-view');
+  el.innerHTML = `
+    <div class="note" style="margin-top:0; margin-bottom:16px; border-top:none; padding-top:0;">
+      Contractual providers running long, traffic, or a patient needing extra time all delay the next visit. Below: every appointment on 2026-08-29 where the real delay_cascade_triggered flag fired in the operational data — not hand-picked examples. The availability-marketplace concept (providers marking next-day availability) is described in the case study deck, not built here — it's a scheduling-input mechanism, not something meaningful to demo standalone.
+    </div>
+    ${CASCADES.map(c => `
+      <div class="cascade-card">
+        <div class="cascade-head">
+          <b>${c.service} · ${c.slot} · ${c.id}</b>
+          <span class="chip ${c.notified ? 'ok' : 'gap'}">${c.notified ? 'Notified' : 'Gap: not notified'}</span>
+        </div>
+        <div class="flow">
+          <div class="step problem"><div class="dot"></div><div>Provider ${c.provider} ran <b>${c.delay} min</b> over on the prior visit${c.locGap ? ' (patient could not self-report exact location, adding to delay)' : ''}.</div></div>
+          <div class="step"><div class="dot"></div><div>System buffer for this slot: <b>${c.buffer} min</b> — ${c.delay <= c.buffer ? 'within buffer, no cascade' : 'exceeds buffer, next visit at risk'}.</div></div>
+          <div class="step ${c.notified ? 'fix' : 'problem'}"><div class="dot"></div><div>${c.notified ? 'Next patient auto-notified with revised ETA — no coordinator call needed.' : 'Next patient was NOT auto-notified — coordinator only finds out when the patient calls in, or the visit is already late.'}</div></div>
+          ${c.recovery ? `<div class="step ${c.recovery.startsWith('Backup') ? 'fix' : 'problem'}"><div class="dot"></div><div>${c.recovery}</div></div>` : ''}
+        </div>
+        ${c.recovery && c.recovery.startsWith('Backup available') ? renderActionRow(c) : ''}
+      </div>
+    `).join('')}
+  `;
+}
+
+document.querySelectorAll('#view-tabs .tab').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    document.querySelectorAll('#view-tabs .tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    const v = t.dataset.v;
+    document.getElementById('risk-view').style.display = v==='risk' ? '' : 'none';
+    document.getElementById('cascade-view').style.display = v==='cascade' ? '' : 'none';
+    if(v==='cascade') renderCascade();
+  });
+});
+
+document.querySelectorAll('#risk-view .tab').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    document.querySelectorAll('#risk-view .tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active'); currentFilter = t.dataset.f; render();
+  });
+});
+render();
+</script>
+</body>
+</html>
