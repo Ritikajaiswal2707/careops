@@ -28,6 +28,53 @@ def next_weekday_on_or_after(date, weekday_name: str):
     return date + timedelta(days=days_ahead)
 
 
+def resolve_candidate_dates(orig_date, signal: dict):
+    """
+    Turns the extracted temporal signal (communication_intelligence.parse_temporal)
+    into an ordered list of candidate dates to check availability against.
+
+    Replaces the old logic, which only understood a literal weekday name
+    and otherwise silently defaulted to "the next 1-3 days" -- so a
+    message like "Can we move to next week?" (no weekday named) was
+    misread as "tomorrow-ish" and produced a next-day proposal, the
+    opposite of what was asked.
+
+    An explicit day name is checked before "tomorrow"/"weekend", because
+    a message can legitimately contain both without the relative word
+    being about the reschedule target at all -- e.g. "Kal thoda late ho
+    jayega, Saturday kar sakte ho?" ("I'll be a bit late tomorrow, can
+    we do Saturday?") uses "kal" (tomorrow) to describe today's delay,
+    not the day being requested. The named day, when present, is the
+    stronger and unambiguous signal.
+    """
+    if signal.get("offset_days"):
+        return [orig_date + timedelta(days=signal["offset_days"])]
+
+    if signal.get("preferred_day"):
+        target = next_weekday_on_or_after(orig_date, signal["preferred_day"])
+        if signal.get("next_week"):
+            target += timedelta(days=7)  # "next <weekday>" -> the following week's occurrence
+        return [target]
+
+    if signal.get("relative_day") == "tomorrow":
+        return [orig_date + timedelta(days=1)]
+
+    if signal.get("relative_day") == "weekend":
+        sat = next_weekday_on_or_after(orig_date, "Saturday")
+        return [sat, sat + timedelta(days=1)]  # Saturday, then Sunday
+
+    if signal.get("next_week"):
+        # "next week" / "sometime next week" with no day named -- offer a
+        # spread of weekdays in the following calendar week rather than
+        # guessing a single day.
+        this_monday = orig_date - timedelta(days=orig_date.weekday())
+        next_monday = this_monday + timedelta(days=7)
+        return [next_monday + timedelta(days=d) for d in (0, 2, 4)]  # Mon, Wed, Fri
+
+    # No usable temporal signal at all -- fall back to the next few days.
+    return [orig_date + timedelta(days=d) for d in (1, 2, 3)]
+
+
 def propose_reschedule(appointment_id: str, message: str):
     appts = pd.read_csv(f"{DATA_DIR}/appointments.csv")
     patients = pd.read_csv(f"{DATA_DIR}/patients.csv")
@@ -40,17 +87,14 @@ def propose_reschedule(appointment_id: str, message: str):
     signal = extract_intent(message)
     trace = [f"Patient ({appt['patient_id']}, {patient['area']}): \"{message}\"",
              f"Extracted: intent={signal['intent']}, preferred_day={signal['preferred_day']}, "
-             f"urgency={signal['urgency']}, reason={signal['reason']}"]
+             f"next_week={signal['next_week']}, relative_day={signal['relative_day']}, "
+             f"offset_days={signal['offset_days']}, urgency={signal['urgency']}, reason={signal['reason']}"]
 
     if signal["intent"] != "Reschedule":
         trace.append("Not a reschedule request — routed back to standard action logic.")
         return {"trace": trace, "proposal": None}
 
-    # candidate dates: the requested weekday if given, else the next 3 days
-    if signal["preferred_day"]:
-        candidate_dates = [next_weekday_on_or_after(orig_date, signal["preferred_day"])]
-    else:
-        candidate_dates = [orig_date + timedelta(days=d) for d in (1, 2, 3)]
+    candidate_dates = resolve_candidate_dates(orig_date, signal)
 
     for cand_date in candidate_dates:
         date_str = str(cand_date.date())

@@ -27,8 +27,26 @@ today_df = df[df["date"] == TODAY].copy()
 today_df["risk_proba"] = model.predict_proba(today_df[features])[:, 1]
 
 
-def tier(p):
-    return "High" if p >= 0.5 else ("Medium" if p >= 0.3 else "Low")
+def assign_percentile_tiers(scores):
+    """
+    Capacity-aware, rank-based triage: top 10% of *today's* visits by
+    predicted risk -> High, next 20% -> Medium, remaining 70% -> Low.
+
+    This replaces a fixed probability cutoff (>=0.5 High, >=0.3 Medium),
+    which silently stopped matching the README/dashboard copy once the
+    leakage-fixed model's probabilities stopped reaching 0.5 at all --
+    every day showed 0 High regardless of how risky the day actually was.
+    Ranking within the day keeps the flagged list a fixed, reviewable
+    fraction of a coordinator's caseload no matter how the model's raw
+    probabilities are distributed.
+    """
+    n = len(scores)
+    # rank 0 = highest risk. method="first" breaks ties by original order
+    # so every visit gets a distinct rank (no ties inflating a tier).
+    ranks = scores.rank(ascending=False, method="first") - 1
+    high_cut = n * 0.10
+    medium_cut = n * 0.30  # top 30% total = High + Medium
+    return ranks.apply(lambda r: "High" if r < high_cut else ("Medium" if r < medium_cut else "Low"))
 
 
 def explain(row):
@@ -71,7 +89,7 @@ def suggest_action(row, t, signal=None):
     return "Send confirmation + backup contact request"
 
 
-today_df["tier"] = today_df["risk_proba"].apply(tier)
+today_df["tier"] = assign_percentile_tiers(today_df["risk_proba"])
 
 summary = {
     "total": int(len(today_df)),

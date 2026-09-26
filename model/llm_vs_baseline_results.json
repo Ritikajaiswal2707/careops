@@ -1,0 +1,141 @@
+{
+  "held_out_set_size": 30,
+  "rule_based": {
+    "accuracy": 0.267,
+    "misclassified": [
+      {
+        "message": "Sorry yaar, kal nahi ho payega, agle hafte try karte hain",
+        "true_intent": "Reschedule",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "haan bilkul, wahi time pe aa jaana",
+        "true_intent": "Confirm",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "running 10 min behind, still coming though",
+        "true_intent": "Confirm",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "can we do Tuesday instead? something came up",
+        "true_intent": "Reschedule",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "yes see u then",
+        "true_intent": "Confirm",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "not sure, will confirm later",
+        "true_intent": "Unclear",
+        "pred_intent": "Confirm",
+        "correct": false
+      },
+      {
+        "message": "we're not going to need this appointment",
+        "true_intent": "Cancel",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "can u come a bit later in the day instead? like evening?",
+        "true_intent": "Reschedule",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "ok",
+        "true_intent": "Confirm",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "please don't come, we're out of town",
+        "true_intent": "Cancel",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "sab thik hai, appointment as is",
+        "true_intent": "Confirm",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "any chance of moving to next monday",
+        "true_intent": "Reschedule",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "no thanks, we'll skip this one",
+        "true_intent": "Cancel",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "is it possible after 5 days?",
+        "true_intent": "Reschedule",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "yep all good",
+        "true_intent": "Confirm",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "we need to stop this service",
+        "true_intent": "Cancel",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "theek h chalega",
+        "true_intent": "Confirm",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "not today, some other day",
+        "true_intent": "Reschedule",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "she's not well, we'll call to rebook",
+        "true_intent": "Reschedule",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "haanji sab sahi hai",
+        "true_intent": "Confirm",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "can we push it out a bit? maybe next tuesday",
+        "true_intent": "Reschedule",
+        "pred_intent": "Unclear",
+        "correct": false
+      },
+      {
+        "message": "cant do it, sorry",
+        "true_intent": "Cancel",
+        "pred_intent": "Unclear",
+        "correct": false
+      }
+    ]
+  },
+  "llm": null
+}
