@@ -88,6 +88,7 @@ button.approve.done{background:var(--ok-bg); color:var(--ok); cursor:default;}
   <div class="tabs" id="view-tabs">
     <div class="tab active" data-v="risk">Risk dashboard</div>
     <div class="tab" data-v="cascade">Delay &amp; cascade</div>
+    <div class="tab" data-v="live">Try the AI</div>
   </div>
 
   <div id="risk-view">
@@ -106,6 +107,23 @@ button.approve.done{background:var(--ok-bg); color:var(--ok); cursor:default;}
   </div>
 
   <div id="cascade-view" style="display:none"></div>
+
+  <div id="live-view" style="display:none">
+    <div class="card">
+      <div class="meta" style="margin-bottom:8px;">Pick a flagged visit, then ask CareOps to handle a patient message for it — this calls the live FastAPI backend, running the same engine as the rest of this dashboard.</div>
+      <select id="live-appt" style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-size:.85rem; margin-bottom:8px;"></select>
+      <textarea id="live-message" placeholder="e.g. Tomorrow evening won't work, can we do Saturday morning?" style="width:100%; min-height:56px; padding:8px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-family:inherit; font-size:.85rem; resize:vertical;"></textarea>
+      <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+        <button class="approve" onclick="askCareOps()">Ask CareOps</button>
+        <button class="approve" onclick="findRecovery()">Find best recovery</button>
+      </div>
+      <div id="live-result" style="margin-top:12px;"></div>
+    </div>
+    <div class="note">
+      Synthetic data · simulated healthcare environment · portfolio demo · not for clinical use.<br><br>
+      Unlike the risk dashboard and delay/cascade tabs above (static output from a Python pipeline run), this tab makes real HTTP requests to a FastAPI backend over the same <code>model/*.py</code> engine. If it's hosted on a free tier, the first request after inactivity can take ~30–60 seconds while the server wakes up.
+    </div>
+  </div>
 </div>
 
 <script>
@@ -289,7 +307,9 @@ document.querySelectorAll('#view-tabs .tab').forEach(t=>{
     const v = t.dataset.v;
     document.getElementById('risk-view').style.display = v==='risk' ? '' : 'none';
     document.getElementById('cascade-view').style.display = v==='cascade' ? '' : 'none';
+    document.getElementById('live-view').style.display = v==='live' ? '' : 'none';
     if(v==='cascade') renderCascade();
+    if(v==='live') liveInit();
   });
 });
 
@@ -299,6 +319,83 @@ document.querySelectorAll('#risk-view .tab').forEach(t=>{
     t.classList.add('active'); currentFilter = t.dataset.f; render();
   });
 });
+// ---- live demo (calls the FastAPI backend in main.py) ----
+// Everything above this comment is the existing static-pipeline dashboard,
+// unmodified. This section is additive: a separate tab, its own DOM, its
+// own functions, touching none of the rendering above.
+let liveInitialized = false;
+
+function liveInit(){
+  if(liveInitialized) return;
+  liveInitialized = true;
+  const sel = document.getElementById('live-appt');
+  sel.innerHTML = DATA.flagged.map(v => `<option value="${v.id}">${v.id} — ${v.service} (${v.tier}, ${v.time})</option>`).join('');
+}
+
+async function liveCallApi(path, body){
+  const el = document.getElementById('live-result');
+  el.innerHTML = '<div class="empty">Calling CareOps… (first request after inactivity can take up to a minute)</div>';
+  try {
+    const res = await fetch(path, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+    const data = await res.json().catch(() => null);
+    if(!res.ok){
+      el.innerHTML = `<div class="empty">Error: ${(data && data.detail) || res.statusText}</div>`;
+      return null;
+    }
+    return data;
+  } catch(e){
+    el.innerHTML = `<div class="empty">Could not reach the live backend (${e.message}). It may still be starting up — try again in a moment.</div>`;
+    return null;
+  }
+}
+
+async function askCareOps(){
+  const id = document.getElementById('live-appt').value;
+  const message = document.getElementById('live-message').value.trim();
+  const el = document.getElementById('live-result');
+  if(!message){ el.innerHTML = '<div class="empty">Type a message first.</div>'; return; }
+  const data = await liveCallApi('/api/reschedule', {appointment_id: id, message});
+  if(!data) return;
+  const p = data.proposal;
+  el.innerHTML = `
+    <div class="signal" style="padding:10px; background:var(--bg); border:1px solid var(--line); border-radius:8px; font-size:.8rem; line-height:1.6;">
+      ${data.trace.map(l => `· ${l}`).join('<br>')}
+    </div>
+    ${p ? `
+    <div class="card" style="margin-top:10px;">
+      <div class="card-top">
+        <div class="meta"><b>Best recovery option</b> — ${p.new_date} · ${p.provider_id}</div>
+        <span class="badge Medium">Score ${p.recovery_score}</span>
+      </div>
+      <div class="reasons">${p.reasons.map(r => `<span>${r}</span>`).join('')}</div>
+    </div>` : ''}
+  `;
+}
+
+async function findRecovery(){
+  const id = document.getElementById('live-appt').value;
+  const data = await liveCallApi('/api/recover', {appointment_id: id, target_date: DATA.today});
+  if(!data) return;
+  const el = document.getElementById('live-result');
+  if(!data.candidates.length){
+    el.innerHTML = '<div class="empty">No eligible recovery candidate found for this visit today.</div>';
+    return;
+  }
+  el.innerHTML = data.candidates.map((c, i) => `
+    <div class="card">
+      <div class="card-top">
+        <div class="meta"><b>${i===0 ? 'Recommended' : 'Alternative'}: ${c.provider_id}</b> — ${c.area}</div>
+        <span class="badge ${i===0 ? 'Medium' : ''}">Score ${c.score}</span>
+      </div>
+      <div class="reasons">${c.reasons.map(r => `<span>${r}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+
 render();
 </script>
 </body>

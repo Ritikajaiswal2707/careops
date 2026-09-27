@@ -2,9 +2,16 @@ pandas>=2.0,<3.0
 numpy>=1.24,<3.0
 scikit-learn>=1.3,<2.0
 
-# Optional: only needed for the LLM half of model/llm_vs_baseline_eval.py.
-# The default pipeline (run.py / run.sh / run.ps1) never requires this --
-# the rule-based extractor and every other module run with just the three
-# packages above. Install this separately, and set ANTHROPIC_API_KEY, only
-# if you want to actually run the LLM-vs-rule-based comparison:
+# Needed only to run the live demo API (main.py). The offline pipeline
+# (run.py / run.sh / run.ps1) never requires these three -- it only needs
+# the packages above.
+fastapi>=0.110,<1.0
+uvicorn[standard]>=0.29,<1.0
+requests>=2.31,<3.0
+
+# Optional: only needed for the LLM half of model/llm_vs_baseline_eval.py,
+# and as main.py's fallback if GEMINI_API_KEY isn't set (see
+# model/hybrid_extraction.py's default_llm_call()). Neither the offline
+# pipeline nor the live demo's default (Gemini) path requires this --
+# install separately, and set ANTHROPIC_API_KEY, only if you want it:
 #   pip install anthropic

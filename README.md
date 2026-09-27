@@ -22,6 +22,21 @@ python run.py          # macOS / Linux / Windows — anywhere Python is on PATH
 
 All three run the identical pipeline in dependency order and are safe to run from any working directory — every script resolves its own data/output paths from its own file location, not the caller's `cwd`, so `python model/disruption_model.py` from the repo root works exactly the same as running it from inside `model/`. The pipeline: installs the three version-constrained dependencies (`pandas`, `numpy`, `scikit-learn` — compatible-range bounds in `requirements.txt`, not exact pins), trains the risk model, runs the subgroup fairness check and the Stage 2 disruption-type model, runs communication extraction, runs the LLM-vs-baseline eval (`model/llm_direct_eval.py` — rule-based side always runs; LLM side defaults to Claude's own direct blind extraction rather than a metered API call, see below), scores the rule-first hybrid architecture (`model/hybrid_extraction.py` — see below), prints the Recovery Score worked example, demos the agent state machine, runs the economics simulation, and finally runs `generate_dashboard_data.py`, which writes `model/dashboard_data.json` and rewrites `dashboard/index.html`'s embedded data in place. Open `dashboard/index.html` in a browser afterward — nothing else to build or serve. Already have the deps installed? Add `--no-install` (`python run.py --no-install`, `./run.sh --no-install`) or `-NoInstall` (`.\run.ps1 -NoInstall`) to skip the pip step.
 
+## Live demo
+
+`dashboard/index.html`'s static "Try the AI" tab calls a live FastAPI backend (`main.py`) instead of showing pre-computed output — a real patient message goes through `hybrid_extraction.extract_intent_hybrid()` and `capacity_recovery.recommend()` / `reschedule_agent.propose_reschedule()`, the same functions the offline pipeline uses. `main.py` doesn't reimplement any of that logic; it only imports and calls it.
+
+Run it locally:
+```
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+Open `http://127.0.0.1:8000`.
+
+Deploy it (free): push to GitHub, connect the repo on [Render](https://render.com) (it reads `render.yaml` automatically), and optionally set a `GEMINI_API_KEY` environment variable (free tier at [aistudio.google.com](https://aistudio.google.com/apikey)) so the hybrid extractor's LLM fallback — the path a rule-based "Unclear" message routes to — actually runs live instead of escalating to a human. No key is required for the app to work: without one, ambiguous messages come back `escalate_to_human: true`, same as the offline pipeline. See `.env.example` for both supported keys (Gemini is tried first; `ANTHROPIC_API_KEY` is an optional fallback — see `model/hybrid_extraction.py`'s `default_llm_call()`). Render's free tier sleeps after 15 minutes idle, so the first request after inactivity can take ~30–60 seconds.
+
+All data stays synthetic/simulated in this demo — there is no real patient messaging, no real scheduling, and no real WhatsApp integration behind it, on purpose.
+
 ## Structure
 
 - `data/` — synthetic 6-table dataset (providers, patients, appointments, operational, communications, availability) modeling a home-care operation across 5 Indian cities, 20 clinicians, 2,000 patients, 10,000 appointments. `availability.csv` covers Jun 1 – Oct 28 (extended 60 days past the original Aug 29 cutoff — see note below). `data/communication_eval.json` is the 103-message held-out set used by `model/llm_direct_eval.py` and `model/llm_vs_baseline_eval.py` — a real data artifact now, not embedded in the evaluator script

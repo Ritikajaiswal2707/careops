@@ -112,13 +112,26 @@ def _valid_schema(pred: dict) -> bool:
 
 def default_llm_call(message: str):
     """
-    Real Anthropic API call, used only for messages the rule-based gate
-    already flagged as Unclear -- the production fallback path, not the
-    offline evaluation path below (see run_hybrid_offline_eval()). Returns
-    None if ANTHROPIC_API_KEY isn't set, same disclosed limitation as
-    llm_vs_baseline_eval.run_llm_eval(), whose request shape this mirrors
-    exactly so the two stay comparable.
+    Production fallback path, used only for messages the rule-based gate
+    already flagged as Unclear -- not the offline evaluation path below
+    (see run_hybrid_offline_eval()).
+
+    Tries Gemini's free tier first (gemini_llm.gemini_llm_call(), same
+    extraction contract, used by the live demo -- see main.py and
+    README's "Live demo" section) so the deployed app doesn't need a paid
+    key to demonstrate the fallback path at all. Falls back to a real
+    Anthropic call if GEMINI_API_KEY isn't set but ANTHROPIC_API_KEY is
+    (the original path, kept for the offline llm_vs_baseline_eval.py
+    comparison this module was built alongside). Returns None -- same as
+    an LLM abstention, handled identically by extract_intent_hybrid() -- if
+    neither key is set.
     """
+    from gemini_llm import gemini_llm_call  # local import: only needed on this path
+
+    gemini_result = gemini_llm_call(message)
+    if gemini_result is not None:
+        return gemini_result
+
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
         return None
