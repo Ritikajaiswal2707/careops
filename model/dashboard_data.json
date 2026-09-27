@@ -187,7 +187,7 @@
       "reasons": [
         "24.4km from clinician"
       ],
-      "action": "Reschedule requested \u2014 no matching slot found, needs manual follow-up",
+      "action": "Agent proposed: move to 2026-09-01 with PR010 \u2014 awaiting confirmation",
       "patientSignal": {
         "channel": "WhatsApp",
         "message": "Doctor visit hai usi din, reschedule possible?",
@@ -204,9 +204,24 @@
         "Extracted: intent=Reschedule, preferred_day=None, next_week=False, relative_day=None, offset_days=None, urgency=Medium, reason=Conflicting doctor visit",
         "Checked 2026-08-30 via the unified Recovery Score engine: no eligible candidate found in Mumbai.",
         "Checked 2026-08-31 via the unified Recovery Score engine: no eligible candidate found in Mumbai.",
-        "Checked 2026-09-01 via the unified Recovery Score engine: no eligible candidate found in Mumbai.",
-        "No confirmable slot found in the search window \u2014 needs manual coordinator follow-up."
-      ]
+        "Checked 2026-09-01 via the unified Recovery Score engine: 1 eligible candidate(s) in Mumbai.",
+        "Proposed: move to 2026-09-01 with PR010 (Recovery Score 68.9: this is the patient's current provider, free on this date; 7 slot(s) free today; room in the same morning slot; General Nursing \u2014 primary fit for Wound Dressing).",
+        "State: PENDING -> PROPOSED (PR010). Case is now PROPOSED and stops here honestly \u2014 there is no live reply channel in this environment to actually receive PATIENT_CONFIRMED or DECLINED; advancing further needs a real channel to get the patient's answer from, not something to simulate as if it were live."
+      ],
+      "rescheduleProposal": {
+        "new_date": "2026-09-01",
+        "provider_id": "PR010",
+        "area": "Mumbai",
+        "remaining_capacity": 7,
+        "recovery_score": 68.9,
+        "reasons": [
+          "this is the patient's current provider, free on this date",
+          "7 slot(s) free today",
+          "room in the same morning slot",
+          "General Nursing \u2014 primary fit for Wound Dressing"
+        ],
+        "state": "PROPOSED"
+      }
     },
     {
       "id": "APT000881",
@@ -388,7 +403,7 @@
         "14.5km from clinician",
         "Evening slot"
       ],
-      "action": "Reschedule requested \u2014 no matching slot found, needs manual follow-up",
+      "action": "Agent proposed: move to 2026-09-05 with PR002 \u2014 awaiting confirmation",
       "patientSignal": {
         "channel": "WhatsApp",
         "message": "Kal thoda late ho jayega, Saturday kar sakte ho?",
@@ -403,9 +418,24 @@
       "agentTrace": [
         "Patient (PT00947, Mumbai): \"Kal thoda late ho jayega, Saturday kar sakte ho?\"",
         "Extracted: intent=Reschedule, preferred_day=Saturday, next_week=False, relative_day=tomorrow, offset_days=None, urgency=High, reason=Provider/patient running late",
-        "Checked 2026-09-05 via the unified Recovery Score engine: no eligible candidate found in Mumbai.",
-        "No confirmable slot found in the search window \u2014 needs manual coordinator follow-up."
-      ]
+        "Checked 2026-09-05 via the unified Recovery Score engine: 1 eligible candidate(s) in Mumbai.",
+        "Proposed: move to 2026-09-05 with PR002 (Recovery Score 68.6: this is the patient's current provider, free on this date; 5 slot(s) free today; room in the same evening slot; Physiotherapy \u2014 primary fit for Physiotherapy Session).",
+        "State: PENDING -> PROPOSED (PR002). Case is now PROPOSED and stops here honestly \u2014 there is no live reply channel in this environment to actually receive PATIENT_CONFIRMED or DECLINED; advancing further needs a real channel to get the patient's answer from, not something to simulate as if it were live."
+      ],
+      "rescheduleProposal": {
+        "new_date": "2026-09-05",
+        "provider_id": "PR002",
+        "area": "Mumbai",
+        "remaining_capacity": 5,
+        "recovery_score": 68.6,
+        "reasons": [
+          "this is the patient's current provider, free on this date",
+          "5 slot(s) free today",
+          "room in the same evening slot",
+          "Physiotherapy \u2014 primary fit for Physiotherapy Session"
+        ],
+        "state": "PROPOSED"
+      }
     },
     {
       "id": "APT008922",
@@ -492,29 +522,34 @@
       "provider": "PR008 (Contractual)",
       "delay": 17,
       "buffer": 19,
+      "usedPct": 89,
       "notified": false,
       "locGap": false,
       "recovery": "No backup provider with spare capacity today \u2014 needs manual coordinator call"
     },
     {
-      "id": "APT005111",
-      "service": "Diabetic Care Visit",
-      "slot": "Afternoon",
-      "provider": "PR007 (Full-time)",
-      "delay": 29,
-      "buffer": 39,
-      "notified": true,
-      "locGap": false
+      "id": "APT003376",
+      "service": "Physiotherapy Session",
+      "slot": "Morning",
+      "provider": "PR016 (Contractual)",
+      "delay": 13,
+      "buffer": 15,
+      "usedPct": 87,
+      "notified": false,
+      "locGap": true,
+      "recovery": "Backup available: PR019 \u2014 8.6 km from patient (inferred), 3 slot(s) free today, room in the same morning slot, has treated this patient before, Physiotherapy \u2014 primary fit for Physiotherapy Session"
     },
     {
-      "id": "APT009233",
-      "service": "Physiotherapy Session",
-      "slot": "Afternoon",
-      "provider": "PR008 (Contractual)",
-      "delay": 20,
-      "buffer": 25,
-      "notified": true,
-      "locGap": false
+      "id": "APT008100",
+      "service": "Nursing Visit",
+      "slot": "Evening",
+      "provider": "PR020 (Contractual)",
+      "delay": 14,
+      "buffer": 16,
+      "usedPct": 88,
+      "notified": false,
+      "locGap": false,
+      "recovery": "No backup provider with spare capacity today \u2014 needs manual coordinator call"
     }
   ]
 }

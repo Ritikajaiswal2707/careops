@@ -23,6 +23,33 @@ just a rank:
                               penalized: assigning more load to an already-full
                               day raises the odds of a knock-on delay cascade)
 
+v3 change (this pass): two scheduling simplifications flagged as gaps, fixed
+here rather than left as documented limitations:
+
+  1. Same-provider rescheduling. recommend() unconditionally excluded the
+     appointment's currently-assigned provider from the candidate pool -- a
+     correct rule when recovering *today's* visit (that provider is the one
+     running late), but wrong for a reschedule to a *different* date, where
+     "same provider, new date" is usually the best outcome for the patient
+     and was never even considered. recommend() now only excludes the
+     current provider when target_date matches the appointment's original
+     date; a reschedule to any other date lets the current provider compete
+     like any other candidate (their own continuity/proximity usually wins,
+     since they already know the patient).
+
+  2. Slot-level capacity across recommendations in the same run. Every call
+     to recommend() scored candidates off a snapshot of remaining_capacity
+     and per-slot load taken once, at build_candidates() time -- so nothing
+     stopped two different flagged appointments in the same run from both
+     being recommended the same provider for the same time slot on the same
+     day, silently oversubscribing them past what the dashboard itself was
+     showing as "N slots free." commit_recommendation() now exists to
+     decrement a candidate's remaining_capacity and per-slot load in the
+     shared ctx immediately after a recommendation is accepted, so the next
+     recommend() call in the same run sees the update.
+     generate_dashboard_data.py calls it after every accepted
+     reassignment/recovery.
+
 Two data limitations, carried over honestly from v1 and still true here:
   - providers.csv has no lat/long, only `area` (city). There's no ground-truth
     provider location to compute real distance from, so "proximity" here uses
@@ -119,7 +146,9 @@ def build_candidates(target_date: str):
     # per-time-slot load, for the schedule-fit component. daily_capacity is a
     # whole-day figure with no stated per-slot breakdown, so an even 3-way
     # split (Morning/Afternoon/Evening) is an approximation, flagged as such.
-    slot_load_today = today_appts.groupby(["provider_id", "time_slot"]).size()
+    # Plain dict (not a pandas Series) so commit_recommendation() can add new
+    # keys as recommendations are accepted during the run.
+    slot_load_today = today_appts.groupby(["provider_id", "time_slot"]).size().to_dict()
 
     # Strictly-historical slice for anything that infers a relationship or
     # location: a recovery decision made for target_date must not be
@@ -168,12 +197,20 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
     service_type = service_type or appt_row["service_type"]
     compatible_specs = SERVICE_COMPATIBILITY.get(service_type, [])
 
+    # Only exclude the currently-assigned provider when this is a same-day
+    # recovery (they're the one running late today). A reschedule to a
+    # different date is a separate, legitimate availability check -- the
+    # current provider may well be free that day and is usually the best
+    # outcome for the patient, so they compete like any other candidate.
+    same_day = target_date == appt_row["date"]
+
     base_mask = (
         (cand["area"] == patient["area"]) &
         (cand["available_today"] == True) &
-        (cand["remaining_capacity"] > 0) &
-        (cand["provider_id"] != current_provider)
+        (cand["remaining_capacity"] > 0)
     )
+    if same_day:
+        base_mask = base_mask & (cand["provider_id"] != current_provider)
     if compatible_specs:
         pool = cand[base_mask & cand["specialization"].isin(compatible_specs)].copy()
     else:
@@ -232,12 +269,14 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
         )
 
         reasons = []
-        if dist_km is not None:
+        if row["provider_id"] == current_provider:
+            reasons.append("this is the patient's current provider, free on this date")
+        elif dist_km is not None:
             reasons.append(f"{round(dist_km, 1)} km from patient (inferred)")
         reasons.append(f"{int(row['remaining_capacity'])} slot(s) free today")
         if slot_room > 0:
             reasons.append(f"room in the same {time_slot.lower()} slot")
-        if continuity:
+        if continuity and row["provider_id"] != current_provider:
             reasons.append("has treated this patient before")
         reasons.append(
             f"{row['specialization']} — {'primary' if row['specialization'] == (compatible_specs[0] if compatible_specs else None) else 'compatible'} fit for {service_type}"
@@ -255,6 +294,7 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
                 round(dist_km - current_dist, 1) if dist_km is not None and current_dist is not None else None
             ),
             "continuity": continuity,
+            "is_current_provider": bool(row["provider_id"] == current_provider),
             "specialization": row["specialization"],
             "service_fit": "primary" if compatible_specs and row["specialization"] == compatible_specs[0] else "compatible",
             "same_slot_available": bool(slot_room > 0),
@@ -268,6 +308,31 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
     if top_n == 1:
         return scored[0]
     return scored[:top_n]
+
+
+def commit_recommendation(ctx, provider_id: str, time_slot: str):
+    """
+    Marks a recommended slot as taken, in the shared ctx, immediately after
+    it's accepted -- so the NEXT recommend() call in the same run (a
+    different flagged appointment, a different cascade) sees this provider
+    with one less remaining_capacity and one more slot_load_today entry,
+    instead of scoring off the same start-of-run snapshot every time.
+    Without this, two unrelated appointments in the same run could both be
+    told "PR019 has room" for the same time slot -- individually correct
+    against the snapshot, jointly an oversubscription the dashboard would
+    never surface. Mutates ctx["cand"] and ctx["slot_load_today"] in place;
+    call it once per accepted recommendation, right after using it.
+    """
+    cand = ctx["cand"]
+    mask = cand["provider_id"] == provider_id
+    cand.loc[mask, "assigned_today"] += 1
+    cand.loc[mask, "remaining_capacity"] -= 1
+    cand.loc[mask, "utilization_today"] = (
+        cand.loc[mask, "assigned_today"] / cand.loc[mask, "daily_capacity"]
+    ).clip(upper=2.0)
+
+    key = (provider_id, time_slot)
+    ctx["slot_load_today"][key] = ctx["slot_load_today"].get(key, 0) + 1
 
 
 if __name__ == "__main__":

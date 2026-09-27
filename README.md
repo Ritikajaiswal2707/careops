@@ -4,6 +4,16 @@ A portfolio project exploring how AI can predict, explain, and help recover from
 
 **This is a PM portfolio project.** All data is synthetic/simulated. It exists to demonstrate product thinking — problem framing, prioritization, tradeoff decisions, and AI-product judgment — not to claim production-grade engineering or real-world validated outcomes.
 
+## Quickstart
+
+```
+git clone <repo>
+cd careops
+./run.sh
+```
+
+That installs the three pinned dependencies (`pandas`, `numpy`, `scikit-learn`) and runs the entire pipeline in dependency order — model training, communication extraction, the LLM-vs-baseline eval (rule-based half only, unless `ANTHROPIC_API_KEY` is set), the Recovery Score worked example, the agent state-machine demo, the economics simulation, and finally `generate_dashboard_data.py`, which writes `model/dashboard_data.json` and rewrites `dashboard/index.html`'s embedded data in place. Open `dashboard/index.html` in a browser afterward — nothing else to build or serve. Already have the deps installed? `./run.sh --no-install` skips the pip step.
+
 ## Structure
 
 - `data/` — synthetic 6-table dataset (providers, patients, appointments, operational, communications, availability) modeling a home-care operation across 5 Indian cities, 20 clinicians, 2,000 patients, 10,000 appointments. `availability.csv` covers Jun 1 – Oct 28 (extended 60 days past the original Aug 29 cutoff — see note below)
@@ -48,6 +58,10 @@ Recovery Score =
 
 Same-day recovery and rescheduling (`reschedule_agent.py`) now go through this one engine — reschedule proposals are ranked by the same Recovery Score, not a separate "pick whoever has the most spare capacity today" heuristic.
 
+**Two scheduling simplifications, fixed:**
+- *Same-provider rescheduling.* `recommend()` used to exclude the appointment's currently-assigned provider from every candidate pool, including when rescheduling to a different date — so "move this visit a few days later with the same provider," usually the best outcome for the patient, was never even considered. It now excludes the current provider only for same-day recovery (they're the one running late *today*); a reschedule to any other date lets them compete like any other candidate. One real case this recovers: a Mumbai wound-dressing visit that previously came back "no eligible candidate found" across a 3-day search window now correctly proposes the patient's own provider, free on 2026-09-01.
+- *Slot-level capacity across recommendations in one run.* Every `recommend()` call scored candidates off a snapshot of remaining capacity and per-slot load taken once, at the start of the run — so two different flagged appointments in the same run could both be told the same provider had room in the same slot, an oversubscription the dashboard itself would never surface. `commit_recommendation()` now decrements that provider's capacity in the shared context the moment a recommendation is accepted, so the next call in the same run sees the update.
+
 Worked example, one real flagged appointment on 2026-08-29 (`python3 capacity_recovery.py`):
 
 | Candidate | Score | Why |
@@ -59,6 +73,19 @@ Two data limitations, carried over honestly from the original version:
 - `specialization` vs. how providers are actually assigned to `service_type` in the data still shows close to no relationship (~20-23% for every specialization, regardless of service type) — this mapping is imposed as a business rule, not learned from the data.
 
 **A real finding from enforcing this properly:** with the hard service-fit filter in place, most flagged reassignment cases in this 20-provider synthetic dataset now come back with **zero** eligible candidates — `providers.csv` has only 1-2 providers per (area, specialization) combination, so requiring "same area + right specialization + available + spare capacity" at once is rarely satisfiable. The earlier, looser version was recommending reassignments that weren't actually valid; the honest version instead surfaces a real capacity-planning gap (too few backup providers per specialty per area) rather than papering over it with a plausible-looking but wrong recommendation. Worth a line in the case study either way it's framed.
+
+## Cascade semantics: one definition, found and fixed
+
+`operational.csv` ships a `delay_cascade_triggered` flag, and the dashboard's "Delay & cascade" tab used to filter on it while separately telling the coordinator, per card: *"System buffer for this slot: X min — within buffer, no cascade"* or *"exceeds buffer, next visit at risk"* — implying the buffer comparison was what decided cascade status. Checking that against the data directly: it never was. The flag turns out to be a flat `delay_minutes > 15` cutoff that ignores `buffer_minutes_needed` entirely, and no row in the dataset ever has `delay_minutes` literally exceed `buffer_minutes_needed` (the generator always leaves at least 1 minute of headroom) — so the "exceeds buffer" branch was dead code, and every real cascade card was rendering the misleading "within buffer, no cascade" line on an appointment already being shown *as* a cascade.
+
+Fix: one rule now drives both the filter and the copy — a visit is a downstream cascade risk when its delay has burned through **at least 85% of the buffer minutes built into that slot** (`delay_minutes / buffer_minutes_needed >= 0.85`), computed per visit in `generate_dashboard_data.py` rather than read off the pre-baked flag. It's a buffer-relative threshold instead of one flat number applied to every slot regardless of how much slack it actually had, and it makes the UI copy always true for whatever it's describing.
+
+| | Old flag (`delay_minutes > 15`) | New rule (`delay/buffer >= 0.85`) |
+|---|---|---|
+| Whole dataset (10,000 appts) | 583 | 521 |
+| 2026-08-29 ("today" in the dashboard) | 3 | 3 |
+
+The two rules pick a different 3 appointments for today (not a superset of each other) — the point isn't matching the old numbers, it's that there is now exactly one place a cascade is decided and exactly one sentence that explains why.
 
 ## Known limitations (intentional, and part of the case study)
 

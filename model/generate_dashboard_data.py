@@ -5,8 +5,8 @@ the original prototype:
   1. The risk list was hardcoded -> now it's the model's real output on a
      specific simulated "today".
   2. The cascade list was two invented examples -> now it's every real
-     appointment on that day where operational.csv's own
-     delay_cascade_triggered flag is True.
+     appointment on that day that meets one explicit cascade rule (see
+     "Cascade semantics" below) — not hand-picked examples.
 
 Run this whenever you want to refresh dashboard/index.html with a new "today".
 """
@@ -14,7 +14,7 @@ import json
 import pandas as pd
 from disruption_model import model, features, df, DATA_DIR
 from communication_intelligence import extract_intent
-from capacity_recovery import build_candidates, recommend
+from capacity_recovery import build_candidates, recommend, commit_recommendation
 from reschedule_agent import propose_reschedule
 
 # "Today" = the last date actually present in the appointment data. In a real
@@ -145,20 +145,44 @@ for _, row in ranked[ranked["tier"] != "Low"].iterrows():
     # capacity recovery: only where the action is actually a reassignment.
     # recommend() now returns a scored, ranked candidate with a "reasons"
     # breakdown (continuity, proximity, schedule fit, utilization) instead of
-    # just a filtered pick — see capacity_recovery.py.
+    # just a filtered pick — see capacity_recovery.py. commit_recommendation()
+    # immediately marks the slot taken in recovery_ctx so a later appointment
+    # in this same loop can't also be pointed at the same provider/slot.
     if "Reassign" in action:
         rec = recommend(row["appointment_id"], TODAY_STR, recovery_ctx)
         if rec:
             item["recommendedReassignment"] = rec
             item["action"] = f"Reassign to {rec['provider_id']} — " + ", ".join(rec["reasons"])
+            commit_recommendation(recovery_ctx, rec["provider_id"], row["time_slot"])
         else:
             item["action"] = "Reassign needed — no covering provider with spare capacity today"
 
     flagged.append(item)
 
-# ---- cascade detection: real flag from operational.csv, not invented examples ----
+# ---- cascade detection: one explicit rule, not operational.csv's own flag ----
+# Cascade semantics, found and fixed: operational.csv ships a
+# delay_cascade_triggered flag, and the dashboard used to filter on it while
+# separately telling the coordinator "system buffer for this slot: X min —
+# within buffer, no cascade" vs "exceeds buffer, next visit at risk" as if
+# that buffer comparison were the actual trigger. It never was. The flag
+# turns out to be a flat delay_minutes > 15 cutoff that ignores
+# buffer_minutes_needed entirely — checked directly against the data: every
+# single row has delay_minutes < buffer_minutes_needed (a visit's delay never
+# literally exceeds its buffer in this dataset), so the "exceeds buffer" UI
+# branch was structurally dead code. It would render "within buffer, no
+# cascade" on a card that was already being shown *as* a cascade.
+#
+# One rule now drives both the filter and the copy: a visit is a downstream
+# cascade risk when its delay has burned through at least 85% of the buffer
+# minutes built into that slot (delay_minutes / buffer_minutes_needed >=
+# 0.85) — a per-visit, buffer-relative threshold instead of one flat number
+# applied to every slot regardless of how much slack it had. See
+# "Cascade semantics" in README.md for the before/after counts.
+CASCADE_RATIO_THRESHOLD = 0.85
+today_df["cascade_ratio"] = today_df["delay_minutes"] / today_df["buffer_minutes_needed"]
+
 providers = pd.read_csv(f"{DATA_DIR}/providers.csv")
-cascade_today = today_df[today_df["delay_cascade_triggered"] == True].merge(
+cascade_today = today_df[today_df["cascade_ratio"] >= CASCADE_RATIO_THRESHOLD].merge(
     providers, on="provider_id", how="left"
 )
 
@@ -171,6 +195,7 @@ for _, row in cascade_today.iterrows():
         "provider": f"{row['provider_id']} ({row['employment_type']})",
         "delay": int(row["delay_minutes"]),
         "buffer": int(row["buffer_minutes_needed"]),
+        "usedPct": int(round(row["cascade_ratio"] * 100)),
         "notified": bool(row["downstream_notified"]),
         "locGap": bool(row["travel_distance_km"] > 15 and not row["downstream_notified"]),
     }
@@ -178,6 +203,7 @@ for _, row in cascade_today.iterrows():
         rec = recommend(row["appointment_id"], TODAY_STR, recovery_ctx)
         if rec:
             c["recovery"] = f"Backup available: {rec['provider_id']} — " + ", ".join(rec["reasons"])
+            commit_recommendation(recovery_ctx, rec["provider_id"], row["time_slot"])
         else:
             c["recovery"] = "No backup provider with spare capacity today — needs manual coordinator call"
     cascades.append(c)
@@ -215,6 +241,6 @@ with open(DASHBOARD_HTML, "w", encoding="utf-8") as f:
 print(f"today = {TODAY.date()}")
 print(f"summary = {summary}")
 print(f"flagged appointments = {len(flagged)}")
-print(f"real cascades detected = {len(cascades)}")
+print(f"cascades detected (>= {int(CASCADE_RATIO_THRESHOLD * 100)}% of buffer used) = {len(cascades)}")
 print("wrote model/dashboard_data.json")
 print(f"updated {DASHBOARD_HTML} (line {data_line_idx + 1}) with the same output — no manual copy step")
