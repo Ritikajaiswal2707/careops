@@ -31,11 +31,20 @@ Two data limitations, carried over honestly from v1 and still true here:
     operating centroid. That's a real, data-derived location — not the
     patient's own city centroid — but it's an approximation, not a GPS fact.
   - checking `specialization` against how providers are actually assigned to
-    service_types in appointments.csv still shows close to no relationship
-    (~22% ± 2pp for every specialization, regardless of service_type — see
-    notebook check). So "service fit" stays a low-weight soft signal here,
-    not something the score leans on, because the data doesn't support
-    leaning on it.
+    service_types in appointments.csv shows close to no relationship (~20-23%
+    for every specialization, regardless of service_type). So this mapping
+    is imposed explicitly, in SERVICE_COMPATIBILITY below, as a HARD
+    eligibility filter -- "can this candidate deliver the requested
+    service?" -- rather than inferred from the data. The service_fit weight
+    in the score only breaks ties among already-eligible candidates
+    (primary vs. an acceptable secondary specialization).
+
+Also fixed here: recovery decisions for target_date are built only from
+appointments strictly BEFORE target_date (continuity history, provider
+location centroids). The original version used the full appointment history
+regardless of date, which meant a recovery decision for e.g. Aug 10 could be
+informed by relationships that only show up in Aug 20's data -- a real
+information leak a target_date-scoped decision shouldn't have.
 """
 import math
 import pandas as pd
@@ -50,6 +59,27 @@ WEIGHTS = {
     "service_fit": 5,
 }
 UTILIZATION_PENALTY_WEIGHT = 10  # subtracted, scaled by how over/near capacity the provider already is
+
+# Which provider specialization(s) can actually deliver a given service_type.
+# This is a business rule, not something learned from the data: a crosstab of
+# service_type against the specialization of the provider actually assigned
+# (appointments.csv) shows every specialization at ~20-23% of every
+# service_type -- i.e. the synthetic assignment history carries no real
+# signal on this. So this mapping is imposed as ground truth, and used below
+# as a HARD eligibility filter (a candidate that can't deliver the requested
+# service is not a candidate at all), not a soft tie-breaker.
+# First entry in each list = primary/preferred specialization for that
+# service; any additional entries are acceptable but scored slightly lower.
+SERVICE_COMPATIBILITY = {
+    "Physiotherapy Session": ["Physiotherapy"],
+    "Nursing Visit": ["General Nursing"],
+    "Diabetic Care Visit": ["Diabetic Care"],
+    "Post-Op Care": ["Post-Surgery Care"],
+    "Vitals Check": ["General Nursing", "Elder Care"],
+    # Not in the original spec -- added for completeness since it's a real
+    # service_type in the data. Treated as a General Nursing task.
+    "Wound Dressing": ["General Nursing"],
+}
 
 
 def haversine_km(lat1, lon1, lat2, lon2):
@@ -91,13 +121,22 @@ def build_candidates(target_date: str):
     # split (Morning/Afternoon/Evening) is an approximation, flagged as such.
     slot_load_today = today_appts.groupby(["provider_id", "time_slot"]).size()
 
+    # Strictly-historical slice for anything that infers a relationship or
+    # location: a recovery decision made for target_date must not be
+    # informed by appointments that happen AFTER it (temporal leakage).
+    # Date strings are ISO (YYYY-MM-DD), so lexicographic "<" is chronological.
+    # today_appts (== target_date, used above for load/capacity) is fine to
+    # use as-is, since today's own assignments are known at decision time --
+    # it's only future dates that must stay invisible.
+    history_appts = appts[appts["date"] < target_date]
+
     cand = providers.copy()
     cand["available_today"] = cand["provider_id"].map(avail_today).fillna(False)
     cand["assigned_today"] = cand["provider_id"].map(load_today).fillna(0).astype(int)
     cand["remaining_capacity"] = cand["daily_capacity"] - cand["assigned_today"]
     cand["utilization_today"] = (cand["assigned_today"] / cand["daily_capacity"]).clip(upper=2.0)
 
-    centroids = _provider_centroids(appts, patients)
+    centroids = _provider_centroids(history_appts, patients)
     cand = cand.merge(centroids, on="provider_id", how="left")
 
     return {
@@ -105,7 +144,7 @@ def build_candidates(target_date: str):
         "appts": appts,
         "patients": patients,
         "slot_load_today": slot_load_today,
-        "history": _patient_provider_history(appts),
+        "history": _patient_provider_history(history_appts),
     }
 
 
@@ -122,18 +161,29 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
     current_provider = appt_row["provider_id"]
     time_slot = appt_row["time_slot"]
 
-    pool = cand[
+    # The actual eligibility question is "can this candidate deliver the
+    # requested service?", not "does this candidate share a specialization
+    # label with whoever is currently assigned". Fall back to the
+    # appointment's own service_type when the caller doesn't pass one.
+    service_type = service_type or appt_row["service_type"]
+    compatible_specs = SERVICE_COMPATIBILITY.get(service_type, [])
+
+    base_mask = (
         (cand["area"] == patient["area"]) &
         (cand["available_today"] == True) &
         (cand["remaining_capacity"] > 0) &
         (cand["provider_id"] != current_provider)
-    ].copy()
+    )
+    if compatible_specs:
+        pool = cand[base_mask & cand["specialization"].isin(compatible_specs)].copy()
+    else:
+        # service_type not in the mapping (shouldn't happen for the 6 known
+        # service_types, but don't silently return zero candidates over a
+        # data gap) -- fall back to no hard service-fit filter.
+        pool = cand[base_mask].copy()
 
     if pool.empty:
         return None if top_n == 1 else []
-
-    current_spec_series = cand.loc[cand["provider_id"] == current_provider, "specialization"]
-    current_spec = current_spec_series.iloc[0] if not current_spec_series.empty else None
 
     # distance from the currently-assigned provider, for an honest "vs today" comparison
     current_row = cand[cand["provider_id"] == current_provider]
@@ -162,7 +212,13 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
         slot_room = per_slot_cap - slot_assigned
         schedule_fit_score = 1.0 if slot_room > 0 else (0.4 if row["remaining_capacity"] > 0 else 0.0)
 
-        service_fit_score = 1.0 if row["specialization"] == current_spec else 0.4  # soft — see module docstring
+        if row["specialization"] in compatible_specs:
+            # already passed the hard eligibility filter above; this only
+            # breaks ties among eligible candidates (primary spec vs. an
+            # acceptable secondary one, e.g. Vitals Check by Elder Care).
+            service_fit_score = 1.0 if row["specialization"] == compatible_specs[0] else 0.7
+        else:
+            service_fit_score = 1.0  # no mapping existed for this service_type; filter was a no-op
 
         utilization_penalty = max(0.0, row["utilization_today"] - 0.7) / 0.3  # ramps up past 70% utilized
 
@@ -183,8 +239,9 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
             reasons.append(f"room in the same {time_slot.lower()} slot")
         if continuity:
             reasons.append("has treated this patient before")
-        if row["specialization"] == current_spec:
-            reasons.append("same specialization as current provider")
+        reasons.append(
+            f"{row['specialization']} — {'primary' if row['specialization'] == (compatible_specs[0] if compatible_specs else None) else 'compatible'} fit for {service_type}"
+        )
         if utilization_penalty > 0:
             reasons.append(f"already {int(row['utilization_today']*100)}% booked today")
 
@@ -198,7 +255,8 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
                 round(dist_km - current_dist, 1) if dist_km is not None and current_dist is not None else None
             ),
             "continuity": continuity,
-            "specialization_match": bool(row["specialization"] == current_spec),
+            "specialization": row["specialization"],
+            "service_fit": "primary" if compatible_specs and row["specialization"] == compatible_specs[0] else "compatible",
             "same_slot_available": bool(slot_room > 0),
             "utilization_today_pct": round(float(row["utilization_today"]) * 100, 0),
             "score": round(total, 1),

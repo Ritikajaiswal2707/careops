@@ -31,25 +31,7 @@
         "21.9km from clinician",
         "Evening slot"
       ],
-      "action": "Reassign to PR019 \u2014 12.9 km from patient (inferred), 3 slot(s) free today, has treated this patient before",
-      "recommendedReassignment": {
-        "provider_id": "PR019",
-        "employment_type": "Full-time",
-        "area": "Bengaluru",
-        "remaining_capacity": 3,
-        "distance_km": 12.9,
-        "distance_vs_current_km": -0.1,
-        "continuity": true,
-        "specialization_match": false,
-        "same_slot_available": false,
-        "utilization_today_pct": 25.0,
-        "score": 56.3,
-        "reasons": [
-          "12.9 km from patient (inferred)",
-          "3 slot(s) free today",
-          "has treated this patient before"
-        ]
-      }
+      "action": "Reassign needed \u2014 no covering provider with spare capacity today"
     },
     {
       "id": "APT002040",
@@ -75,25 +57,7 @@
         "15.1km from clinician",
         "Evening slot"
       ],
-      "action": "Reassign to PR011 \u2014 8.0 km from patient (inferred), 3 slot(s) free today, room in the same evening slot",
-      "recommendedReassignment": {
-        "provider_id": "PR011",
-        "employment_type": "Contractual",
-        "area": "Delhi NCR",
-        "remaining_capacity": 3,
-        "distance_km": 8.0,
-        "distance_vs_current_km": -0.3,
-        "continuity": false,
-        "specialization_match": false,
-        "same_slot_available": true,
-        "utilization_today_pct": 40.0,
-        "score": 43.0,
-        "reasons": [
-          "8.0 km from patient (inferred)",
-          "3 slot(s) free today",
-          "room in the same evening slot"
-        ]
-      }
+      "action": "Reassign needed \u2014 no covering provider with spare capacity today"
     },
     {
       "id": "APT009386",
@@ -152,26 +116,7 @@
         "2 prior no-shows before this visit",
         "16.7km from clinician"
       ],
-      "action": "Reassign to PR019 \u2014 11.8 km from patient (inferred), 3 slot(s) free today, room in the same afternoon slot, has treated this patient before",
-      "recommendedReassignment": {
-        "provider_id": "PR019",
-        "employment_type": "Full-time",
-        "area": "Bengaluru",
-        "remaining_capacity": 3,
-        "distance_km": 11.8,
-        "distance_vs_current_km": 0.6,
-        "continuity": true,
-        "specialization_match": false,
-        "same_slot_available": true,
-        "utilization_today_pct": 25.0,
-        "score": 66.5,
-        "reasons": [
-          "11.8 km from patient (inferred)",
-          "3 slot(s) free today",
-          "room in the same afternoon slot",
-          "has treated this patient before"
-        ]
-      }
+      "action": "Reassign needed \u2014 no covering provider with spare capacity today"
     },
     {
       "id": "APT002495",
@@ -183,26 +128,7 @@
         "17.3km from clinician",
         "Evening slot"
       ],
-      "action": "Reassign to PR006 \u2014 8.4 km from patient (inferred), 4 slot(s) free today, room in the same evening slot, has treated this patient before",
-      "recommendedReassignment": {
-        "provider_id": "PR006",
-        "employment_type": "Full-time",
-        "area": "Hyderabad",
-        "remaining_capacity": 4,
-        "distance_km": 8.4,
-        "distance_vs_current_km": 0.4,
-        "continuity": true,
-        "specialization_match": false,
-        "same_slot_available": true,
-        "utilization_today_pct": 50.0,
-        "score": 66.1,
-        "reasons": [
-          "8.4 km from patient (inferred)",
-          "4 slot(s) free today",
-          "room in the same evening slot",
-          "has treated this patient before"
-        ]
-      }
+      "action": "Reassign needed \u2014 no covering provider with spare capacity today"
     },
     {
       "id": "APT004846",
@@ -261,7 +187,7 @@
       "reasons": [
         "24.4km from clinician"
       ],
-      "action": "Agent proposed: move to 2026-08-30 with PR002 \u2014 awaiting confirmation",
+      "action": "Reschedule requested \u2014 no matching slot found, needs manual follow-up",
       "patientSignal": {
         "channel": "WhatsApp",
         "message": "Doctor visit hai usi din, reschedule possible?",
@@ -276,16 +202,11 @@
       "agentTrace": [
         "Patient (PT00275, Mumbai): \"Doctor visit hai usi din, reschedule possible?\"",
         "Extracted: intent=Reschedule, preferred_day=None, next_week=False, relative_day=None, offset_days=None, urgency=Medium, reason=Conflicting doctor visit",
-        "Checked availability.csv for 2026-08-30: 1 provider(s) in Mumbai available with spare capacity.",
-        "Proposed: move to 2026-08-30 with PR002 (5 slots free that day).",
-        "Awaiting patient confirmation \u2014 not written to appointments.csv (no live booking system to write to in this environment)."
-      ],
-      "rescheduleProposal": {
-        "new_date": "2026-08-30",
-        "provider_id": "PR002",
-        "area": "Mumbai",
-        "remaining_capacity": 5
-      }
+        "Checked 2026-08-30 via the unified Recovery Score engine: no eligible candidate found in Mumbai.",
+        "Checked 2026-08-31 via the unified Recovery Score engine: no eligible candidate found in Mumbai.",
+        "Checked 2026-09-01 via the unified Recovery Score engine: no eligible candidate found in Mumbai.",
+        "No confirmable slot found in the search window \u2014 needs manual coordinator follow-up."
+      ]
     },
     {
       "id": "APT000881",
@@ -331,7 +252,7 @@
         "2 prior no-shows before this visit",
         "13.7km from clinician"
       ],
-      "action": "Agent proposed: move to 2026-08-31 with PR006 \u2014 awaiting confirmation",
+      "action": "Agent proposed: move to 2026-08-31 with PR007 \u2014 awaiting confirmation",
       "patientSignal": {
         "channel": "WhatsApp",
         "message": "Can we move to next week?",
@@ -346,15 +267,24 @@
       "agentTrace": [
         "Patient (PT01801, Hyderabad): \"Can we move to next week?\"",
         "Extracted: intent=Reschedule, preferred_day=None, next_week=True, relative_day=None, offset_days=None, urgency=Medium, reason=None",
-        "Checked availability.csv for 2026-08-31: 2 provider(s) in Hyderabad available with spare capacity.",
-        "Proposed: move to 2026-08-31 with PR006 (8 slots free that day).",
-        "Awaiting patient confirmation \u2014 not written to appointments.csv (no live booking system to write to in this environment)."
+        "Checked 2026-08-31 via the unified Recovery Score engine: 1 eligible candidate(s) in Hyderabad.",
+        "Proposed: move to 2026-08-31 with PR007 (Recovery Score 73.4: 11.6 km from patient (inferred); 5 slot(s) free today; room in the same afternoon slot; has treated this patient before; General Nursing \u2014 primary fit for Wound Dressing).",
+        "State: PENDING -> PROPOSED (PR007). Case is now PROPOSED and stops here honestly \u2014 there is no live reply channel in this environment to actually receive PATIENT_CONFIRMED or DECLINED; advancing further needs a real channel to get the patient's answer from, not something to simulate as if it were live."
       ],
       "rescheduleProposal": {
         "new_date": "2026-08-31",
-        "provider_id": "PR006",
+        "provider_id": "PR007",
         "area": "Hyderabad",
-        "remaining_capacity": 8
+        "remaining_capacity": 5,
+        "recovery_score": 73.4,
+        "reasons": [
+          "11.6 km from patient (inferred)",
+          "5 slot(s) free today",
+          "room in the same afternoon slot",
+          "has treated this patient before",
+          "General Nursing \u2014 primary fit for Wound Dressing"
+        ],
+        "state": "PROPOSED"
       }
     },
     {
@@ -458,7 +388,7 @@
         "14.5km from clinician",
         "Evening slot"
       ],
-      "action": "Agent proposed: move to 2026-09-05 with PR010 \u2014 awaiting confirmation",
+      "action": "Reschedule requested \u2014 no matching slot found, needs manual follow-up",
       "patientSignal": {
         "channel": "WhatsApp",
         "message": "Kal thoda late ho jayega, Saturday kar sakte ho?",
@@ -473,16 +403,9 @@
       "agentTrace": [
         "Patient (PT00947, Mumbai): \"Kal thoda late ho jayega, Saturday kar sakte ho?\"",
         "Extracted: intent=Reschedule, preferred_day=Saturday, next_week=False, relative_day=tomorrow, offset_days=None, urgency=High, reason=Provider/patient running late",
-        "Checked availability.csv for 2026-09-05: 2 provider(s) in Mumbai available with spare capacity.",
-        "Proposed: move to 2026-09-05 with PR010 (7 slots free that day).",
-        "Awaiting patient confirmation \u2014 not written to appointments.csv (no live booking system to write to in this environment)."
-      ],
-      "rescheduleProposal": {
-        "new_date": "2026-09-05",
-        "provider_id": "PR010",
-        "area": "Mumbai",
-        "remaining_capacity": 7
-      }
+        "Checked 2026-09-05 via the unified Recovery Score engine: no eligible candidate found in Mumbai.",
+        "No confirmable slot found in the search window \u2014 needs manual coordinator follow-up."
+      ]
     },
     {
       "id": "APT008922",
@@ -539,7 +462,7 @@
       "reasons": [
         "19.7km from clinician"
       ],
-      "action": "Agent proposed: move to 2026-08-30 with PR004 \u2014 awaiting confirmation",
+      "action": "Reschedule requested \u2014 no matching slot found, needs manual follow-up",
       "patientSignal": {
         "channel": "WhatsApp",
         "message": "Doctor visit hai usi din, reschedule possible?",
@@ -554,16 +477,11 @@
       "agentTrace": [
         "Patient (PT01896, Pune): \"Doctor visit hai usi din, reschedule possible?\"",
         "Extracted: intent=Reschedule, preferred_day=None, next_week=False, relative_day=None, offset_days=None, urgency=Medium, reason=Conflicting doctor visit",
-        "Checked availability.csv for 2026-08-30: 1 provider(s) in Pune available with spare capacity.",
-        "Proposed: move to 2026-08-30 with PR004 (4 slots free that day).",
-        "Awaiting patient confirmation \u2014 not written to appointments.csv (no live booking system to write to in this environment)."
-      ],
-      "rescheduleProposal": {
-        "new_date": "2026-08-30",
-        "provider_id": "PR004",
-        "area": "Pune",
-        "remaining_capacity": 4
-      }
+        "Checked 2026-08-30 via the unified Recovery Score engine: no eligible candidate found in Pune.",
+        "Checked 2026-08-31 via the unified Recovery Score engine: no eligible candidate found in Pune.",
+        "Checked 2026-09-01 via the unified Recovery Score engine: no eligible candidate found in Pune.",
+        "No confirmable slot found in the search window \u2014 needs manual coordinator follow-up."
+      ]
     }
   ],
   "cascades": [

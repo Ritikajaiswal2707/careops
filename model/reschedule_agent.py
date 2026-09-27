@@ -2,20 +2,26 @@
 Module 4: Reschedule agent.
 
 Takes a patient message → extracted intent (communication_intelligence) →
-checks real availability/capacity for a matching slot (extending
-capacity_recovery's logic to an arbitrary future date, not just "today") →
-proposes a specific new booking.
+ranks real candidates for a matching slot on an arbitrary future date using
+capacity_recovery.recommend() — the SAME weighted Recovery Score used for
+same-day capacity recovery, not a separate simplistic heuristic — → proposes
+a specific new booking.
 
 This is the "agentic" step the critique described: understand → check
-constraints → propose → (would send back to patient to confirm). There is no
-live chat here to actually get a "yes" back, and no write to appointments.csv
-— the proposal is the deliverable, and executing it is a one-line change once
-a real booking system exists to write to.
+constraints → propose → (would send back to patient to confirm). Proposing
+now drives a real agent_state_machine.RescheduleCase (PENDING -> PROPOSED),
+not just a printed line — see agent_state_machine.py for the full lifecycle
+and its enforced transitions. There is no live chat here to actually get a
+"yes" back, so a real call from this module honestly stops at PROPOSED; no
+write to appointments.csv either — the proposal is the deliverable, and
+executing it is a one-line change once a real booking system exists to
+write to.
 """
 import pandas as pd
 from datetime import timedelta
-from capacity_recovery import build_candidates
+from capacity_recovery import build_candidates, recommend
 from communication_intelligence import extract_intent
+from agent_state_machine import RescheduleCase
 
 DATA_DIR = "../data"
 WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -101,31 +107,46 @@ def propose_reschedule(appointment_id: str, message: str):
         ctx = build_candidates(date_str)
         cand = ctx["cand"]
         has_availability_data = cand["available_today"].any() or (availability["date"] == date_str).any()
-        pool = cand[
-            (cand["area"] == patient["area"]) &
-            (cand["available_today"] == True) &
-            (cand["remaining_capacity"] > 0)
-        ]
-        if not pool.empty:
-            best = pool.sort_values("remaining_capacity", ascending=False).iloc[0]
-            trace.append(f"Checked availability.csv for {date_str}: "
-                         f"{len(pool)} provider(s) in {patient['area']} available with spare capacity.")
+
+        # Same decision engine as same-day capacity recovery — ranked by the
+        # weighted Recovery Score (continuity, proximity, capacity, schedule
+        # fit, service fit), not a separate "pick whoever has the most spare
+        # capacity" heuristic. Known simplification carried over from that
+        # engine: it always excludes the appointment's currently-assigned
+        # provider from the candidate pool, so it won't propose "same
+        # provider, new date" even when that would in fact be available and
+        # is usually the best outcome for the patient — recovering that case
+        # would mean checking the original provider's own availability on
+        # date_str before falling back to this ranking.
+        ranked = recommend(appointment_id, date_str, ctx, service_type=appt["service_type"], top_n=3)
+
+        if ranked:
+            case = RescheduleCase(appointment_id, ranked)
+            best = case.propose_next()  # PENDING -> PROPOSED, real state-machine transition
+            trace.append(f"Checked {date_str} via the unified Recovery Score engine: "
+                         f"{len(ranked)} eligible candidate(s) in {patient['area']}.")
             proposal = {
                 "new_date": date_str,
                 "provider_id": best["provider_id"],
                 "area": best["area"],
-                "remaining_capacity": int(best["remaining_capacity"]),
+                "remaining_capacity": best["remaining_capacity"],
+                "recovery_score": best["score"],
+                "reasons": best["reasons"],
+                "state": case.state.value,
             }
             trace.append(f"Proposed: move to {date_str} with {best['provider_id']} "
-                        f"({int(best['remaining_capacity'])} slots free that day).")
-            trace.append("Awaiting patient confirmation — not written to appointments.csv "
-                         "(no live booking system to write to in this environment).")
+                        f"(Recovery Score {best['score']}: " + "; ".join(best["reasons"]) + ").")
+            trace.append(f"State: {' -> '.join(case.history_trace())}. Case is now PROPOSED and stops "
+                         "here honestly — there is no live reply channel in this environment to actually "
+                         "receive PATIENT_CONFIRMED or DECLINED; advancing further needs a real channel to "
+                         "get the patient's answer from, not something to simulate as if it were live.")
             return {"trace": trace, "proposal": proposal}
         elif not has_availability_data:
             trace.append(f"Checked {date_str}: no availability.csv data exists for this date "
                         f"(outside the dataset's Jun 1 - Aug 29 range) — cannot confirm, not the same as 'unavailable'.")
         else:
-            trace.append(f"Checked {date_str}: no provider in {patient['area']} available with spare capacity.")
+            trace.append(f"Checked {date_str} via the unified Recovery Score engine: "
+                        f"no eligible candidate found in {patient['area']}.")
 
     trace.append("No confirmable slot found in the search window — needs manual coordinator follow-up.")
     return {"trace": trace, "proposal": None}
