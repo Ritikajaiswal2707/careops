@@ -17,15 +17,27 @@ Stages, in order:
   2. fairness_subgroup_analysis.py -> subgroup precision/recall/FPR/calibration, first-time vs returning patients
   3. disruption_type_model.py     -> Stage 2 model: No-Show vs Cancelled, among actual disruptions
   4. communication_intelligence.py -> writes model/communications_enriched.csv
-  5. llm_vs_baseline_eval.py     -> writes model/llm_vs_baseline_results.json
-                                     (LLM half runs only if ANTHROPIC_API_KEY is set)
-  6. capacity_recovery.py        -> prints the worked Recovery Score example
-  7. agent_state_machine.py      -> demos all four reschedule-lifecycle paths
-  8. economics_simulation.py     -> writes model/economics_summary.json
-  9. intervention_outcome_simulation.py -> writes model/intervention_outcomes.json
+  5. llm_direct_eval.py           -> writes model/llm_vs_baseline_results.json
+                                     (rule-based side always runs; LLM side uses
+                                     Claude's direct blind extraction by default --
+                                     see model/llm_direct_eval.py's docstring for
+                                     why, and llm_vs_baseline_eval.py if you have
+                                     an ANTHROPIC_API_KEY and want the real metered
+                                     API path with actual cost/latency instead)
+  6. hybrid_extraction.py        -> writes model/hybrid_eval_results.json
+                                     (scores the rule-first hybrid architecture itself:
+                                     rule-based accepted unconditionally when confident,
+                                     LLM fallback only on abstention, escalate-to-human
+                                     when neither is confident -- see its docstring)
+  7. capacity_recovery.py        -> prints the worked Recovery Score example
+  8. agent_state_machine.py      -> demos all four reschedule-lifecycle paths
+  9. economics_simulation.py     -> writes model/economics_summary.json
+ 10. intervention_outcome_simulation.py -> writes model/intervention_outcomes.json
                                      (per-case simulated outcome log; bottom-up vs. top-down economics)
- 10. generate_dashboard_data.py  -> writes model/dashboard_data.json AND
+ 11. generate_dashboard_data.py  -> writes model/dashboard_data.json AND
                                      rewrites dashboard/index.html's DATA in place
+                                     (uses hybrid_extraction.extract_intent_hybrid, not the
+                                     bare rule-based extractor, for the patient-signal path)
 
 Pass --no-install to skip the pip step (use whatever environment is already active).
 """
@@ -41,7 +53,8 @@ STAGES = [
     "fairness_subgroup_analysis.py",
     "disruption_type_model.py",
     "communication_intelligence.py",
-    "llm_vs_baseline_eval.py",
+    "llm_direct_eval.py",
+    "hybrid_extraction.py",
     "capacity_recovery.py",
     "agent_state_machine.py",
     "economics_simulation.py",

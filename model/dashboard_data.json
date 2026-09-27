@@ -74,12 +74,15 @@
         "channel": "WhatsApp",
         "message": "Ok confirmed",
         "intent": "Confirm",
+        "cancel_current": false,
         "preferred_day": null,
         "urgency": "Low",
         "reason": null,
         "next_week": false,
         "relative_day": null,
-        "offset_days": null
+        "offset_days": null,
+        "source": "rule",
+        "escalate_to_human": false
       }
     },
     {
@@ -192,16 +195,19 @@
         "channel": "WhatsApp",
         "message": "Doctor visit hai usi din, reschedule possible?",
         "intent": "Reschedule",
+        "cancel_current": false,
         "preferred_day": null,
         "urgency": "Medium",
         "reason": "Conflicting doctor visit",
         "next_week": false,
         "relative_day": null,
-        "offset_days": null
+        "offset_days": null,
+        "source": "rule",
+        "escalate_to_human": false
       },
       "agentTrace": [
         "Patient (PT00275, Mumbai): \"Doctor visit hai usi din, reschedule possible?\"",
-        "Extracted: intent=Reschedule, preferred_day=None, next_week=False, relative_day=None, offset_days=None, urgency=Medium, reason=Conflicting doctor visit",
+        "Extracted (rule): intent=Reschedule, cancel_current=False, preferred_day=None, next_week=False, relative_day=None, offset_days=None, urgency=Medium, reason=Conflicting doctor visit",
         "Checked 2026-08-30 via the unified Recovery Score engine: no eligible candidate found in Mumbai.",
         "Checked 2026-08-31 via the unified Recovery Score engine: no eligible candidate found in Mumbai.",
         "Checked 2026-09-01 via the unified Recovery Score engine: 1 eligible candidate(s) in Mumbai.",
@@ -237,12 +243,15 @@
         "channel": "Call",
         "message": "Haan theek hai, confirm kar do",
         "intent": "Confirm",
+        "cancel_current": false,
         "preferred_day": null,
         "urgency": "Low",
         "reason": null,
         "next_week": false,
         "relative_day": null,
-        "offset_days": null
+        "offset_days": null,
+        "source": "rule",
+        "escalate_to_human": false
       }
     },
     {
@@ -272,16 +281,19 @@
         "channel": "WhatsApp",
         "message": "Can we move to next week?",
         "intent": "Reschedule",
+        "cancel_current": false,
         "preferred_day": null,
         "urgency": "Medium",
         "reason": null,
         "next_week": true,
         "relative_day": null,
-        "offset_days": null
+        "offset_days": null,
+        "source": "rule",
+        "escalate_to_human": false
       },
       "agentTrace": [
         "Patient (PT01801, Hyderabad): \"Can we move to next week?\"",
-        "Extracted: intent=Reschedule, preferred_day=None, next_week=True, relative_day=None, offset_days=None, urgency=Medium, reason=None",
+        "Extracted (rule): intent=Reschedule, cancel_current=False, preferred_day=None, next_week=True, relative_day=None, offset_days=None, urgency=Medium, reason=None",
         "Checked 2026-08-31 via the unified Recovery Score engine: 1 eligible candidate(s) in Hyderabad.",
         "Proposed: move to 2026-08-31 with PR007 (Recovery Score 73.4: 11.6 km from patient (inferred); 5 slot(s) free today; room in the same afternoon slot; has treated this patient before; General Nursing \u2014 primary fit for Wound Dressing).",
         "State: PENDING -> PROPOSED (PR007). Case is now PROPOSED and stops here honestly \u2014 there is no live reply channel in this environment to actually receive PATIENT_CONFIRMED or DECLINED; advancing further needs a real channel to get the patient's answer from, not something to simulate as if it were live."
@@ -317,12 +329,15 @@
         "channel": "WhatsApp",
         "message": "Yes that works, see you then",
         "intent": "Confirm",
+        "cancel_current": false,
         "preferred_day": null,
         "urgency": "Low",
         "reason": null,
         "next_week": false,
         "relative_day": null,
-        "offset_days": null
+        "offset_days": null,
+        "source": "rule",
+        "escalate_to_human": false
       }
     },
     {

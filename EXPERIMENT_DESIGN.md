@@ -64,3 +64,29 @@ vs. control, at the visit's scheduled date.
   too — it would mean the risk model is fine but the *action* isn't moving
   behavior, which points at Module 2/4 (communication intelligence, the
   reschedule agent) as the next place to invest, not the risk model itself.
+
+## Other open production-validation questions (out of scope for this RCT)
+
+The RCT above measures whether outreach itself moves the disruption rate. It
+doesn't validate the LLM fallback inside `model/hybrid_extraction.py`'s
+rule-first hybrid architecture — that's a separate set of questions, deliberately
+left open rather than estimated, since none of them can be answered offline:
+
+- **Cost per message** for the ~65% of messages the rule-based gate routes
+  to the LLM fallback (see the README's communication-intelligence section)
+- **Latency per message** for that same fallback path, and whether it's fast
+  enough for the coordinator workflow it feeds
+- **Reliability** of the live API call in production — timeout/retry behavior,
+  and what the fallback does when the call itself fails (distinct from the
+  call succeeding but returning `Unclear` or invalid JSON, which the
+  escalation policy already handles)
+- **Model-version stability** — whether extraction quality holds as the
+  underlying model is updated over time, not just at one point-in-time eval
+- **Data privacy** — patient messages leaving the environment for an external
+  API call; what redaction, retention, and consent requirements apply to a
+  home-healthcare messaging product specifically
+
+These would need their own measurement (a metered pilot run, not another RCT)
+before the hybrid architecture's `cost_per_message_inr` / `avg_latency_ms`
+fields — currently `null` in `model/hybrid_eval_results.json` — could be
+filled in with real numbers instead of left honestly blank.

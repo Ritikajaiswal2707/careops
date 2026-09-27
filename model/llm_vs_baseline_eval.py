@@ -77,6 +77,19 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(BASE_DIR, "..", "data", "communication_eval.json"), encoding="utf-8") as f:
     HELD_OUT_SET = json.load(f)
 
+# Labeling-convention fix: preferred_day/next_week/relative_day/offset_days
+# represent the REQUESTED target only. Early versions of this set encoded
+# any date-like mention as the temporal signal, including a day the patient
+# explicitly says they CAN'T do ("kal nahi ho payega, agle hafte try karte
+# hain" -> the target is next_week=True, not relative_day="tomorrow") or a
+# conflicting event's date ("next tuesday doctor appointment hai, uske baad
+# kisi din kar lo" -> no specific day was actually requested). That
+# convention bug affected 7 of the 103 gold rows and made the reported
+# temporal accuracy noisier than the extractors actually were -- see the
+# case-by-case fix history for the full list. reason already captures WHY
+# (doctor visit / work conflict / running late); these fields capture WHEN
+# the patient wants to be seen, nothing else.
+
 
 
 def _per_class_f1(pairs, labels):
@@ -96,7 +109,15 @@ def _per_class_f1(pairs, labels):
 
 def _score(predictions):
     """predictions: list of dicts with true_* and pred_* keys per case, plus
-    optional 'json_valid' and 'latency_s'. Returns the full metric bundle."""
+    optional 'json_valid' and 'latency_s'. Returns the full metric bundle.
+
+    cancel_current_accuracy is only computed when every prediction carries a
+    pred_cancel_current value (not None) -- it's a newer field than the
+    other four, and a side scored blind before it existed (see
+    my_llm_predictions.py) genuinely doesn't have an answer to grade,
+    rather than a wrong one. Reporting None there instead of guessing is
+    the same "don't fabricate a metric" rule the cost/latency fields
+    already follow."""
     n = len(predictions)
     intent_labels = sorted({p["true_intent"] for p in predictions} | {p["pred_intent"] for p in predictions})
     intent_pairs = [(p["true_intent"], p["pred_intent"]) for p in predictions]
@@ -110,6 +131,15 @@ def _score(predictions):
     abstentions = sum(1 for p in predictions if p["pred_intent"] == "Unclear")
     json_valid = [p.get("json_valid") for p in predictions if p.get("json_valid") is not None]
 
+    cancel_current_preds = [p.get("pred_cancel_current") for p in predictions]
+    if all(v is not None for v in cancel_current_preds):
+        cancel_current_correct = sum(
+            p["true_cancel_current"] == p["pred_cancel_current"] for p in predictions
+        )
+        cancel_current_accuracy = round(cancel_current_correct / n, 3)
+    else:
+        cancel_current_accuracy = None
+
     return {
         "n": n,
         "intent_accuracy": round(intent_accuracy, 3),
@@ -117,6 +147,7 @@ def _score(predictions):
         "intent_f1_by_class": intent_f1_by_class,
         "temporal_extraction_accuracy": round(temporal_correct / n, 3),
         "reason_extraction_accuracy": round(reason_correct / n, 3),
+        "cancel_current_accuracy": cancel_current_accuracy,
         "abstention_rate": round(abstentions / n, 3),
         "json_validity_rate": round(sum(json_valid) / len(json_valid), 3) if json_valid else None,
     }
@@ -133,6 +164,8 @@ def run_rule_based_eval():
             "message": case["message"],
             "true_intent": case["intent"],
             "pred_intent": pred["intent"],
+            "true_cancel_current": case["cancel_current"],
+            "pred_cancel_current": pred["cancel_current"],
             "true_temporal": (case["preferred_day"], case["next_week"], case["relative_day"], case["offset_days"]),
             "pred_temporal": (pred["preferred_day"], pred["next_week"], pred["relative_day"], pred["offset_days"]),
             "true_reason": case["reason"],
@@ -169,12 +202,19 @@ def run_llm_eval():
         "message (English, Hindi, Hinglish, or a mix, possibly with typos). "
         "Respond with ONLY a JSON object, no other text, matching exactly:\n"
         '{"intent": "Confirm"|"Reschedule"|"Cancel"|"Unclear"|"No Response", '
+        '"cancel_current": true|false, '
         '"preferred_day": "Monday".."Sunday" or null, '
         '"next_week": true|false, '
         '"relative_day": "tomorrow"|"weekend"|null, '
         '"offset_days": integer or null, '
         '"reason": "Conflicting doctor visit"|"Work conflict"|'
-        '"Provider/patient running late"|null}'
+        '"Provider/patient running late"|null}\n'
+        "cancel_current is true whenever the CURRENT appointment is being "
+        'dropped -- a plain cancellation, or a compound message like "cancel '
+        'today\'s, I\'ll come tomorrow" that also requests a new day (which '
+        "should be classified intent=Reschedule, cancel_current=true, not "
+        "intent=Cancel). It is false for a plain move-only reschedule with "
+        "no explicit cancel language."
     )
 
     # Illustrative INR pricing for the model used here, at the time of
@@ -210,6 +250,8 @@ def run_llm_eval():
             "message": case["message"],
             "true_intent": case["intent"],
             "pred_intent": parsed.get("intent", "PARSE_ERROR"),
+            "true_cancel_current": case["cancel_current"],
+            "pred_cancel_current": parsed.get("cancel_current") if json_valid else None,
             "true_temporal": (case["preferred_day"], case["next_week"], case["relative_day"], case["offset_days"]),
             "pred_temporal": (parsed.get("preferred_day"), parsed.get("next_week", False),
                                parsed.get("relative_day"), parsed.get("offset_days")),

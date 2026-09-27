@@ -4,26 +4,29 @@
     "metrics": {
       "n": 103,
       "intent_accuracy": 0.447,
-      "intent_macro_f1": 0.57,
+      "intent_macro_f1": 0.567,
       "intent_f1_by_class": {
-        "Cancel": 0.629,
+        "Cancel": 0.581,
         "Confirm": 0.375,
         "No Response": 1.0,
-        "Reschedule": 0.528,
+        "Reschedule": 0.561,
         "Unclear": 0.317
       },
-      "temporal_extraction_accuracy": 0.913,
+      "temporal_extraction_accuracy": 0.883,
       "reason_extraction_accuracy": 0.981,
+      "cancel_current_accuracy": 0.874,
       "abstention_rate": 0.65,
       "json_validity_rate": 1.0,
       "cost_per_message_inr": 0.0,
-      "avg_latency_ms": 0.0122
+      "avg_latency_ms": 0.0138
     },
     "misclassified": [
       {
         "message": "haan bilkul, wahi time pe aa jaana",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -44,6 +47,8 @@
         "message": "yes see u then",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -64,6 +69,8 @@
         "message": "ok",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -84,6 +91,8 @@
         "message": "sab thik hai, appointment as is",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -104,6 +113,8 @@
         "message": "yep all good",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -124,6 +135,8 @@
         "message": "theek h chalega",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -144,6 +157,8 @@
         "message": "haanji sab sahi hai",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -164,6 +179,8 @@
         "message": "running 10 min behind, still coming though",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -184,6 +201,8 @@
         "message": "haan aaj hi aa jaana, sab plan same hai",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -204,6 +223,8 @@
         "message": "confrm h, no changes",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -224,6 +245,8 @@
         "message": "we'll be home, come as planned",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -244,6 +267,8 @@
         "message": "cool, works for us",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -264,6 +289,8 @@
         "message": "yeah that's fine, no need to change anything",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -284,6 +311,8 @@
         "message": "k",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -304,6 +333,8 @@
         "message": "sahi hai bhai, aa jao",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -324,6 +355,8 @@
         "message": "any chance of moving to next monday",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           "Monday",
           true,
@@ -344,6 +377,8 @@
         "message": "can we push it out a bit? maybe next tuesday",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           "Tuesday",
           true,
@@ -364,6 +399,8 @@
         "message": "running late from office, possible on saturday?",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           "Saturday",
           false,
@@ -384,6 +421,8 @@
         "message": "not today, some other day",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -404,6 +443,8 @@
         "message": "she's not well, we'll call to rebook",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -424,10 +465,12 @@
         "message": "Sorry yaar, kal nahi ho payega, agle hafte try karte hain",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           true,
-          "tomorrow",
+          null,
           null
         ],
         "pred_temporal": [
@@ -444,6 +487,8 @@
         "message": "doctor appointment aa gaya isi hafte, agle hafte dekh lete hain",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           true,
@@ -464,6 +509,8 @@
         "message": "kuch kaam aa gaya office se, thoda aage badha do please",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -484,6 +531,8 @@
         "message": "can we look at another day this week, doctor ka appointment clash ho raha hai",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -504,6 +553,8 @@
         "message": "is it possible after 5 days?",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -524,6 +575,8 @@
         "message": "can we do it after 3 days instead, works better for us",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -544,6 +597,8 @@
         "message": "can u come a bit later in the day instead? like evening?",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -564,6 +619,8 @@
         "message": "possible after 7 days? going out of town till then",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -584,6 +641,8 @@
         "message": "after 2 din possible hai kya, kal doctor ke paas jaana hai",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -604,10 +663,12 @@
         "message": "we're not free tomorrow anymore, works some other time?",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
-          "tomorrow",
+          null,
           null
         ],
         "pred_temporal": [
@@ -624,10 +685,12 @@
         "message": "cant make it kal, kabhi aur din try karein?",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
-          "tomorrow",
+          null,
           null
         ],
         "pred_temporal": [
@@ -644,6 +707,8 @@
         "message": "somthing came up, cant do satuday, wat about sundy",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           "Sunday",
           false,
@@ -664,6 +729,8 @@
         "message": "we're out for a family fn that day, dusre din dekh lo koi",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -684,8 +751,10 @@
         "message": "resched krna h yr, mon nahi ho payega ab",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
-          "Monday",
+          null,
           false,
           null,
           null
@@ -704,6 +773,8 @@
         "message": "we're not going to need this appointment",
         "true_intent": "Cancel",
         "pred_intent": "Unclear",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -724,6 +795,8 @@
         "message": "please don't come, we're out of town",
         "true_intent": "Cancel",
         "pred_intent": "Unclear",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -744,6 +817,8 @@
         "message": "no thanks, we'll skip this one",
         "true_intent": "Cancel",
         "pred_intent": "Unclear",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -764,6 +839,8 @@
         "message": "we need to stop this service",
         "true_intent": "Cancel",
         "pred_intent": "Unclear",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -784,6 +861,8 @@
         "message": "cant do it, sorry",
         "true_intent": "Cancel",
         "pred_intent": "Unclear",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -804,6 +883,8 @@
         "message": "patient ko hospital admit karwa diya hai, ab ye visit nahi chahiye",
         "true_intent": "Cancel",
         "pred_intent": "Unclear",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -824,6 +905,8 @@
         "message": "we've decided to go with a different arrangement, don't send anyone",
         "true_intent": "Cancel",
         "pred_intent": "Unclear",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -844,6 +927,8 @@
         "message": "papa ab theek hain, ab is care ki zaroorat nahi",
         "true_intent": "Cancel",
         "pred_intent": "Confirm",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -864,6 +949,8 @@
         "message": "we moved to another city, please close this out",
         "true_intent": "Cancel",
         "pred_intent": "Unclear",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -884,6 +971,8 @@
         "message": "not sure, will confirm later",
         "true_intent": "Unclear",
         "pred_intent": "Confirm",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -904,10 +993,12 @@
         "message": "\u092e\u0941\u091d\u0947 \u0915\u0932 \u0928\u0939\u0940\u0902 \u0939\u094b\u0917\u093e, \u0905\u0917\u0932\u0947 \u0939\u092b\u094d\u0924\u0947 \u0915\u0930 \u0932\u0947\u0902\u0917\u0947",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           true,
-          "tomorrow",
+          null,
           null
         ],
         "pred_temporal": [
@@ -924,6 +1015,8 @@
         "message": "\u0920\u0940\u0915 \u0939\u0948, \u0935\u0939\u0940 \u0938\u092e\u092f \u092a\u0930 \u0906 \u091c\u093e\u0928\u093e",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -944,6 +1037,8 @@
         "message": "\u0905\u092d\u0940 \u0915\u0948\u0902\u0938\u093f\u0932 \u0915\u0930 \u0926\u094b \u092a\u094d\u0932\u0940\u091c\u093c",
         "true_intent": "Cancel",
         "pred_intent": "Unclear",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -964,6 +1059,8 @@
         "message": "possible thursday ya friday, jo bhi mile",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           "Thursday",
           false,
@@ -984,6 +1081,8 @@
         "message": "not this week, maybe start of next month",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -1004,6 +1103,8 @@
         "message": "beta ka school event hai us din, kisi aur din try karo please",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -1024,6 +1125,8 @@
         "message": "we'll be traveling, can you push it after 10 days",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -1044,6 +1147,8 @@
         "message": "we don't want this service anymore, please discontinue",
         "true_intent": "Cancel",
         "pred_intent": "Unclear",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -1064,6 +1169,8 @@
         "message": "ab zaroorat nahi hai iski, dhanyawad",
         "true_intent": "Cancel",
         "pred_intent": "Unclear",
+        "true_cancel_current": true,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -1084,6 +1191,8 @@
         "message": "haa sab plan wahi hai, koi change nahi",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -1104,6 +1213,8 @@
         "message": "yup, all set on our end",
         "true_intent": "Confirm",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
           null,
           false,
@@ -1124,6 +1235,8 @@
         "message": "matlab kya hua, samajh nahi aaya",
         "true_intent": "Unclear",
         "pred_intent": "Cancel",
+        "true_cancel_current": false,
+        "pred_cancel_current": true,
         "true_temporal": [
           null,
           false,
@@ -1144,9 +1257,11 @@
         "message": "next tuesday ko doctor ka appointment hai, uske baad kisi din kar lo",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
+        "true_cancel_current": false,
+        "pred_cancel_current": false,
         "true_temporal": [
-          "Tuesday",
-          true,
+          null,
+          false,
           null,
           null
         ],
@@ -1162,5 +1277,27 @@
       }
     ]
   },
-  "llm": null
+  "llm": {
+    "metrics": {
+      "n": 103,
+      "intent_accuracy": 1.0,
+      "intent_macro_f1": 1.0,
+      "intent_f1_by_class": {
+        "Cancel": 1.0,
+        "Confirm": 1.0,
+        "No Response": 1.0,
+        "Reschedule": 1.0,
+        "Unclear": 1.0
+      },
+      "temporal_extraction_accuracy": 1.0,
+      "reason_extraction_accuracy": 0.981,
+      "cancel_current_accuracy": null,
+      "abstention_rate": 0.146,
+      "json_validity_rate": 1.0,
+      "cost_per_message_inr": null,
+      "avg_latency_ms": null,
+      "methodology_note": "No live Anthropic API call was made for this run. Claude performed the structured extraction directly on all 103 held-out messages, blind to gold labels at prediction time (see my_llm_predictions.py). Genuine test of extraction quality; cost/latency require a real metered API call and are reported as null, not estimated. cancel_current_accuracy is also null here: that field was added to the schema after this blind run, so there's no blind answer to grade it against -- a fresh blind (or live API) run against the updated schema would be needed for that number."
+    },
+    "misclassified": []
+  }
 }

@@ -8,7 +8,14 @@ seeing "Reschedule" still has to open the raw message to find out to when,
 why, and how urgently.
 
 This module extracts a richer structure from the raw message text itself:
-    { intent, preferred_day, urgency, reason }
+    { intent, cancel_current, preferred_day, urgency, reason }
+
+cancel_current exists because a single Cancel/Reschedule label can't
+represent a compound request -- "cancel today's, I'll come tomorrow" is
+asking to drop the current slot AND book a new one in the same breath.
+Forcing that into one label is what produced two real misses in the P0
+evaluation (see model/communication_eval eval notes / README); the fix
+was to add this second boolean rather than add more single-choice labels.
 
 It's a rule/keyword-based extractor, not a live LLM call (this environment
 has no API key wired into the container) — but it operates on the raw text,
@@ -79,21 +86,41 @@ def parse_temporal(message: str) -> dict:
 
 def extract_intent(message: str) -> dict:
     if not isinstance(message, str) or not message.strip():
-        return {"intent": "No Response", "preferred_day": None, "urgency": "Low", "reason": None,
-                "next_week": False, "relative_day": None, "offset_days": None}
+        return {"intent": "No Response", "cancel_current": False, "preferred_day": None, "urgency": "Low",
+                "reason": None, "next_week": False, "relative_day": None, "offset_days": None}
 
     m = message.lower()
 
-    if any(w in m for w in CANCEL_WORDS):
-        intent = "Cancel"
-    elif any(w in m for w in RESCHEDULE_WORDS):
-        intent = "Reschedule"
-    elif any(w in m for w in CONFIRM_WORDS):
-        intent = "Confirm"
-    else:
-        intent = "Unclear"
+    has_cancel = any(w in m for w in CANCEL_WORDS)
+    has_reschedule_word = any(w in m for w in RESCHEDULE_WORDS)
 
     temporal = parse_temporal(message)
+    has_temporal_signal = bool(temporal["day"] or temporal["relative"] or temporal["offset_days"])
+
+    # Compound requests ("aaj cancel, kal aa jaunga" / "cancel karo aur
+    # Wednesday ko fix kar do") say "cancel" but are asking to move the
+    # appointment to a new day, not to drop it with nothing booked in its
+    # place. A single Cancel/Reschedule label can't represent "cancel THIS
+    # one and book a new one" -- forcing it into one bucket is what
+    # produced the taxonomy gap the eval found (see communication_eval.json
+    # cases 50 and 81). cancel_current disambiguates: true whenever the
+    # current slot is being dropped, independent of whether a new one is
+    # being requested in the same message.
+    if has_cancel and (has_reschedule_word or has_temporal_signal):
+        intent = "Reschedule"
+        cancel_current = True
+    elif has_cancel:
+        intent = "Cancel"
+        cancel_current = True
+    elif has_reschedule_word:
+        intent = "Reschedule"
+        cancel_current = False
+    elif any(w in m for w in CONFIRM_WORDS):
+        intent = "Confirm"
+        cancel_current = False
+    else:
+        intent = "Unclear"
+        cancel_current = False
 
     urgency = "High" if any(w in m for w in URGENT_WORDS) else ("Medium" if intent == "Reschedule" else "Low")
 
@@ -108,6 +135,12 @@ def extract_intent(message: str) -> dict:
 
     return {
         "intent": intent,
+        # True whenever the current appointment is being dropped -- for a
+        # plain Cancel, or for a compound "cancel + rebook" message that
+        # still classifies as Reschedule. False for a plain move-only
+        # Reschedule, where the old slot is implicitly replaced rather than
+        # explicitly cancelled.
+        "cancel_current": cancel_current,
         "preferred_day": temporal["day"],
         "urgency": urgency,
         "reason": reason,

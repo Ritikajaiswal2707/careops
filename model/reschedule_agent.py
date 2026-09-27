@@ -35,7 +35,7 @@ import os
 import pandas as pd
 from datetime import timedelta
 from capacity_recovery import build_candidates, recommend
-from communication_intelligence import extract_intent
+from hybrid_extraction import extract_intent_hybrid
 from agent_state_machine import RescheduleCase
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -123,11 +123,21 @@ def propose_reschedule(appointment_id: str, message: str, *, appts=None, patient
     patient = patients[patients["patient_id"] == appt["patient_id"]].iloc[0]
     orig_date = pd.to_datetime(appt["date"])
 
-    signal = extract_intent(message)
+    # extract_intent_hybrid runs the free deterministic parser first and only
+    # falls back to an LLM call when it abstains (intent="Unclear") — see
+    # model/hybrid_extraction.py. In this environment (no ANTHROPIC_API_KEY)
+    # the fallback can't actually run, so an Unclear message here comes back
+    # flagged escalate_to_human=True instead of silently staying Unclear.
+    signal = extract_intent_hybrid(message)
     trace = [f"Patient ({appt['patient_id']}, {patient['area']}): \"{message}\"",
-             f"Extracted: intent={signal['intent']}, preferred_day={signal['preferred_day']}, "
+             f"Extracted ({signal['source']}): intent={signal['intent']}, cancel_current={signal['cancel_current']}, "
+             f"preferred_day={signal['preferred_day']}, "
              f"next_week={signal['next_week']}, relative_day={signal['relative_day']}, "
              f"offset_days={signal['offset_days']}, urgency={signal['urgency']}, reason={signal['reason']}"]
+
+    if signal["escalate_to_human"]:
+        trace.append("Neither the rule-based parser nor the LLM fallback could confidently classify this message — escalated to a human coordinator rather than acted on.")
+        return {"trace": trace, "proposal": None}
 
     if signal["intent"] != "Reschedule":
         trace.append("Not a reschedule request — routed back to standard action logic.")

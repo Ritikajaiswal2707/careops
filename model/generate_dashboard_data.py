@@ -14,7 +14,7 @@ import json
 import os
 import pandas as pd
 from disruption_model import model, features, df, DATA_DIR
-from communication_intelligence import extract_intent
+from hybrid_extraction import extract_intent_hybrid
 from capacity_recovery import build_candidates, recommend, commit_recommendation
 from reschedule_agent import propose_reschedule
 
@@ -136,7 +136,13 @@ for _, row in ranked[ranked["tier"] != "Low"].iterrows():
     if row["appointment_id"] in latest_msg.index:
         msg_row = latest_msg.loc[row["appointment_id"]]
         if isinstance(msg_row["message"], str) and msg_row["message"].strip():
-            signal = extract_intent(msg_row["message"])
+            # Rule-first hybrid: the deterministic parser runs first, and only
+            # abstentions ("Unclear") would fall back to an LLM call — see
+            # model/hybrid_extraction.py. No ANTHROPIC_API_KEY is configured
+            # in this environment, so that fallback can't actually run here;
+            # such messages come back escalate_to_human=True instead of a
+            # guessed intent.
+            signal = extract_intent_hybrid(msg_row["message"])
             patient_signal_out = {
                 "channel": msg_row["channel"],
                 "message": msg_row["message"],
@@ -144,6 +150,8 @@ for _, row in ranked[ranked["tier"] != "Low"].iterrows():
             }
 
     action = suggest_action(row, row["tier"], signal)
+    if signal and signal.get("escalate_to_human"):
+        action = "Message unclear to both the rule-based parser and the LLM fallback — needs a human coordinator to read it directly"
     item = {
         "id": row["appointment_id"],
         "time": row["time_slot"],

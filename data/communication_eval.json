@@ -2,6 +2,7 @@
   {
     "message": "Confirmed, thank you!",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -11,6 +12,7 @@
   {
     "message": "haan bilkul, wahi time pe aa jaana",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -20,6 +22,7 @@
   {
     "message": "yes see u then",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -29,6 +32,7 @@
   {
     "message": "ok",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -38,6 +42,7 @@
   {
     "message": "sab thik hai, appointment as is",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -47,6 +52,7 @@
   {
     "message": "great, see you then!",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -56,6 +62,7 @@
   {
     "message": "yep all good",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -65,6 +72,7 @@
   {
     "message": "theek h chalega",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -74,6 +82,7 @@
   {
     "message": "haanji sab sahi hai",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -83,6 +92,7 @@
   {
     "message": "running 10 min behind, still coming though",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -92,6 +102,7 @@
   {
     "message": "haan aaj hi aa jaana, sab plan same hai",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -101,6 +112,7 @@
   {
     "message": "confrm h, no changes",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -110,6 +122,7 @@
   {
     "message": "sounds good, thanks!",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -119,6 +132,7 @@
   {
     "message": "we'll be home, come as planned",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -128,6 +142,7 @@
   {
     "message": "haa theek hai aaj wala time hi rakho",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -137,6 +152,7 @@
   {
     "message": "cool, works for us",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -146,6 +162,7 @@
   {
     "message": "yeah that's fine, no need to change anything",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -155,6 +172,7 @@
   {
     "message": "ji haan, wahi time theek hai",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -164,6 +182,7 @@
   {
     "message": "k",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -173,6 +192,7 @@
   {
     "message": "sahi hai bhai, aa jao",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -182,15 +202,17 @@
   {
     "message": "Kal thoda late ho jayega, Saturday kar sakte ho?",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": "Saturday",
     "next_week": false,
-    "relative_day": "tomorrow",
+    "relative_day": null,
     "offset_days": null,
     "reason": "Provider/patient running late"
   },
   {
     "message": "any chance of moving to next monday",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": "Monday",
     "next_week": true,
     "relative_day": null,
@@ -200,6 +222,7 @@
   {
     "message": "can we push it out a bit? maybe next tuesday",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": "Tuesday",
     "next_week": true,
     "relative_day": null,
@@ -209,6 +232,7 @@
   {
     "message": "doctor visit hai usi din, reschedule possible? Friday theek rahega",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": "Friday",
     "next_week": false,
     "relative_day": null,
@@ -218,6 +242,7 @@
   {
     "message": "office ka kaam aa gaya, can we shift to wednesday",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": "Wednesday",
     "next_week": false,
     "relative_day": null,
@@ -227,6 +252,7 @@
   {
     "message": "sorry cant do thursday, kar sakte ho on sunday instead?",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": "Sunday",
     "next_week": false,
     "relative_day": null,
@@ -236,6 +262,7 @@
   {
     "message": "kl subah nahi ho payega, weekend pe kar sakte?",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": "weekend",
@@ -245,6 +272,7 @@
   {
     "message": "work call chal raha hoga us time, shift to thursday please",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": "Thursday",
     "next_week": false,
     "relative_day": null,
@@ -254,6 +282,7 @@
   {
     "message": "doctor ke pass jaana hai wahi din, postpone to next friday please",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": "Friday",
     "next_week": true,
     "relative_day": null,
@@ -263,6 +292,7 @@
   {
     "message": "running late from office, possible on saturday?",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": "Saturday",
     "next_week": false,
     "relative_day": null,
@@ -272,6 +302,7 @@
   {
     "message": "Hey, can we push this to sometime next week?",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": true,
     "relative_day": null,
@@ -281,6 +312,7 @@
   {
     "message": "postponing to next week please",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": true,
     "relative_day": null,
@@ -290,6 +322,7 @@
   {
     "message": "not today, some other day",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -299,6 +332,7 @@
   {
     "message": "she's not well, we'll call to rebook",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -308,15 +342,17 @@
   {
     "message": "Sorry yaar, kal nahi ho payega, agle hafte try karte hain",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": true,
-    "relative_day": "tomorrow",
+    "relative_day": null,
     "offset_days": null,
     "reason": null
   },
   {
     "message": "doctor appointment aa gaya isi hafte, agle hafte dekh lete hain",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": true,
     "relative_day": null,
@@ -326,6 +362,7 @@
   {
     "message": "kuch kaam aa gaya office se, thoda aage badha do please",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -335,6 +372,7 @@
   {
     "message": "can we look at another day this week, doctor ka appointment clash ho raha hai",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -344,6 +382,7 @@
   {
     "message": "is it possible after 5 days?",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -353,6 +392,7 @@
   {
     "message": "can we do it after 3 days instead, works better for us",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -362,6 +402,7 @@
   {
     "message": "can u come a bit later in the day instead? like evening?",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -371,6 +412,7 @@
   {
     "message": "possible after 7 days? going out of town till then",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -380,6 +422,7 @@
   {
     "message": "after 2 din possible hai kya, kal doctor ke paas jaana hai",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -389,24 +432,27 @@
   {
     "message": "we're not free tomorrow anymore, works some other time?",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
-    "relative_day": "tomorrow",
+    "relative_day": null,
     "offset_days": null,
     "reason": null
   },
   {
     "message": "cant make it kal, kabhi aur din try karein?",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
-    "relative_day": "tomorrow",
+    "relative_day": null,
     "offset_days": null,
     "reason": null
   },
   {
     "message": "somthing came up, cant do satuday, wat about sundy",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": "Sunday",
     "next_week": false,
     "relative_day": null,
@@ -416,6 +462,7 @@
   {
     "message": "we're out for a family fn that day, dusre din dekh lo koi",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -425,7 +472,8 @@
   {
     "message": "resched krna h yr, mon nahi ho payega ab",
     "intent": "Reschedule",
-    "preferred_day": "Monday",
+    "cancel_current": false,
+    "preferred_day": null,
     "next_week": false,
     "relative_day": null,
     "offset_days": null,
@@ -434,6 +482,7 @@
   {
     "message": "I don't think I can make it anymore, please cancel",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -443,6 +492,7 @@
   {
     "message": "mujhe nahi karna ab, cancel kar do please",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -451,7 +501,8 @@
   },
   {
     "message": "aaj cancel, kal aa jaunga",
-    "intent": "Cancel",
+    "intent": "Reschedule",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": "tomorrow",
@@ -461,6 +512,7 @@
   {
     "message": "Is week cancel karna padega",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -470,6 +522,7 @@
   {
     "message": "plz cancle, cant come today",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -479,6 +532,7 @@
   {
     "message": "cant do it, sorry, please cancel this one",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -488,6 +542,7 @@
   {
     "message": "nahi aa payenge is baar, cancel kar dena",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -497,6 +552,7 @@
   {
     "message": "we're not going to need this appointment",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -506,6 +562,7 @@
   {
     "message": "please don't come, we're out of town",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -515,6 +572,7 @@
   {
     "message": "no thanks, we'll skip this one",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -524,6 +582,7 @@
   {
     "message": "we need to stop this service",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -533,6 +592,7 @@
   {
     "message": "cant do it, sorry",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -542,6 +602,7 @@
   {
     "message": "patient ko hospital admit karwa diya hai, ab ye visit nahi chahiye",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -551,6 +612,7 @@
   {
     "message": "we've decided to go with a different arrangement, don't send anyone",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -560,6 +622,7 @@
   {
     "message": "not needed anymore, sorry for the trouble",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -569,6 +632,7 @@
   {
     "message": "papa ab theek hain, ab is care ki zaroorat nahi",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -578,6 +642,7 @@
   {
     "message": "we moved to another city, please close this out",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -587,6 +652,7 @@
   {
     "message": "not sure, will confirm later",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -596,6 +662,7 @@
   {
     "message": "let me check with my husband and get back to you",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -605,6 +672,7 @@
   {
     "message": "kaun bol raha hai ye?",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -614,6 +682,7 @@
   {
     "message": "abhi decide nahi kiya, batayenge",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -623,6 +692,7 @@
   {
     "message": "why did the last person come so late last time",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -632,6 +702,7 @@
   {
     "message": "kitna charge hoga is visit ka",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -641,6 +712,7 @@
   {
     "message": "hmm",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -650,6 +722,7 @@
   {
     "message": "acha dekhte hain",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -659,6 +732,7 @@
   {
     "message": "which provider is coming this time",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -668,6 +742,7 @@
   {
     "message": "call me when you're close",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -677,6 +752,7 @@
   {
     "message": "???",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -686,6 +762,7 @@
   {
     "message": "we'll see how mummy is feeling that day",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -695,6 +772,7 @@
   {
     "message": "",
     "intent": "No Response",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -704,6 +782,7 @@
   {
     "message": "   ",
     "intent": "No Response",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -713,6 +792,7 @@
   {
     "message": "oh sure, because today was SO convenient. can we do next week instead",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": true,
     "relative_day": null,
@@ -722,6 +802,7 @@
   {
     "message": "cancel kar do na, itni baar mat pucho",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -730,7 +811,8 @@
   },
   {
     "message": "aaj cancel karo aur agle hafte Wednesday ko fix kar do",
-    "intent": "Cancel",
+    "intent": "Reschedule",
+    "cancel_current": true,
     "preferred_day": "Wednesday",
     "next_week": true,
     "relative_day": null,
@@ -740,15 +822,17 @@
   {
     "message": "मुझे कल नहीं होगा, अगले हफ्ते कर लेंगे",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": true,
-    "relative_day": "tomorrow",
+    "relative_day": null,
     "offset_days": null,
     "reason": null
   },
   {
     "message": "ठीक है, वही समय पर आ जाना",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -758,6 +842,7 @@
   {
     "message": "अभी कैंसिल कर दो प्लीज़",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -767,6 +852,7 @@
   {
     "message": "can we do next next week, this week is packed",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": true,
     "relative_day": null,
@@ -776,6 +862,7 @@
   {
     "message": "possible thursday ya friday, jo bhi mile",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": "Thursday",
     "next_week": false,
     "relative_day": null,
@@ -785,6 +872,7 @@
   {
     "message": "not this week, maybe start of next month",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -794,6 +882,7 @@
   {
     "message": "provider hamesha late aata hai, isliye hum bhi late honge, evening slot possible?",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -803,6 +892,7 @@
   {
     "message": "beta ka school event hai us din, kisi aur din try karo please",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -812,6 +902,7 @@
   {
     "message": "we'll be traveling, can you push it after 10 days",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -821,6 +912,7 @@
   {
     "message": "aftr 4 dayss possible? thanks",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -830,6 +922,7 @@
   {
     "message": "we don't want this service anymore, please discontinue",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -839,6 +932,7 @@
   {
     "message": "ab zaroorat nahi hai iski, dhanyawad",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -848,6 +942,7 @@
   {
     "message": "sorry to say but cancel this permanently",
     "intent": "Cancel",
+    "cancel_current": true,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -857,6 +952,7 @@
   {
     "message": "haa sab plan wahi hai, koi change nahi",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -866,6 +962,7 @@
   {
     "message": "confirm, bas thoda pehle aa jaana agar ho sake",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -875,6 +972,7 @@
   {
     "message": "yup, all set on our end",
     "intent": "Confirm",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -884,6 +982,7 @@
   {
     "message": "does the provider carry their own equipment or should we arrange something",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -893,6 +992,7 @@
   {
     "message": "aap kaun bol rahe ho, ye number kisne diya",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -902,6 +1002,7 @@
   {
     "message": "matlab kya hua, samajh nahi aaya",
     "intent": "Unclear",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
@@ -911,8 +1012,9 @@
   {
     "message": "next tuesday ko doctor ka appointment hai, uske baad kisi din kar lo",
     "intent": "Reschedule",
-    "preferred_day": "Tuesday",
-    "next_week": true,
+    "cancel_current": false,
+    "preferred_day": null,
+    "next_week": false,
     "relative_day": null,
     "offset_days": null,
     "reason": "Conflicting doctor visit"
@@ -920,6 +1022,7 @@
   {
     "message": "office se abhi nikal nahi paunga time pe, thoda evening mein shift karo",
     "intent": "Reschedule",
+    "cancel_current": false,
     "preferred_day": null,
     "next_week": false,
     "relative_day": null,
