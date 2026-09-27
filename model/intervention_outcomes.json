@@ -1,0 +1,6363 @@
+{
+  "evaluation_period": "August (test split, unseen by model)",
+  "assumptions": {
+    "top_k_pct_flagged": 0.2,
+    "intervention_success_rate_per_attempt": 0.35,
+    "coordinator_min_per_contact": 8,
+    "revenue_per_completed_visit": 800,
+    "coordinator_hourly_cost": 300,
+    "max_candidates_per_case": 3,
+    "random_seed": 42,
+    "note": "intervention_success_rate is the SAME placeholder economics_simulation.py uses, applied per attempt here instead of once as an aggregate multiply -- not a new or independently-tuned number."
+  },
+  "n_flagged": 631,
+  "n_true_positive_among_flagged": 212,
+  "n_false_positive_among_flagged": 419,
+  "bottom_up_simulated": {
+    "recovered_visits": 16,
+    "escalated_no_recovery": 196,
+    "coordinator_hours": 85.5,
+    "contribution_recovered": 12800,
+    "coordinator_cost": 25650.0,
+    "net_value": -12850.0,
+    "attempts_to_success_distribution": {
+      "1": 14,
+      "2": 2
+    }
+  },
+  "top_down_baseline": {
+    "recovered_visits": 74,
+    "coordinator_hours": 84.1,
+    "contribution_recovered": 59200,
+    "coordinator_cost": 25230.0,
+    "net_value": 33970.0
+  },
+  "delta_simulated_minus_topdown": {
+    "recovered_visits": -58,
+    "coordinator_hours": 1.4,
+    "net_value": -46820.0
+  },
+  "cases": [
+    {
+      "appointment_id": "APT005311",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003664",
+      "date": "2026-08-01",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003483",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007103",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005142",
+      "date": "2026-08-01",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 2,
+      "coordinator_minutes": 16,
+      "recovered": false,
+      "candidates_considered": 2,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR001)",
+        "DECLINED (PR001)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "PROPOSED (PR015)",
+        "DECLINED (PR015)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT000035",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000715",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006023",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004543",
+      "date": "2026-08-01",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004766",
+      "date": "2026-08-01",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007464",
+      "date": "2026-08-01",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008152",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009602",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005183",
+      "date": "2026-08-01",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000831",
+      "date": "2026-08-01",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 2,
+      "coordinator_minutes": 16,
+      "recovered": false,
+      "candidates_considered": 2,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR007)",
+        "DECLINED (PR007)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "PROPOSED (PR017)",
+        "DECLINED (PR017)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT006156",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008342",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000772",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008222",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006356",
+      "date": "2026-08-01",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008983",
+      "date": "2026-08-01",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005373",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004772",
+      "date": "2026-08-02",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR011",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR011)",
+        "PATIENT_CONFIRMED (PR011)",
+        "BOOKED (PR011)",
+        "PROVIDER_NOTIFIED (PR011)",
+        "COMPLETED (PR011)"
+      ]
+    },
+    {
+      "appointment_id": "APT003463",
+      "date": "2026-08-02",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002345",
+      "date": "2026-08-02",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003423",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009743",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006222",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006917",
+      "date": "2026-08-02",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002307",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004862",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000500",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003669",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000959",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002341",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006579",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009498",
+      "date": "2026-08-02",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003671",
+      "date": "2026-08-02",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006920",
+      "date": "2026-08-03",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007395",
+      "date": "2026-08-03",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003624",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008457",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001184",
+      "date": "2026-08-03",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009269",
+      "date": "2026-08-03",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001182",
+      "date": "2026-08-03",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007450",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003337",
+      "date": "2026-08-03",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000423",
+      "date": "2026-08-03",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008432",
+      "date": "2026-08-03",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003961",
+      "date": "2026-08-03",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003882",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007645",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000493",
+      "date": "2026-08-03",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003593",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005963",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001710",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005260",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002795",
+      "date": "2026-08-03",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004884",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008055",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008603",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005103",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005159",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004438",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008620",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006024",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005568",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007483",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003541",
+      "date": "2026-08-03",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007650",
+      "date": "2026-08-04",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR006)",
+        "DECLINED (PR006)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT002149",
+      "date": "2026-08-04",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT005924",
+      "date": "2026-08-04",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000528",
+      "date": "2026-08-04",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006436",
+      "date": "2026-08-04",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007476",
+      "date": "2026-08-04",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003116",
+      "date": "2026-08-04",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003655",
+      "date": "2026-08-04",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003347",
+      "date": "2026-08-04",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003288",
+      "date": "2026-08-04",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002199",
+      "date": "2026-08-04",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008105",
+      "date": "2026-08-04",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003572",
+      "date": "2026-08-04",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008178",
+      "date": "2026-08-04",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008701",
+      "date": "2026-08-04",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002802",
+      "date": "2026-08-05",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008079",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009547",
+      "date": "2026-08-05",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006416",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006745",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002253",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008032",
+      "date": "2026-08-05",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR001)",
+        "DECLINED (PR001)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT007676",
+      "date": "2026-08-05",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009994",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001335",
+      "date": "2026-08-05",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007390",
+      "date": "2026-08-05",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009187",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008985",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001513",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007728",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007409",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007500",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001090",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004345",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005519",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003001",
+      "date": "2026-08-05",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006296",
+      "date": "2026-08-05",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009724",
+      "date": "2026-08-05",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR009)",
+        "DECLINED (PR009)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT002349",
+      "date": "2026-08-06",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008816",
+      "date": "2026-08-06",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 2,
+      "booked_provider": "PR007",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR007)",
+        "PATIENT_CONFIRMED (PR007)",
+        "BOOKED (PR007)",
+        "PROVIDER_NOTIFIED (PR007)",
+        "COMPLETED (PR007)"
+      ]
+    },
+    {
+      "appointment_id": "APT001104",
+      "date": "2026-08-06",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005329",
+      "date": "2026-08-06",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000641",
+      "date": "2026-08-06",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005832",
+      "date": "2026-08-06",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR018)",
+        "DECLINED (PR018)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT006093",
+      "date": "2026-08-06",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005261",
+      "date": "2026-08-06",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007369",
+      "date": "2026-08-06",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR019)",
+        "DECLINED (PR019)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT002818",
+      "date": "2026-08-06",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR005)",
+        "DECLINED (PR005)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT006041",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003875",
+      "date": "2026-08-07",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006971",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008479",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001904",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004242",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000383",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001416",
+      "date": "2026-08-07",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007822",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007012",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000789",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004750",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001145",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008740",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000541",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003018",
+      "date": "2026-08-07",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009666",
+      "date": "2026-08-07",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006074",
+      "date": "2026-08-07",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009730",
+      "date": "2026-08-08",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004488",
+      "date": "2026-08-08",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005554",
+      "date": "2026-08-08",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008443",
+      "date": "2026-08-08",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002698",
+      "date": "2026-08-08",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001459",
+      "date": "2026-08-08",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002592",
+      "date": "2026-08-08",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006741",
+      "date": "2026-08-08",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003762",
+      "date": "2026-08-08",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003078",
+      "date": "2026-08-08",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR014)",
+        "DECLINED (PR014)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT007625",
+      "date": "2026-08-08",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008159",
+      "date": "2026-08-08",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008365",
+      "date": "2026-08-08",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001880",
+      "date": "2026-08-08",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007866",
+      "date": "2026-08-08",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009253",
+      "date": "2026-08-08",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR017)",
+        "DECLINED (PR017)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT001919",
+      "date": "2026-08-08",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR017)",
+        "DECLINED (PR017)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT006697",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003126",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006313",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009143",
+      "date": "2026-08-09",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR001",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR001)",
+        "PATIENT_CONFIRMED (PR001)",
+        "BOOKED (PR001)",
+        "PROVIDER_NOTIFIED (PR001)",
+        "COMPLETED (PR001)"
+      ]
+    },
+    {
+      "appointment_id": "APT005151",
+      "date": "2026-08-09",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009123",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009623",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006209",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000877",
+      "date": "2026-08-09",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR009)",
+        "DECLINED (PR009)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT005967",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001351",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007175",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000817",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008419",
+      "date": "2026-08-09",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009763",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006346",
+      "date": "2026-08-09",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002073",
+      "date": "2026-08-09",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009252",
+      "date": "2026-08-09",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004878",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005320",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003235",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005939",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008867",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005194",
+      "date": "2026-08-09",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000677",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006359",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008296",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000030",
+      "date": "2026-08-09",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002392",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006430",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004107",
+      "date": "2026-08-09",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004256",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006309",
+      "date": "2026-08-09",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005372",
+      "date": "2026-08-10",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002825",
+      "date": "2026-08-10",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008941",
+      "date": "2026-08-10",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002675",
+      "date": "2026-08-10",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006590",
+      "date": "2026-08-10",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006800",
+      "date": "2026-08-10",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000820",
+      "date": "2026-08-10",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002913",
+      "date": "2026-08-10",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008965",
+      "date": "2026-08-10",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009366",
+      "date": "2026-08-10",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008643",
+      "date": "2026-08-10",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008227",
+      "date": "2026-08-10",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR019",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR019)",
+        "PATIENT_CONFIRMED (PR019)",
+        "BOOKED (PR019)",
+        "PROVIDER_NOTIFIED (PR019)",
+        "COMPLETED (PR019)"
+      ]
+    },
+    {
+      "appointment_id": "APT005296",
+      "date": "2026-08-10",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007193",
+      "date": "2026-08-10",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007121",
+      "date": "2026-08-10",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005980",
+      "date": "2026-08-10",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006016",
+      "date": "2026-08-10",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009208",
+      "date": "2026-08-11",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT005545",
+      "date": "2026-08-11",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR005)",
+        "DECLINED (PR005)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT006040",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009772",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003313",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003713",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000998",
+      "date": "2026-08-11",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009442",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005825",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000042",
+      "date": "2026-08-11",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008986",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009296",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006647",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003643",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006852",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005679",
+      "date": "2026-08-11",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008726",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009919",
+      "date": "2026-08-11",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009305",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009850",
+      "date": "2026-08-11",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007783",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008587",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006092",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006492",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000016",
+      "date": "2026-08-11",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001281",
+      "date": "2026-08-11",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009039",
+      "date": "2026-08-11",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004135",
+      "date": "2026-08-11",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR019)",
+        "DECLINED (PR019)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT003667",
+      "date": "2026-08-12",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004674",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000112",
+      "date": "2026-08-12",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003989",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005197",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000620",
+      "date": "2026-08-12",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001385",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009042",
+      "date": "2026-08-12",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006171",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004521",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004258",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000380",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000904",
+      "date": "2026-08-12",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004220",
+      "date": "2026-08-12",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008546",
+      "date": "2026-08-12",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006907",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000313",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004296",
+      "date": "2026-08-12",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007385",
+      "date": "2026-08-12",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003353",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006864",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005130",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001752",
+      "date": "2026-08-12",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008619",
+      "date": "2026-08-13",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR001)",
+        "DECLINED (PR001)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT003833",
+      "date": "2026-08-13",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003344",
+      "date": "2026-08-13",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR020)",
+        "DECLINED (PR020)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT008737",
+      "date": "2026-08-13",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000005",
+      "date": "2026-08-13",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001276",
+      "date": "2026-08-13",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004265",
+      "date": "2026-08-13",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001749",
+      "date": "2026-08-13",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009726",
+      "date": "2026-08-13",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001897",
+      "date": "2026-08-13",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR006)",
+        "DECLINED (PR006)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT003831",
+      "date": "2026-08-13",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR001)",
+        "DECLINED (PR001)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT000052",
+      "date": "2026-08-13",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006370",
+      "date": "2026-08-13",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000072",
+      "date": "2026-08-13",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006293",
+      "date": "2026-08-13",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001750",
+      "date": "2026-08-13",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR001)",
+        "DECLINED (PR001)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT003516",
+      "date": "2026-08-13",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002061",
+      "date": "2026-08-14",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003925",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001640",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003510",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006303",
+      "date": "2026-08-14",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007403",
+      "date": "2026-08-14",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR007",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR007)",
+        "PATIENT_CONFIRMED (PR007)",
+        "BOOKED (PR007)",
+        "PROVIDER_NOTIFIED (PR007)",
+        "COMPLETED (PR007)"
+      ]
+    },
+    {
+      "appointment_id": "APT007324",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007292",
+      "date": "2026-08-14",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007159",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003105",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004668",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003032",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005398",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001461",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006912",
+      "date": "2026-08-14",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000135",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000055",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009266",
+      "date": "2026-08-14",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000200",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000544",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004679",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001296",
+      "date": "2026-08-14",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008484",
+      "date": "2026-08-14",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008480",
+      "date": "2026-08-14",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR005)",
+        "DECLINED (PR005)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT009684",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000297",
+      "date": "2026-08-15",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT005202",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006633",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001736",
+      "date": "2026-08-15",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000128",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002083",
+      "date": "2026-08-15",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001159",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000011",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003248",
+      "date": "2026-08-15",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT005567",
+      "date": "2026-08-15",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003677",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009271",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005224",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003657",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000051",
+      "date": "2026-08-15",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT005102",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002190",
+      "date": "2026-08-15",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR001",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR001)",
+        "PATIENT_CONFIRMED (PR001)",
+        "BOOKED (PR001)",
+        "PROVIDER_NOTIFIED (PR001)",
+        "COMPLETED (PR001)"
+      ]
+    },
+    {
+      "appointment_id": "APT002304",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009558",
+      "date": "2026-08-15",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001608",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008405",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005589",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009667",
+      "date": "2026-08-15",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005813",
+      "date": "2026-08-15",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004881",
+      "date": "2026-08-16",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008137",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005951",
+      "date": "2026-08-16",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003402",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004834",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006807",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003767",
+      "date": "2026-08-16",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003862",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009578",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001631",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009322",
+      "date": "2026-08-16",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004399",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008923",
+      "date": "2026-08-16",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008356",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004842",
+      "date": "2026-08-16",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007705",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008420",
+      "date": "2026-08-16",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR005",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR005)",
+        "PATIENT_CONFIRMED (PR005)",
+        "BOOKED (PR005)",
+        "PROVIDER_NOTIFIED (PR005)",
+        "COMPLETED (PR005)"
+      ]
+    },
+    {
+      "appointment_id": "APT009963",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000675",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003172",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007803",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006654",
+      "date": "2026-08-16",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009025",
+      "date": "2026-08-16",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008037",
+      "date": "2026-08-16",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT005739",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007939",
+      "date": "2026-08-17",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008426",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005732",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000479",
+      "date": "2026-08-17",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT005780",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007276",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003766",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009877",
+      "date": "2026-08-17",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009825",
+      "date": "2026-08-17",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR006)",
+        "DECLINED (PR006)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT001813",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004672",
+      "date": "2026-08-17",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001547",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008729",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002862",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008318",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006933",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001947",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001333",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006641",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003276",
+      "date": "2026-08-17",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000598",
+      "date": "2026-08-17",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002166",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001476",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003227",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007332",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004657",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001218",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006547",
+      "date": "2026-08-18",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002107",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002668",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000581",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005566",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006617",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002985",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002973",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002468",
+      "date": "2026-08-18",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006926",
+      "date": "2026-08-18",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT005946",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005089",
+      "date": "2026-08-18",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009987",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001364",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003869",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005139",
+      "date": "2026-08-19",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000510",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002964",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008591",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006883",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008959",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008109",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008064",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009409",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005871",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002292",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002901",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000767",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002046",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004669",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005597",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001619",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003159",
+      "date": "2026-08-19",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001720",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004895",
+      "date": "2026-08-19",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003026",
+      "date": "2026-08-19",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006873",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008849",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008811",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000788",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000180",
+      "date": "2026-08-20",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001843",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005549",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005497",
+      "date": "2026-08-20",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003203",
+      "date": "2026-08-20",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT005984",
+      "date": "2026-08-20",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008338",
+      "date": "2026-08-20",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003821",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003625",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003273",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004775",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007377",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009936",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003352",
+      "date": "2026-08-20",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000289",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009791",
+      "date": "2026-08-20",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006784",
+      "date": "2026-08-21",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000822",
+      "date": "2026-08-21",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000824",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005770",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005936",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008394",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009814",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009722",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005721",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004160",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003619",
+      "date": "2026-08-21",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 2,
+      "coordinator_minutes": 16,
+      "recovered": false,
+      "candidates_considered": 2,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR003)",
+        "DECLINED (PR003)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "PROPOSED (PR017)",
+        "DECLINED (PR017)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT008316",
+      "date": "2026-08-21",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002348",
+      "date": "2026-08-21",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006539",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004259",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000066",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003891",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003041",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005702",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003946",
+      "date": "2026-08-21",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003825",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003960",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006555",
+      "date": "2026-08-21",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008556",
+      "date": "2026-08-21",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR005",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR005)",
+        "PATIENT_CONFIRMED (PR005)",
+        "BOOKED (PR005)",
+        "PROVIDER_NOTIFIED (PR005)",
+        "COMPLETED (PR005)"
+      ]
+    },
+    {
+      "appointment_id": "APT006721",
+      "date": "2026-08-21",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004450",
+      "date": "2026-08-21",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003861",
+      "date": "2026-08-22",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007382",
+      "date": "2026-08-22",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007309",
+      "date": "2026-08-22",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002627",
+      "date": "2026-08-22",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008700",
+      "date": "2026-08-22",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR005)",
+        "DECLINED (PR005)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT001213",
+      "date": "2026-08-22",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002381",
+      "date": "2026-08-22",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008375",
+      "date": "2026-08-22",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002697",
+      "date": "2026-08-22",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006477",
+      "date": "2026-08-22",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009950",
+      "date": "2026-08-22",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001806",
+      "date": "2026-08-22",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR007)",
+        "DECLINED (PR007)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT008035",
+      "date": "2026-08-22",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004398",
+      "date": "2026-08-22",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009931",
+      "date": "2026-08-22",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR011",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR011)",
+        "PATIENT_CONFIRMED (PR011)",
+        "BOOKED (PR011)",
+        "PROVIDER_NOTIFIED (PR011)",
+        "COMPLETED (PR011)"
+      ]
+    },
+    {
+      "appointment_id": "APT001568",
+      "date": "2026-08-22",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007380",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005776",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000360",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004824",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004632",
+      "date": "2026-08-23",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 2,
+      "booked_provider": "PR005",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR005)",
+        "PATIENT_CONFIRMED (PR005)",
+        "BOOKED (PR005)",
+        "PROVIDER_NOTIFIED (PR005)",
+        "COMPLETED (PR005)"
+      ]
+    },
+    {
+      "appointment_id": "APT000847",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001702",
+      "date": "2026-08-23",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002082",
+      "date": "2026-08-23",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007855",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001836",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004576",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008120",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000550",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009884",
+      "date": "2026-08-23",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000509",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003431",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009274",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002217",
+      "date": "2026-08-23",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 2,
+      "coordinator_minutes": 16,
+      "recovered": true,
+      "candidates_considered": 2,
+      "booked_provider": "PR015",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR001)",
+        "DECLINED (PR001)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "PROPOSED (PR015)",
+        "PATIENT_CONFIRMED (PR015)",
+        "BOOKED (PR015)",
+        "PROVIDER_NOTIFIED (PR015)",
+        "COMPLETED (PR015)"
+      ]
+    },
+    {
+      "appointment_id": "APT009837",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007860",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005121",
+      "date": "2026-08-23",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009579",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006464",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003783",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009961",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 2,
+      "coordinator_minutes": 16,
+      "recovered": false,
+      "candidates_considered": 2,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR001)",
+        "DECLINED (PR001)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "PROPOSED (PR005)",
+        "DECLINED (PR005)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT004271",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004822",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000740",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003558",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000059",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 2,
+      "coordinator_minutes": 16,
+      "recovered": false,
+      "candidates_considered": 2,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR001)",
+        "DECLINED (PR001)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "PROPOSED (PR005)",
+        "DECLINED (PR005)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT001190",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004821",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000705",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006239",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000779",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003548",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007100",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001004",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000496",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR014",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR014)",
+        "PATIENT_CONFIRMED (PR014)",
+        "BOOKED (PR014)",
+        "PROVIDER_NOTIFIED (PR014)",
+        "COMPLETED (PR014)"
+      ]
+    },
+    {
+      "appointment_id": "APT003950",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005402",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR007)",
+        "DECLINED (PR007)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT008693",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009462",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001884",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007092",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR014)",
+        "DECLINED (PR014)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT000948",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 2,
+      "coordinator_minutes": 16,
+      "recovered": true,
+      "candidates_considered": 2,
+      "booked_provider": "PR017",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR007)",
+        "DECLINED (PR007)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "PROPOSED (PR017)",
+        "PATIENT_CONFIRMED (PR017)",
+        "BOOKED (PR017)",
+        "PROVIDER_NOTIFIED (PR017)",
+        "COMPLETED (PR017)"
+      ]
+    },
+    {
+      "appointment_id": "APT009311",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006747",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007518",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003856",
+      "date": "2026-08-24",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004820",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002540",
+      "date": "2026-08-24",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002021",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008498",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003494",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006578",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006347",
+      "date": "2026-08-25",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009342",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001354",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006599",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000590",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003071",
+      "date": "2026-08-25",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004253",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004385",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009452",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004124",
+      "date": "2026-08-25",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004695",
+      "date": "2026-08-25",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007294",
+      "date": "2026-08-25",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000871",
+      "date": "2026-08-25",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008510",
+      "date": "2026-08-25",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000604",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004475",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009441",
+      "date": "2026-08-25",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000717",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005537",
+      "date": "2026-08-26",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR005)",
+        "DECLINED (PR005)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT001204",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003954",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000117",
+      "date": "2026-08-26",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004830",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004149",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001049",
+      "date": "2026-08-26",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001978",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007960",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009658",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003297",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007606",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008416",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007183",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008925",
+      "date": "2026-08-26",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR006",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR006)",
+        "PATIENT_CONFIRMED (PR006)",
+        "BOOKED (PR006)",
+        "PROVIDER_NOTIFIED (PR006)",
+        "COMPLETED (PR006)"
+      ]
+    },
+    {
+      "appointment_id": "APT001386",
+      "date": "2026-08-26",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002707",
+      "date": "2026-08-26",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR005",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR005)",
+        "PATIENT_CONFIRMED (PR005)",
+        "BOOKED (PR005)",
+        "PROVIDER_NOTIFIED (PR005)",
+        "COMPLETED (PR005)"
+      ]
+    },
+    {
+      "appointment_id": "APT009959",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004875",
+      "date": "2026-08-26",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003486",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002331",
+      "date": "2026-08-26",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000129",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007774",
+      "date": "2026-08-27",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004350",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000448",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004218",
+      "date": "2026-08-27",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006187",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000704",
+      "date": "2026-08-27",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT005966",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007173",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000216",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004774",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008999",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006214",
+      "date": "2026-08-27",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001323",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005161",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003191",
+      "date": "2026-08-27",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002542",
+      "date": "2026-08-27",
+      "true_label": 1,
+      "simulated_outcome": "COMPLETED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": true,
+      "candidates_considered": 1,
+      "booked_provider": "PR001",
+      "history": [
+        "PENDING",
+        "PROPOSED (PR001)",
+        "PATIENT_CONFIRMED (PR001)",
+        "BOOKED (PR001)",
+        "PROVIDER_NOTIFIED (PR001)",
+        "COMPLETED (PR001)"
+      ]
+    },
+    {
+      "appointment_id": "APT003294",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007981",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006786",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008836",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT008879",
+      "date": "2026-08-27",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002994",
+      "date": "2026-08-28",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 1,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR018)",
+        "DECLINED (PR018)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT006221",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005155",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000735",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007988",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001734",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000106",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004167",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001565",
+      "date": "2026-08-28",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006782",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000283",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003368",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001572",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009930",
+      "date": "2026-08-28",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000543",
+      "date": "2026-08-28",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 2,
+      "coordinator_minutes": 16,
+      "recovered": false,
+      "candidates_considered": 2,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR015)",
+        "DECLINED (PR015)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "PROPOSED (PR001)",
+        "DECLINED (PR001)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT006182",
+      "date": "2026-08-28",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006929",
+      "date": "2026-08-28",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT001532",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT000408",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004924",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002545",
+      "date": "2026-08-28",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT003467",
+      "date": "2026-08-28",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT008246",
+      "date": "2026-08-28",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED",
+      "attempts": 3,
+      "coordinator_minutes": 24,
+      "recovered": false,
+      "candidates_considered": 3,
+      "booked_provider": null,
+      "history": [
+        "PENDING",
+        "PROPOSED (PR015)",
+        "DECLINED (PR015)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "PROPOSED (PR001)",
+        "DECLINED (PR001)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "PROPOSED (PR005)",
+        "DECLINED (PR005)",
+        "SEARCH_ALTERNATIVE (patient declined \u2014 trying next candidate)",
+        "ESCALATED (no more candidates \u2014 needs manual coordinator follow-up)"
+      ]
+    },
+    {
+      "appointment_id": "APT004512",
+      "date": "2026-08-29",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT006955",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002040",
+      "date": "2026-08-29",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007922",
+      "date": "2026-08-29",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT009386",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT004397",
+      "date": "2026-08-29",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007368",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009378",
+      "date": "2026-08-29",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT002495",
+      "date": "2026-08-29",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT004846",
+      "date": "2026-08-29",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT007653",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT001903",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT007546",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009737",
+      "date": "2026-08-29",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT000881",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006706",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT006709",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005092",
+      "date": "2026-08-29",
+      "true_label": 1,
+      "simulated_outcome": "ESCALATED_NO_CANDIDATE",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false,
+      "candidates_considered": 0
+    },
+    {
+      "appointment_id": "APT003376",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT002887",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT005630",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    },
+    {
+      "appointment_id": "APT009344",
+      "date": "2026-08-29",
+      "true_label": 0,
+      "simulated_outcome": "CONFIRMED_NO_ACTION_NEEDED",
+      "attempts": 1,
+      "coordinator_minutes": 8,
+      "recovered": false
+    }
+  ]
+}

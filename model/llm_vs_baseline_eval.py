@@ -53,149 +53,30 @@ import time
 from collections import defaultdict
 from communication_intelligence import extract_intent
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # ---- Held-out set --------------------------------------------------------
 # Hand-labeled, written independently of communications.csv's 10 message
-# templates. Every item carries the FULL gold structure the product needs
-# (intent, preferred_day, next_week, relative_day, offset_days, reason) --
-# not just intent -- because intent-only was the gap the P0 review flagged:
-# a coordinator seeing "Reschedule" still needs to know to when and why.
+# templates, and stored as a real data artifact (data/communication_eval.json)
+# rather than embedded in this script -- so it's genuinely usable as "an
+# independent evaluation dataset," not something that only exists buried
+# inside the evaluator that scores against it. Every item carries the FULL
+# gold structure the product needs (intent, preferred_day, next_week,
+# relative_day, offset_days, reason) -- not just intent -- because
+# intent-only was the gap the P0 review flagged: a coordinator seeing
+# "Reschedule" still needs to know to when and why.
 #
 # Categories, roughly balanced against real-world class imbalance (Confirm
 # is the most common real message; Cancel and no-keyword Reschedule are
-# rarer but higher-stakes to get right):
-#   - Confirm: explicit, minimal ("ok", "yep"), Hinglish, typo'd
-#   - Reschedule: explicit weekday, "next week", "next <weekday>", weekend,
-#     "kal"/tomorrow, "after N days", vague/no day named, no reschedule
-#     keyword at all, each with a mix of doctor/work/late/no reason
-#   - Cancel: explicit keyword, and indirect phrasing with no cancel keyword
-#   - Unclear: genuinely ambiguous, non-committal, or off-topic
-#   - No Response: empty / whitespace-only
-HELD_OUT_SET = [
-    # -- Confirm --------------------------------------------------------
-    {"message": "Confirmed, thank you!", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "haan bilkul, wahi time pe aa jaana", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "yes see u then", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "ok", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "sab thik hai, appointment as is", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "great, see you then!", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "yep all good", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "theek h chalega", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "haanji sab sahi hai", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "running 10 min behind, still coming though", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "haan aaj hi aa jaana, sab plan same hai", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "confrm h, no changes", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "sounds good, thanks!", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "we'll be home, come as planned", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "haa theek hai aaj wala time hi rakho", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "cool, works for us", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "yeah that's fine, no need to change anything", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "ji haan, wahi time theek hai", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "k", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "sahi hai bhai, aa jao", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
+# rarer but higher-stakes to get right): explicit/minimal/Hinglish/typo'd
+# Confirm; Reschedule with explicit weekday, "next week", "next <weekday>",
+# weekend, "kal"/tomorrow, "after N days", or no day named at all, each with
+# a mix of doctor/work/late/no reason; explicit-keyword and indirect Cancel;
+# genuinely ambiguous/non-committal/off-topic Unclear; empty No Response;
+# plus sarcasm, compound requests, and Devanagari-script-only messages.
+with open(os.path.join(BASE_DIR, "..", "data", "communication_eval.json"), encoding="utf-8") as f:
+    HELD_OUT_SET = json.load(f)
 
-    # -- Reschedule: explicit weekday named -----------------------------
-    {"message": "Kal thoda late ho jayega, Saturday kar sakte ho?", "intent": "Reschedule", "preferred_day": "Saturday", "next_week": False, "relative_day": "tomorrow", "offset_days": None, "reason": "Provider/patient running late"},
-    {"message": "any chance of moving to next monday", "intent": "Reschedule", "preferred_day": "Monday", "next_week": True, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "can we push it out a bit? maybe next tuesday", "intent": "Reschedule", "preferred_day": "Tuesday", "next_week": True, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "doctor visit hai usi din, reschedule possible? Friday theek rahega", "intent": "Reschedule", "preferred_day": "Friday", "next_week": False, "relative_day": None, "offset_days": None, "reason": "Conflicting doctor visit"},
-    {"message": "office ka kaam aa gaya, can we shift to wednesday", "intent": "Reschedule", "preferred_day": "Wednesday", "next_week": False, "relative_day": None, "offset_days": None, "reason": "Work conflict"},
-    {"message": "sorry cant do thursday, kar sakte ho on sunday instead?", "intent": "Reschedule", "preferred_day": "Sunday", "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "kl subah nahi ho payega, weekend pe kar sakte?", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": "weekend", "offset_days": None, "reason": None},
-    {"message": "work call chal raha hoga us time, shift to thursday please", "intent": "Reschedule", "preferred_day": "Thursday", "next_week": False, "relative_day": None, "offset_days": None, "reason": "Work conflict"},
-    {"message": "doctor ke pass jaana hai wahi din, postpone to next friday please", "intent": "Reschedule", "preferred_day": "Friday", "next_week": True, "relative_day": None, "offset_days": None, "reason": "Conflicting doctor visit"},
-    {"message": "running late from office, possible on saturday?", "intent": "Reschedule", "preferred_day": "Saturday", "next_week": False, "relative_day": None, "offset_days": None, "reason": "Work conflict"},
-
-    # -- Reschedule: "next week" / no day named -------------------------
-    {"message": "Hey, can we push this to sometime next week?", "intent": "Reschedule", "preferred_day": None, "next_week": True, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "postponing to next week please", "intent": "Reschedule", "preferred_day": None, "next_week": True, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "not today, some other day", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "she's not well, we'll call to rebook", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "Sorry yaar, kal nahi ho payega, agle hafte try karte hain", "intent": "Reschedule", "preferred_day": None, "next_week": True, "relative_day": "tomorrow", "offset_days": None, "reason": None},
-    {"message": "doctor appointment aa gaya isi hafte, agle hafte dekh lete hain", "intent": "Reschedule", "preferred_day": None, "next_week": True, "relative_day": None, "offset_days": None, "reason": "Conflicting doctor visit"},
-    {"message": "kuch kaam aa gaya office se, thoda aage badha do please", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": "Work conflict"},
-    {"message": "can we look at another day this week, doctor ka appointment clash ho raha hai", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": "Conflicting doctor visit"},
-
-    # -- Reschedule: offset days / time-of-day shift --------------------
-    {"message": "is it possible after 5 days?", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": 5, "reason": None},
-    {"message": "can we do it after 3 days instead, works better for us", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": 3, "reason": None},
-    {"message": "can u come a bit later in the day instead? like evening?", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "possible after 7 days? going out of town till then", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": 7, "reason": None},
-    {"message": "after 2 din possible hai kya, kal doctor ke paas jaana hai", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": 2, "reason": "Conflicting doctor visit"},
-
-    # -- Reschedule: no keyword at all / typos ---------------------------
-    {"message": "we're not free tomorrow anymore, works some other time?", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": "tomorrow", "offset_days": None, "reason": None},
-    {"message": "cant make it kal, kabhi aur din try karein?", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": "tomorrow", "offset_days": None, "reason": None},
-    {"message": "somthing came up, cant do satuday, wat about sundy", "intent": "Reschedule", "preferred_day": "Sunday", "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "we're out for a family fn that day, dusre din dekh lo koi", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "resched krna h yr, mon nahi ho payega ab", "intent": "Reschedule", "preferred_day": "Monday", "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-
-    # -- Cancel: explicit keyword -----------------------------------------
-    {"message": "I don't think I can make it anymore, please cancel", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "mujhe nahi karna ab, cancel kar do please", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "aaj cancel, kal aa jaunga", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": "tomorrow", "offset_days": None, "reason": None},
-    {"message": "Is week cancel karna padega", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "plz cancle, cant come today", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "cant do it, sorry, please cancel this one", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "nahi aa payenge is baar, cancel kar dena", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-
-    # -- Cancel: indirect, no keyword --------------------------------------
-    {"message": "we're not going to need this appointment", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "please don't come, we're out of town", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "no thanks, we'll skip this one", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "we need to stop this service", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "cant do it, sorry", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "patient ko hospital admit karwa diya hai, ab ye visit nahi chahiye", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "we've decided to go with a different arrangement, don't send anyone", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "not needed anymore, sorry for the trouble", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "papa ab theek hain, ab is care ki zaroorat nahi", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "we moved to another city, please close this out", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-
-    # -- Unclear / ambiguous / off-topic ------------------------------------
-    {"message": "not sure, will confirm later", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "let me check with my husband and get back to you", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "kaun bol raha hai ye?", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "abhi decide nahi kiya, batayenge", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "why did the last person come so late last time", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "kitna charge hoga is visit ka", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "hmm", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "acha dekhte hain", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "which provider is coming this time", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "call me when you're close", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "???", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "we'll see how mummy is feeling that day", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-
-    # -- No Response ---------------------------------------------------------
-    {"message": "", "intent": "No Response", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "   ", "intent": "No Response", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-
-    # -- Extra spread: sarcasm, compound requests, Hindi-script-only,
-    #    and more temporal variety, added to push held-out coverage closer
-    #    to the 100-200 message range recommended for this benchmark -----
-    {"message": "oh sure, because today was SO convenient. can we do next week instead", "intent": "Reschedule", "preferred_day": None, "next_week": True, "relative_day": None, "offset_days": None, "reason": None},  # sarcasm wrapped around a real ask
-    {"message": "cancel kar do na, itni baar mat pucho", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},  # irritated tone, still a clear cancel
-    {"message": "aaj cancel karo aur agle hafte Wednesday ko fix kar do", "intent": "Cancel", "preferred_day": "Wednesday", "next_week": True, "relative_day": None, "offset_days": None, "reason": None},  # compound: cancel today AND reschedule detail in one message -- intent should read as the dominant action (Cancel of today's visit)
-    {"message": "मुझे कल नहीं होगा, अगले हफ्ते कर लेंगे", "intent": "Reschedule", "preferred_day": None, "next_week": True, "relative_day": "tomorrow", "offset_days": None, "reason": None},  # Devanagari script, no Latin transliteration at all
-    {"message": "ठीक है, वही समय पर आ जाना", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},  # Devanagari confirm
-    {"message": "अभी कैंसिल कर दो प्लीज़", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},  # Devanagari cancel
-    {"message": "can we do next next week, this week is packed", "intent": "Reschedule", "preferred_day": None, "next_week": True, "relative_day": None, "offset_days": None, "reason": None},  # "next next week" -- deliberately unusual phrasing
-    {"message": "possible thursday ya friday, jo bhi mile", "intent": "Reschedule", "preferred_day": "Thursday", "next_week": False, "relative_day": None, "offset_days": None, "reason": None},  # two days offered -- gold takes the first named, since parse_temporal only extracts one
-    {"message": "not this week, maybe start of next month", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},  # vague far-future ask, no usable structured signal at all
-    {"message": "provider hamesha late aata hai, isliye hum bhi late honge, evening slot possible?", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": "Provider/patient running late"},
-    {"message": "beta ka school event hai us din, kisi aur din try karo please", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "we'll be traveling, can you push it after 10 days", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": 10, "reason": None},
-    {"message": "aftr 4 dayss possible? thanks", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": 4, "reason": None},  # typo'd offset phrasing
-    {"message": "we don't want this service anymore, please discontinue", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "ab zaroorat nahi hai iski, dhanyawad", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "sorry to say but cancel this permanently", "intent": "Cancel", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "haa sab plan wahi hai, koi change nahi", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "confirm, bas thoda pehle aa jaana agar ho sake", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "yup, all set on our end", "intent": "Confirm", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "does the provider carry their own equipment or should we arrange something", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "aap kaun bol rahe ho, ye number kisne diya", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "matlab kya hua, samajh nahi aaya", "intent": "Unclear", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": None},
-    {"message": "next tuesday ko doctor ka appointment hai, uske baad kisi din kar lo", "intent": "Reschedule", "preferred_day": "Tuesday", "next_week": True, "relative_day": None, "offset_days": None, "reason": "Conflicting doctor visit"},
-    {"message": "office se abhi nikal nahi paunga time pe, thoda evening mein shift karo", "intent": "Reschedule", "preferred_day": None, "next_week": False, "relative_day": None, "offset_days": None, "reason": "Work conflict"},
-]
 
 
 def _per_class_f1(pairs, labels):
@@ -375,6 +256,6 @@ if __name__ == "__main__":
               "Set the key and re-run to get the actual head-to-head result across "
               "all five metrics -- this script does not simulate or assume one.")
 
-    with open("llm_vs_baseline_results.json", "w") as f:
+    with open(os.path.join(BASE_DIR, "llm_vs_baseline_results.json"), "w") as f:
         json.dump(output, f, indent=2, default=str)
     print("\nwrote model/llm_vs_baseline_results.json")

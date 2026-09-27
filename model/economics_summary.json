@@ -6,7 +6,8 @@
     "intervention_success_rate": 0.35,
     "coordinator_min_per_contact": 8,
     "revenue_per_completed_visit": 800,
-    "note": "success_rate and revenue_per_completed_visit are illustrative placeholders, not measured or sourced"
+    "coordinator_hourly_cost": 300,
+    "note": "success_rate, revenue_per_completed_visit, and coordinator_hourly_cost are illustrative placeholders, not measured or sourced"
   },
   "before": {
     "completed": 2344,
@@ -14,15 +15,165 @@
     "completion_rate_pct": 74.3
   },
   "modeled_after_intervention": {
+    "top_k_pct_flagged": 0.2,
+    "intervention_success_rate": 0.35,
     "appointments_flagged_for_outreach": 631,
     "true_disruptions_among_flagged": 212,
     "recovered_visits": 74,
     "completed": 2418,
     "disrupted": 737,
-    "completion_rate_pct": 76.6
-  },
-  "cost_and_return_modeled": {
+    "completion_rate_pct": 76.6,
     "coordinator_hours_spent": 84.1,
-    "estimated_contribution_recovered": 59200
+    "estimated_contribution_recovered": 59200,
+    "coordinator_cost_modeled": 25230.0,
+    "net_value_modeled": 33970.0
+  },
+  "breakeven_intervention_success_rate_at_base_top_k": 0.149,
+  "sensitivity": {
+    "note": "Two 1-D sweeps, each holding the other assumption at its base-case value above. Neither sweep is a claim about which point is real -- the point is that net_value_modeled swings from negative to strongly positive within a plausible range of the one number nobody has actually measured yet (intervention_success_rate).",
+    "by_intervention_success_rate": [
+      {
+        "top_k_pct_flagged": 0.2,
+        "intervention_success_rate": 0.15,
+        "appointments_flagged_for_outreach": 631,
+        "true_disruptions_among_flagged": 212,
+        "recovered_visits": 32,
+        "completed": 2376,
+        "disrupted": 779,
+        "completion_rate_pct": 75.3,
+        "coordinator_hours_spent": 84.1,
+        "estimated_contribution_recovered": 25600,
+        "coordinator_cost_modeled": 25230.0,
+        "net_value_modeled": 370.0
+      },
+      {
+        "top_k_pct_flagged": 0.2,
+        "intervention_success_rate": 0.25,
+        "appointments_flagged_for_outreach": 631,
+        "true_disruptions_among_flagged": 212,
+        "recovered_visits": 53,
+        "completed": 2397,
+        "disrupted": 758,
+        "completion_rate_pct": 76.0,
+        "coordinator_hours_spent": 84.1,
+        "estimated_contribution_recovered": 42400,
+        "coordinator_cost_modeled": 25230.0,
+        "net_value_modeled": 17170.0
+      },
+      {
+        "top_k_pct_flagged": 0.2,
+        "intervention_success_rate": 0.35,
+        "appointments_flagged_for_outreach": 631,
+        "true_disruptions_among_flagged": 212,
+        "recovered_visits": 74,
+        "completed": 2418,
+        "disrupted": 737,
+        "completion_rate_pct": 76.6,
+        "coordinator_hours_spent": 84.1,
+        "estimated_contribution_recovered": 59200,
+        "coordinator_cost_modeled": 25230.0,
+        "net_value_modeled": 33970.0
+      },
+      {
+        "top_k_pct_flagged": 0.2,
+        "intervention_success_rate": 0.45,
+        "appointments_flagged_for_outreach": 631,
+        "true_disruptions_among_flagged": 212,
+        "recovered_visits": 95,
+        "completed": 2439,
+        "disrupted": 716,
+        "completion_rate_pct": 77.3,
+        "coordinator_hours_spent": 84.1,
+        "estimated_contribution_recovered": 76000,
+        "coordinator_cost_modeled": 25230.0,
+        "net_value_modeled": 50770.0
+      },
+      {
+        "top_k_pct_flagged": 0.2,
+        "intervention_success_rate": 0.55,
+        "appointments_flagged_for_outreach": 631,
+        "true_disruptions_among_flagged": 212,
+        "recovered_visits": 117,
+        "completed": 2461,
+        "disrupted": 694,
+        "completion_rate_pct": 78.0,
+        "coordinator_hours_spent": 84.1,
+        "estimated_contribution_recovered": 93600,
+        "coordinator_cost_modeled": 25230.0,
+        "net_value_modeled": 68370.0
+      }
+    ],
+    "by_coordinator_bandwidth_top_k_pct": [
+      {
+        "top_k_pct_flagged": 0.1,
+        "intervention_success_rate": 0.35,
+        "appointments_flagged_for_outreach": 316,
+        "true_disruptions_among_flagged": 114,
+        "recovered_visits": 40,
+        "completed": 2384,
+        "disrupted": 771,
+        "completion_rate_pct": 75.6,
+        "coordinator_hours_spent": 42.1,
+        "estimated_contribution_recovered": 32000,
+        "coordinator_cost_modeled": 12630.0,
+        "net_value_modeled": 19370.0
+      },
+      {
+        "top_k_pct_flagged": 0.15,
+        "intervention_success_rate": 0.35,
+        "appointments_flagged_for_outreach": 473,
+        "true_disruptions_among_flagged": 166,
+        "recovered_visits": 58,
+        "completed": 2402,
+        "disrupted": 753,
+        "completion_rate_pct": 76.1,
+        "coordinator_hours_spent": 63.1,
+        "estimated_contribution_recovered": 46400,
+        "coordinator_cost_modeled": 18930.0,
+        "net_value_modeled": 27470.0
+      },
+      {
+        "top_k_pct_flagged": 0.2,
+        "intervention_success_rate": 0.35,
+        "appointments_flagged_for_outreach": 631,
+        "true_disruptions_among_flagged": 212,
+        "recovered_visits": 74,
+        "completed": 2418,
+        "disrupted": 737,
+        "completion_rate_pct": 76.6,
+        "coordinator_hours_spent": 84.1,
+        "estimated_contribution_recovered": 59200,
+        "coordinator_cost_modeled": 25230.0,
+        "net_value_modeled": 33970.0
+      },
+      {
+        "top_k_pct_flagged": 0.25,
+        "intervention_success_rate": 0.35,
+        "appointments_flagged_for_outreach": 789,
+        "true_disruptions_among_flagged": 249,
+        "recovered_visits": 87,
+        "completed": 2431,
+        "disrupted": 724,
+        "completion_rate_pct": 77.1,
+        "coordinator_hours_spent": 105.2,
+        "estimated_contribution_recovered": 69600,
+        "coordinator_cost_modeled": 31560.0,
+        "net_value_modeled": 38040.0
+      },
+      {
+        "top_k_pct_flagged": 0.3,
+        "intervention_success_rate": 0.35,
+        "appointments_flagged_for_outreach": 946,
+        "true_disruptions_among_flagged": 293,
+        "recovered_visits": 103,
+        "completed": 2447,
+        "disrupted": 708,
+        "completion_rate_pct": 77.6,
+        "coordinator_hours_spent": 126.1,
+        "estimated_contribution_recovered": 82400,
+        "coordinator_cost_modeled": 37830.0,
+        "net_value_modeled": 44570.0
+      }
+    ]
   }
 }

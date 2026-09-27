@@ -11,11 +11,14 @@ the original prototype:
 Run this whenever you want to refresh dashboard/index.html with a new "today".
 """
 import json
+import os
 import pandas as pd
 from disruption_model import model, features, df, DATA_DIR
 from communication_intelligence import extract_intent
 from capacity_recovery import build_candidates, recommend, commit_recommendation
 from reschedule_agent import propose_reschedule
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # "Today" = the last date actually present in the appointment data. In a real
 # deployment this would be appointments not yet completed; here we simulate it
@@ -30,7 +33,7 @@ today_df["risk_proba"] = model.predict_proba(today_df[features])[:, 1]
 def assign_percentile_tiers(scores):
     """
     Capacity-aware, rank-based triage: top 10% of *today's* visits by
-    predicted risk -> High, next 20% -> Medium, remaining 70% -> Low.
+    predicted risk -> High, next 10% -> Medium, remaining 80% -> Low.
 
     This replaces a fixed probability cutoff (>=0.5 High, >=0.3 Medium),
     which silently stopped matching the README/dashboard copy once the
@@ -39,13 +42,23 @@ def assign_percentile_tiers(scores):
     Ranking within the day keeps the flagged list a fixed, reviewable
     fraction of a coordinator's caseload no matter how the model's raw
     probabilities are distributed.
+
+    v2 fix (this pass): the Medium band used to run to next 20% (30% total
+    flagged: High + Medium), which quietly diverged from the 20%
+    coordinator-bandwidth assumption every OTHER module in this repo
+    actually uses -- economics_simulation.py's TOP_K_PCT, fairness_subgroup_
+    analysis.py's CUTOFF, and intervention_outcome_simulation.py's TOP_K_PCT
+    are all 20%. A reviewer comparing "29 of 95 flagged today" (30.5%, the
+    old dashboard split) against "631 of 3,155 flagged" (20%, the economics
+    run) would reasonably read that as two different operational policies
+    for the same coordinator, not one. Same 20% total everywhere now.
     """
     n = len(scores)
     # rank 0 = highest risk. method="first" breaks ties by original order
     # so every visit gets a distinct rank (no ties inflating a tier).
     ranks = scores.rank(ascending=False, method="first") - 1
     high_cut = n * 0.10
-    medium_cut = n * 0.30  # top 30% total = High + Medium
+    medium_cut = n * 0.20  # top 20% total = High + Medium, matching every other module's coordinator-bandwidth assumption
     return ranks.apply(lambda r: "High" if r < high_cut else ("Medium" if r < medium_cut else "Low"))
 
 
@@ -105,6 +118,16 @@ latest_msg = comms.sort_values("timestamp").groupby("appointment_id").tail(1).se
 TODAY_STR = str(TODAY.date())
 recovery_ctx = build_candidates(TODAY_STR)
 
+# Loaded once and shared across every propose_reschedule() call below —
+# previously each call re-read all three CSVs and rebuilt build_candidates()
+# (which recomputes every provider's historical centroid) from scratch, for
+# every flagged appointment with a Reschedule signal. See reschedule_agent.py's
+# "Perf note" for why that was pure repeated work within one pipeline run.
+_reschedule_appts = pd.read_csv(f"{DATA_DIR}/appointments.csv")
+_reschedule_patients = pd.read_csv(f"{DATA_DIR}/patients.csv")
+_reschedule_availability = pd.read_csv(f"{DATA_DIR}/availability.csv")
+_reschedule_ctx_cache = {}
+
 flagged = []
 ranked = today_df.sort_values("risk_proba", ascending=False)
 for _, row in ranked[ranked["tier"] != "Low"].iterrows():
@@ -133,7 +156,11 @@ for _, row in ranked[ranked["tier"] != "Low"].iterrows():
     if patient_signal_out:
         item["patientSignal"] = patient_signal_out
         if signal["intent"] == "Reschedule":
-            agent_result = propose_reschedule(row["appointment_id"], msg_row["message"])
+            agent_result = propose_reschedule(
+                row["appointment_id"], msg_row["message"],
+                appts=_reschedule_appts, patients=_reschedule_patients,
+                availability=_reschedule_availability, ctx_cache=_reschedule_ctx_cache,
+            )
             item["agentTrace"] = agent_result["trace"]
             if agent_result["proposal"]:
                 item["rescheduleProposal"] = agent_result["proposal"]  # structured, for the dashboard's simulated-execution flow
@@ -215,7 +242,8 @@ output = {
     "cascades": cascades,
 }
 
-with open("dashboard_data.json", "w") as f:
+DASHBOARD_JSON = os.path.join(BASE_DIR, "dashboard_data.json")
+with open(DASHBOARD_JSON, "w") as f:
     json.dump(output, f, indent=2)
 
 # ---- inject the freshly generated output straight into the dashboard HTML ----
@@ -224,7 +252,7 @@ with open("dashboard_data.json", "w") as f:
 # dashboard reads this generated output; nothing in it is hand-typed" wasn't
 # actually true end-to-end. This closes that gap: the HTML's data line is now
 # rewritten by this script every run, so there is no manual copy step at all.
-DASHBOARD_HTML = "../dashboard/index.html"
+DASHBOARD_HTML = os.path.normpath(os.path.join(BASE_DIR, "..", "dashboard", "index.html"))
 with open(DASHBOARD_HTML, "r", encoding="utf-8") as f:
     html_lines = f.readlines()
 
@@ -242,5 +270,5 @@ print(f"today = {TODAY.date()}")
 print(f"summary = {summary}")
 print(f"flagged appointments = {len(flagged)}")
 print(f"cascades detected (>= {int(CASCADE_RATIO_THRESHOLD * 100)}% of buffer used) = {len(cascades)}")
-print("wrote model/dashboard_data.json")
+print(f"wrote {DASHBOARD_JSON}")
 print(f"updated {DASHBOARD_HTML} (line {data_line_idx + 1}) with the same output — no manual copy step")

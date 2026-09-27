@@ -15,8 +15,12 @@ has no API key wired into the container) — but it operates on the raw text,
 generalizes to messages it hasn't seen, and is validated against the CSV's
 own `extracted_intent` label as a sanity check below.
 """
+import os
 import re
 import pandas as pd
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 
 DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
@@ -116,7 +120,7 @@ def extract_intent(message: str) -> dict:
 
 
 if __name__ == "__main__":
-    comms = pd.read_csv("../data/communications.csv")
+    comms = pd.read_csv(os.path.join(DATA_DIR, "communications.csv"))
     comms["message"] = comms["message"].fillna("")
 
     extracted = comms["message"].apply(extract_intent).apply(pd.Series)
@@ -128,5 +132,6 @@ if __name__ == "__main__":
     print(f"Rule-based extractor agrees with the dataset's own intent label on {agree:.1%} of {len(labeled)} messages")
     print(labeled[labeled["model_intent"] != labeled["extracted_intent"]][["message", "extracted_intent", "model_intent"]].head(5))
 
-    comms.to_csv("communications_enriched.csv", index=False)
-    print("wrote model/communications_enriched.csv")
+    out_path = os.path.join(BASE_DIR, "communications_enriched.csv")
+    comms.to_csv(out_path, index=False)
+    print(f"wrote {out_path}")

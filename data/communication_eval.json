@@ -1,0 +1,929 @@
+[
+  {
+    "message": "Confirmed, thank you!",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "haan bilkul, wahi time pe aa jaana",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "yes see u then",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "ok",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "sab thik hai, appointment as is",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "great, see you then!",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "yep all good",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "theek h chalega",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "haanji sab sahi hai",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "running 10 min behind, still coming though",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "haan aaj hi aa jaana, sab plan same hai",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "confrm h, no changes",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "sounds good, thanks!",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "we'll be home, come as planned",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "haa theek hai aaj wala time hi rakho",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "cool, works for us",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "yeah that's fine, no need to change anything",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "ji haan, wahi time theek hai",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "k",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "sahi hai bhai, aa jao",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "Kal thoda late ho jayega, Saturday kar sakte ho?",
+    "intent": "Reschedule",
+    "preferred_day": "Saturday",
+    "next_week": false,
+    "relative_day": "tomorrow",
+    "offset_days": null,
+    "reason": "Provider/patient running late"
+  },
+  {
+    "message": "any chance of moving to next monday",
+    "intent": "Reschedule",
+    "preferred_day": "Monday",
+    "next_week": true,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "can we push it out a bit? maybe next tuesday",
+    "intent": "Reschedule",
+    "preferred_day": "Tuesday",
+    "next_week": true,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "doctor visit hai usi din, reschedule possible? Friday theek rahega",
+    "intent": "Reschedule",
+    "preferred_day": "Friday",
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": "Conflicting doctor visit"
+  },
+  {
+    "message": "office ka kaam aa gaya, can we shift to wednesday",
+    "intent": "Reschedule",
+    "preferred_day": "Wednesday",
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": "Work conflict"
+  },
+  {
+    "message": "sorry cant do thursday, kar sakte ho on sunday instead?",
+    "intent": "Reschedule",
+    "preferred_day": "Sunday",
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "kl subah nahi ho payega, weekend pe kar sakte?",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": "weekend",
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "work call chal raha hoga us time, shift to thursday please",
+    "intent": "Reschedule",
+    "preferred_day": "Thursday",
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": "Work conflict"
+  },
+  {
+    "message": "doctor ke pass jaana hai wahi din, postpone to next friday please",
+    "intent": "Reschedule",
+    "preferred_day": "Friday",
+    "next_week": true,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": "Conflicting doctor visit"
+  },
+  {
+    "message": "running late from office, possible on saturday?",
+    "intent": "Reschedule",
+    "preferred_day": "Saturday",
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": "Work conflict"
+  },
+  {
+    "message": "Hey, can we push this to sometime next week?",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": true,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "postponing to next week please",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": true,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "not today, some other day",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "she's not well, we'll call to rebook",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "Sorry yaar, kal nahi ho payega, agle hafte try karte hain",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": true,
+    "relative_day": "tomorrow",
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "doctor appointment aa gaya isi hafte, agle hafte dekh lete hain",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": true,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": "Conflicting doctor visit"
+  },
+  {
+    "message": "kuch kaam aa gaya office se, thoda aage badha do please",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": "Work conflict"
+  },
+  {
+    "message": "can we look at another day this week, doctor ka appointment clash ho raha hai",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": "Conflicting doctor visit"
+  },
+  {
+    "message": "is it possible after 5 days?",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": 5,
+    "reason": null
+  },
+  {
+    "message": "can we do it after 3 days instead, works better for us",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": 3,
+    "reason": null
+  },
+  {
+    "message": "can u come a bit later in the day instead? like evening?",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "possible after 7 days? going out of town till then",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": 7,
+    "reason": null
+  },
+  {
+    "message": "after 2 din possible hai kya, kal doctor ke paas jaana hai",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": 2,
+    "reason": "Conflicting doctor visit"
+  },
+  {
+    "message": "we're not free tomorrow anymore, works some other time?",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": "tomorrow",
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "cant make it kal, kabhi aur din try karein?",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": "tomorrow",
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "somthing came up, cant do satuday, wat about sundy",
+    "intent": "Reschedule",
+    "preferred_day": "Sunday",
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "we're out for a family fn that day, dusre din dekh lo koi",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "resched krna h yr, mon nahi ho payega ab",
+    "intent": "Reschedule",
+    "preferred_day": "Monday",
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "I don't think I can make it anymore, please cancel",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "mujhe nahi karna ab, cancel kar do please",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "aaj cancel, kal aa jaunga",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": "tomorrow",
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "Is week cancel karna padega",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "plz cancle, cant come today",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "cant do it, sorry, please cancel this one",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "nahi aa payenge is baar, cancel kar dena",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "we're not going to need this appointment",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "please don't come, we're out of town",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "no thanks, we'll skip this one",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "we need to stop this service",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "cant do it, sorry",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "patient ko hospital admit karwa diya hai, ab ye visit nahi chahiye",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "we've decided to go with a different arrangement, don't send anyone",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "not needed anymore, sorry for the trouble",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "papa ab theek hain, ab is care ki zaroorat nahi",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "we moved to another city, please close this out",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "not sure, will confirm later",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "let me check with my husband and get back to you",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "kaun bol raha hai ye?",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "abhi decide nahi kiya, batayenge",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "why did the last person come so late last time",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "kitna charge hoga is visit ka",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "hmm",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "acha dekhte hain",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "which provider is coming this time",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "call me when you're close",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "???",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "we'll see how mummy is feeling that day",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "",
+    "intent": "No Response",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "   ",
+    "intent": "No Response",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "oh sure, because today was SO convenient. can we do next week instead",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": true,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "cancel kar do na, itni baar mat pucho",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "aaj cancel karo aur agle hafte Wednesday ko fix kar do",
+    "intent": "Cancel",
+    "preferred_day": "Wednesday",
+    "next_week": true,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "मुझे कल नहीं होगा, अगले हफ्ते कर लेंगे",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": true,
+    "relative_day": "tomorrow",
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "ठीक है, वही समय पर आ जाना",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "अभी कैंसिल कर दो प्लीज़",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "can we do next next week, this week is packed",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": true,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "possible thursday ya friday, jo bhi mile",
+    "intent": "Reschedule",
+    "preferred_day": "Thursday",
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "not this week, maybe start of next month",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "provider hamesha late aata hai, isliye hum bhi late honge, evening slot possible?",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": "Provider/patient running late"
+  },
+  {
+    "message": "beta ka school event hai us din, kisi aur din try karo please",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "we'll be traveling, can you push it after 10 days",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": 10,
+    "reason": null
+  },
+  {
+    "message": "aftr 4 dayss possible? thanks",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": 4,
+    "reason": null
+  },
+  {
+    "message": "we don't want this service anymore, please discontinue",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "ab zaroorat nahi hai iski, dhanyawad",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "sorry to say but cancel this permanently",
+    "intent": "Cancel",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "haa sab plan wahi hai, koi change nahi",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "confirm, bas thoda pehle aa jaana agar ho sake",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "yup, all set on our end",
+    "intent": "Confirm",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "does the provider carry their own equipment or should we arrange something",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "aap kaun bol rahe ho, ye number kisne diya",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "matlab kya hua, samajh nahi aaya",
+    "intent": "Unclear",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": null
+  },
+  {
+    "message": "next tuesday ko doctor ka appointment hai, uske baad kisi din kar lo",
+    "intent": "Reschedule",
+    "preferred_day": "Tuesday",
+    "next_week": true,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": "Conflicting doctor visit"
+  },
+  {
+    "message": "office se abhi nikal nahi paunga time pe, thoda evening mein shift karo",
+    "intent": "Reschedule",
+    "preferred_day": null,
+    "next_week": false,
+    "relative_day": null,
+    "offset_days": null,
+    "reason": "Work conflict"
+  }
+]

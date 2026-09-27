@@ -16,14 +16,30 @@ and its enforced transitions. There is no live chat here to actually get a
 write to appointments.csv either — the proposal is the deliverable, and
 executing it is a one-line change once a real booking system exists to
 write to.
+
+Perf note (fixed this pass): propose_reschedule() used to re-read
+appointments.csv/patients.csv/availability.csv from disk AND call
+build_candidates() (which itself re-merges appointments with patients and
+recomputes every provider's historical centroid) fresh on every single
+call — for generate_dashboard_data.py's run, that's every flagged
+appointment with a Reschedule signal, times up to 3 candidate dates
+searched per appointment. None of that data changes within one pipeline
+run, so it was pure repeated work, not repeated because the answer could
+differ. propose_reschedule() now accepts already-loaded dataframes and a
+shared date -> build_candidates(ctx) cache (both optional, so a standalone
+call — see __main__ below — still works exactly as before by loading its
+own copies); generate_dashboard_data.py now loads once and reuses one cache
+across every flagged appointment in a run instead of rebuilding it per call.
 """
+import os
 import pandas as pd
 from datetime import timedelta
 from capacity_recovery import build_candidates, recommend
 from communication_intelligence import extract_intent
 from agent_state_machine import RescheduleCase
 
-DATA_DIR = "../data"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
 
@@ -81,10 +97,27 @@ def resolve_candidate_dates(orig_date, signal: dict):
     return [orig_date + timedelta(days=d) for d in (1, 2, 3)]
 
 
-def propose_reschedule(appointment_id: str, message: str):
-    appts = pd.read_csv(f"{DATA_DIR}/appointments.csv")
-    patients = pd.read_csv(f"{DATA_DIR}/patients.csv")
-    availability = pd.read_csv(f"{DATA_DIR}/availability.csv")
+def propose_reschedule(appointment_id: str, message: str, *, appts=None, patients=None, availability=None, ctx_cache=None):
+    """
+    appts/patients/availability: pass already-loaded dataframes to skip the
+    CSV re-read (each defaults to a fresh pd.read_csv if omitted, so a
+    standalone call — see __main__ below — behaves exactly as before).
+    ctx_cache: an optional {date_str: build_candidates(date_str) result}
+    dict, shared across calls by the caller (generate_dashboard_data.py does
+    this) so the same date's candidate pool — and its provider-centroid/
+    continuity computation — isn't rebuilt once per flagged appointment.
+    Pass {} explicitly (not None) to cache within a single call across its
+    own candidate_dates loop even when the caller isn't sharing one across
+    calls.
+    """
+    if appts is None:
+        appts = pd.read_csv(f"{DATA_DIR}/appointments.csv")
+    if patients is None:
+        patients = pd.read_csv(f"{DATA_DIR}/patients.csv")
+    if availability is None:
+        availability = pd.read_csv(f"{DATA_DIR}/availability.csv")
+    if ctx_cache is None:
+        ctx_cache = {}
 
     appt = appts[appts["appointment_id"] == appointment_id].iloc[0]
     patient = patients[patients["patient_id"] == appt["patient_id"]].iloc[0]
@@ -104,20 +137,22 @@ def propose_reschedule(appointment_id: str, message: str):
 
     for cand_date in candidate_dates:
         date_str = str(cand_date.date())
-        ctx = build_candidates(date_str)
+        if date_str not in ctx_cache:
+            ctx_cache[date_str] = build_candidates(date_str)
+        ctx = ctx_cache[date_str]
         cand = ctx["cand"]
         has_availability_data = cand["available_today"].any() or (availability["date"] == date_str).any()
 
         # Same decision engine as same-day capacity recovery — ranked by the
         # weighted Recovery Score (continuity, proximity, capacity, schedule
         # fit, service fit), not a separate "pick whoever has the most spare
-        # capacity" heuristic. Known simplification carried over from that
-        # engine: it always excludes the appointment's currently-assigned
-        # provider from the candidate pool, so it won't propose "same
-        # provider, new date" even when that would in fact be available and
-        # is usually the best outcome for the patient — recovering that case
-        # would mean checking the original provider's own availability on
-        # date_str before falling back to this ranking.
+        # capacity" heuristic. recommend() only excludes the currently-
+        # assigned provider when target_date matches the appointment's
+        # original date (same-day recovery — that provider is the one
+        # running late today); for a reschedule to any OTHER date, the
+        # current provider competes like any other candidate, and usually
+        # wins on continuity+proximity since they already know the patient.
+        # See capacity_recovery.py's v3 docstring for the full rationale.
         ranked = recommend(appointment_id, date_str, ctx, service_type=appt["service_type"], top_n=3)
 
         if ranked:
@@ -142,8 +177,10 @@ def propose_reschedule(appointment_id: str, message: str):
                          "get the patient's answer from, not something to simulate as if it were live.")
             return {"trace": trace, "proposal": proposal}
         elif not has_availability_data:
+            max_avail_date = availability["date"].max()
+            min_avail_date = availability["date"].min()
             trace.append(f"Checked {date_str}: no availability.csv data exists for this date "
-                        f"(outside the dataset's Jun 1 - Aug 29 range) — cannot confirm, not the same as 'unavailable'.")
+                        f"(outside the dataset's {min_avail_date} - {max_avail_date} range) — cannot confirm, not the same as 'unavailable'.")
         else:
             trace.append(f"Checked {date_str} via the unified Recovery Score engine: "
                         f"no eligible candidate found in {patient['area']}.")

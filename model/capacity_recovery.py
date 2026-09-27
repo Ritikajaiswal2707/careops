@@ -74,9 +74,11 @@ informed by relationships that only show up in Aug 20's data -- a real
 information leak a target_date-scoped decision shouldn't have.
 """
 import math
+import os
 import pandas as pd
 
-DATA_DIR = "../data"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 
 WEIGHTS = {
     "continuity": 25,
@@ -107,6 +109,34 @@ SERVICE_COMPATIBILITY = {
     # service_type in the data. Treated as a General Nursing task.
     "Wound Dressing": ["General Nursing"],
 }
+
+
+SLOT_ORDER = ["Morning", "Afternoon", "Evening"]
+
+
+def slot_capacities(daily_capacity: int) -> dict:
+    """
+    Splits a provider's whole-day capacity across the three time slots so the
+    three numbers actually sum back to daily_capacity.
+
+    v3 fix: the previous version applied round(daily_capacity / 3) as a
+    single per-slot number for all three slots. Checked against the data:
+    daily_capacity in this dataset is only ever 4, 5, 6, 7 or 8 -- and for
+    every value except 6, round(x/3) applied three times doesn't sum back to
+    x. capacity=4 -> 1+1+1=3 (a real slot silently disappears, provider
+    looks 25% less available than they are); capacity=5 -> 2+2+2=6 (a slot
+    invented out of nowhere, risking a real over-booking the system
+    wouldn't catch); same under/over pattern at 7 and 8. That's not a
+    rounding nitpick -- it's 17 of the 20 providers in providers.csv having
+    a slot-capacity total that doesn't match their own daily_capacity.
+    Floor + distribute the remainder across SLOT_ORDER instead, so the three
+    slots always sum to exactly daily_capacity.
+    """
+    base, remainder = divmod(int(daily_capacity), 3)
+    caps = {slot: base for slot in SLOT_ORDER}
+    for slot in SLOT_ORDER[:remainder]:
+        caps[slot] += 1
+    return caps
 
 
 def haversine_km(lat1, lon1, lat2, lon2):
@@ -145,7 +175,12 @@ def build_candidates(target_date: str):
     load_today = today_appts.groupby("provider_id").size()
     # per-time-slot load, for the schedule-fit component. daily_capacity is a
     # whole-day figure with no stated per-slot breakdown, so an even 3-way
-    # split (Morning/Afternoon/Evening) is an approximation, flagged as such.
+    # split is still the model (see slot_capacities() -- checked against the
+    # actual per-provider time_slot mix in appointments.csv, which is
+    # ~33/34/33% and flat within noise for all 20 providers, so "even" isn't
+    # a shortcut here, it's what the data itself supports). What's fixed
+    # (see slot_capacities()) is that the split now sums exactly to
+    # daily_capacity instead of losing or inventing a slot to rounding.
     # Plain dict (not a pandas Series) so commit_recommendation() can add new
     # keys as recommendations are accepted during the run.
     slot_load_today = today_appts.groupby(["provider_id", "time_slot"]).size().to_dict()
@@ -244,7 +279,7 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
 
         capacity_score = min(1.0, row["remaining_capacity"] / max(row["daily_capacity"], 1))
 
-        per_slot_cap = max(1, round(row["daily_capacity"] / 3))
+        per_slot_cap = slot_capacities(row["daily_capacity"])[time_slot]
         slot_assigned = slot_load_today.get((row["provider_id"], time_slot), 0)
         slot_room = per_slot_cap - slot_assigned
         schedule_fit_score = 1.0 if slot_room > 0 else (0.4 if row["remaining_capacity"] > 0 else 0.0)

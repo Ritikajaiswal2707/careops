@@ -20,12 +20,14 @@ Both versions are fit and reported below — leaky vs. fixed — on the same
 time-based split, so the impact of the bug is visible rather than silently
 swapped out.
 """
+import os
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score, precision_score, recall_score
 
-DATA_DIR = "../data"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 
 appts = pd.read_csv(f"{DATA_DIR}/appointments.csv")
 patients = pd.read_csv(f"{DATA_DIR}/patients.csv")
