@@ -396,6 +396,17 @@ async function findRecovery(){
   `).join('');
 }
 
+// Fill the four summary pills from DATA.summary (previously nothing did,
+// so they stayed at their "-" placeholder).
+function renderSummary(){
+  const s = DATA.summary || {};
+  document.getElementById('s-total').textContent = s.total ?? '-';
+  document.getElementById('s-ok').textContent    = s.low ?? '-';
+  document.getElementById('s-med').textContent   = s.medium ?? '-';
+  document.getElementById('s-high').textContent  = s.high ?? '-';
+}
+
+renderSummary();
 render();
 </script>
 </body>
