@@ -95,7 +95,11 @@ def extract_intent(message: str) -> dict:
     has_reschedule_word = any(w in m for w in RESCHEDULE_WORDS)
 
     temporal = parse_temporal(message)
-    has_temporal_signal = bool(temporal["day"] or temporal["relative"] or temporal["offset_days"])
+    has_temporal_signal = (
+        temporal["day"] is not None
+        or temporal["relative"] is not None
+        or temporal["offset_days"] is not None
+    )
 
     # Compound requests ("aaj cancel, kal aa jaunga" / "cancel karo aur
     # Wednesday ko fix kar do") say "cancel" but are asking to move the

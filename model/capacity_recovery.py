@@ -75,10 +75,40 @@ information leak a target_date-scoped decision shouldn't have.
 """
 import math
 import os
+import re
+from datetime import date
 import pandas as pd
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "..", "data")
+
+# Supported synthetic scheduling horizon; availability.csv covers this range.
+SUPPORTED_DATE_MIN = date(2026, 6, 1)
+SUPPORTED_DATE_MAX = date(2026, 10, 28)
+
+
+class InvalidDateError(ValueError):
+    """Raised when a target date is not ISO formatted or outside simulation data."""
+
+
+class UnknownAppointmentError(LookupError):
+    """Raised when an appointment ID does not exist in the synthetic dataset."""
+
+
+def validate_target_date(target_date: str) -> date:
+    """Validate a strict YYYY-MM-DD date within the synthetic availability horizon."""
+    if not isinstance(target_date, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", target_date):
+        raise InvalidDateError("target_date must use YYYY-MM-DD format")
+    try:
+        parsed = date.fromisoformat(target_date)
+    except ValueError as exc:
+        raise InvalidDateError("target_date is not a valid calendar date") from exc
+    if parsed < SUPPORTED_DATE_MIN or parsed > SUPPORTED_DATE_MAX:
+        raise InvalidDateError(
+            f"target_date must be between {SUPPORTED_DATE_MIN.isoformat()} and "
+            f"{SUPPORTED_DATE_MAX.isoformat()} for this synthetic dataset"
+        )
+    return parsed
 
 WEIGHTS = {
     "continuity": 25,
@@ -164,6 +194,7 @@ def _patient_provider_history(appts):
 
 
 def build_candidates(target_date: str):
+    validate_target_date(target_date)
     providers = pd.read_csv(f"{DATA_DIR}/providers.csv")
     availability = pd.read_csv(f"{DATA_DIR}/availability.csv")
     appts = pd.read_csv(f"{DATA_DIR}/appointments.csv")
@@ -215,13 +246,20 @@ def build_candidates(target_date: str):
 def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None, top_n=1):
     """Returns the top-scoring candidate (top_n=1, backward-compatible dict)
     or a ranked list of candidates with score breakdowns (top_n>1)."""
+    validate_target_date(target_date)
     if ctx is None:
         ctx = build_candidates(target_date)
     cand, appts, patients = ctx["cand"], ctx["appts"], ctx["patients"]
     slot_load_today, history = ctx["slot_load_today"], ctx["history"]
 
-    appt_row = appts[appts["appointment_id"] == appointment_id].iloc[0]
-    patient = patients[patients["patient_id"] == appt_row["patient_id"]].iloc[0]
+    appt_matches = appts[appts["appointment_id"] == appointment_id]
+    if appt_matches.empty:
+        raise UnknownAppointmentError("appointment_id not found in synthetic appointments")
+    appt_row = appt_matches.iloc[0]
+    patient_matches = patients[patients["patient_id"] == appt_row["patient_id"]]
+    if patient_matches.empty:
+        raise UnknownAppointmentError("appointment's patient is missing from synthetic patient data")
+    patient = patient_matches.iloc[0]
     current_provider = appt_row["provider_id"]
     time_slot = appt_row["time_slot"]
 

@@ -15,7 +15,7 @@ $RepoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $ModelDir = Join-Path $RepoRoot "model"
 
 if (-not $NoInstall) {
-    Write-Host "== installing dependencies (pandas, numpy, scikit-learn) =="
+    Write-Host "== installing dependencies from requirements.txt =="
     pip install -q -r (Join-Path $RepoRoot "requirements.txt")
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }

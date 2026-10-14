@@ -1,133 +1,181 @@
 #!/usr/bin/env python3
-"""
-CareOps live demo API.
+"""CareOps synthetic-data demo API.
 
-This is a thin product layer, not a rewrite: every endpoint below imports
-and calls the SAME model/*.py functions the offline pipeline (run.py) uses
-to produce dashboard/index.html. Nothing about the risk model, the
-extraction logic, or the Recovery Score engine is reimplemented here.
-
-Run locally:
-    pip install -r requirements.txt
-    uvicorn main:app --reload
-
-Deploy: see render.yaml. Render runs
-    uvicorn main:app --host 0.0.0.0 --port $PORT
+The interactive endpoints use the repository's model modules, while the main
+operations dashboard is a precomputed snapshot. No endpoint writes to a real
+scheduling system or sends patient/provider messages.
 """
 import json
-import os
+import re
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import Literal, Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 BASE_DIR = Path(__file__).resolve().parent
 MODEL_DIR = BASE_DIR / "model"
 DASHBOARD_DIR = BASE_DIR / "dashboard"
 
-# model/*.py files do bare `from sibling_module import x` (e.g.
-# hybrid_extraction.py does `from communication_intelligence import
-# extract_intent`), the same way run.py handles it by setting
-# cwd=MODEL_DIR for each subprocess. A long-lived FastAPI process can't use
-# cwd the same way, so MODEL_DIR goes on sys.path instead -- same effect,
-# no change to any model file's own imports.
+# Model files use sibling-module imports. Match the path setup used by run.py.
 sys.path.insert(0, str(MODEL_DIR))
 
 from hybrid_extraction import extract_intent_hybrid  # noqa: E402
-from capacity_recovery import recommend as recovery_recommend  # noqa: E402
+from capacity_recovery import (  # noqa: E402
+    InvalidDateError,
+    UnknownAppointmentError,
+    recommend as recovery_recommend,
+    validate_target_date,
+)
 from reschedule_agent import propose_reschedule  # noqa: E402
 
-app = FastAPI(title="CareOps Live Demo API")
+app = FastAPI(
+    title="CareOps Demo API",
+    description=(
+        "Portfolio prototype using synthetic home-healthcare data. "
+        "Recommendations are illustrative; no real messages or bookings are sent."
+    ),
+    version="1.1.0",
+)
+
+APPOINTMENT_ID_PATTERN = re.compile(r"^APT\d{6}$")
+MAX_MESSAGE_LENGTH = 2000
 
 
-class AnalyzeRequest(BaseModel):
-    message: str
+class RequestModel(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
 
-class RecoverRequest(BaseModel):
-    appointment_id: str
-    target_date: str
-    service_type: Optional[str] = None
+class AnalyzeRequest(RequestModel):
+    message: str = Field(strict=True, min_length=1, max_length=MAX_MESSAGE_LENGTH)
+
+    @field_validator("message")
+    @classmethod
+    def message_not_blank(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("message must not be blank")
+        return value
 
 
-class RescheduleRequest(BaseModel):
-    appointment_id: str
-    message: str
+class RecoverRequest(RequestModel):
+    appointment_id: str = Field(strict=True, pattern=r"^APT\d{6}$")
+    target_date: str = Field(strict=True, pattern=r"^\d{4}-\d{2}-\d{2}$")
+    service_type: Optional[Literal[
+        "Diabetic Care Visit",
+        "Nursing Visit",
+        "Physiotherapy Session",
+        "Post-Op Care",
+        "Vitals Check",
+        "Wound Dressing",
+    ]] = None
+
+    @field_validator("target_date")
+    @classmethod
+    def date_is_supported(cls, value: str) -> str:
+        try:
+            validate_target_date(value)
+        except InvalidDateError as exc:
+            raise ValueError(str(exc)) from exc
+        return value
+
+
+class RescheduleRequest(RequestModel):
+    appointment_id: str = Field(strict=True, pattern=r"^APT\d{6}$")
+    message: str = Field(strict=True, min_length=1, max_length=MAX_MESSAGE_LENGTH)
+
+    @field_validator("message")
+    @classmethod
+    def message_not_blank(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("message must not be blank")
+        return value
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_error_handler(request: Request, exc: RequestValidationError):
+    """Return actionable schema errors without echoing submitted message text."""
+    safe_errors = [
+        {
+            "loc": error.get("loc", ()),
+            "msg": error.get("msg", "Invalid request"),
+            "type": error.get("type", "value_error"),
+        }
+        for error in exc.errors()
+    ]
+    return JSONResponse(status_code=422, content={"detail": safe_errors})
 
 
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+    """Liveness endpoint; it does not imply the optional LLM is available."""
+    return {"status": "ok", "mode": "synthetic-demo"}
 
 
 @app.get("/api/operations")
 def get_operations():
-    """
-    Today's simulated operations summary + flagged list, read straight from
-    model/dashboard_data.json -- the same file generate_dashboard_data.py
-    writes and dashboard/index.html embeds statically. This just serves it
-    fresh over HTTP instead of requiring a re-run of the HTML file.
-    """
+    """Serve the fixed synthetic snapshot generated by the offline pipeline."""
     path = MODEL_DIR / "dashboard_data.json"
-    if not path.exists():
+    if not path.is_file():
         raise HTTPException(
-            status_code=404,
-            detail="model/dashboard_data.json not found -- run `python run.py` once to generate it.",
+            status_code=503,
+            detail="The synthetic dashboard snapshot is unavailable. Run `python run.py` to generate it.",
         )
-    return json.loads(path.read_text())
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        raise HTTPException(
+            status_code=503,
+            detail="The synthetic dashboard snapshot could not be loaded.",
+        )
 
 
 @app.post("/api/analyze")
 def analyze(req: AnalyzeRequest):
-    """
-    Rule-first hybrid intent extraction on a live message -- calls
-    hybrid_extraction.extract_intent_hybrid() with its own default LLM
-    fallback (Gemini if GEMINI_API_KEY is set, else Anthropic if
-    ANTHROPIC_API_KEY is set, else the message escalates to a human rather
-    than being guessed at -- see model/hybrid_extraction.py's
-    default_llm_call()).
-    """
-    if not req.message or not req.message.strip():
-        raise HTTPException(status_code=400, detail="message is required")
+    """Parse one supplied message, escalating if no safe structured result exists."""
     return extract_intent_hybrid(req.message)
 
 
 @app.post("/api/recover")
 def recover(req: RecoverRequest):
-    """
-    Ranked recovery candidates (top 3) for one appointment on a given date,
-    via the same weighted Recovery Score engine the offline pipeline uses
-    (model/capacity_recovery.py's recommend()).
-    """
+    """Return ranked feasible candidates from the synthetic capacity model."""
     try:
         ranked = recovery_recommend(
-            req.appointment_id, req.target_date, service_type=req.service_type, top_n=3
+            req.appointment_id,
+            req.target_date,
+            service_type=req.service_type,
+            top_n=3,
         )
-    except IndexError:
-        raise HTTPException(status_code=404, detail=f"appointment_id {req.appointment_id!r} not found")
+    except UnknownAppointmentError:
+        raise HTTPException(status_code=404, detail="Unknown appointment_id")
+    except InvalidDateError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+    except FileNotFoundError:
+        raise HTTPException(status_code=503, detail="Required synthetic data is unavailable")
     return {
         "appointment_id": req.appointment_id,
         "target_date": req.target_date,
         "candidates": ranked or [],
+        "simulated": True,
     }
 
 
 @app.post("/api/reschedule")
 def reschedule(req: RescheduleRequest):
-    """
-    Full message -> intent -> candidate-date search -> proposal chain, via
-    model/reschedule_agent.py's propose_reschedule() unchanged.
-    """
+    """Return a proposed reschedule; never books or notifies in the real world."""
     try:
-        return propose_reschedule(req.appointment_id, req.message)
-    except IndexError:
-        raise HTTPException(status_code=404, detail=f"appointment_id {req.appointment_id!r} not found")
+        result = propose_reschedule(req.appointment_id, req.message)
+    except (UnknownAppointmentError, IndexError):
+        raise HTTPException(status_code=404, detail="Unknown appointment_id")
+    except InvalidDateError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+    except FileNotFoundError:
+        raise HTTPException(status_code=503, detail="Required synthetic data is unavailable")
+    return {**result, "simulated": True}
 
 
-# Registered last so it doesn't shadow the /api/* and /health routes above --
-# FastAPI/Starlette match routes in registration order, and StaticFiles
-# would otherwise try (and fail) to serve "api/analyze" as a file.
+# Register the static dashboard last so it cannot shadow the API endpoints.
 app.mount("/", StaticFiles(directory=str(DASHBOARD_DIR), html=True), name="dashboard")

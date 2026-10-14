@@ -128,6 +128,17 @@ button.approve.done{background:var(--ok-bg); color:var(--ok); cursor:default;}
 
 <script>
 const DATA = {"today": "2026-08-29", "summary": {"total": 95, "high": 10, "medium": 9, "low": 76}, "flagged": [{"id": "APT004512", "time": "Evening", "service": "Wound Dressing", "risk": 0.45, "tier": "High", "reasons": ["3 prior no-shows before this visit", "14.6km from clinician", "Evening slot"], "action": "Call to confirm 24h ahead"}, {"id": "APT006955", "time": "Evening", "service": "Post-Op Care", "risk": 0.43, "tier": "High", "reasons": ["2 prior no-shows before this visit", "21.9km from clinician", "Evening slot"], "action": "Reassign needed \u2014 no covering provider with spare capacity today"}, {"id": "APT002040", "time": "Afternoon", "service": "Wound Dressing", "risk": 0.41, "tier": "High", "reasons": ["2 prior no-shows before this visit", "Low message response rate so far", "23.8km from clinician"], "action": "Reassign needed \u2014 no covering provider with spare capacity today"}, {"id": "APT007922", "time": "Evening", "service": "Diabetic Care Visit", "risk": 0.39, "tier": "High", "reasons": ["2 prior no-shows before this visit", "15.1km from clinician", "Evening slot"], "action": "Reassign needed \u2014 no covering provider with spare capacity today"}, {"id": "APT009386", "time": "Evening", "service": "Nursing Visit", "risk": 0.38, "tier": "High", "reasons": ["23.3km from clinician", "Evening slot"], "action": "Patient confirmed \u2014 no action needed", "patientSignal": {"channel": "WhatsApp", "message": "Ok confirmed", "intent": "Confirm", "cancel_current": false, "preferred_day": null, "urgency": "Low", "reason": null, "next_week": false, "relative_day": null, "offset_days": null, "source": "rule", "escalate_to_human": false}}, {"id": "APT004397", "time": "Evening", "service": "Nursing Visit", "risk": 0.37, "tier": "High", "reasons": ["2 prior no-shows before this visit", "13.3km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT007368", "time": "Afternoon", "service": "Post-Op Care", "risk": 0.37, "tier": "High", "reasons": ["3 prior no-shows before this visit"], "action": "Call to confirm 24h ahead"}, {"id": "APT009378", "time": "Afternoon", "service": "Diabetic Care Visit", "risk": 0.36, "tier": "High", "reasons": ["2 prior no-shows before this visit", "16.7km from clinician"], "action": "Reassign needed \u2014 no covering provider with spare capacity today"}, {"id": "APT002495", "time": "Evening", "service": "Wound Dressing", "risk": 0.35, "tier": "High", "reasons": ["17.3km from clinician", "Evening slot"], "action": "Reassign needed \u2014 no covering provider with spare capacity today"}, {"id": "APT004846", "time": "Evening", "service": "Post-Op Care", "risk": 0.35, "tier": "High", "reasons": ["Low message response rate so far", "24.8km from clinician", "Evening slot"], "action": "Reassign needed \u2014 no covering provider with spare capacity today"}, {"id": "APT007653", "time": "Morning", "service": "Wound Dressing", "risk": 0.34, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "16.3km from clinician"], "action": "Send confirmation + backup contact request"}, {"id": "APT001903", "time": "Evening", "service": "Nursing Visit", "risk": 0.34, "tier": "Medium", "reasons": ["17.7km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT007546", "time": "Afternoon", "service": "Physiotherapy Session", "risk": 0.34, "tier": "Medium", "reasons": ["24.8km from clinician"], "action": "Send confirmation + backup contact request"}, {"id": "APT009737", "time": "Morning", "service": "Wound Dressing", "risk": 0.34, "tier": "Medium", "reasons": ["24.4km from clinician"], "action": "Agent proposed: move to 2026-09-01 with PR010 \u2014 awaiting confirmation", "patientSignal": {"channel": "WhatsApp", "message": "Doctor visit hai usi din, reschedule possible?", "intent": "Reschedule", "cancel_current": false, "preferred_day": null, "urgency": "Medium", "reason": "Conflicting doctor visit", "next_week": false, "relative_day": null, "offset_days": null, "source": "rule", "escalate_to_human": false}, "agentTrace": ["Patient (PT00275, Mumbai): \"Doctor visit hai usi din, reschedule possible?\"", "Extracted (rule): intent=Reschedule, cancel_current=False, preferred_day=None, next_week=False, relative_day=None, offset_days=None, urgency=Medium, reason=Conflicting doctor visit", "Checked 2026-08-30 via the unified Recovery Score engine: no eligible candidate found in Mumbai.", "Checked 2026-08-31 via the unified Recovery Score engine: no eligible candidate found in Mumbai.", "Checked 2026-09-01 via the unified Recovery Score engine: 1 eligible candidate(s) in Mumbai.", "Proposed: move to 2026-09-01 with PR010 (Recovery Score 68.9: this is the patient's current provider, free on this date; 7 slot(s) free today; room in the same morning slot; General Nursing \u2014 primary fit for Wound Dressing).", "State: PENDING -> PROPOSED (PR010). Case is now PROPOSED and stops here honestly \u2014 there is no live reply channel in this environment to actually receive PATIENT_CONFIRMED or DECLINED; advancing further needs a real channel to get the patient's answer from, not something to simulate as if it were live."], "rescheduleProposal": {"new_date": "2026-09-01", "provider_id": "PR010", "area": "Mumbai", "remaining_capacity": 7, "recovery_score": 68.9, "reasons": ["this is the patient's current provider, free on this date", "7 slot(s) free today", "room in the same morning slot", "General Nursing \u2014 primary fit for Wound Dressing"], "state": "PROPOSED"}}, {"id": "APT000881", "time": "Morning", "service": "Nursing Visit", "risk": 0.34, "tier": "Medium", "reasons": ["22.5km from clinician"], "action": "Patient confirmed \u2014 no action needed", "patientSignal": {"channel": "Call", "message": "Haan theek hai, confirm kar do", "intent": "Confirm", "cancel_current": false, "preferred_day": null, "urgency": "Low", "reason": null, "next_week": false, "relative_day": null, "offset_days": null, "source": "rule", "escalate_to_human": false}}, {"id": "APT006706", "time": "Evening", "service": "Physiotherapy Session", "risk": 0.34, "tier": "Medium", "reasons": ["15.4km from clinician", "Evening slot"], "action": "Send confirmation + backup contact request"}, {"id": "APT006709", "time": "Afternoon", "service": "Wound Dressing", "risk": 0.34, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "13.7km from clinician"], "action": "Agent proposed: move to 2026-08-31 with PR007 \u2014 awaiting confirmation", "patientSignal": {"channel": "WhatsApp", "message": "Can we move to next week?", "intent": "Reschedule", "cancel_current": false, "preferred_day": null, "urgency": "Medium", "reason": null, "next_week": true, "relative_day": null, "offset_days": null, "source": "rule", "escalate_to_human": false}, "agentTrace": ["Patient (PT01801, Hyderabad): \"Can we move to next week?\"", "Extracted (rule): intent=Reschedule, cancel_current=False, preferred_day=None, next_week=True, relative_day=None, offset_days=None, urgency=Medium, reason=None", "Checked 2026-08-31 via the unified Recovery Score engine: 1 eligible candidate(s) in Hyderabad.", "Proposed: move to 2026-08-31 with PR007 (Recovery Score 73.4: 11.6 km from patient (inferred); 5 slot(s) free today; room in the same afternoon slot; has treated this patient before; General Nursing \u2014 primary fit for Wound Dressing).", "State: PENDING -> PROPOSED (PR007). Case is now PROPOSED and stops here honestly \u2014 there is no live reply channel in this environment to actually receive PATIENT_CONFIRMED or DECLINED; advancing further needs a real channel to get the patient's answer from, not something to simulate as if it were live."], "rescheduleProposal": {"new_date": "2026-08-31", "provider_id": "PR007", "area": "Hyderabad", "remaining_capacity": 5, "recovery_score": 73.4, "reasons": ["11.6 km from patient (inferred)", "5 slot(s) free today", "room in the same afternoon slot", "has treated this patient before", "General Nursing \u2014 primary fit for Wound Dressing"], "state": "PROPOSED"}}, {"id": "APT005092", "time": "Afternoon", "service": "Post-Op Care", "risk": 0.33, "tier": "Medium", "reasons": ["2 prior no-shows before this visit", "15.0km from clinician"], "action": "Patient confirmed \u2014 no action needed", "patientSignal": {"channel": "WhatsApp", "message": "Yes that works, see you then", "intent": "Confirm", "cancel_current": false, "preferred_day": null, "urgency": "Low", "reason": null, "next_week": false, "relative_day": null, "offset_days": null, "source": "rule", "escalate_to_human": false}}, {"id": "APT003376", "time": "Morning", "service": "Physiotherapy Session", "risk": 0.33, "tier": "Medium", "reasons": ["22.9km from clinician"], "action": "Send confirmation + backup contact request"}], "cascades": [{"id": "APT000022", "service": "Post-Op Care", "slot": "Afternoon", "provider": "PR008 (Contractual)", "delay": 17, "buffer": 19, "usedPct": 89, "notified": false, "locGap": false, "recovery": "No backup provider with spare capacity today \u2014 needs manual coordinator call"}, {"id": "APT003376", "service": "Physiotherapy Session", "slot": "Morning", "provider": "PR016 (Contractual)", "delay": 13, "buffer": 15, "usedPct": 87, "notified": false, "locGap": true, "recovery": "Backup available: PR019 \u2014 8.6 km from patient (inferred), 3 slot(s) free today, room in the same morning slot, has treated this patient before, Physiotherapy \u2014 primary fit for Physiotherapy Session"}, {"id": "APT008100", "service": "Nursing Visit", "slot": "Evening", "provider": "PR020 (Contractual)", "delay": 14, "buffer": 16, "usedPct": 88, "notified": false, "locGap": false, "recovery": "No backup provider with spare capacity today \u2014 needs manual coordinator call"}]};
+// Escape all dynamic strings before inserting template-rendered dashboard HTML.
+// In particular, /api/reschedule echoes the submitted message into its trace.
+function escapeHtml(value){
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  })[ch]);
+}
+
+document.getElementById('dateline').textContent =
+  `Synthetic snapshot · ${DATA.today} · not live operations data`;
+
 let currentFilter = 'all';
 
 function render(){
@@ -138,16 +149,16 @@ function render(){
     <div class="card">
       <div class="card-top">
         <div>
-          <div class="meta">${v.time} · ${v.service} · ${v.id}</div>
+          <div class="meta">${escapeHtml(v.time)} · ${escapeHtml(v.service)} · ${escapeHtml(v.id)}</div>
         </div>
-        <span class="badge ${v.tier}">${v.tier} · ${Math.round(v.risk*100)}%</span>
+        <span class="badge ${escapeHtml(v.tier)}">${escapeHtml(v.tier)} · ${Math.round(v.risk*100)}%</span>
       </div>
-      <div class="reasons">${v.reasons.map(r=>`<span>${r}</span>`).join('')}</div>
+      <div class="reasons">${v.reasons.map(r=>`<span>${escapeHtml(r)}</span>`).join('')}</div>
       ${v.patientSignal ? `
-      <div class="signal" style="margin:10px 0; padding:8px 10px; background:var(--bg); border:1px solid var(--line); border-radius:8px; font-size:13px;">
-        <div style="opacity:0.65;">${v.patientSignal.channel} · "${v.patientSignal.message}"</div>
-        <div style="margin-top:3px;"><b>${v.patientSignal.intent}</b>${v.patientSignal.preferred_day ? ' → ' + v.patientSignal.preferred_day : ''}${v.patientSignal.reason ? ' · ' + v.patientSignal.reason : ''}${v.patientSignal.urgency === 'High' ? ' · <span style="color:#c0392b;">urgent</span>' : ''}</div>
-        ${v.agentTrace ? `<div style="margin-top:6px; padding-top:6px; border-top:1px solid var(--line); font-size:12px; opacity:0.8; line-height:1.5;">${v.agentTrace.map(l=>`· ${l}`).join('<br>')}</div>` : ''}
+      <div class="signal" style="margin:10px 0; padding:8px 10px; background:#f6f6fb; border-radius:8px; font-size:13px;">
+        <div style="opacity:0.65;">${escapeHtml(v.patientSignal.channel)} · "${escapeHtml(v.patientSignal.message)}"</div>
+        <div style="margin-top:3px;"><b>${escapeHtml(v.patientSignal.intent)}</b>${v.patientSignal.preferred_day ? ' → ' + escapeHtml(v.patientSignal.preferred_day) : ''}${v.patientSignal.reason ? ' · ' + escapeHtml(v.patientSignal.reason) : ''}${v.patientSignal.urgency === 'High' ? ' · <span style="color:#c0392b;">urgent</span>' : ''}</div>
+        ${v.agentTrace ? `<div style="margin-top:6px; padding-top:6px; border-top:1px solid #e3e3ee; font-size:12px; opacity:0.8; line-height:1.5;">${v.agentTrace.map(l=>`· ${escapeHtml(l)}`).join('<br>')}</div>` : ''}
       </div>` : ''}
       ${renderActionRow(v)}
     </div>
@@ -213,7 +224,7 @@ function stepsFor(v){
 
 function renderActionRow(v){
   if(v.action === 'Patient confirmed — no action needed'){
-    return `<div class="action-row"><div class="action">Suggested: <b>${v.action}</b></div><span class="badge Low">No action needed</span></div>`;
+    return `<div class="action-row"><div class="action">Suggested: <b>${escapeHtml(v.action)}</b></div><span class="badge Low">No action needed</span></div>`;
   }
   const label = v.action || v.recovery;
   const st = execState[v.id];
@@ -225,7 +236,7 @@ function renderActionRow(v){
         const done = i < st.stepIndex || (i===st.stepIndex && !st.running);
         const active = i === st.stepIndex && st.running;
         const mark = done ? '✅' : (active ? '⏳' : '▫️');
-        return `<div style="opacity:${i<=st.stepIndex?1:0.4}">${mark} ${s}</div>`;
+        return `<div style="opacity:${i<=st.stepIndex?1:0.4}">${mark} ${escapeHtml(s)}</div>`;
       }).join('') + `</div>`;
   }
   const isDone = st && st.stepIndex >= steps.length - 1 && !st.running;
@@ -237,8 +248,8 @@ function renderActionRow(v){
   return `
     <div class="action-row" style="flex-direction:column; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div class="action">Suggested: <b>${label}</b></div>
-        <button class="approve ${isDone?'done':''}" ${disabled?'disabled':''} onclick="approveItem('${v.id}')">${btnLabel}</button>
+        <div class="action">Suggested: <b>${escapeHtml(label)}</b></div>
+        <button class="approve ${isDone?'done':''}" ${disabled?'disabled':''} onclick="approveItem('${escapeHtml(v.id)}')">${btnLabel}</button>
       </div>
       ${stepsHtml}
     </div>`;
@@ -285,14 +296,14 @@ function renderCascade(){
     ${CASCADES.map(c => `
       <div class="cascade-card">
         <div class="cascade-head">
-          <b>${c.service} · ${c.slot} · ${c.id}</b>
+          <b>${escapeHtml(c.service)} · ${escapeHtml(c.slot)} · ${escapeHtml(c.id)}</b>
           <span class="chip ${c.notified ? 'ok' : 'gap'}">${c.notified ? 'Notified' : 'Gap: not notified'}</span>
         </div>
         <div class="flow">
-          <div class="step problem"><div class="dot"></div><div>Provider ${c.provider} ran <b>${c.delay} min</b> over on the prior visit${c.locGap ? ' (patient could not self-report exact location, adding to delay)' : ''}.</div></div>
-          <div class="step problem"><div class="dot"></div><div>Slot buffer: <b>${c.buffer} min</b> — this delay used <b>${c.usedPct}%</b> of it (flagged at 85%+), leaving next to no slack before the next visit is affected.</div></div>
+          <div class="step problem"><div class="dot"></div><div>Provider ${escapeHtml(c.provider)} ran <b>${Number(c.delay)} min</b> over on the prior visit${c.locGap ? ' (patient could not self-report exact location, adding to delay)' : ''}.</div></div>
+          <div class="step problem"><div class="dot"></div><div>Slot buffer: <b>${Number(c.buffer)} min</b> — this delay used <b>${Number(c.usedPct)}%</b> of it (flagged at 85%+), leaving next to no slack before the next visit is affected.</div></div>
           <div class="step ${c.notified ? 'fix' : 'problem'}"><div class="dot"></div><div>${c.notified ? 'Next patient auto-notified with revised ETA — no coordinator call needed.' : 'Next patient was NOT auto-notified — coordinator only finds out when the patient calls in, or the visit is already late.'}</div></div>
-          ${c.recovery ? `<div class="step ${c.recovery.startsWith('Backup') ? 'fix' : 'problem'}"><div class="dot"></div><div>${c.recovery}</div></div>` : ''}
+          ${c.recovery ? `<div class="step ${c.recovery.startsWith('Backup') ? 'fix' : 'problem'}"><div class="dot"></div><div>${escapeHtml(c.recovery)}</div></div>` : ''}
         </div>
         ${c.recovery && c.recovery.startsWith('Backup available') ? renderActionRow(c) : ''}
       </div>
@@ -329,7 +340,7 @@ function liveInit(){
   if(liveInitialized) return;
   liveInitialized = true;
   const sel = document.getElementById('live-appt');
-  sel.innerHTML = DATA.flagged.map(v => `<option value="${v.id}">${v.id} — ${v.service} (${v.tier}, ${v.time})</option>`).join('');
+  sel.innerHTML = DATA.flagged.map(v => `<option value="${escapeHtml(v.id)}">${escapeHtml(v.id)} — ${escapeHtml(v.service)} (${escapeHtml(v.tier)}, ${escapeHtml(v.time)})</option>`).join('');
 }
 
 async function liveCallApi(path, body){
@@ -343,12 +354,12 @@ async function liveCallApi(path, body){
     });
     const data = await res.json().catch(() => null);
     if(!res.ok){
-      el.innerHTML = `<div class="empty">Error: ${(data && data.detail) || res.statusText}</div>`;
+      el.innerHTML = `<div class="empty">Error: ${escapeHtml((data && data.detail) || res.statusText)}</div>`;
       return null;
     }
     return data;
   } catch(e){
-    el.innerHTML = `<div class="empty">Could not reach the live backend (${e.message}). It may still be starting up — try again in a moment.</div>`;
+    el.innerHTML = `<div class="empty">Could not reach the live backend (${escapeHtml(e.message)}). It may still be starting up — try again in a moment.</div>`;
     return null;
   }
 }
@@ -363,15 +374,15 @@ async function askCareOps(){
   const p = data.proposal;
   el.innerHTML = `
     <div class="signal" style="padding:10px; background:var(--bg); border:1px solid var(--line); border-radius:8px; font-size:.8rem; line-height:1.6;">
-      ${data.trace.map(l => `· ${l}`).join('<br>')}
+      ${(Array.isArray(data.trace) ? data.trace : []).map(l => `· ${escapeHtml(l)}`).join('<br>')}
     </div>
     ${p ? `
     <div class="card" style="margin-top:10px;">
       <div class="card-top">
-        <div class="meta"><b>Best recovery option</b> — ${p.new_date} · ${p.provider_id}</div>
-        <span class="badge Medium">Score ${p.recovery_score}</span>
+        <div class="meta"><b>Best recovery option</b> — ${escapeHtml(p.new_date)} · ${escapeHtml(p.provider_id)}</div>
+        <span class="badge Medium">Score ${Number(p.recovery_score)}</span>
       </div>
-      <div class="reasons">${p.reasons.map(r => `<span>${r}</span>`).join('')}</div>
+      <div class="reasons">${(Array.isArray(p.reasons) ? p.reasons : []).map(r => `<span>${escapeHtml(r)}</span>`).join('')}</div>
     </div>` : ''}
   `;
 }
@@ -388,10 +399,10 @@ async function findRecovery(){
   el.innerHTML = data.candidates.map((c, i) => `
     <div class="card">
       <div class="card-top">
-        <div class="meta"><b>${i===0 ? 'Recommended' : 'Alternative'}: ${c.provider_id}</b> — ${c.area}</div>
-        <span class="badge ${i===0 ? 'Medium' : ''}">Score ${c.score}</span>
+        <div class="meta"><b>${i===0 ? 'Recommended' : 'Alternative'}: ${escapeHtml(c.provider_id)}</b> — ${escapeHtml(c.area)}</div>
+        <span class="badge ${i===0 ? 'Medium' : ''}">Score ${Number(c.score)}</span>
       </div>
-      <div class="reasons">${c.reasons.map(r => `<span>${r}</span>`).join('')}</div>
+      <div class="reasons">${(Array.isArray(c.reasons) ? c.reasons : []).map(r => `<span>${escapeHtml(r)}</span>`).join('')}</div>
     </div>
   `).join('');
 }

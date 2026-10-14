@@ -109,7 +109,7 @@ y_proba = fixed_proba
 def _report(name, m, proba, feature_list):
     preds = (proba >= 0.5).astype(int)
     print(f"\n=== {name} (features: {feature_list}) ===")
-    print(classification_report(y_test, preds, target_names=["On-track", "Disruption"]))
+    print(classification_report(y_test, preds, target_names=["On-track", "Disruption"], zero_division=0))
     print("ROC-AUC:", round(roc_auc_score(y_test, proba), 3))
     print("Coefficients:")
     for f, c in sorted(zip(feature_list, m.coef_[0]), key=lambda x: -abs(x[1])):

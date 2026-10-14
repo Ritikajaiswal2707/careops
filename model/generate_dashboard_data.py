@@ -136,13 +136,12 @@ for _, row in ranked[ranked["tier"] != "Low"].iterrows():
     if row["appointment_id"] in latest_msg.index:
         msg_row = latest_msg.loc[row["appointment_id"]]
         if isinstance(msg_row["message"], str) and msg_row["message"].strip():
-            # Rule-first hybrid: the deterministic parser runs first, and only
-            # abstentions ("Unclear") would fall back to an LLM call — see
-            # model/hybrid_extraction.py. No ANTHROPIC_API_KEY is configured
-            # in this environment, so that fallback can't actually run here;
-            # such messages come back escalate_to_human=True instead of a
-            # guessed intent.
-            signal = extract_intent_hybrid(msg_row["message"])
+            # This is an OFFLINE snapshot-generation path. Do not make network
+            # LLM calls during a reproducible pipeline run, even if a key is
+            # present in the shell environment. Runtime API requests in
+            # main.py use default_llm_call; this path uses rules and escalates
+            # unresolved cases rather than guessing.
+            signal = extract_intent_hybrid(msg_row["message"], llm_call=None)
             patient_signal_out = {
                 "channel": msg_row["channel"],
                 "message": msg_row["message"],
