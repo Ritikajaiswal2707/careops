@@ -155,10 +155,10 @@ function render(){
       </div>
       <div class="reasons">${v.reasons.map(r=>`<span>${escapeHtml(r)}</span>`).join('')}</div>
       ${v.patientSignal ? `
-      <div class="signal" style="margin:10px 0; padding:8px 10px; background:#f6f6fb; border-radius:8px; font-size:13px;">
+      <div class="signal" style="margin:10px 0; padding:8px 10px; background:var(--bg); color:var(--ink); border:1px solid var(--line); border-radius:8px; font-size:13px;">
         <div style="opacity:0.65;">${escapeHtml(v.patientSignal.channel)} · "${escapeHtml(v.patientSignal.message)}"</div>
         <div style="margin-top:3px;"><b>${escapeHtml(v.patientSignal.intent)}</b>${v.patientSignal.preferred_day ? ' → ' + escapeHtml(v.patientSignal.preferred_day) : ''}${v.patientSignal.reason ? ' · ' + escapeHtml(v.patientSignal.reason) : ''}${v.patientSignal.urgency === 'High' ? ' · <span style="color:#c0392b;">urgent</span>' : ''}</div>
-        ${v.agentTrace ? `<div style="margin-top:6px; padding-top:6px; border-top:1px solid #e3e3ee; font-size:12px; opacity:0.8; line-height:1.5;">${v.agentTrace.map(l=>`· ${escapeHtml(l)}`).join('<br>')}</div>` : ''}
+        ${v.agentTrace ? `<div style="margin-top:6px; padding-top:6px; border-top:1px solid var(--line); color:var(--sub); font-size:12px; line-height:1.5;">${v.agentTrace.map(l=>`· ${escapeHtml(l)}`).join('<br>')}</div>` : ''}
       </div>` : ''}
       ${renderActionRow(v)}
     </div>
