@@ -1,0 +1,88 @@
+{
+  "title": "CareOps extraction strategy comparison",
+  "dataset": {
+    "name": "communication_eval.json",
+    "n": 103,
+    "same_gold_set_for_all_strategies": true,
+    "data_type": "synthetic, manually labeled messages"
+  },
+  "strategies": {
+    "rules_only": {
+      "n": 103,
+      "intent_accuracy": 0.495,
+      "intent_macro_f1": 0.594,
+      "intent_f1_by_class": {
+        "Cancel": 0.581,
+        "Confirm": 0.375,
+        "No Response": 1.0,
+        "Reschedule": 0.677,
+        "Unclear": 0.338
+      },
+      "temporal_extraction_accuracy": 0.903,
+      "reason_extraction_accuracy": 0.981,
+      "abstention_rate": 0.602,
+      "llm_route_rate": null,
+      "escalation_rate": null,
+      "cost_per_message_inr": 0.0,
+      "avg_latency_ms": 0.0394,
+      "methodology_note": "Real rules-based extractor run locally on the 103-message labeled set. Local latency is measured; cost is zero for the offline rules path."
+    },
+    "saved_blind_llm_predictions": {
+      "n": 103,
+      "intent_accuracy": 1.0,
+      "intent_macro_f1": 1.0,
+      "intent_f1_by_class": {
+        "Cancel": 1.0,
+        "Confirm": 1.0,
+        "No Response": 1.0,
+        "Reschedule": 1.0,
+        "Unclear": 1.0
+      },
+      "temporal_extraction_accuracy": 1.0,
+      "reason_extraction_accuracy": 0.981,
+      "abstention_rate": 0.146,
+      "llm_route_rate": null,
+      "escalation_rate": null,
+      "cost_per_message_inr": null,
+      "avg_latency_ms": null,
+      "methodology_note": "Saved structured predictions produced blind to the gold labels, then scored locally. No live API request was made; cost and latency are unknown, not zero."
+    },
+    "rules_first_hybrid": {
+      "n": 103,
+      "intent_accuracy": 0.971,
+      "intent_macro_f1": 0.968,
+      "intent_f1_by_class": {
+        "Cancel": 0.952,
+        "Confirm": 0.96,
+        "No Response": 1.0,
+        "Reschedule": 1.0,
+        "Unclear": 0.929
+      },
+      "temporal_extraction_accuracy": 0.961,
+      "reason_extraction_accuracy": 0.961,
+      "abstention_rate": 0.126,
+      "llm_route_rate": 0.602,
+      "escalation_rate": 0.126,
+      "cost_per_message_inr": null,
+      "avg_latency_ms": null,
+      "methodology_note": "Real rules-first routing on the same 103 messages, using saved blind LLM predictions only when rules return Unclear. No live API request was made; cost and latency are unknown."
+    }
+  },
+  "deltas_vs_rules_only_percentage_points": {
+    "saved_blind_llm_intent_accuracy": 50.5,
+    "saved_blind_llm_macro_f1": 40.6,
+    "hybrid_intent_accuracy": 47.6,
+    "hybrid_macro_f1": 37.4
+  },
+  "error_counts": {
+    "rules_only_intent_errors": 52,
+    "saved_blind_llm_intent_errors": 0,
+    "hybrid_intent_errors": 3
+  },
+  "interpretation": [
+    "This comparison measures structured message extraction, not end-to-end appointment recovery success.",
+    "The saved LLM predictions are not a live API benchmark. Do not claim API cost or latency from this report.",
+    "The LLM-only and hybrid results reuse the same saved prediction artifact, so they are not independent replications.",
+    "The message set is synthetic and small; validate with domain reviewers and a new locked test set before making broad generalisation claims."
+  ]
+}

@@ -74,7 +74,7 @@ def main():
     no_install = "--no-install" in sys.argv
 
     if not no_install:
-        print("== installing dependencies (pandas, numpy, scikit-learn) ==")
+        print("== installing dependencies from requirements.txt ==")
         run([sys.executable, "-m", "pip", "install", "-q", "-r", str(BASE_DIR / "requirements.txt")])
 
     for stage in STAGES:

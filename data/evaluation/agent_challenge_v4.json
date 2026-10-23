@@ -1,0 +1,28 @@
+{
+  "suite_name": "CareOps Recovery Agent Challenge Suite",
+  "version": "4.0.0",
+  "purpose": "Fresh post-v3 synthetic challenge set intended to estimate robustness to wording variation. Cases should be treated as evaluation-only for this iteration.",
+  "appointment_id": "APT004512",
+  "limitations": [
+    "Synthetic and manually authored by the project author; not production sampled or independently annotated.",
+    "External LLM calls are disabled; only the offline rules-first path is measured.",
+    "Results are exploratory and do not establish real-world generalisation or clinical safety."
+  ],
+  "cases": [
+    {"id":"V4-01","category":"reschedule_paraphrase","message":"Could we rearrange the nurse visit for Tuesday?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V4-02","category":"reschedule_paraphrase","message":"Please push the appointment out by four days.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V4-03","category":"reschedule_paraphrase","message":"We need a different slot because Friday is inconvenient.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V4-04","category":"reschedule_paraphrase","message":"Can we do the home visit later in the day?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V4-05","category":"reschedule_paraphrase","message":"Please set it for seven days from now.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V4-06","category":"cancel_paraphrase","message":"We have to call off the nurse visit.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V4-07","category":"cancel_paraphrase","message":"Please withdraw this booking; the service is no longer required.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V4-08","category":"cancel_paraphrase","message":"You don't need to send anyone for this visit.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V4-09","category":"confirmation_paraphrase","message":"Yes, we'll be available at the original time.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V4-10","category":"confirmation_paraphrase","message":"Ji, hum ghar par milenge.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V4-11","category":"confirmation_paraphrase","message":"The scheduled time suits us.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V4-12","category":"ambiguous_negation","message":"I'm not trying to cancel; I only have a question about the visit.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V4-13","category":"ambiguous_context","message":"Can you check if the nurse has left the clinic yet?","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V4-14","category":"ambiguous_context","message":"I may need to change things, but I don't know yet.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V4-15","category":"compound_request","message":"Cancel this visit and move the next one to Thursday.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"}
+  ]
+}

@@ -31,10 +31,52 @@ DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 
 DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
-CANCEL_WORDS = ["cancel", "cant come", "can't come", "not possible", "nahi aa", "not needed"]
+CANCEL_WORDS = [
+    "cancel", "cant come", "can't come", "not possible", "nahi aa", "not needed",
+    "drop the visit", "drop this visit", "no longer need it", "don't send the nurse",
+    "do not send the nurse", "stop sending the nurse", "no need for the nurse",
+    "discontinue the home visit", "discontinue the visit", "call off", "won't need the nurse",
+    "will not need the nurse", "nurse not needed anymore", "no need to send anyone",
+    "withdraw the booking", "withdraw this booking", "no need to send anyone for this appointment",
+    "no longer required", "don't need to send anyone", "do not need to send anyone",
+    "skip the visit", "skip this visit", "skip the nurse visit", "remove this booking", "remove the booking",
+    "booking is no longer needed", "appointment is no longer needed", "please withdraw",
+    "we need to cancel", "need to cancel the visit", "cancel the booking", "cancel this booking",
+    "don't send anyone", "do not send anyone", "don't need the nurse anymore", "do not need the nurse anymore", "nurse visit isn't needed", "nurse visit is not needed",
+]
 RESCHEDULE_WORDS = ["reschedule", "late ho", "possible?", "kar sakte", "shift", "postpone",
-                    "different day", "different time", "move to", "next week", "weekend"]
-CONFIRM_WORDS = ["confirm", "theek hai", "yes that works", "ok confirmed", "sounds good", "see you then"]
+                    "different day", "different time", "different slot", "move to", "move it", "move my", "move the",
+                    "set it for", "schedule for", "book for", "make it later", "move it earlier", "move it back", "another day", "another slot",
+                    "rearrange", "another time", "another date", "change the timing", "move the visit",
+                    "move the appointment", "push the appointment", "push my appointment", "push my mother's appointment",
+                    "push my mother's appointment", "push my", "later in the day", "a little later",
+                    "in the evening instead", "evening instead", "next week", "agle hafte",
+                    "try karte hain", "nahi ho payega", "weekend",
+                    "change the visit to", "change my visit to", "change the appointment to",
+                    "change my appointment to", "change the date", "change my date",
+                    "move the date", "shift the date", "shift the visit", "shift the appointment",
+                    "postpone it", "postpone the visit", "postpone the appointment", "push it to",
+                    "move it to", "move this to", "swap the slot", "switch the slot",
+                    "change the slot", "different appointment time", "later this week",
+                    "earlier in the day", "in the afternoon instead", "in the morning instead",
+                    "can we change", "could we change", "can we move", "could we move",
+                    "can we reschedule", "could we reschedule", "can we shift", "could we shift"]
+CONFIRM_WORDS = ["confirm", "theek hai", "yes that works", "ok confirmed", "sounds good",
+                 "see you then", "i will be there", "i'll be there", "will attend",
+                 "that works for us", "all good for the scheduled visit", "yep, all good",
+                 "okay, that works", "ok, that works", "keep the appointment as planned",
+                 "confirmed, we'll be home", "haan, sunday theek hai", "original time is fine",
+                 "available rahenge", "hum available rahenge", "we'll be available", "we will be available",
+                 "hum ghar par milenge", "scheduled time suits us", "time suits us", "we are available", "we will be home", "we'll be home",
+                 "we can be home", "we can make that time", "that time is okay",
+                 "that time is okay for us", "we can attend as scheduled",
+                 "we'll be there", "we will be there", "we will attend the visit",
+                 "yes, please keep it", "please keep the appointment", "keep it as scheduled",
+                 "works for me", "that works for me", "works for us", "we are good for that time",
+                 "we can make it", "we'll make it", "we will make it", "we are okay with that",
+                 "yes that is fine", "yes, that is fine", "appointment is fine",
+                 "the appointment is fine", "visit is fine", "confirmed for that time",
+                 "yes, confirmed", "yes confirmed"]
 URGENT_WORDS = ["kal", "tomorrow", "today", "aaj", "abhi", "asap", "urgent"]
 
 
@@ -68,7 +110,17 @@ def parse_temporal(message: str) -> dict:
     m = message.lower()
 
     offset_match = re.search(r"after (\d+)\s*days?", m)
+    if offset_match is None:
+        offset_match = re.search(r"(\d+)\s+days?\s+from now", m)
     offset_days = int(offset_match.group(1)) if offset_match else None
+    if offset_days is None:
+        number_words = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
+                        "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10}
+        word_offset = re.search(r"after\s+(one|two|three|four|five|six|seven|eight|nine|ten)\s+days?", m)
+        if word_offset is None:
+            word_offset = re.search(r"(one|two|three|four|five|six|seven|eight|nine|ten)\s+days?\s+from now", m)
+        if word_offset:
+            offset_days = number_words[word_offset.group(1)]
 
     relative = None
     if "tomorrow" in m or re.search(r"\bkal\b", m):
@@ -77,7 +129,7 @@ def parse_temporal(message: str) -> dict:
         relative = "weekend"
 
     day = next((d.capitalize() for d in DAYS if d in m), None)
-    next_week = bool(re.search(r"\bnext\s+week\b", m)) or (
+    next_week = bool(re.search(r"\bnext\s+week\b", m) or re.search(r"\bagle\s+hafte\b", m)) or (
         day is not None and re.search(rf"\bnext\s+{day.lower()}\b", m) is not None
     )
 
@@ -89,13 +141,39 @@ def extract_intent(message: str) -> dict:
         return {"intent": "No Response", "cancel_current": False, "preferred_day": None, "urgency": "Low",
                 "reason": None, "next_week": False, "relative_day": None, "offset_days": None}
 
-    m = message.lower()
+    m = message.lower().strip()
+
+    # A negated cancellation is not a cancellation. If the user says not to
+    # cancel yet or says they will confirm later, abstain rather than taking
+    # an irreversible interpretation from the word "cancel" alone.
+    negated_cancel_patterns = (
+        r"\b(?:don't|do not|dont)\s+(?:cancel|drop)\b",
+        r"\bnot\s+(?:cancel|cancelling|canceled|cancelled)\b",
+        r"\bnot\s+(?:asking|trying|looking)\s+to\s+(?:cancel|drop)\b",
+        r"\bwithout\s+cancelling\b",
+    )
+    deferred_confirmation_patterns = (
+        r"\b(?:i|we)\s+(?:will|\x27ll|ll)\s+confirm\s+(?:later|soon)\b",
+        r"\bconfirm\s+later\b",
+        r"\bwill\s+let\s+you\s+know\b",
+        r"\b(?:i|we)\s+(?:cannot|can't|cant)\s+confirm\b",
+        r"\bnot\s+able\s+to\s+confirm\b",
+        r"\bnot\s+confirmed\s+yet\b",
+    )
+    if any(re.search(pattern, m) for pattern in negated_cancel_patterns + deferred_confirmation_patterns):
+        return {"intent": "Unclear", "cancel_current": False, "preferred_day": None,
+                "urgency": "Low", "reason": None, "next_week": False,
+                "relative_day": None, "offset_days": None}
 
     has_cancel = any(w in m for w in CANCEL_WORDS)
     has_reschedule_word = any(w in m for w in RESCHEDULE_WORDS)
 
     temporal = parse_temporal(message)
-    has_temporal_signal = bool(temporal["day"] or temporal["relative"] or temporal["offset_days"])
+    has_temporal_signal = (
+        temporal["day"] is not None
+        or temporal["relative"] is not None
+        or temporal["offset_days"] is not None
+    )
 
     # Compound requests ("aaj cancel, kal aa jaunga" / "cancel karo aur
     # Wednesday ko fix kar do") say "cancel" but are asking to move the

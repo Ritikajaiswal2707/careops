@@ -1,0 +1,665 @@
+{
+  "report_name": "CareOps Parser Safety Error Audit",
+  "report_version": "1.0.0",
+  "run_mode": "offline rule-based parser; external LLM disabled",
+  "suite_policy": "Development suite is mutable. Frozen holdout is read-only and must not be used for parser tuning.",
+  "suites": {
+    "development": {
+      "suite_name": "CareOps Parser Development Suite",
+      "version": "1.0.0",
+      "source_file": "data/evaluation/parser_development_v1.json",
+      "case_count": 36,
+      "accuracy": 1.0,
+      "confusion_matrix": {
+        "Confirm": {
+          "Confirm": 8,
+          "Reschedule": 0,
+          "Cancel": 0,
+          "Unclear": 0,
+          "No Response": 0
+        },
+        "Reschedule": {
+          "Confirm": 0,
+          "Reschedule": 12,
+          "Cancel": 0,
+          "Unclear": 0,
+          "No Response": 0
+        },
+        "Cancel": {
+          "Confirm": 0,
+          "Reschedule": 0,
+          "Cancel": 8,
+          "Unclear": 0,
+          "No Response": 0
+        },
+        "Unclear": {
+          "Confirm": 0,
+          "Reschedule": 0,
+          "Cancel": 0,
+          "Unclear": 7,
+          "No Response": 0
+        },
+        "No Response": {
+          "Confirm": 0,
+          "Reschedule": 0,
+          "Cancel": 0,
+          "Unclear": 0,
+          "No Response": 1
+        }
+      },
+      "per_expected_intent": {
+        "Cancel": {
+          "n": 8,
+          "correct": 8,
+          "recall": 1.0
+        },
+        "Confirm": {
+          "n": 8,
+          "correct": 8,
+          "recall": 1.0
+        },
+        "No Response": {
+          "n": 1,
+          "correct": 1,
+          "recall": 1.0
+        },
+        "Reschedule": {
+          "n": 12,
+          "correct": 12,
+          "recall": 1.0
+        },
+        "Unclear": {
+          "n": 7,
+          "correct": 7,
+          "recall": 1.0
+        }
+      },
+      "false_cancellation_count": 0,
+      "false_cancellation_cases": [],
+      "false_confirmation_count": 0,
+      "false_confirmation_cases": [],
+      "missed_cancellation_count": 0,
+      "missed_cancellation_cases": [],
+      "missed_confirmation_count": 0,
+      "missed_confirmation_cases": [],
+      "limitations": [
+        "Synthetic and manually authored by the project author; not production sampled or independently annotated.",
+        "Tests the offline keyword/rule extractor only; no external LLM calls.",
+        "Passing this development suite does not establish real-world generalisation or clinical safety.",
+        "Synthetic, author-created cases; not independently annotated or production sampled.",
+        "False-confirmation and false-cancellation rates here are counts over the suite, not real-world risk estimates.",
+        "This script evaluates intent labels only; it does not certify downstream actions as safe."
+      ],
+      "case_results": [
+        {
+          "id": "PD01",
+          "category": "cancel_paraphrase",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Cancel",
+          "correct": true
+        },
+        {
+          "id": "PD02",
+          "category": "cancel_paraphrase",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Cancel",
+          "correct": true
+        },
+        {
+          "id": "PD03",
+          "category": "cancel_paraphrase",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Cancel",
+          "correct": true
+        },
+        {
+          "id": "PD04",
+          "category": "cancel_paraphrase",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Cancel",
+          "correct": true
+        },
+        {
+          "id": "PD05",
+          "category": "cancel_paraphrase",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Cancel",
+          "correct": true
+        },
+        {
+          "id": "PD06",
+          "category": "cancel_paraphrase",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Cancel",
+          "correct": true
+        },
+        {
+          "id": "PD07",
+          "category": "cancel_paraphrase",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Cancel",
+          "correct": true
+        },
+        {
+          "id": "PD08",
+          "category": "cancel_paraphrase",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Cancel",
+          "correct": true
+        },
+        {
+          "id": "PD09",
+          "category": "reschedule_paraphrase",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD10",
+          "category": "reschedule_paraphrase",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD11",
+          "category": "reschedule_paraphrase",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD12",
+          "category": "reschedule_paraphrase",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD13",
+          "category": "reschedule_paraphrase",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD14",
+          "category": "reschedule_paraphrase",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD15",
+          "category": "reschedule_paraphrase",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD16",
+          "category": "reschedule_paraphrase",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD17",
+          "category": "reschedule_paraphrase",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD18",
+          "category": "reschedule_paraphrase",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD19",
+          "category": "confirmation_paraphrase",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Confirm",
+          "correct": true
+        },
+        {
+          "id": "PD20",
+          "category": "confirmation_paraphrase",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Confirm",
+          "correct": true
+        },
+        {
+          "id": "PD21",
+          "category": "confirmation_paraphrase",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Confirm",
+          "correct": true
+        },
+        {
+          "id": "PD22",
+          "category": "confirmation_paraphrase",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Confirm",
+          "correct": true
+        },
+        {
+          "id": "PD23",
+          "category": "confirmation_paraphrase",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Confirm",
+          "correct": true
+        },
+        {
+          "id": "PD24",
+          "category": "confirmation_paraphrase",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Confirm",
+          "correct": true
+        },
+        {
+          "id": "PD25",
+          "category": "confirmation_paraphrase",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Confirm",
+          "correct": true
+        },
+        {
+          "id": "PD26",
+          "category": "confirmation_paraphrase",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Confirm",
+          "correct": true
+        },
+        {
+          "id": "PD27",
+          "category": "negation_or_uncertainty",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "PD28",
+          "category": "negation_or_uncertainty",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "PD29",
+          "category": "negation_or_uncertainty",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "PD30",
+          "category": "negation_or_uncertainty",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "PD31",
+          "category": "negation_or_uncertainty",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "PD32",
+          "category": "negation_or_uncertainty",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "PD33",
+          "category": "compound_request",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD34",
+          "category": "compound_request",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "PD35",
+          "category": "empty_or_noise",
+          "expected_intent": "No Response",
+          "predicted_intent": "No Response",
+          "correct": true
+        },
+        {
+          "id": "PD36",
+          "category": "empty_or_noise",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        }
+      ]
+    },
+    "frozen_holdout": {
+      "suite_name": "CareOps End-to-End Holdout v1",
+      "version": "1.0.0",
+      "source_file": "data/evaluation/agent_holdout_v1.json",
+      "case_count": 30,
+      "accuracy": 0.8333,
+      "confusion_matrix": {
+        "Confirm": {
+          "Confirm": 3,
+          "Reschedule": 0,
+          "Cancel": 0,
+          "Unclear": 1,
+          "No Response": 0
+        },
+        "Reschedule": {
+          "Confirm": 0,
+          "Reschedule": 9,
+          "Cancel": 0,
+          "Unclear": 3,
+          "No Response": 0
+        },
+        "Cancel": {
+          "Confirm": 0,
+          "Reschedule": 0,
+          "Cancel": 3,
+          "Unclear": 1,
+          "No Response": 0
+        },
+        "Unclear": {
+          "Confirm": 0,
+          "Reschedule": 0,
+          "Cancel": 0,
+          "Unclear": 9,
+          "No Response": 0
+        },
+        "No Response": {
+          "Confirm": 0,
+          "Reschedule": 0,
+          "Cancel": 0,
+          "Unclear": 0,
+          "No Response": 1
+        }
+      },
+      "per_expected_intent": {
+        "Cancel": {
+          "n": 4,
+          "correct": 3,
+          "recall": 0.75
+        },
+        "Confirm": {
+          "n": 4,
+          "correct": 3,
+          "recall": 0.75
+        },
+        "No Response": {
+          "n": 1,
+          "correct": 1,
+          "recall": 1.0
+        },
+        "Reschedule": {
+          "n": 12,
+          "correct": 9,
+          "recall": 0.75
+        },
+        "Unclear": {
+          "n": 9,
+          "correct": 9,
+          "recall": 1.0
+        }
+      },
+      "false_cancellation_count": 0,
+      "false_cancellation_cases": [],
+      "false_confirmation_count": 0,
+      "false_confirmation_cases": [],
+      "missed_cancellation_count": 1,
+      "missed_cancellation_cases": [
+        {
+          "id": "HO13",
+          "category": "cancel_only",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Unclear",
+          "correct": false
+        }
+      ],
+      "missed_confirmation_count": 1,
+      "missed_confirmation_cases": [
+        {
+          "id": "HO18",
+          "category": "confirmation",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Unclear",
+          "correct": false
+        }
+      ],
+      "limitations": [
+        "Messages are synthetic and authored by the project developer, not sampled from real patients.",
+        "This holdout is frozen for regression tracking but is not an independent or statistically representative benchmark.",
+        "External LLM calls are disabled; this measures the offline rules-first path.",
+        "A successful disposition or proposal integrity check does not establish real-world recovery success, clinical safety, or production readiness.",
+        "Synthetic, author-created cases; not independently annotated or production sampled.",
+        "False-confirmation and false-cancellation rates here are counts over the suite, not real-world risk estimates.",
+        "This script evaluates intent labels only; it does not certify downstream actions as safe."
+      ],
+      "case_results": [
+        {
+          "id": "HO01",
+          "category": "direct_reschedule",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "HO02",
+          "category": "direct_reschedule",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Unclear",
+          "correct": false
+        },
+        {
+          "id": "HO03",
+          "category": "direct_reschedule",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "HO04",
+          "category": "direct_reschedule",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "HO05",
+          "category": "direct_reschedule",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "HO06",
+          "category": "direct_reschedule",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "HO07",
+          "category": "direct_reschedule",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "HO08",
+          "category": "direct_reschedule",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Unclear",
+          "correct": false
+        },
+        {
+          "id": "HO09",
+          "category": "direct_reschedule",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Unclear",
+          "correct": false
+        },
+        {
+          "id": "HO10",
+          "category": "direct_reschedule",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "HO11",
+          "category": "cancel_only",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Cancel",
+          "correct": true
+        },
+        {
+          "id": "HO12",
+          "category": "cancel_only",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Cancel",
+          "correct": true
+        },
+        {
+          "id": "HO13",
+          "category": "cancel_only",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Unclear",
+          "correct": false
+        },
+        {
+          "id": "HO14",
+          "category": "cancel_only",
+          "expected_intent": "Cancel",
+          "predicted_intent": "Cancel",
+          "correct": true
+        },
+        {
+          "id": "HO15",
+          "category": "confirmation",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Confirm",
+          "correct": true
+        },
+        {
+          "id": "HO16",
+          "category": "confirmation",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Confirm",
+          "correct": true
+        },
+        {
+          "id": "HO17",
+          "category": "confirmation",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Confirm",
+          "correct": true
+        },
+        {
+          "id": "HO18",
+          "category": "confirmation",
+          "expected_intent": "Confirm",
+          "predicted_intent": "Unclear",
+          "correct": false
+        },
+        {
+          "id": "HO19",
+          "category": "ambiguous",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "HO20",
+          "category": "ambiguous",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "HO21",
+          "category": "ambiguous",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "HO22",
+          "category": "ambiguous",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "HO23",
+          "category": "negated_action",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "HO24",
+          "category": "negated_action",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "HO25",
+          "category": "compound_request",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "HO26",
+          "category": "compound_request",
+          "expected_intent": "Reschedule",
+          "predicted_intent": "Reschedule",
+          "correct": true
+        },
+        {
+          "id": "HO27",
+          "category": "unsupported_request",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "HO28",
+          "category": "unsupported_request",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        },
+        {
+          "id": "HO29",
+          "category": "empty_or_noise",
+          "expected_intent": "No Response",
+          "predicted_intent": "No Response",
+          "correct": true
+        },
+        {
+          "id": "HO30",
+          "category": "empty_or_noise",
+          "expected_intent": "Unclear",
+          "predicted_intent": "Unclear",
+          "correct": true
+        }
+      ]
+    }
+  }
+}

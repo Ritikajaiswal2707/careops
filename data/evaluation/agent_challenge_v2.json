@@ -1,0 +1,34 @@
+{
+  "suite_name": "CareOps Recovery Agent Challenge Suite",
+  "version": "2.0.0",
+  "purpose": "A new synthetic challenge set created after the v1 parser iteration to probe generalisation beyond the original phrase set.",
+  "appointment_id": "APT004512",
+  "limitations": [
+    "All messages are synthetic and manually authored by the project author.",
+    "This is a fresh author-created challenge set, not an independently sampled production dataset.",
+    "External LLM calls are disabled; results measure the offline rules-first path and workflow behaviour only.",
+    "A passing result does not establish real-world generalisation or clinical safety."
+  ],
+  "cases": [
+    {"id":"V2-01","category":"reschedule_paraphrase","message":"Could we move the visit to Friday instead?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V2-02","category":"reschedule_paraphrase","message":"Can you shift my mother's visit to next Thursday?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V2-03","category":"reschedule_paraphrase","message":"Please move the nurse visit back by two days.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V2-04","category":"reschedule_paraphrase","message":"Can we do the appointment another day?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V2-05","category":"reschedule_paraphrase","message":"Could the visit happen in the evening instead?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V2-06","category":"reschedule_paraphrase","message":"I need to move it earlier if possible.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V2-07","category":"cancel_paraphrase","message":"Please discontinue the home visit.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V2-08","category":"cancel_paraphrase","message":"We won't need the nurse anymore.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V2-09","category":"cancel_paraphrase","message":"Please call off this appointment.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V2-10","category":"confirmation_paraphrase","message":"Confirmed, we'll be home.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V2-11","category":"confirmation_paraphrase","message":"Haan, Sunday theek hai.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V2-12","category":"confirmation_paraphrase","message":"Keep the appointment as planned; that is fine.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V2-13","category":"ambiguous_negation","message":"Please don't cancel my appointment.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V2-14","category":"ambiguous_negation","message":"Hold off on changing the appointment until I call back.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V2-15","category":"ambiguous_negation","message":"I need to speak to my family before deciding.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V2-16","category":"ambiguous_context","message":"The nurse is running thirty minutes late.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V2-17","category":"ambiguous_context","message":"My father is feeling unwell; what should we do about the visit?","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V2-18","category":"compound_request","message":"Cancel this appointment and reschedule for Sunday.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V2-19","category":"compound_request","message":"Kal nahi ho payega, agle hafte try karte hain.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V2-20","category":"reschedule_paraphrase","message":"Can we move it to sometime after five days?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"}
+  ]
+}

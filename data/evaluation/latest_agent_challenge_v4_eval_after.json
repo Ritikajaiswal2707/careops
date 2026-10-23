@@ -1,0 +1,260 @@
+{
+  "suite_name": "CareOps Recovery Agent Challenge Suite",
+  "suite_version": "4.0.0",
+  "run_mode": "offline rules-first path; external LLM disabled; synthetic data only",
+  "case_count": 15,
+  "intent_accuracy": 1.0,
+  "safe_disposition_pass_rate": 1.0,
+  "category_summary": {
+    "ambiguous_context": {
+      "n": 2,
+      "intent_correct": 2,
+      "disposition_pass": 2,
+      "intent_accuracy": 1.0,
+      "disposition_pass_rate": 1.0
+    },
+    "ambiguous_negation": {
+      "n": 1,
+      "intent_correct": 1,
+      "disposition_pass": 1,
+      "intent_accuracy": 1.0,
+      "disposition_pass_rate": 1.0
+    },
+    "cancel_paraphrase": {
+      "n": 3,
+      "intent_correct": 3,
+      "disposition_pass": 3,
+      "intent_accuracy": 1.0,
+      "disposition_pass_rate": 1.0
+    },
+    "compound_request": {
+      "n": 1,
+      "intent_correct": 1,
+      "disposition_pass": 1,
+      "intent_accuracy": 1.0,
+      "disposition_pass_rate": 1.0
+    },
+    "confirmation_paraphrase": {
+      "n": 3,
+      "intent_correct": 3,
+      "disposition_pass": 3,
+      "intent_accuracy": 1.0,
+      "disposition_pass_rate": 1.0
+    },
+    "reschedule_paraphrase": {
+      "n": 5,
+      "intent_correct": 5,
+      "disposition_pass": 5,
+      "intent_accuracy": 1.0,
+      "disposition_pass_rate": 1.0
+    }
+  },
+  "local_execution_latency_ms": {
+    "p50": 27.031,
+    "p95": 86.221,
+    "note": "Local offline execution only; excludes hosted LLM/API latency and is not a production SLO."
+  },
+  "failed_cases": [],
+  "limitations": [
+    "Synthetic and manually authored by the project author; not production sampled or independently annotated.",
+    "External LLM calls are disabled; only the offline rules-first path is measured.",
+    "Results are exploratory and do not establish real-world generalisation or clinical safety."
+  ],
+  "case_results": [
+    {
+      "case_id": "V4-01",
+      "category": "reschedule_paraphrase",
+      "message": "Could we rearrange the nurse visit for Tuesday?",
+      "expected_intent": "Reschedule",
+      "predicted_intent": "Reschedule",
+      "intent_correct": true,
+      "expected_disposition": "recovery_or_no_option",
+      "actual_status": "awaiting_coordinator_approval",
+      "disposition_pass": true,
+      "proposal_present": true,
+      "elapsed_ms": 86.221
+    },
+    {
+      "case_id": "V4-02",
+      "category": "reschedule_paraphrase",
+      "message": "Please push the appointment out by four days.",
+      "expected_intent": "Reschedule",
+      "predicted_intent": "Reschedule",
+      "intent_correct": true,
+      "expected_disposition": "recovery_or_no_option",
+      "actual_status": "awaiting_coordinator_approval",
+      "disposition_pass": true,
+      "proposal_present": true,
+      "elapsed_ms": 75.96
+    },
+    {
+      "case_id": "V4-03",
+      "category": "reschedule_paraphrase",
+      "message": "We need a different slot because Friday is inconvenient.",
+      "expected_intent": "Reschedule",
+      "predicted_intent": "Reschedule",
+      "intent_correct": true,
+      "expected_disposition": "recovery_or_no_option",
+      "actual_status": "awaiting_coordinator_approval",
+      "disposition_pass": true,
+      "proposal_present": true,
+      "elapsed_ms": 67.837
+    },
+    {
+      "case_id": "V4-04",
+      "category": "reschedule_paraphrase",
+      "message": "Can we do the home visit later in the day?",
+      "expected_intent": "Reschedule",
+      "predicted_intent": "Reschedule",
+      "intent_correct": true,
+      "expected_disposition": "recovery_or_no_option",
+      "actual_status": "awaiting_coordinator_approval",
+      "disposition_pass": true,
+      "proposal_present": true,
+      "elapsed_ms": 62.67
+    },
+    {
+      "case_id": "V4-05",
+      "category": "reschedule_paraphrase",
+      "message": "Please set it for seven days from now.",
+      "expected_intent": "Reschedule",
+      "predicted_intent": "Reschedule",
+      "intent_correct": true,
+      "expected_disposition": "recovery_or_no_option",
+      "actual_status": "no_feasible_option",
+      "disposition_pass": true,
+      "proposal_present": false,
+      "elapsed_ms": 63.969
+    },
+    {
+      "case_id": "V4-06",
+      "category": "cancel_paraphrase",
+      "message": "We have to call off the nurse visit.",
+      "expected_intent": "Cancel",
+      "predicted_intent": "Cancel",
+      "intent_correct": true,
+      "expected_disposition": "unsupported_without_proposal",
+      "actual_status": "unsupported_intent",
+      "disposition_pass": true,
+      "proposal_present": false,
+      "elapsed_ms": 27.031
+    },
+    {
+      "case_id": "V4-07",
+      "category": "cancel_paraphrase",
+      "message": "Please withdraw this booking; the service is no longer required.",
+      "expected_intent": "Cancel",
+      "predicted_intent": "Cancel",
+      "intent_correct": true,
+      "expected_disposition": "unsupported_without_proposal",
+      "actual_status": "unsupported_intent",
+      "disposition_pass": true,
+      "proposal_present": false,
+      "elapsed_ms": 21.966
+    },
+    {
+      "case_id": "V4-08",
+      "category": "cancel_paraphrase",
+      "message": "You don't need to send anyone for this visit.",
+      "expected_intent": "Cancel",
+      "predicted_intent": "Cancel",
+      "intent_correct": true,
+      "expected_disposition": "unsupported_without_proposal",
+      "actual_status": "unsupported_intent",
+      "disposition_pass": true,
+      "proposal_present": false,
+      "elapsed_ms": 25.885
+    },
+    {
+      "case_id": "V4-09",
+      "category": "confirmation_paraphrase",
+      "message": "Yes, we'll be available at the original time.",
+      "expected_intent": "Confirm",
+      "predicted_intent": "Confirm",
+      "intent_correct": true,
+      "expected_disposition": "unsupported_without_proposal",
+      "actual_status": "unsupported_intent",
+      "disposition_pass": true,
+      "proposal_present": false,
+      "elapsed_ms": 27.419
+    },
+    {
+      "case_id": "V4-10",
+      "category": "confirmation_paraphrase",
+      "message": "Ji, hum ghar par milenge.",
+      "expected_intent": "Confirm",
+      "predicted_intent": "Confirm",
+      "intent_correct": true,
+      "expected_disposition": "unsupported_without_proposal",
+      "actual_status": "unsupported_intent",
+      "disposition_pass": true,
+      "proposal_present": false,
+      "elapsed_ms": 21.556
+    },
+    {
+      "case_id": "V4-11",
+      "category": "confirmation_paraphrase",
+      "message": "The scheduled time suits us.",
+      "expected_intent": "Confirm",
+      "predicted_intent": "Confirm",
+      "intent_correct": true,
+      "expected_disposition": "unsupported_without_proposal",
+      "actual_status": "unsupported_intent",
+      "disposition_pass": true,
+      "proposal_present": false,
+      "elapsed_ms": 20.296
+    },
+    {
+      "case_id": "V4-12",
+      "category": "ambiguous_negation",
+      "message": "I'm not trying to cancel; I only have a question about the visit.",
+      "expected_intent": "Unclear",
+      "predicted_intent": "Unclear",
+      "intent_correct": true,
+      "expected_disposition": "human_review_without_proposal",
+      "actual_status": "needs_human_review",
+      "disposition_pass": true,
+      "proposal_present": false,
+      "elapsed_ms": 19.859
+    },
+    {
+      "case_id": "V4-13",
+      "category": "ambiguous_context",
+      "message": "Can you check if the nurse has left the clinic yet?",
+      "expected_intent": "Unclear",
+      "predicted_intent": "Unclear",
+      "intent_correct": true,
+      "expected_disposition": "human_review_without_proposal",
+      "actual_status": "needs_human_review",
+      "disposition_pass": true,
+      "proposal_present": false,
+      "elapsed_ms": 21.997
+    },
+    {
+      "case_id": "V4-14",
+      "category": "ambiguous_context",
+      "message": "I may need to change things, but I don't know yet.",
+      "expected_intent": "Unclear",
+      "predicted_intent": "Unclear",
+      "intent_correct": true,
+      "expected_disposition": "human_review_without_proposal",
+      "actual_status": "needs_human_review",
+      "disposition_pass": true,
+      "proposal_present": false,
+      "elapsed_ms": 21.697
+    },
+    {
+      "case_id": "V4-15",
+      "category": "compound_request",
+      "message": "Cancel this visit and move the next one to Thursday.",
+      "expected_intent": "Reschedule",
+      "predicted_intent": "Reschedule",
+      "intent_correct": true,
+      "expected_disposition": "recovery_or_no_option",
+      "actual_status": "awaiting_coordinator_approval",
+      "disposition_pass": true,
+      "proposal_present": true,
+      "elapsed_ms": 89.155
+    }
+  ]
+}

@@ -68,7 +68,7 @@ if __name__ == "__main__":
     print(f"Stage 2 diagnostic (among ACTUAL disruptions, by true status — not conditioned on "
           f"Stage 1's predicted flag): No-Show vs. Cancelled, n={len(test_disrupted)}")
     print(classification_report(test_disrupted["is_cancelled"], stage2_pred,
-                                 target_names=["No-Show", "Cancelled"]))
+                                 target_names=["No-Show", "Cancelled"], zero_division=0))
     try:
         auc = roc_auc_score(test_disrupted["is_cancelled"], stage2_proba)
         print("ROC-AUC:", round(auc, 3))

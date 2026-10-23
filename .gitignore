@@ -1,4 +1,20 @@
 .env
+.env.*
+!.env.example
 __pycache__/
-*.pyc
+*.py[cod]
 .venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+Thumbs.db
+
+# Local SQLite state (synthetic approval cases)
+*.sqlite
+*.sqlite3
+*.db

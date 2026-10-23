@@ -1,0 +1,38 @@
+{
+  "suite_name": "CareOps Recovery Agent Challenge Suite",
+  "version": "1.0.0",
+  "purpose": "A separately authored challenge set to probe phrasing variation and unsafe assumptions; synthetic and exploratory, not an independent external benchmark.",
+  "appointment_id": "APT004512",
+  "limitations": [
+    "All messages are synthetic and manually authored.",
+    "This set was created by the project author and is not an independently sampled production dataset.",
+    "External LLM calls are disabled; results measure the rules-first path and workflow behaviour only.",
+    "A passing result does not establish real-world generalisation or clinical safety."
+  ],
+  "cases": [
+    {"id":"CH01","category":"paraphrase_reschedule","message":"Could you move my nursing visit to Thursday?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"CH02","category":"paraphrase_reschedule","message":"Please push the appointment to next week.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"CH03","category":"paraphrase_reschedule","message":"I have an office conflict; can we change the visit to Friday?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"CH04","category":"paraphrase_reschedule","message":"Kal ki visit ko Sunday kar sakte hain?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"CH05","category":"paraphrase_reschedule","message":"Need to shift my appointment, preferably after 3 days.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"CH06","category":"paraphrase_reschedule","message":"Can the nurse come some time next week instead?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"CH07","category":"paraphrase_reschedule","message":"I can't make this slot; please reschedule to Monday.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"CH08","category":"paraphrase_reschedule","message":"Visit ko Saturday pe shift kar do please.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"CH09","category":"paraphrase_reschedule","message":"Can we move it to a different time?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"CH10","category":"cancel_only","message":"Please drop the visit; we no longer need it.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"CH11","category":"cancel_only","message":"Aaj ki nursing appointment cancel karni hai.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"CH12","category":"cancel_only","message":"Don't send the nurse anymore.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"CH13","category":"confirmation","message":"Okay, that works for us.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"CH14","category":"confirmation","message":"Yep, all good for the scheduled visit.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"CH15","category":"confirmation","message":"Theek hai, hum ghar par honge.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"CH16","category":"ambiguous","message":"Maybe the afternoon could work, not sure yet.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"CH17","category":"ambiguous","message":"The nurse hasn't arrived yet.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"CH18","category":"ambiguous","message":"I will be away around lunchtime.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"CH19","category":"ambiguous","message":"Can someone call me about the visit?","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"CH20","category":"ambiguous","message":"Sunday should be okay, I think.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"CH21","category":"compound_request","message":"Cancel today's slot and book me for Wednesday instead.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"CH22","category":"compound_request","message":"Aaj nahi aa paunga, kal kar dena.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"CH23","category":"ambiguous","message":"Don't cancel it yet; I'll confirm after talking to my family.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"CH24","category":"ambiguous","message":"Please make it later, maybe Friday if possible.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"}
+  ]
+}

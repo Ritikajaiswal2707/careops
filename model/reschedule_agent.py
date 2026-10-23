@@ -34,7 +34,7 @@ across every flagged appointment in a run instead of rebuilding it per call.
 import os
 import pandas as pd
 from datetime import timedelta
-from capacity_recovery import build_candidates, recommend
+from capacity_recovery import (build_candidates, recommend, InvalidDateError, UnknownAppointmentError, validate_target_date)
 from hybrid_extraction import extract_intent_hybrid
 from agent_state_machine import RescheduleCase
 
@@ -69,8 +69,14 @@ def resolve_candidate_dates(orig_date, signal: dict):
     not the day being requested. The named day, when present, is the
     stronger and unambiguous signal.
     """
-    if signal.get("offset_days"):
-        return [orig_date + timedelta(days=signal["offset_days"])]
+    offset_days = signal.get("offset_days")
+    if offset_days is not None:
+        if type(offset_days) is not int or offset_days < 0 or offset_days > 60:
+            raise InvalidDateError("offset_days must be an integer from 0 to 60")
+        target = orig_date + timedelta(days=offset_days)
+        target_date = target.date() if hasattr(target, "date") else target
+        validate_target_date(target_date.isoformat())
+        return [pd.Timestamp(target_date)]
 
     if signal.get("preferred_day"):
         target = next_weekday_on_or_after(orig_date, signal["preferred_day"])
@@ -119,15 +125,21 @@ def propose_reschedule(appointment_id: str, message: str, *, appts=None, patient
     if ctx_cache is None:
         ctx_cache = {}
 
-    appt = appts[appts["appointment_id"] == appointment_id].iloc[0]
-    patient = patients[patients["patient_id"] == appt["patient_id"]].iloc[0]
+    appt_matches = appts[appts["appointment_id"] == appointment_id]
+    if appt_matches.empty:
+        raise UnknownAppointmentError("appointment_id not found in synthetic appointments")
+    appt = appt_matches.iloc[0]
+    patient_matches = patients[patients["patient_id"] == appt["patient_id"]]
+    if patient_matches.empty:
+        raise UnknownAppointmentError("appointment's patient is missing from synthetic patient data")
+    patient = patient_matches.iloc[0]
     orig_date = pd.to_datetime(appt["date"])
 
     # extract_intent_hybrid runs the free deterministic parser first and only
     # falls back to an LLM call when it abstains (intent="Unclear") — see
-    # model/hybrid_extraction.py. In this environment (no ANTHROPIC_API_KEY)
-    # the fallback can't actually run, so an Unclear message here comes back
-    # flagged escalate_to_human=True instead of silently staying Unclear.
+    # model/hybrid_extraction.py. If no provider key is configured, or all
+    # configured providers fail / return an invalid result, an Unclear message
+    # comes back flagged escalate_to_human=True rather than being guessed.
     signal = extract_intent_hybrid(message)
     trace = [f"Patient ({appt['patient_id']}, {patient['area']}): \"{message}\"",
              f"Extracted ({signal['source']}): intent={signal['intent']}, cancel_current={signal['cancel_current']}, "

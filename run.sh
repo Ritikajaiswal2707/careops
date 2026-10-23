@@ -38,7 +38,7 @@ set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 if [[ "${1:-}" != "--no-install" ]]; then
-  echo "== installing dependencies (pandas, numpy, scikit-learn) =="
+  echo "== installing dependencies from requirements.txt =="
   pip install -q -r requirements.txt
 fi
 

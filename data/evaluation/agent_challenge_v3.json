@@ -1,0 +1,31 @@
+{
+  "suite_name": "CareOps Recovery Agent Challenge Suite",
+  "version": "3.0.0",
+  "purpose": "A new post-iteration synthetic challenge suite to probe generalisation after v1/v2 debugging. Do not tune parser rules directly to individual v3 cases; log failures for the next iteration.",
+  "appointment_id": "APT004512",
+  "limitations": [
+    "Synthetic and manually authored by the project author; not production sampled.",
+    "External LLM calls are disabled; this measures the offline rules-first path and workflow behaviour only.",
+    "Passing does not establish real-world generalisation, clinical safety, or production readiness."
+  ],
+  "cases": [
+    {"id":"V3-01","category":"reschedule_paraphrase","message":"Could you rearrange the nurse visit for next Wednesday?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V3-02","category":"reschedule_paraphrase","message":"Can we push my mother's appointment out by three days?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V3-03","category":"reschedule_paraphrase","message":"Please switch the home visit to the weekend.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V3-04","category":"reschedule_paraphrase","message":"Friday is inconvenient; can we find another slot?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V3-05","category":"reschedule_paraphrase","message":"Can the nurse visit us a little later in the day?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V3-06","category":"cancel_paraphrase","message":"We have arranged another service, so please cancel this visit.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V3-07","category":"cancel_paraphrase","message":"No need to send anyone for this appointment.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V3-08","category":"cancel_paraphrase","message":"Please withdraw the booking.","expected_intent":"Cancel","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V3-09","category":"confirmation_paraphrase","message":"Yes, the original time is fine.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V3-10","category":"confirmation_paraphrase","message":"Noted, see you then.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V3-11","category":"confirmation_paraphrase","message":"Ji, hum available rahenge.","expected_intent":"Confirm","expected_disposition":"unsupported_without_proposal"},
+    {"id":"V3-12","category":"ambiguous_negation","message":"I'm not asking to cancel, I just need some information.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V3-13","category":"ambiguous_negation","message":"Don't change anything for now; I'll get back to you.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V3-14","category":"ambiguous_context","message":"Can you tell me whether the nurse is on the way?","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V3-15","category":"ambiguous_context","message":"My father may not be available, I'll update you soon.","expected_intent":"Unclear","expected_disposition":"human_review_without_proposal"},
+    {"id":"V3-16","category":"compound_request","message":"Please cancel this slot and move the appointment to next Monday.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V3-17","category":"compound_request","message":"Aaj possible nahi hai, Saturday shift kar do.","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"},
+    {"id":"V3-18","category":"reschedule_paraphrase","message":"Can we reschedule for six days from now?","expected_intent":"Reschedule","expected_disposition":"recovery_or_no_option"}
+  ]
+}

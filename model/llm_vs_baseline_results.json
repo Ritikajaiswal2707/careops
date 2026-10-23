@@ -3,22 +3,22 @@
   "rule_based": {
     "metrics": {
       "n": 103,
-      "intent_accuracy": 0.447,
-      "intent_macro_f1": 0.567,
+      "intent_accuracy": 0.495,
+      "intent_macro_f1": 0.594,
       "intent_f1_by_class": {
         "Cancel": 0.581,
         "Confirm": 0.375,
         "No Response": 1.0,
-        "Reschedule": 0.561,
-        "Unclear": 0.317
+        "Reschedule": 0.677,
+        "Unclear": 0.338
       },
-      "temporal_extraction_accuracy": 0.883,
+      "temporal_extraction_accuracy": 0.903,
       "reason_extraction_accuracy": 0.981,
       "cancel_current_accuracy": 0.874,
-      "abstention_rate": 0.65,
+      "abstention_rate": 0.602,
       "json_validity_rate": 1.0,
       "cost_per_message_inr": 0.0,
-      "avg_latency_ms": 0.0138
+      "avg_latency_ms": 0.1101
     },
     "misclassified": [
       {
@@ -462,50 +462,6 @@
         "json_valid": true
       },
       {
-        "message": "Sorry yaar, kal nahi ho payega, agle hafte try karte hain",
-        "true_intent": "Reschedule",
-        "pred_intent": "Unclear",
-        "true_cancel_current": false,
-        "pred_cancel_current": false,
-        "true_temporal": [
-          null,
-          true,
-          null,
-          null
-        ],
-        "pred_temporal": [
-          null,
-          false,
-          "tomorrow",
-          null
-        ],
-        "true_reason": null,
-        "pred_reason": null,
-        "json_valid": true
-      },
-      {
-        "message": "doctor appointment aa gaya isi hafte, agle hafte dekh lete hain",
-        "true_intent": "Reschedule",
-        "pred_intent": "Unclear",
-        "true_cancel_current": false,
-        "pred_cancel_current": false,
-        "true_temporal": [
-          null,
-          true,
-          null,
-          null
-        ],
-        "pred_temporal": [
-          null,
-          false,
-          null,
-          null
-        ],
-        "true_reason": "Conflicting doctor visit",
-        "pred_reason": "Conflicting doctor visit",
-        "json_valid": true
-      },
-      {
         "message": "kuch kaam aa gaya office se, thoda aage badha do please",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
@@ -525,28 +481,6 @@
         ],
         "true_reason": "Work conflict",
         "pred_reason": "Work conflict",
-        "json_valid": true
-      },
-      {
-        "message": "can we look at another day this week, doctor ka appointment clash ho raha hai",
-        "true_intent": "Reschedule",
-        "pred_intent": "Unclear",
-        "true_cancel_current": false,
-        "pred_cancel_current": false,
-        "true_temporal": [
-          null,
-          false,
-          null,
-          null
-        ],
-        "pred_temporal": [
-          null,
-          false,
-          null,
-          null
-        ],
-        "true_reason": "Conflicting doctor visit",
-        "pred_reason": "Conflicting doctor visit",
         "json_valid": true
       },
       {
@@ -591,28 +525,6 @@
         ],
         "true_reason": null,
         "pred_reason": null,
-        "json_valid": true
-      },
-      {
-        "message": "can u come a bit later in the day instead? like evening?",
-        "true_intent": "Reschedule",
-        "pred_intent": "Unclear",
-        "true_cancel_current": false,
-        "pred_cancel_current": false,
-        "true_temporal": [
-          null,
-          false,
-          null,
-          null
-        ],
-        "pred_temporal": [
-          null,
-          false,
-          null,
-          null
-        ],
-        "true_reason": null,
-        "pred_reason": "Provider/patient running late",
         "json_valid": true
       },
       {
@@ -727,28 +639,6 @@
       },
       {
         "message": "we're out for a family fn that day, dusre din dekh lo koi",
-        "true_intent": "Reschedule",
-        "pred_intent": "Unclear",
-        "true_cancel_current": false,
-        "pred_cancel_current": false,
-        "true_temporal": [
-          null,
-          false,
-          null,
-          null
-        ],
-        "pred_temporal": [
-          null,
-          false,
-          null,
-          null
-        ],
-        "true_reason": null,
-        "pred_reason": null,
-        "json_valid": true
-      },
-      {
-        "message": "resched krna h yr, mon nahi ho payega ab",
         "true_intent": "Reschedule",
         "pred_intent": "Unclear",
         "true_cancel_current": false,
