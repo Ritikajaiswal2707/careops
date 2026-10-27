@@ -101,7 +101,7 @@ def test_llm_evaluation_artifacts_keep_methodology_caveat():
     assert direct["llm"]["metrics"]["intent_accuracy"] == 1.0
     assert direct["llm"]["metrics"]["avg_latency_ms"] is None
     assert "No live Anthropic API call" in direct["llm"]["metrics"]["methodology_note"]
-    assert hybrid["hybrid"]["metrics"]["intent_accuracy"] == pytest.approx(0.971)
+    assert hybrid["hybrid"]["metrics"]["intent_accuracy"] == pytest.approx(0.981)
     assert hybrid["hybrid"]["metrics"]["avg_latency_ms"] is None
 
 

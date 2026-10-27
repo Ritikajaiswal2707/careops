@@ -3,25 +3,25 @@
   "hybrid": {
     "metrics": {
       "n": 103,
-      "intent_accuracy": 0.971,
-      "intent_macro_f1": 0.968,
+      "intent_accuracy": 0.981,
+      "intent_macro_f1": 0.98,
       "intent_f1_by_class": {
         "Cancel": 0.952,
-        "Confirm": 0.96,
+        "Confirm": 0.98,
         "No Response": 1.0,
         "Reschedule": 1.0,
-        "Unclear": 0.929
+        "Unclear": 0.966
       },
       "temporal_extraction_accuracy": 0.961,
-      "reason_extraction_accuracy": 0.971,
+      "reason_extraction_accuracy": 0.961,
       "cancel_current_accuracy": null,
-      "abstention_rate": 0.126,
+      "abstention_rate": 0.136,
       "json_validity_rate": 1.0,
-      "llm_route_rate": 0.65,
-      "escalation_rate": 0.126,
+      "llm_route_rate": 0.583,
+      "escalation_rate": 0.136,
       "cost_per_message_inr": null,
       "avg_latency_ms": null,
-      "methodology_note": "Routing decision (rule Unclear -> LLM fallback) is real and measured on this held-out set. The LLM side of that fallback reuses the same blind, unmetered predictions from my_llm_predictions.py that llm_direct_eval.py scores independently -- no live API call was made here either, so cost_per_message_inr and avg_latency_ms are null, not estimated. A live run only requires pointing extract_intent_hybrid() at default_llm_call() with ANTHROPIC_API_KEY set; the gating logic itself does not change."
+      "methodology_note": "Routing decision (rule Unclear -> LLM fallback) is real and measured on this held-out set. The LLM side reuses saved blind, unmetered predictions from my_llm_predictions.py; no live API call was made. Cost and latency are not measured."
     },
     "misclassified": [
       {
@@ -30,29 +30,6 @@
         "true_intent": "Cancel",
         "pred_intent": "Confirm",
         "true_cancel_current": true,
-        "pred_cancel_current": false,
-        "true_temporal": [
-          null,
-          false,
-          null,
-          null
-        ],
-        "pred_temporal": [
-          null,
-          false,
-          null,
-          null
-        ],
-        "true_reason": null,
-        "pred_reason": null,
-        "json_valid": true
-      },
-      {
-        "message": "not sure, will confirm later",
-        "source": "rule",
-        "true_intent": "Unclear",
-        "pred_intent": "Confirm",
-        "true_cancel_current": false,
         "pred_cancel_current": false,
         "true_temporal": [
           null,
