@@ -185,3 +185,25 @@ def test_holdout2_is_frozen_and_disjoint_from_other_sets():
     others = {(c["message"] or "").strip().lower() for c in HELD_OUT_SET}
     others |= {c["message"].strip().lower() for c in metered_llm_eval.load_suite("holdout")}
     assert not (h2 & others)
+
+
+def test_network_errors_are_retried_then_reported_as_infra(monkeypatch):
+    import requests as _r
+    monkeypatch.setattr(metered_llm_eval.time, "sleep", lambda s: None)
+    seq = iter([_r.exceptions.SSLError("reset"), _openai_ok(_gold_as_pred(HELD_OUT_SET[0]))])
+
+    def post(*a, **k):
+        item = next(seq)
+        if isinstance(item, Exception):
+            raise item
+        return item
+
+    out = metered_llm_eval.run("k", "m", limit=1, delay=0, provider="openai", base_url="https://x/v1", post=post)
+    assert out["metrics"]["errors"] == 0 and out["metrics"]["intent_accuracy"] == 1.0
+
+    def always_fail(*a, **k):
+        raise _r.exceptions.SSLError("reset")
+
+    out = metered_llm_eval.run("k", "m", limit=2, delay=0, provider="openai", base_url="https://x/v1", post=always_fail)
+    assert out["metrics"]["infra_errors"] == 2
+    assert out["metrics"]["intent_accuracy_excluding_infra_errors"] is None

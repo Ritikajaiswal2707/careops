@@ -83,6 +83,12 @@ def call_gemini(message, api_key, model, timeout=30, max_retries=5, post=request
         try:
             resp = post(_endpoint(model), headers={"x-goog-api-key": api_key}, json=payload, timeout=timeout)
         except requests.RequestException as exc:
+            # Network blips (SSL resets, timeouts) are infrastructure, not model,
+            # failures: retry them instead of scoring them as a wrong answer.
+            if attempt < max_retries:
+                time.sleep(backoff)
+                backoff = min(backoff * 2, 60)
+                continue
             return None, False, time.perf_counter() - t0, None, None, type(exc).__name__
         latency = time.perf_counter() - t0
         if resp.status_code in (429, 503) and attempt < max_retries:
@@ -116,6 +122,12 @@ def call_openai_compat(message, api_key, model, base_url, timeout=30, max_retrie
             resp = openai_compat_llm.chat_extract(message, base_url, api_key, model, timeout=timeout, post=post,
                                                  system=system)
         except requests.RequestException as exc:
+            # Network blips (SSL resets, timeouts) are infrastructure, not model,
+            # failures: retry them instead of scoring them as a wrong answer.
+            if attempt < max_retries:
+                time.sleep(backoff)
+                backoff = min(backoff * 2, 60)
+                continue
             return None, False, time.perf_counter() - t0, None, None, type(exc).__name__
         latency = time.perf_counter() - t0
         if resp.status_code in (429, 503) and attempt < max_retries:
@@ -247,6 +259,11 @@ def run(api_key, model, limit=None, delay=4.0, post=requests.post, sleep=time.sl
     metrics["input_tokens_total"] = in_total if token_counts_complete else None
     metrics["output_tokens_total"] = out_total if token_counts_complete else None
     metrics["errors"] = len(errors)
+    infra_cases = {e["case"] for e in errors if e["error"] != "invalid_json"}
+    scored = [p for p in predictions if p["case"] not in infra_cases]
+    metrics["infra_errors"] = len(infra_cases)
+    metrics["intent_accuracy_excluding_infra_errors"] = (
+        round(sum(p["true_intent"] == p["pred_intent"] for p in scored) / len(scored), 3) if scored else None)
     metrics["actual_spend_inr"] = 0.0  # free tier; no billing account attached
     metrics["paid_tier_cost_per_message_inr"] = _paid_estimate(in_total, out_total, len(cases), token_counts_complete)
 
@@ -326,7 +343,8 @@ def main(argv=None):
     print(f"  JSON validity     {m['json_validity_rate']}")
     print(f"  latency p50/p95   {m['p50_latency_ms']} / {m['p95_latency_ms']} ms")
     print(f"  tokens in/out     {m['input_tokens_total']} / {m['output_tokens_total']}")
-    print(f"  errors            {m['errors']}")
+    print(f"  errors            {m['errors']}  (infrastructure: {m['infra_errors']}; "
+          f"accuracy excluding them {m['intent_accuracy_excluding_infra_errors']})")
 
     if not result["full_set"]:
         print("\nPartial run (--limit): not written, so a smoke test never overwrites the real result.")
