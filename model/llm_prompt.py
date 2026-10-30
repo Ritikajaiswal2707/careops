@@ -43,9 +43,28 @@ LABEL_DEFINITIONS = (
     "will review it."
 )
 
+# v3 changes only the Confirm definition. v2's wording ("short acknowledgements
+# count", "mentions a delay but will still be there") was over-applied on the
+# frozen holdout: a thank-you and news about the provider's delay were both
+# read as Confirm -- the most dangerous error type. v3 makes Confirm require
+# the sender's own agreement and names the two non-confirmations generically.
+LABEL_DEFINITIONS_V3 = LABEL_DEFINITIONS.replace(
+    "- Confirm: the sender agrees the visit should go ahead as planned. Short "
+    "acknowledgements count, as does a message that mentions a small delay but "
+    "says they will still be there.\n",
+    "- Confirm: the sender themselves agrees the visit should go ahead as planned. "
+    "A bare agreement counts (for example 'yes' or a thumbs-up), and so does a "
+    "sender who says they will be slightly late but still want the visit. A "
+    "thank-you on its own does NOT confirm the visit, and news that someone "
+    "else (the provider, a driver) is delayed does NOT confirm it -- both are "
+    "Unclear.\n",
+)
+assert LABEL_DEFINITIONS_V3 != LABEL_DEFINITIONS
+
 PROMPTS = {
     "v1": EXTRACTION_PROMPT,
     "v2": EXTRACTION_PROMPT + LABEL_DEFINITIONS,
+    "v3": EXTRACTION_PROMPT + LABEL_DEFINITIONS_V3,
 }
 
 

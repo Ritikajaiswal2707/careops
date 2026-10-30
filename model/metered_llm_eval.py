@@ -55,7 +55,11 @@ from llm_vs_baseline_eval import HELD_OUT_SET, _score  # noqa: E402
 import openai_compat_llm  # noqa: E402
 from llm_prompt import PROMPTS, strip_json_fence as _strip_fence  # noqa: E402
 
-HOLDOUT_PATH = os.path.join(BASE_DIR, "..", "data", "evaluation", "agent_holdout_v1.json")
+HOLDOUT_PATHS = {
+    "holdout": os.path.join(BASE_DIR, "..", "data", "evaluation", "agent_holdout_v1.json"),
+    # Fresh set frozen before prompt v3 was run; holdout v1 informed v2/v3 design.
+    "holdout2": os.path.join(BASE_DIR, "..", "data", "evaluation", "intent_holdout_v2.json"),
+}
 INTENT_LABELS = ["Confirm", "Reschedule", "Cancel", "Unclear", "No Response"]
 DEFAULT_OUTPUT_DIR = os.path.join(BASE_DIR, "..", "data", "evaluation")
 
@@ -137,10 +141,11 @@ def _pct(values, q):
 
 def load_suite(suite):
     """heldout: the 103-message extraction set (full gold structure).
-    holdout: the frozen 30-case end-to-end holdout (intent labels only), never used for tuning."""
+    holdout: frozen 30-case end-to-end holdout (intent only); its errors informed prompt v3.
+    holdout2: fresh 39-case intent holdout frozen before prompt v3 was run -- the clean test."""
     if suite == "heldout":
         return HELD_OUT_SET
-    with open(HOLDOUT_PATH, encoding="utf-8") as f:
+    with open(HOLDOUT_PATHS[suite], encoding="utf-8") as f:
         return [{"message": c["message"], "intent": c["expected_intent"], "id": c["id"]}
                 for c in json.load(f)["cases"]]
 
@@ -283,8 +288,8 @@ def main(argv=None):
     ap.add_argument("--provider", choices=["gemini", "openai"], default="openai",
                     help="gemini, or openai for any OpenAI-compatible endpoint (Groq, OpenRouter)")
     ap.add_argument("--prompt", choices=sorted(PROMPTS), default="v1", help="prompt version")
-    ap.add_argument("--suite", choices=["heldout", "holdout"], default="heldout",
-                    help="heldout: 103-message set; holdout: frozen 30-case set never used for tuning")
+    ap.add_argument("--suite", choices=["heldout", "holdout", "holdout2"], default="heldout",
+                    help="heldout: 103 messages; holdout: frozen 30-case set; holdout2: fresh 39-case set (clean test)")
     ap.add_argument("--limit", type=int, default=None, help="only run the first N cases (smoke test)")
     ap.add_argument("--delay", type=float, default=4.0, help="seconds between calls (free-tier spacing)")
     ap.add_argument("--output", default=None)

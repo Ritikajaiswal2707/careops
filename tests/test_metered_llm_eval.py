@@ -161,3 +161,27 @@ def test_real_message_marked_no_response_is_counted():
     out = metered_llm_eval.run("k", "m", limit=4, delay=0, provider="openai", base_url="https://x/v1",
                                post=lambda *a, **k: _openai_ok({"intent": "No Response"}))
     assert out["metrics"]["real_message_marked_no_response"] == 4
+
+
+def test_v3_changes_only_confirm_definition_and_has_no_eval_leak():
+    from llm_prompt import PROMPTS
+    assert "thank-you on its own does NOT confirm" in PROMPTS["v3"]
+    assert "Short acknowledgements count" not in PROMPTS["v3"]
+    assert PROMPTS["v3"].split("- Reschedule:")[1] == PROMPTS["v2"].split("- Reschedule:")[1]
+    for suite in ("holdout", "holdout2"):
+        for case in metered_llm_eval.load_suite(suite):
+            msg = (case["message"] or "").strip()
+            if len(msg) > 12:
+                assert msg not in PROMPTS["v3"]
+
+
+def test_holdout2_is_frozen_and_disjoint_from_other_sets():
+    import hashlib, json as _json, os
+    path = metered_llm_eval.HOLDOUT_PATHS["holdout2"]
+    suite = _json.load(open(path, encoding="utf-8"))
+    digest = hashlib.sha256(_json.dumps(suite["cases"], ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+    assert digest == suite["sha256_of_cases"], "holdout2 cases were edited after freezing"
+    h2 = {c["message"].strip().lower() for c in suite["cases"] if c["message"].strip()}
+    others = {(c["message"] or "").strip().lower() for c in HELD_OUT_SET}
+    others |= {c["message"].strip().lower() for c in metered_llm_eval.load_suite("holdout")}
+    assert not (h2 & others)
