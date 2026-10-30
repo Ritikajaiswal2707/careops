@@ -21,6 +21,34 @@ EXTRACTION_PROMPT = (
 )
 
 
+# v2 adds label DEFINITIONS only. It was written after the v1 error analysis
+# showed the model inventing its own meaning for "No Response" and treating
+# short acknowledgements as unclear. It deliberately contains no messages
+# copied from either evaluation set.
+LABEL_DEFINITIONS = (
+    "\nLabel definitions (follow them exactly):\n"
+    "- Confirm: the sender agrees the visit should go ahead as planned. Short "
+    "acknowledgements count, as does a message that mentions a small delay but "
+    "says they will still be there.\n"
+    "- Reschedule: the sender wants the visit moved or rebooked for another time, "
+    "even if no new day is given yet.\n"
+    "- Cancel: the sender wants the current visit not to happen and does not ask "
+    "for a new one.\n"
+    "- Unclear: a real message whose intent about this visit cannot be determined "
+    "-- for example a question, a complaint, a request for information, or a "
+    "non-committal reply.\n"
+    "- No Response: ONLY when the message is empty or has no content. Never use "
+    "it for a message that contains words.\n"
+    "When unsure between Unclear and any action label, choose Unclear: a human "
+    "will review it."
+)
+
+PROMPTS = {
+    "v1": EXTRACTION_PROMPT,
+    "v2": EXTRACTION_PROMPT + LABEL_DEFINITIONS,
+}
+
+
 def strip_json_fence(text: str) -> str:
     """Models sometimes wrap JSON in a ```json fence despite instructions; remove it."""
     text = (text or "").strip()

@@ -53,9 +53,10 @@ sys.path.insert(0, BASE_DIR)
 from llm_vs_baseline_eval import HELD_OUT_SET, _score  # noqa: E402
 
 import openai_compat_llm  # noqa: E402
-from llm_prompt import EXTRACTION_PROMPT as SYSTEM_PROMPT, strip_json_fence as _strip_fence  # noqa: E402
+from llm_prompt import PROMPTS, strip_json_fence as _strip_fence  # noqa: E402
 
-PROMPT_VERSION = "v1-parity-with-anthropic-eval"
+HOLDOUT_PATH = os.path.join(BASE_DIR, "..", "data", "evaluation", "agent_holdout_v1.json")
+INTENT_LABELS = ["Confirm", "Reschedule", "Cancel", "Unclear", "No Response"]
 DEFAULT_OUTPUT_DIR = os.path.join(BASE_DIR, "..", "data", "evaluation")
 
 
@@ -63,10 +64,10 @@ def _endpoint(model):
     return f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
 
-def call_gemini(message, api_key, model, timeout=30, max_retries=5, post=requests.post):
+def call_gemini(message, api_key, model, timeout=30, max_retries=5, post=requests.post, system=PROMPTS["v1"]):
     """One extraction call. Returns (parsed_or_None, json_valid, latency_s, in_tok, out_tok, error)."""
     payload = {
-        "system_instruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+        "system_instruction": {"parts": [{"text": system}]},
         "contents": [{"role": "user", "parts": [{"text": message or "(empty message)"}]}],
         # Generous output budget: some models spend tokens on internal reasoning
         # before the JSON, and a truncated answer would be scored as invalid JSON.
@@ -101,13 +102,15 @@ def call_gemini(message, api_key, model, timeout=30, max_retries=5, post=request
     return None, False, 0.0, None, None, "retries_exhausted"
 
 
-def call_openai_compat(message, api_key, model, base_url, timeout=30, max_retries=5, post=requests.post):
+def call_openai_compat(message, api_key, model, base_url, timeout=30, max_retries=5, post=requests.post,
+                       system=PROMPTS["v1"]):
     """Same return shape as call_gemini, for Groq / OpenRouter / any OpenAI-compatible endpoint."""
     backoff = 5.0
     for attempt in range(max_retries + 1):
         t0 = time.perf_counter()
         try:
-            resp = openai_compat_llm.chat_extract(message, base_url, api_key, model, timeout=timeout, post=post)
+            resp = openai_compat_llm.chat_extract(message, base_url, api_key, model, timeout=timeout, post=post,
+                                                 system=system)
         except requests.RequestException as exc:
             return None, False, time.perf_counter() - t0, None, None, type(exc).__name__
         latency = time.perf_counter() - t0
@@ -132,18 +135,63 @@ def _pct(values, q):
     return values[idx]
 
 
+def load_suite(suite):
+    """heldout: the 103-message extraction set (full gold structure).
+    holdout: the frozen 30-case end-to-end holdout (intent labels only), never used for tuning."""
+    if suite == "heldout":
+        return HELD_OUT_SET
+    with open(HOLDOUT_PATH, encoding="utf-8") as f:
+        return [{"message": c["message"], "intent": c["expected_intent"], "id": c["id"]}
+                for c in json.load(f)["cases"]]
+
+
+def safety_counts(predictions):
+    """The two errors that matter most operationally."""
+    return {
+        "false_confirmations": sum(1 for p in predictions
+                                   if p["pred_intent"] == "Confirm" and p["true_intent"] != "Confirm"),
+        "false_cancellations": sum(1 for p in predictions
+                                   if p["pred_intent"] == "Cancel" and p["true_intent"] != "Cancel"),
+        "real_message_marked_no_response": sum(1 for p in predictions
+                                               if p["pred_intent"] == "No Response"
+                                               and (p["message"] or "").strip()),
+    }
+
+
+def _intent_only_score(predictions):
+    from llm_vs_baseline_eval import _per_class_f1
+    pairs = [(p["true_intent"], p["pred_intent"]) for p in predictions]
+    labels = sorted({t for t, _ in pairs} | {q for _, q in pairs})
+    by_class, macro = _per_class_f1(pairs, labels)
+    n = len(pairs)
+    jv = [p["json_valid"] for p in predictions]
+    return {
+        "n": n,
+        "intent_accuracy": round(sum(t == q for t, q in pairs) / n, 3),
+        "intent_macro_f1": macro,
+        "intent_f1_by_class": by_class,
+        "temporal_extraction_accuracy": None,
+        "reason_extraction_accuracy": None,
+        "cancel_current_accuracy": None,
+        "abstention_rate": round(sum(q == "Unclear" for _, q in pairs) / n, 3),
+        "json_validity_rate": round(sum(jv) / len(jv), 3),
+    }
+
+
 def run(api_key, model, limit=None, delay=4.0, post=requests.post, sleep=time.sleep,
-        provider="gemini", base_url=None):
-    cases = HELD_OUT_SET[:limit] if limit else HELD_OUT_SET
+        provider="gemini", base_url=None, prompt="v1", suite="heldout"):
+    system = PROMPTS[prompt]
+    all_cases = load_suite(suite)
+    cases = all_cases[:limit] if limit else all_cases
     predictions, latencies, errors = [], [], []
     in_total = out_total = 0
     token_counts_complete = True
 
     for i, case in enumerate(cases):
         if provider == "gemini":
-            res = call_gemini(case["message"], api_key, model, post=post)
+            res = call_gemini(case["message"], api_key, model, post=post, system=system)
         else:
-            res = call_openai_compat(case["message"], api_key, model, base_url, post=post)
+            res = call_openai_compat(case["message"], api_key, model, base_url, post=post, system=system)
         parsed, json_valid, latency, in_tok, out_tok, err = res
         latencies.append(latency)
         if err:
@@ -154,6 +202,19 @@ def run(api_key, model, limit=None, delay=4.0, post=requests.post, sleep=time.sl
             in_total += in_tok
             out_total += out_tok
         parsed = parsed or {}
+        if suite != "heldout":
+            predictions.append({
+                "case": case.get("id", i),
+                "message": case["message"],
+                "true_intent": case["intent"],
+                "pred_intent": parsed.get("intent", "PARSE_ERROR"),
+                "json_valid": json_valid,
+            })
+            print(f"  [{i + 1}/{len(cases)}] {predictions[-1]['pred_intent']:<12} {latency * 1000:7.0f} ms"
+                  + (f"  ({err})" if err else ""))
+            if delay and i < len(cases) - 1:
+                sleep(delay)
+            continue
         predictions.append({
             "case": i,
             "message": case["message"],
@@ -173,7 +234,8 @@ def run(api_key, model, limit=None, delay=4.0, post=requests.post, sleep=time.sl
         if delay and i < len(cases) - 1:
             sleep(delay)
 
-    metrics = _score(predictions)
+    metrics = _score(predictions) if suite == "heldout" else _intent_only_score(predictions)
+    metrics.update(safety_counts(predictions))
     metrics["avg_latency_ms"] = round(statistics.mean(latencies) * 1000, 1) if latencies else None
     metrics["p50_latency_ms"] = round(_pct(latencies, 0.5) * 1000, 1) if latencies else None
     metrics["p95_latency_ms"] = round(_pct(latencies, 0.95) * 1000, 1) if latencies else None
@@ -186,10 +248,11 @@ def run(api_key, model, limit=None, delay=4.0, post=requests.post, sleep=time.sl
     return {
         "provider": provider if provider == "gemini" else (os.environ.get("LLM_PROVIDER") or base_url),
         "model": model,
-        "prompt_version": PROMPT_VERSION,
+        "prompt_version": prompt,
+        "suite": suite,
         "run_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "n_cases": len(cases),
-        "full_set": limit is None or limit >= len(HELD_OUT_SET),
+        "full_set": limit is None or limit >= len(all_cases),
         "metrics": metrics,
         "errors": errors,
         "misclassified": [p for p in predictions if p["true_intent"] != p["pred_intent"]],
@@ -219,6 +282,9 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="Metered LLM evaluation on the held-out set")
     ap.add_argument("--provider", choices=["gemini", "openai"], default="openai",
                     help="gemini, or openai for any OpenAI-compatible endpoint (Groq, OpenRouter)")
+    ap.add_argument("--prompt", choices=sorted(PROMPTS), default="v1", help="prompt version")
+    ap.add_argument("--suite", choices=["heldout", "holdout"], default="heldout",
+                    help="heldout: 103-message set; holdout: frozen 30-case set never used for tuning")
     ap.add_argument("--limit", type=int, default=None, help="only run the first N cases (smoke test)")
     ap.add_argument("--delay", type=float, default=4.0, help="seconds between calls (free-tier spacing)")
     ap.add_argument("--output", default=None)
@@ -238,14 +304,19 @@ def main(argv=None):
         return 2
 
     label = args.provider if args.provider == "gemini" else (os.environ.get("LLM_PROVIDER") or "openai_compat")
-    output = args.output or os.path.join(DEFAULT_OUTPUT_DIR, f"{label}_llm_eval.json")
+    model_slug = model.replace("/", "_")
+    output = args.output or os.path.join(
+        DEFAULT_OUTPUT_DIR, f"{label}_{model_slug}_{args.suite}_{args.prompt}_eval.json")
 
-    result = run(api_key, model, limit=args.limit, delay=args.delay, provider=args.provider, base_url=base_url)
+    result = run(api_key, model, limit=args.limit, delay=args.delay, provider=args.provider, base_url=base_url,
+                 prompt=args.prompt, suite=args.suite)
     m = result["metrics"]
-    print(f"\n{model} on {result['n_cases']} held-out messages:")
+    print(f"\n{model} | prompt {args.prompt} | suite {args.suite} | {result['n_cases']} messages:")
     print(f"  intent accuracy   {m['intent_accuracy']:.1%}  (macro F1 {m['intent_macro_f1']})")
-    print(f"  temporal accuracy {m['temporal_extraction_accuracy']:.1%}")
-    print(f"  reason accuracy   {m['reason_extraction_accuracy']:.1%}")
+    print(f"  temporal accuracy {m['temporal_extraction_accuracy']}")
+    print(f"  reason accuracy   {m['reason_extraction_accuracy']}")
+    print(f"  false confirms    {m['false_confirmations']}   false cancels {m['false_cancellations']}"
+          f"   real msg -> No Response {m['real_message_marked_no_response']}")
     print(f"  cancel_current    {m['cancel_current_accuracy']}")
     print(f"  JSON validity     {m['json_validity_rate']}")
     print(f"  latency p50/p95   {m['p50_latency_ms']} / {m['p95_latency_ms']} ms")

@@ -123,3 +123,41 @@ def test_runtime_call_returns_none_without_config(monkeypatch):
     for var in ("LLM_BASE_URL", "LLM_PROVIDER", "LLM_API_KEY", "LLM_MODEL"):
         monkeypatch.delenv(var, raising=False)
     assert openai_compat_llm.openai_compat_llm_call("kal aa jaungi") is None
+
+
+def test_v2_prompt_is_sent_and_contains_no_eval_messages():
+    from llm_prompt import PROMPTS
+    seen = {}
+
+    def post(url, headers, json, timeout):
+        seen["system"] = json["messages"][0]["content"]
+        return _openai_ok(_gold_as_pred(HELD_OUT_SET[0]))
+
+    metered_llm_eval.run("k", "m", limit=1, delay=0, post=post, provider="openai",
+                         base_url="https://x/v1", prompt="v2")
+    assert seen["system"] == PROMPTS["v2"] and "No Response: ONLY" in seen["system"]
+    holdout = metered_llm_eval.load_suite("holdout")
+    for case in HELD_OUT_SET + holdout:
+        msg = (case["message"] or "").strip()
+        if len(msg) > 12:  # longer than generic one-word acks
+            assert msg not in PROMPTS["v2"], f"eval message leaked into prompt: {msg}"
+
+
+def test_holdout_suite_scores_intent_and_safety():
+    holdout = metered_llm_eval.load_suite("holdout")
+    assert len(holdout) == 30
+    # Fake model that always says Confirm: every non-Confirm case is a false confirmation.
+    out = metered_llm_eval.run("k", "m", delay=0, provider="openai", base_url="https://x/v1",
+                               suite="holdout",
+                               post=lambda *a, **k: _openai_ok({"intent": "Confirm"}))
+    m = out["metrics"]
+    expected_false = sum(1 for c in holdout if c["intent"] != "Confirm")
+    assert out["full_set"] and out["suite"] == "holdout"
+    assert m["false_confirmations"] == expected_false and m["false_cancellations"] == 0
+    assert m["temporal_extraction_accuracy"] is None
+
+
+def test_real_message_marked_no_response_is_counted():
+    out = metered_llm_eval.run("k", "m", limit=4, delay=0, provider="openai", base_url="https://x/v1",
+                               post=lambda *a, **k: _openai_ok({"intent": "No Response"}))
+    assert out["metrics"]["real_message_marked_no_response"] == 4

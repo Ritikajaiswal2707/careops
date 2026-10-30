@@ -40,14 +40,15 @@ def config():
     return base_url.rstrip("/"), api_key, model
 
 
-def chat_extract(message, base_url, api_key, model, timeout=30, post=requests.post):
+def chat_extract(message, base_url, api_key, model, timeout=30, post=requests.post,
+                 system=EXTRACTION_PROMPT):
     """One raw call. Returns (response_or_None, http_status). Never logs the key or bodies."""
     payload = {
         "model": model,
         "temperature": 0,
         "max_tokens": 1024,
         "messages": [
-            {"role": "system", "content": EXTRACTION_PROMPT},
+            {"role": "system", "content": system},
             {"role": "user", "content": message or "(empty message)"},
         ],
     }
