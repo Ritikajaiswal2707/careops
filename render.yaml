@@ -21,6 +21,10 @@ services:
         sync: false
       # Public portfolio deployment is intentionally non-mutating and does
       # not call external LLM providers. Enable the full simulated lifecycle locally.
+      - key: CAREOPS_ROUTING_MODE
+        value: demo
+      - key: OLA_MAPS_API_KEY
+        sync: false
       - key: CAREOPS_PUBLIC_DEMO_READ_ONLY
         value: "true"
       - key: CAREOPS_DISABLE_EXTERNAL_LLM

@@ -79,6 +79,8 @@ import re
 from datetime import date
 import pandas as pd
 
+from routing import SLOT_HOUR, build_routing
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 
@@ -117,7 +119,10 @@ WEIGHTS = {
     "schedule_fit": 15,
     "service_fit": 5,
 }
-UTILIZATION_PENALTY_WEIGHT = 10  # subtracted, scaled by how over/near capacity the provider already is
+UTILIZATION_PENALTY_WEIGHT = 10
+# With road routing on, proximity is scored on travel time instead of km:
+# full points at 0 minutes, zero at ETA_ZERO_POINTS_MIN or more.
+ETA_ZERO_POINTS_MIN = 60  # subtracted, scaled by how over/near capacity the provider already is
 
 # Which provider specialization(s) can actually deliver a given service_type.
 # This is a business rule, not something learned from the data: a crosstab of
@@ -193,7 +198,8 @@ def _patient_provider_history(appts):
     return set(zip(appts["patient_id"], appts["provider_id"]))
 
 
-def build_candidates(target_date: str):
+def build_candidates(target_date: str, routing="env"):
+    """routing: "env" (read CAREOPS_ROUTING_MODE), None (straight line), or a provider object."""
     validate_target_date(target_date)
     providers = pd.read_csv(f"{DATA_DIR}/providers.csv")
     availability = pd.read_csv(f"{DATA_DIR}/availability.csv")
@@ -240,6 +246,9 @@ def build_candidates(target_date: str):
         "patients": patients,
         "slot_load_today": slot_load_today,
         "history": _patient_provider_history(history_appts),
+        "routing": build_routing() if routing == "env" else routing,
+        "route_cache": {},
+        "routing_status": None,
     }
 
 
@@ -317,16 +326,22 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
             current_row.iloc[0]["latitude"], current_row.iloc[0]["longitude"],
         )
 
+    routes = _road_routes(ctx, pool, patient, time_slot)
+
     scored = []
     for _, row in pool.iterrows():
         continuity = (patient["patient_id"], row["provider_id"]) in history
         continuity_score = 1.0 if continuity else 0.0
 
+        route = routes.get(row["provider_id"])
         if pd.notna(row["latitude"]):
             dist_km = haversine_km(patient["latitude"], patient["longitude"], row["latitude"], row["longitude"])
             proximity_score = max(0.0, 1 - dist_km / 25)  # 0 pts at 25km+, linear to 25km
         else:
             dist_km, proximity_score = None, 0.3  # no history to infer a centroid from — neutral, not zero
+        if route is not None:
+            # Road travel time replaces the straight-line proxy when it is available.
+            proximity_score = max(0.0, 1 - route.duration_min / ETA_ZERO_POINTS_MIN)
 
         capacity_score = min(1.0, row["remaining_capacity"] / max(row["daily_capacity"], 1))
 
@@ -358,8 +373,15 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
         reasons = []
         if row["provider_id"] == current_provider:
             reasons.append("this is the patient's current provider, free on this date")
+        elif route is not None:
+            label = "live" if route.mode == "live" else "simulated"
+            reasons.append(f"about {round(route.duration_min)} min by road ({label}), "
+                           f"{round(route.distance_km, 1)} km")
         elif dist_km is not None:
-            reasons.append(f"{round(dist_km, 1)} km from patient (inferred)")
+            if ctx.get("routing") is not None:
+                reasons.append(f"{round(dist_km, 1)} km from patient (straight-line estimate; road route unavailable)")
+            else:
+                reasons.append(f"{round(dist_km, 1)} km from patient (inferred)")
         reasons.append(f"{int(row['remaining_capacity'])} slot(s) free today")
         if slot_room > 0:
             reasons.append(f"room in the same {time_slot.lower()} slot")
@@ -380,6 +402,9 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
             "distance_vs_current_km": (
                 round(dist_km - current_dist, 1) if dist_km is not None and current_dist is not None else None
             ),
+            "road_eta_min": round(route.duration_min) if route is not None else None,
+            "road_distance_km": round(route.distance_km, 1) if route is not None else None,
+            "route_source": (route.mode if route is not None else "straight_line"),
             "continuity": continuity,
             "is_current_provider": bool(row["provider_id"] == current_provider),
             "specialization": row["specialization"],
@@ -395,6 +420,34 @@ def recommend(appointment_id: str, target_date: str, ctx=None, service_type=None
     if top_n == 1:
         return scored[0]
     return scored[:top_n]
+
+
+def _road_routes(ctx, pool, patient, time_slot):
+    """Road routes from each candidate's inferred location to the patient, keyed by provider_id.
+    Empty when routing is off. Cached per (provider location, patient, slot) within a run."""
+    routing = ctx.get("routing")
+    if routing is None:
+        return {}
+    cache = ctx.setdefault("route_cache", {})
+    dest = (float(patient["latitude"]), float(patient["longitude"]))
+    hour = SLOT_HOUR.get(time_slot)
+    todo, results = [], {}
+    for _, row in pool.iterrows():
+        if pd.isna(row["latitude"]):
+            continue
+        origin = (float(row["latitude"]), float(row["longitude"]))
+        key = (origin, dest, hour)
+        if key in cache:
+            results[row["provider_id"]] = cache[key]
+        else:
+            todo.append((row["provider_id"], origin, key))
+    if todo:
+        matrix = routing.matrix([o for _, o, _ in todo], [dest], depart_hour=hour)
+        ctx["routing_status"] = {"provider": routing.label, "status": matrix.status, "error": matrix.error}
+        for (pid, _, key), row in zip(todo, matrix.grid or [[None]] * len(todo)):
+            cache[key] = row[0] if row else None
+            results[pid] = cache[key]
+    return {pid: r for pid, r in results.items() if r is not None}
 
 
 def commit_recommendation(ctx, provider_id: str, time_slot: str):

@@ -21,7 +21,7 @@ Family message ──► Understand ──► Find recovery options ──► Pr
 | Step | What it does | Why it's built this way |
 |---|---|---|
 | **Understand** | Extracts intent, requested day, reason and whether the current visit is being dropped | Rules are free and instant, so the LLM is called only when they abstain. A deterministic guardrail can send any Confirm to a human; anything unclear escalates instead of guessing |
-| **Recover** | Ranks eligible replacement providers with a plain-language "why" | Service fit is a hard filter, not a score, so an ineligible provider can never win on proximity |
+| **Recover** | Ranks eligible replacement providers with a plain-language "why", using road travel time when routing is on | Service fit is a hard filter, not a score, so an ineligible provider can never win on proximity; a straight-line estimate is never shown as a road ETA |
 | **Approve** | Persists every proposal and decision with an audit trail | High-stakes actions stay human; the agent fails closed on errors |
 
 ## Results (synthetic, author-labelled data)
@@ -53,7 +53,7 @@ Family message ──► Understand ──► Find recovery options ──► Pr
 
 - Define `cancel_current` operationally: most of the model's "errors" on it are a labelling ambiguity, not model mistakes.
 - Measure the guardrail on a third holdout frozen before any further change.
-- Replace inferred distance with real road travel time in the Recovery Score.
+- Run the road-ETA comparison live: routing is built in (`CAREOPS_ROUTING_MODE=live`, Ola Maps), but whether real roads change the recommended provider is not yet measured.
 - Calibrate the risk model for first-time patients, where it is overconfident (+8.6-point calibration gap on a small subgroup).
 
 ## Try it
