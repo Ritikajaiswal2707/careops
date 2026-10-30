@@ -74,7 +74,8 @@ def _valid_schema(pred: dict) -> bool:
 
 def default_llm_call(message: str):
     """
-    Try Gemini first, then Anthropic if configured.
+    Try Gemini first, then an OpenAI-compatible provider (Groq/OpenRouter),
+    then Anthropic -- whichever are configured.
 
     Invalid provider responses are rejected. None is returned if neither
     provider produces a valid extraction.
@@ -89,6 +90,13 @@ def default_llm_call(message: str):
     gemini_result = gemini_llm_call(message)
     if gemini_result is not None and _valid_schema(gemini_result):
         return gemini_result
+
+    # Free, no-credit-card OpenAI-compatible providers (Groq, OpenRouter, ...).
+    from openai_compat_llm import openai_compat_llm_call
+
+    compat_result = openai_compat_llm_call(message)
+    if compat_result is not None and _valid_schema(compat_result):
+        return compat_result
 
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:

@@ -43,8 +43,8 @@
     }
   },
   "local_execution_latency_ms": {
-    "p50": 48.892,
-    "p95": 53.163,
+    "p50": 45.348,
+    "p95": 63.772,
     "note": "Local offline execution only; excludes hosted LLM/API latency and is not a production SLO."
   },
   "failed_cases": [],
@@ -66,7 +66,7 @@
       "actual_status": "awaiting_coordinator_approval",
       "disposition_pass": true,
       "proposal_present": true,
-      "elapsed_ms": 63.186
+      "elapsed_ms": 68.316
     },
     {
       "case_id": "CH02",
@@ -79,7 +79,7 @@
       "actual_status": "awaiting_coordinator_approval",
       "disposition_pass": true,
       "proposal_present": true,
-      "elapsed_ms": 48.892
+      "elapsed_ms": 52.719
     },
     {
       "case_id": "CH03",
@@ -92,7 +92,7 @@
       "actual_status": "awaiting_coordinator_approval",
       "disposition_pass": true,
       "proposal_present": true,
-      "elapsed_ms": 49.87
+      "elapsed_ms": 48.941
     },
     {
       "case_id": "CH04",
@@ -105,7 +105,7 @@
       "actual_status": "awaiting_coordinator_approval",
       "disposition_pass": true,
       "proposal_present": true,
-      "elapsed_ms": 49.688
+      "elapsed_ms": 58.736
     },
     {
       "case_id": "CH05",
@@ -118,7 +118,7 @@
       "actual_status": "awaiting_coordinator_approval",
       "disposition_pass": true,
       "proposal_present": true,
-      "elapsed_ms": 49.218
+      "elapsed_ms": 63.772
     },
     {
       "case_id": "CH06",
@@ -131,7 +131,7 @@
       "actual_status": "awaiting_coordinator_approval",
       "disposition_pass": true,
       "proposal_present": true,
-      "elapsed_ms": 50.99
+      "elapsed_ms": 46.475
     },
     {
       "case_id": "CH07",
@@ -144,7 +144,7 @@
       "actual_status": "awaiting_coordinator_approval",
       "disposition_pass": true,
       "proposal_present": true,
-      "elapsed_ms": 49.837
+      "elapsed_ms": 45.348
     },
     {
       "case_id": "CH08",
@@ -157,7 +157,7 @@
       "actual_status": "no_feasible_option",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 52.287
+      "elapsed_ms": 45.93
     },
     {
       "case_id": "CH09",
@@ -170,7 +170,7 @@
       "actual_status": "awaiting_coordinator_approval",
       "disposition_pass": true,
       "proposal_present": true,
-      "elapsed_ms": 48.901
+      "elapsed_ms": 46.369
     },
     {
       "case_id": "CH10",
@@ -183,7 +183,7 @@
       "actual_status": "unsupported_intent",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 17.586
+      "elapsed_ms": 15.836
     },
     {
       "case_id": "CH11",
@@ -196,7 +196,7 @@
       "actual_status": "unsupported_intent",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 16.073
+      "elapsed_ms": 15.481
     },
     {
       "case_id": "CH12",
@@ -209,7 +209,7 @@
       "actual_status": "unsupported_intent",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 15.982
+      "elapsed_ms": 15.33
     },
     {
       "case_id": "CH13",
@@ -222,7 +222,7 @@
       "actual_status": "unsupported_intent",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 16.253
+      "elapsed_ms": 15.953
     },
     {
       "case_id": "CH14",
@@ -235,7 +235,7 @@
       "actual_status": "unsupported_intent",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 53.163
+      "elapsed_ms": 15.651
     },
     {
       "case_id": "CH15",
@@ -248,7 +248,7 @@
       "actual_status": "unsupported_intent",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 16.204
+      "elapsed_ms": 15.518
     },
     {
       "case_id": "CH16",
@@ -261,7 +261,7 @@
       "actual_status": "needs_human_review",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 24.715
+      "elapsed_ms": 15.469
     },
     {
       "case_id": "CH17",
@@ -274,7 +274,7 @@
       "actual_status": "needs_human_review",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 22.649
+      "elapsed_ms": 15.49
     },
     {
       "case_id": "CH18",
@@ -287,7 +287,7 @@
       "actual_status": "needs_human_review",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 25.123
+      "elapsed_ms": 15.435
     },
     {
       "case_id": "CH19",
@@ -300,7 +300,7 @@
       "actual_status": "needs_human_review",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 16.467
+      "elapsed_ms": 15.386
     },
     {
       "case_id": "CH20",
@@ -313,7 +313,7 @@
       "actual_status": "needs_human_review",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 16.369
+      "elapsed_ms": 15.562
     },
     {
       "case_id": "CH21",
@@ -326,7 +326,7 @@
       "actual_status": "awaiting_coordinator_approval",
       "disposition_pass": true,
       "proposal_present": true,
-      "elapsed_ms": 48.84
+      "elapsed_ms": 47.438
     },
     {
       "case_id": "CH22",
@@ -339,7 +339,7 @@
       "actual_status": "awaiting_coordinator_approval",
       "disposition_pass": true,
       "proposal_present": true,
-      "elapsed_ms": 53.111
+      "elapsed_ms": 46.253
     },
     {
       "case_id": "CH23",
@@ -352,7 +352,7 @@
       "actual_status": "needs_human_review",
       "disposition_pass": true,
       "proposal_present": false,
-      "elapsed_ms": 17.613
+      "elapsed_ms": 15.949
     },
     {
       "case_id": "CH24",
@@ -365,7 +365,7 @@
       "actual_status": "awaiting_coordinator_approval",
       "disposition_pass": true,
       "proposal_present": true,
-      "elapsed_ms": 49.459
+      "elapsed_ms": 47.664
     }
   ]
 }

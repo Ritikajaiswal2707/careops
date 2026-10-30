@@ -1,12 +1,18 @@
 """
-Metered LLM evaluation on the 103-message held-out set, using the Gemini API.
+Metered LLM evaluation on the 103-message held-out set.
+
+Providers (all usable for free without a credit card at the time of writing;
+check each provider's current limits):
+  --provider gemini   GEMINI_API_KEY + GEMINI_MODEL
+  --provider openai   any OpenAI-compatible endpoint, e.g. Groq or OpenRouter:
+                      LLM_PROVIDER=groq|openrouter (or LLM_BASE_URL), LLM_API_KEY, LLM_MODEL
 
 Why this exists
 ---------------
 The headline LLM number elsewhere in this repo comes from blind predictions
 written without a metered API call (see my_llm_predictions.py), so it has no
 real cost or latency attached. This script closes that gap with a genuine,
-reproducible API run that anyone can repeat on Gemini's free tier.
+reproducible API run that anyone can repeat on a free tier.
 
 What it records (for every run)
 -------------------------------
@@ -17,16 +23,16 @@ What it records (for every run)
 - input / output token counts reported by the API (usageMetadata)
 - cost: Rs.0 actually spent on the free tier. A paid-tier estimate is only
   produced if you pass real per-million-token prices via env vars
-  (GEMINI_INPUT_USD_PER_M, GEMINI_OUTPUT_USD_PER_M, USD_INR); otherwise it is
+  (LLM_INPUT_USD_PER_M, LLM_OUTPUT_USD_PER_M, USD_INR); otherwise it is
   reported as null. Nothing is estimated from memory.
 - every prediction and every misclassification, for error analysis
 
 Usage
 -----
-    export GEMINI_API_KEY=...            # never commit this
-    export GEMINI_MODEL=<model id>       # optional; recorded in the output
-    python model/gemini_eval.py --limit 5        # smoke test
-    python model/gemini_eval.py                  # full 103-message run
+    # Groq example (keys never go in the repo)
+    export LLM_PROVIDER=groq LLM_API_KEY=... LLM_MODEL=<model id from the console>
+    python model/metered_llm_eval.py --provider openai --limit 5   # smoke test
+    python model/metered_llm_eval.py --provider openai             # full run
 
 Free-tier limits are per-minute; the script spaces calls (--delay) and backs
 off on HTTP 429 instead of failing the run.
@@ -46,43 +52,15 @@ sys.path.insert(0, BASE_DIR)
 
 from llm_vs_baseline_eval import HELD_OUT_SET, _score  # noqa: E402
 
-PROMPT_VERSION = "v1-parity-with-anthropic-eval"
-DEFAULT_OUTPUT = os.path.join(BASE_DIR, "..", "data", "evaluation", "gemini_llm_eval.json")
+import openai_compat_llm  # noqa: E402
+from llm_prompt import EXTRACTION_PROMPT as SYSTEM_PROMPT, strip_json_fence as _strip_fence  # noqa: E402
 
-# Same extraction contract as llm_vs_baseline_eval.run_llm_eval(), including
-# the cancel_current guidance, so results are directly comparable.
-SYSTEM_PROMPT = (
-    "Extract structured information from a home-healthcare patient "
-    "message (English, Hindi, Hinglish, or a mix, possibly with typos). "
-    "Respond with ONLY a JSON object, no other text, matching exactly:\n"
-    '{"intent": "Confirm"|"Reschedule"|"Cancel"|"Unclear"|"No Response", '
-    '"cancel_current": true|false, '
-    '"preferred_day": "Monday".."Sunday" or null, '
-    '"next_week": true|false, '
-    '"relative_day": "tomorrow"|"weekend"|null, '
-    '"offset_days": integer or null, '
-    '"reason": "Conflicting doctor visit"|"Work conflict"|'
-    '"Provider/patient running late"|null}\n'
-    "cancel_current is true whenever the CURRENT appointment is being "
-    'dropped -- a plain cancellation, or a compound message like "cancel '
-    'today\'s, I\'ll come tomorrow" that also requests a new day (which '
-    "should be classified intent=Reschedule, cancel_current=true, not "
-    "intent=Cancel). It is false for a plain move-only reschedule with "
-    "no explicit cancel language."
-)
+PROMPT_VERSION = "v1-parity-with-anthropic-eval"
+DEFAULT_OUTPUT_DIR = os.path.join(BASE_DIR, "..", "data", "evaluation")
 
 
 def _endpoint(model):
     return f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-
-
-def _strip_fence(text):
-    text = text.strip()
-    if text.startswith("```"):
-        text = text.strip("`").strip()
-        if text.lower().startswith("json"):
-            text = text[4:]
-    return text.strip()
 
 
 def call_gemini(message, api_key, model, timeout=30, max_retries=5, post=requests.post):
@@ -123,6 +101,29 @@ def call_gemini(message, api_key, model, timeout=30, max_retries=5, post=request
     return None, False, 0.0, None, None, "retries_exhausted"
 
 
+def call_openai_compat(message, api_key, model, base_url, timeout=30, max_retries=5, post=requests.post):
+    """Same return shape as call_gemini, for Groq / OpenRouter / any OpenAI-compatible endpoint."""
+    backoff = 5.0
+    for attempt in range(max_retries + 1):
+        t0 = time.perf_counter()
+        try:
+            resp = openai_compat_llm.chat_extract(message, base_url, api_key, model, timeout=timeout, post=post)
+        except requests.RequestException as exc:
+            return None, False, time.perf_counter() - t0, None, None, type(exc).__name__
+        latency = time.perf_counter() - t0
+        if resp.status_code in (429, 503) and attempt < max_retries:
+            time.sleep(backoff)
+            backoff = min(backoff * 2, 60)
+            continue
+        if resp.status_code != 200:
+            return None, False, latency, None, None, f"HTTP {resp.status_code}"
+        parsed, in_tok, out_tok = openai_compat_llm.parse_response(resp.json())
+        if parsed is None:
+            return None, False, latency, in_tok, out_tok, "invalid_json"
+        return parsed, True, latency, in_tok, out_tok, None
+    return None, False, 0.0, None, None, "retries_exhausted"
+
+
 def _pct(values, q):
     if not values:
         return None
@@ -131,14 +132,19 @@ def _pct(values, q):
     return values[idx]
 
 
-def run(api_key, model, limit=None, delay=4.0, post=requests.post, sleep=time.sleep):
+def run(api_key, model, limit=None, delay=4.0, post=requests.post, sleep=time.sleep,
+        provider="gemini", base_url=None):
     cases = HELD_OUT_SET[:limit] if limit else HELD_OUT_SET
     predictions, latencies, errors = [], [], []
     in_total = out_total = 0
     token_counts_complete = True
 
     for i, case in enumerate(cases):
-        parsed, json_valid, latency, in_tok, out_tok, err = call_gemini(case["message"], api_key, model, post=post)
+        if provider == "gemini":
+            res = call_gemini(case["message"], api_key, model, post=post)
+        else:
+            res = call_openai_compat(case["message"], api_key, model, base_url, post=post)
+        parsed, json_valid, latency, in_tok, out_tok, err = res
         latencies.append(latency)
         if err:
             errors.append({"case": i, "error": err})
@@ -178,7 +184,7 @@ def run(api_key, model, limit=None, delay=4.0, post=requests.post, sleep=time.sl
     metrics["paid_tier_cost_per_message_inr"] = _paid_estimate(in_total, out_total, len(cases), token_counts_complete)
 
     return {
-        "provider": "gemini",
+        "provider": provider if provider == "gemini" else (os.environ.get("LLM_PROVIDER") or base_url),
         "model": model,
         "prompt_version": PROMPT_VERSION,
         "run_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
@@ -198,8 +204,8 @@ def run(api_key, model, limit=None, delay=4.0, post=requests.post, sleep=time.sl
 
 def _paid_estimate(in_total, out_total, n, complete):
     try:
-        in_price = float(os.environ["GEMINI_INPUT_USD_PER_M"])
-        out_price = float(os.environ["GEMINI_OUTPUT_USD_PER_M"])
+        in_price = float(os.environ["LLM_INPUT_USD_PER_M"])
+        out_price = float(os.environ["LLM_OUTPUT_USD_PER_M"])
         usd_inr = float(os.environ["USD_INR"])
     except (KeyError, ValueError):
         return None
@@ -210,20 +216,31 @@ def _paid_estimate(in_total, out_total, n, complete):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    ap = argparse.ArgumentParser(description="Metered LLM evaluation on the held-out set")
+    ap.add_argument("--provider", choices=["gemini", "openai"], default="openai",
+                    help="gemini, or openai for any OpenAI-compatible endpoint (Groq, OpenRouter)")
     ap.add_argument("--limit", type=int, default=None, help="only run the first N cases (smoke test)")
     ap.add_argument("--delay", type=float, default=4.0, help="seconds between calls (free-tier spacing)")
-    ap.add_argument("--output", default=DEFAULT_OUTPUT)
+    ap.add_argument("--output", default=None)
     args = ap.parse_args(argv)
 
-    api_key = os.environ.get("GEMINI_API_KEY")
-    model = os.environ.get("GEMINI_MODEL")
+    base_url = None
+    if args.provider == "gemini":
+        api_key, model = os.environ.get("GEMINI_API_KEY"), os.environ.get("GEMINI_MODEL")
+        missing = "GEMINI_API_KEY and GEMINI_MODEL"
+    else:
+        cfg = openai_compat_llm.config()
+        base_url, api_key, model = cfg if cfg else (None, None, None)
+        missing = "LLM_PROVIDER (groq/openrouter) or LLM_BASE_URL, plus LLM_API_KEY and LLM_MODEL"
     if not api_key or not model:
-        print("Set GEMINI_API_KEY and GEMINI_MODEL (a model id from Google AI Studio) and re-run.\n"
+        print(f"Set {missing} and re-run.\n"
               "Nothing is simulated: without a key this script does not produce a result.")
         return 2
 
-    result = run(api_key, model, limit=args.limit, delay=args.delay)
+    label = args.provider if args.provider == "gemini" else (os.environ.get("LLM_PROVIDER") or "openai_compat")
+    output = args.output or os.path.join(DEFAULT_OUTPUT_DIR, f"{label}_llm_eval.json")
+
+    result = run(api_key, model, limit=args.limit, delay=args.delay, provider=args.provider, base_url=base_url)
     m = result["metrics"]
     print(f"\n{model} on {result['n_cases']} held-out messages:")
     print(f"  intent accuracy   {m['intent_accuracy']:.1%}  (macro F1 {m['intent_macro_f1']})")
@@ -238,9 +255,9 @@ def main(argv=None):
     if not result["full_set"]:
         print("\nPartial run (--limit): not written, so a smoke test never overwrites the real result.")
         return 0
-    with open(args.output, "w", encoding="utf-8") as f:
+    with open(output, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2, ensure_ascii=False, default=str)
-    print(f"\nwrote {os.path.relpath(args.output)}")
+    print(f"\nwrote {os.path.relpath(output)}")
     return 0
 
 

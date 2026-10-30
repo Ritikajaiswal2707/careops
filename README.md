@@ -32,9 +32,9 @@ Family message ──► Understand ──► Find recovery options ──► Pr
 | Rule-first hybrid with LLM fallback, same set | **98.1%** intent accuracy, with **13.6%** escalated to a human rather than guessed ¹ |
 | Recovery agent on a frozen 30-case holdout | **25/30** correct dispositions, **0** false cancellations, all 5 proposals passed revalidation |
 | Disruption-risk model after fixing a data-leakage bug | ROC-AUC fell from 0.658 to **0.58** — reported honestly rather than kept inflated |
-| Metered LLM run (Gemini, free tier) | Runner ready in [`model/gemini_eval.py`](model/gemini_eval.py); result pending |
+| Metered LLM run (free tier: Groq, OpenRouter or Gemini) | Runner ready in [`model/metered_llm_eval.py`](model/metered_llm_eval.py); result pending |
 
-¹ The LLM side of this number came from blind predictions without a metered API call. The Gemini run above replaces it with real accuracy, latency and token counts.
+¹ The LLM side of this number came from blind predictions without a metered API call. The metered run above replaces it with real accuracy, latency and token counts.
 
 ## What I'd change next
 
