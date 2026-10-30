@@ -1,0 +1,2487 @@
+{
+  "provider": "groq",
+  "model": "openai/gpt-oss-20b",
+  "prompt_version": "v2",
+  "suite": "heldout",
+  "run_at_utc": "2026-10-30T23:13:02+00:00",
+  "n_cases": 103,
+  "full_set": true,
+  "metrics": {
+    "n": 103,
+    "intent_accuracy": 0.971,
+    "intent_macro_f1": 0.814,
+    "intent_f1_by_class": {
+      "Cancel": 0.976,
+      "Confirm": 0.979,
+      "No Response": 1.0,
+      "PARSE_ERROR": 0.0,
+      "Reschedule": 0.988,
+      "Unclear": 0.938
+    },
+    "temporal_extraction_accuracy": 0.932,
+    "reason_extraction_accuracy": 0.971,
+    "cancel_current_accuracy": null,
+    "abstention_rate": 0.165,
+    "json_validity_rate": 0.99,
+    "false_confirmations": 0,
+    "false_cancellations": 0,
+    "real_message_marked_no_response": 0,
+    "avg_latency_ms": 1906.5,
+    "p50_latency_ms": 1321.7,
+    "p95_latency_ms": 6366.8,
+    "input_tokens_total": null,
+    "output_tokens_total": null,
+    "errors": 1,
+    "actual_spend_inr": 0.0,
+    "paid_tier_cost_per_message_inr": null
+  },
+  "errors": [
+    {
+      "case": 46,
+      "error": "SSLError"
+    }
+  ],
+  "misclassified": [
+    {
+      "case": 18,
+      "message": "k",
+      "true_intent": "Confirm",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 46,
+      "message": "we're out for a family fn that day, dusre din dekh lo koi",
+      "true_intent": "Reschedule",
+      "pred_intent": "PARSE_ERROR",
+      "true_cancel_current": false,
+      "pred_cancel_current": null,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": false
+    },
+    {
+      "case": 51,
+      "message": "Is week cancel karna padega",
+      "true_intent": "Cancel",
+      "pred_intent": "Unclear",
+      "true_cancel_current": true,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    }
+  ],
+  "predictions": [
+    {
+      "case": 0,
+      "message": "Confirmed, thank you!",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 1,
+      "message": "haan bilkul, wahi time pe aa jaana",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 2,
+      "message": "yes see u then",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 3,
+      "message": "ok",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 4,
+      "message": "sab thik hai, appointment as is",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 5,
+      "message": "great, see you then!",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 6,
+      "message": "yep all good",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 7,
+      "message": "theek h chalega",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 8,
+      "message": "haanji sab sahi hai",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 9,
+      "message": "running 10 min behind, still coming though",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 10,
+      "message": "haan aaj hi aa jaana, sab plan same hai",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 11,
+      "message": "confrm h, no changes",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 12,
+      "message": "sounds good, thanks!",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 13,
+      "message": "we'll be home, come as planned",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 14,
+      "message": "haa theek hai aaj wala time hi rakho",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 15,
+      "message": "cool, works for us",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 16,
+      "message": "yeah that's fine, no need to change anything",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 17,
+      "message": "ji haan, wahi time theek hai",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 18,
+      "message": "k",
+      "true_intent": "Confirm",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 19,
+      "message": "sahi hai bhai, aa jao",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 20,
+      "message": "Kal thoda late ho jayega, Saturday kar sakte ho?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        "Saturday",
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        "Saturday",
+        false,
+        null,
+        null
+      ],
+      "true_reason": "Provider/patient running late",
+      "pred_reason": "Provider/patient running late",
+      "json_valid": true
+    },
+    {
+      "case": 21,
+      "message": "any chance of moving to next monday",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        "Monday",
+        true,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        "Monday",
+        true,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 22,
+      "message": "can we push it out a bit? maybe next tuesday",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        "Tuesday",
+        true,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        "Tuesday",
+        true,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 23,
+      "message": "doctor visit hai usi din, reschedule possible? Friday theek rahega",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        "Friday",
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        "Friday",
+        false,
+        null,
+        null
+      ],
+      "true_reason": "Conflicting doctor visit",
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 24,
+      "message": "office ka kaam aa gaya, can we shift to wednesday",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        "Wednesday",
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        "Wednesday",
+        false,
+        null,
+        null
+      ],
+      "true_reason": "Work conflict",
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 25,
+      "message": "sorry cant do thursday, kar sakte ho on sunday instead?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        "Sunday",
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        "Sunday",
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 26,
+      "message": "kl subah nahi ho payega, weekend pe kar sakte?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        "weekend",
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        "weekend",
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 27,
+      "message": "work call chal raha hoga us time, shift to thursday please",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        "Thursday",
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        "Thursday",
+        false,
+        null,
+        null
+      ],
+      "true_reason": "Work conflict",
+      "pred_reason": "Work conflict",
+      "json_valid": true
+    },
+    {
+      "case": 28,
+      "message": "doctor ke pass jaana hai wahi din, postpone to next friday please",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        "Friday",
+        true,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        "Friday",
+        true,
+        null,
+        null
+      ],
+      "true_reason": "Conflicting doctor visit",
+      "pred_reason": "Conflicting doctor visit",
+      "json_valid": true
+    },
+    {
+      "case": 29,
+      "message": "running late from office, possible on saturday?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        "Saturday",
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        "Saturday",
+        false,
+        null,
+        null
+      ],
+      "true_reason": "Work conflict",
+      "pred_reason": "Work conflict",
+      "json_valid": true
+    },
+    {
+      "case": 30,
+      "message": "Hey, can we push this to sometime next week?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 31,
+      "message": "postponing to next week please",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 32,
+      "message": "not today, some other day",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 33,
+      "message": "she's not well, we'll call to rebook",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 34,
+      "message": "Sorry yaar, kal nahi ho payega, agle hafte try karte hain",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 35,
+      "message": "doctor appointment aa gaya isi hafte, agle hafte dekh lete hain",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "true_reason": "Conflicting doctor visit",
+      "pred_reason": "Conflicting doctor visit",
+      "json_valid": true
+    },
+    {
+      "case": 36,
+      "message": "kuch kaam aa gaya office se, thoda aage badha do please",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": "Work conflict",
+      "pred_reason": "Work conflict",
+      "json_valid": true
+    },
+    {
+      "case": 37,
+      "message": "can we look at another day this week, doctor ka appointment clash ho raha hai",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": "Conflicting doctor visit",
+      "pred_reason": "Conflicting doctor visit",
+      "json_valid": true
+    },
+    {
+      "case": 38,
+      "message": "is it possible after 5 days?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        5
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        5
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 39,
+      "message": "can we do it after 3 days instead, works better for us",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        3
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        3
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 40,
+      "message": "can u come a bit later in the day instead? like evening?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 41,
+      "message": "possible after 7 days? going out of town till then",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        7
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        7
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 42,
+      "message": "after 2 din possible hai kya, kal doctor ke paas jaana hai",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        2
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        2
+      ],
+      "true_reason": "Conflicting doctor visit",
+      "pred_reason": "Conflicting doctor visit",
+      "json_valid": true
+    },
+    {
+      "case": 43,
+      "message": "we're not free tomorrow anymore, works some other time?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        "tomorrow",
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 44,
+      "message": "cant make it kal, kabhi aur din try karein?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        "tomorrow",
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 45,
+      "message": "somthing came up, cant do satuday, wat about sundy",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        "Sunday",
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        "Sunday",
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 46,
+      "message": "we're out for a family fn that day, dusre din dekh lo koi",
+      "true_intent": "Reschedule",
+      "pred_intent": "PARSE_ERROR",
+      "true_cancel_current": false,
+      "pred_cancel_current": null,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": false
+    },
+    {
+      "case": 47,
+      "message": "resched krna h yr, mon nahi ho payega ab",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 48,
+      "message": "I don't think I can make it anymore, please cancel",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 49,
+      "message": "mujhe nahi karna ab, cancel kar do please",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 50,
+      "message": "aaj cancel, kal aa jaunga",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        "tomorrow",
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        "tomorrow",
+        1
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 51,
+      "message": "Is week cancel karna padega",
+      "true_intent": "Cancel",
+      "pred_intent": "Unclear",
+      "true_cancel_current": true,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 52,
+      "message": "plz cancle, cant come today",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 53,
+      "message": "cant do it, sorry, please cancel this one",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 54,
+      "message": "nahi aa payenge is baar, cancel kar dena",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 55,
+      "message": "we're not going to need this appointment",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 56,
+      "message": "please don't come, we're out of town",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 57,
+      "message": "no thanks, we'll skip this one",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 58,
+      "message": "we need to stop this service",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 59,
+      "message": "cant do it, sorry",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 60,
+      "message": "patient ko hospital admit karwa diya hai, ab ye visit nahi chahiye",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 61,
+      "message": "we've decided to go with a different arrangement, don't send anyone",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 62,
+      "message": "not needed anymore, sorry for the trouble",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 63,
+      "message": "papa ab theek hain, ab is care ki zaroorat nahi",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 64,
+      "message": "we moved to another city, please close this out",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 65,
+      "message": "not sure, will confirm later",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 66,
+      "message": "let me check with my husband and get back to you",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 67,
+      "message": "kaun bol raha hai ye?",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 68,
+      "message": "abhi decide nahi kiya, batayenge",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 69,
+      "message": "why did the last person come so late last time",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 70,
+      "message": "kitna charge hoga is visit ka",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 71,
+      "message": "hmm",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 72,
+      "message": "acha dekhte hain",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 73,
+      "message": "which provider is coming this time",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 74,
+      "message": "call me when you're close",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 75,
+      "message": "???",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 76,
+      "message": "we'll see how mummy is feeling that day",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 77,
+      "message": "",
+      "true_intent": "No Response",
+      "pred_intent": "No Response",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 78,
+      "message": "   ",
+      "true_intent": "No Response",
+      "pred_intent": "No Response",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 79,
+      "message": "oh sure, because today was SO convenient. can we do next week instead",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 80,
+      "message": "cancel kar do na, itni baar mat pucho",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 81,
+      "message": "aaj cancel karo aur agle hafte Wednesday ko fix kar do",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        "Wednesday",
+        true,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        "Wednesday",
+        true,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 82,
+      "message": "मुझे कल नहीं होगा, अगले हफ्ते कर लेंगे",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        true,
+        "tomorrow",
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 83,
+      "message": "ठीक है, वही समय पर आ जाना",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 84,
+      "message": "अभी कैंसिल कर दो प्लीज़",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 85,
+      "message": "can we do next next week, this week is packed",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        14
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 86,
+      "message": "possible thursday ya friday, jo bhi mile",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        "Thursday",
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 87,
+      "message": "not this week, maybe start of next month",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 88,
+      "message": "provider hamesha late aata hai, isliye hum bhi late honge, evening slot possible?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": "Provider/patient running late",
+      "pred_reason": "Provider/patient running late",
+      "json_valid": true
+    },
+    {
+      "case": 89,
+      "message": "beta ka school event hai us din, kisi aur din try karo please",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": "Work conflict",
+      "json_valid": true
+    },
+    {
+      "case": 90,
+      "message": "we'll be traveling, can you push it after 10 days",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        10
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        10
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 91,
+      "message": "aftr 4 dayss possible? thanks",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        4
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        4
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 92,
+      "message": "we don't want this service anymore, please discontinue",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 93,
+      "message": "ab zaroorat nahi hai iski, dhanyawad",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 94,
+      "message": "sorry to say but cancel this permanently",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "true_cancel_current": true,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 95,
+      "message": "haa sab plan wahi hai, koi change nahi",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 96,
+      "message": "confirm, bas thoda pehle aa jaana agar ho sake",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 97,
+      "message": "yup, all set on our end",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 98,
+      "message": "does the provider carry their own equipment or should we arrange something",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 99,
+      "message": "aap kaun bol rahe ho, ye number kisne diya",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 100,
+      "message": "matlab kya hua, samajh nahi aaya",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": null,
+      "pred_reason": null,
+      "json_valid": true
+    },
+    {
+      "case": 101,
+      "message": "next tuesday ko doctor ka appointment hai, uske baad kisi din kar lo",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": true,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        true,
+        null,
+        null
+      ],
+      "true_reason": "Conflicting doctor visit",
+      "pred_reason": "Conflicting doctor visit",
+      "json_valid": true
+    },
+    {
+      "case": 102,
+      "message": "office se abhi nikal nahi paunga time pe, thoda evening mein shift karo",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "true_cancel_current": false,
+      "pred_cancel_current": false,
+      "true_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "pred_temporal": [
+        null,
+        false,
+        null,
+        null
+      ],
+      "true_reason": "Work conflict",
+      "pred_reason": "Work conflict",
+      "json_valid": true
+    }
+  ],
+  "notes": "Synthetic, author-labelled held-out set. Latency includes network time from the machine that ran this script. Paid-tier cost is only computed from prices supplied via environment variables at run time."
+}
