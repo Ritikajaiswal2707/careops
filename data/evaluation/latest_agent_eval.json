@@ -14,9 +14,9 @@
     "average_per_case": 2.419
   },
   "local_execution_latency_ms": {
-    "p50": 16.42,
-    "p95": 47.416,
-    "mean": 28.698,
+    "p50": 16.261,
+    "p95": 63.935,
+    "mean": 32.798,
     "note": "Local offline Python execution only; excludes live LLM/API latency and is not a production SLO measurement."
   },
   "intent_accuracy_on_authored_suite": 1.0,
@@ -42,7 +42,7 @@
   "case_results": [
     {
       "case_id": "RS01",
-      "elapsed_ms": 47.587,
+      "elapsed_ms": 47.958,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -55,7 +55,7 @@
     },
     {
       "case_id": "RS02",
-      "elapsed_ms": 47.416,
+      "elapsed_ms": 50.707,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -68,7 +68,7 @@
     },
     {
       "case_id": "RS03",
-      "elapsed_ms": 46.876,
+      "elapsed_ms": 62.52,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -81,7 +81,7 @@
     },
     {
       "case_id": "RS04",
-      "elapsed_ms": 47.53,
+      "elapsed_ms": 58.319,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -94,7 +94,7 @@
     },
     {
       "case_id": "RS05",
-      "elapsed_ms": 46.738,
+      "elapsed_ms": 50.021,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -107,7 +107,7 @@
     },
     {
       "case_id": "RS06",
-      "elapsed_ms": 45.965,
+      "elapsed_ms": 51.865,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -120,7 +120,7 @@
     },
     {
       "case_id": "RS07",
-      "elapsed_ms": 46.42,
+      "elapsed_ms": 63.935,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -133,7 +133,7 @@
     },
     {
       "case_id": "RS08",
-      "elapsed_ms": 46.34,
+      "elapsed_ms": 54.909,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -146,7 +146,7 @@
     },
     {
       "case_id": "RS09",
-      "elapsed_ms": 47.343,
+      "elapsed_ms": 65.735,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -159,7 +159,7 @@
     },
     {
       "case_id": "RS10",
-      "elapsed_ms": 45.77,
+      "elapsed_ms": 67.459,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -172,7 +172,7 @@
     },
     {
       "case_id": "RS11",
-      "elapsed_ms": 45.412,
+      "elapsed_ms": 63.643,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -185,7 +185,7 @@
     },
     {
       "case_id": "RS12",
-      "elapsed_ms": 45.077,
+      "elapsed_ms": 47.39,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -198,7 +198,7 @@
     },
     {
       "case_id": "RS13",
-      "elapsed_ms": 46.447,
+      "elapsed_ms": 47.142,
       "tool_call_count": 3,
       "expected_intent": "Reschedule",
       "predicted_intent": "Reschedule",
@@ -211,7 +211,7 @@
     },
     {
       "case_id": "CA01",
-      "elapsed_ms": 19.609,
+      "elapsed_ms": 17.024,
       "tool_call_count": 2,
       "expected_intent": "Cancel",
       "predicted_intent": "Cancel",
@@ -224,7 +224,7 @@
     },
     {
       "case_id": "CA02",
-      "elapsed_ms": 17.524,
+      "elapsed_ms": 15.699,
       "tool_call_count": 2,
       "expected_intent": "Cancel",
       "predicted_intent": "Cancel",
@@ -237,7 +237,7 @@
     },
     {
       "case_id": "CA03",
-      "elapsed_ms": 16.42,
+      "elapsed_ms": 15.727,
       "tool_call_count": 2,
       "expected_intent": "Cancel",
       "predicted_intent": "Cancel",
@@ -250,7 +250,7 @@
     },
     {
       "case_id": "CA04",
-      "elapsed_ms": 15.979,
+      "elapsed_ms": 15.737,
       "tool_call_count": 2,
       "expected_intent": "Cancel",
       "predicted_intent": "Cancel",
@@ -263,7 +263,7 @@
     },
     {
       "case_id": "CA05",
-      "elapsed_ms": 15.702,
+      "elapsed_ms": 15.736,
       "tool_call_count": 2,
       "expected_intent": "Cancel",
       "predicted_intent": "Cancel",
@@ -276,7 +276,7 @@
     },
     {
       "case_id": "CF01",
-      "elapsed_ms": 15.355,
+      "elapsed_ms": 15.626,
       "tool_call_count": 2,
       "expected_intent": "Confirm",
       "predicted_intent": "Confirm",
@@ -289,7 +289,7 @@
     },
     {
       "case_id": "CF02",
-      "elapsed_ms": 15.32,
+      "elapsed_ms": 16.833,
       "tool_call_count": 2,
       "expected_intent": "Confirm",
       "predicted_intent": "Confirm",
@@ -302,7 +302,7 @@
     },
     {
       "case_id": "CF03",
-      "elapsed_ms": 15.446,
+      "elapsed_ms": 15.611,
       "tool_call_count": 2,
       "expected_intent": "Confirm",
       "predicted_intent": "Confirm",
@@ -315,7 +315,7 @@
     },
     {
       "case_id": "AM01",
-      "elapsed_ms": 15.315,
+      "elapsed_ms": 15.367,
       "tool_call_count": 2,
       "expected_intent": "Unclear",
       "predicted_intent": "Unclear",
@@ -328,7 +328,7 @@
     },
     {
       "case_id": "AM02",
-      "elapsed_ms": 15.358,
+      "elapsed_ms": 15.777,
       "tool_call_count": 2,
       "expected_intent": "Unclear",
       "predicted_intent": "Unclear",
@@ -341,7 +341,7 @@
     },
     {
       "case_id": "AM03",
-      "elapsed_ms": 15.323,
+      "elapsed_ms": 15.735,
       "tool_call_count": 2,
       "expected_intent": "Unclear",
       "predicted_intent": "Unclear",
@@ -354,7 +354,7 @@
     },
     {
       "case_id": "AM04",
-      "elapsed_ms": 15.352,
+      "elapsed_ms": 15.8,
       "tool_call_count": 2,
       "expected_intent": "Unclear",
       "predicted_intent": "Unclear",
@@ -367,7 +367,7 @@
     },
     {
       "case_id": "AM05",
-      "elapsed_ms": 15.296,
+      "elapsed_ms": 15.687,
       "tool_call_count": 2,
       "expected_intent": "Unclear",
       "predicted_intent": "Unclear",
@@ -380,7 +380,7 @@
     },
     {
       "case_id": "AM06",
-      "elapsed_ms": 15.419,
+      "elapsed_ms": 15.834,
       "tool_call_count": 2,
       "expected_intent": "Unclear",
       "predicted_intent": "Unclear",
@@ -393,7 +393,7 @@
     },
     {
       "case_id": "AM07",
-      "elapsed_ms": 15.272,
+      "elapsed_ms": 15.656,
       "tool_call_count": 2,
       "expected_intent": "Unclear",
       "predicted_intent": "Unclear",
@@ -406,7 +406,7 @@
     },
     {
       "case_id": "AM08",
-      "elapsed_ms": 15.353,
+      "elapsed_ms": 15.56,
       "tool_call_count": 2,
       "expected_intent": "Unclear",
       "predicted_intent": "Unclear",
@@ -419,7 +419,7 @@
     },
     {
       "case_id": "AM09",
-      "elapsed_ms": 15.26,
+      "elapsed_ms": 16.261,
       "tool_call_count": 2,
       "expected_intent": "Unclear",
       "predicted_intent": "Unclear",
@@ -432,7 +432,7 @@
     },
     {
       "case_id": "AM10",
-      "elapsed_ms": 15.412,
+      "elapsed_ms": 15.451,
       "tool_call_count": 2,
       "expected_intent": "Unclear",
       "predicted_intent": "Unclear",
