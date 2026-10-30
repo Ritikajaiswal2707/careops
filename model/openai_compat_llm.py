@@ -21,7 +21,7 @@ import os
 
 import requests
 
-from llm_prompt import EXTRACTION_PROMPT, strip_json_fence
+from llm_prompt import EXTRACTION_PROMPT, PROMPTS, runtime_prompt, strip_json_fence
 
 PRESETS = {
     "groq": "https://api.groq.com/openai/v1",
@@ -79,7 +79,7 @@ def openai_compat_llm_call(message: str, timeout: int = 15):
         return None
     base_url, api_key, model = cfg
     try:
-        resp = chat_extract(message, base_url, api_key, model, timeout=timeout)
+        resp = chat_extract(message, base_url, api_key, model, timeout=timeout, system=runtime_prompt())
         if resp.status_code != 200:
             raise ValueError(f"HTTP {resp.status_code}")
         parsed, _, _ = parse_response(resp.json())

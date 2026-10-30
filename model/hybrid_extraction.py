@@ -159,11 +159,11 @@ def extract_intent_hybrid(message: str, llm_call=default_llm_call) -> dict:
     rule_pred = extract_intent(message)
 
     if rule_pred["intent"] != "Unclear":
-        return {
+        return _apply_confirm_guardrail(message, {
             **rule_pred,
             "source": "rule",
             "escalate_to_human": False,
-        }
+        })
 
     llm_pred = llm_call(message) if llm_call else None
 
@@ -189,10 +189,27 @@ def extract_intent_hybrid(message: str, llm_call=default_llm_call) -> dict:
         "offset_days": llm_pred.get("offset_days"),
     }
 
-    return {
+    return _apply_confirm_guardrail(message, {
         **merged,
         "source": "llm",
         "escalate_to_human": False,
+    })
+
+
+def _apply_confirm_guardrail(message: str, pred: dict) -> dict:
+    """Defence in depth: a deterministic check may downgrade Confirm to a human review.
+    It never creates a confirmation or changes any other label (see confirm_guardrail.py)."""
+    from confirm_guardrail import check
+
+    final_intent, reason = check(message, pred.get("intent"))
+    if reason is None:
+        return pred
+    return {
+        **pred,
+        "intent": final_intent,
+        "source": "guardrail",
+        "guardrail_reason": reason,
+        "escalate_to_human": True,
     }
 
 

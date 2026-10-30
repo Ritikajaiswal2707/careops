@@ -76,3 +76,11 @@ def strip_json_fence(text: str) -> str:
         if text.lower().startswith("json"):
             text = text[4:]
     return text.strip()
+
+
+def runtime_prompt() -> str:
+    """Prompt used by the live app. Defaults to v3, the best version on the clean holdout;
+    override with LLM_PROMPT_VERSION for experiments."""
+    import os
+
+    return PROMPTS.get(os.environ.get("LLM_PROMPT_VERSION", "v3"), PROMPTS["v3"])
