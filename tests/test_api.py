@@ -48,8 +48,11 @@ def test_script_like_reschedule_message_is_safe_for_dashboard_rendering(monkeypa
     assert response.status_code == 200
     assert message in response.text
     html = (Path(__file__).resolve().parents[1] / "dashboard" / "index.html").read_text(encoding="utf-8")
-    assert "data.trace : []).map(l => `· ${escapeHtml(l)}`)" in html
-    assert "${data.trace.map(l => `· ${l}`)" not in html
+    assert "Resolve a visit" in html
+    assert "Find replacement option" in html
+    assert "Run recovery agent" not in html
+    assert "Legacy reschedule flow" not in html
+    assert "data.trace.map(l => `· ${l}`)" not in html
 
 
 def test_oversized_message_is_rejected_without_echo():
@@ -133,7 +136,8 @@ def test_dashboard_escapes_untrusted_trace_strings():
     html = (Path(__file__).resolve().parents[1] / "dashboard" / "index.html").read_text(encoding="utf-8")
     assert "function escapeHtml(value)" in html
     assert "${escapeHtml(e.message)}" in html
-    assert "${escapeHtml((data && data.detail) || res.statusText)}" in html
+    assert "This public demo can recommend a recovery, but cannot record an approval or change a schedule." in html
+    assert "CareOps could not complete that request." in html
 
 
 def test_public_read_only_mode_blocks_agent_case_mutations(monkeypatch):
