@@ -114,3 +114,13 @@ def test_compare_routing_demo_runs(monkeypatch, tmp_path):
     assert len(rows) == len(cases) and all(r["routes_found"] > 0 for r in rows)
     monkeypatch.delenv("CAREOPS_ROUTING_MODE", raising=False)
     assert compare_routing.main(["--limit", "1"]) == 2
+
+
+def test_compare_routing_does_not_write_failed_runs(monkeypatch):
+    import compare_routing
+    monkeypatch.setenv("CAREOPS_ROUTING_MODE", "live")
+    monkeypatch.delenv("OLA_MAPS_API_KEY", raising=False)
+    writes = []
+    monkeypatch.setattr(compare_routing.json, "dump", lambda *a, **k: writes.append(1))
+    assert compare_routing.main(["--limit", "2"]) == 1
+    assert writes == []

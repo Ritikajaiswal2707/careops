@@ -106,6 +106,10 @@ def main(argv=None):
     if rows and rows[-1]["routing_status"] and rows[-1]["routing_status"]["status"] != "ok":
         print(f"  routing status: {rows[-1]['routing_status']}")
 
+    if not routed_rows:
+        print("No routes were calculated, so no results file was written (a failed run is not a finding).")
+        return 1
+
     out = os.path.join(BASE_DIR, "..", "data", "evaluation", f"routing_comparison_{routing.mode}.json")
     with open(out, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
