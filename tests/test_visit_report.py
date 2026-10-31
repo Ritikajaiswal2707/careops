@@ -73,6 +73,7 @@ def test_build_report_fails_closed_without_llm(monkeypatch):
     out = visit_report.build_report("BP 120/80, gir gaye the")
     assert out["needs_coordinator_review"] and out["family_summary"] is None
     assert out["red_flags"] == ["keyword:gir gaye"]
+    assert out["review_reasons"] == ["LLM is not configured", "red flag: keyword:gir gaye"]
 
 
 def test_build_report_with_invalid_model_output_fails_closed(monkeypatch):
@@ -188,3 +189,16 @@ def test_rescore_reapplies_current_safety_offline(tmp_path):
     a = out["metrics"]["after_safety"]
     assert out["recorded_safety_version"] == "1.0" and out["rescored_with_safety_version"] == visit_report.SAFETY_VERSION
     assert a["review_recall"] == 1.0 and a["wrong_or_invented_vitals_reaching_family"] == 0
+
+
+def test_dashboard_examples_match_the_saved_run():
+    import generate_visit_report_examples as gen
+    data = gen.build()
+    by_id = {e["id"]: e for e in data["examples"]}
+    assert by_id["VR01"]["needs_review"] is False and by_id["VR01"]["family_summary"]
+    assert by_id["VR07"]["model_vitals"] == {}
+    assert "SpO2" in by_id["VR14"]["unverified"]
+    assert any("62.0" in r for r in by_id["VR20"]["reasons"])
+    assert any("gir gaye" in r for r in by_id["VR22"]["reasons"])
+    html = open(gen.DASHBOARD, encoding="utf-8").read()
+    assert "const VR_EXAMPLES = {" in html  # examples are baked into the page

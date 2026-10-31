@@ -246,6 +246,7 @@ def _fail_closed(transcript, reason):
     return {
         "vitals": {f: None for f in VITAL_FIELDS}, "unverified_vitals": {}, "medications": [],
         "observations": [], "concerns": [], "red_flags": [f"keyword:{w}" for w in words],
-        "needs_coordinator_review": True, "review_reasons": [reason],
+        "needs_coordinator_review": True,
+        "review_reasons": [reason] + ([f"red flag: {', '.join('keyword:' + w for w in words)}"] if words else []),
         "family_summary": None, "draft_family_summary": None, "transcript": transcript, "model": None,
     }

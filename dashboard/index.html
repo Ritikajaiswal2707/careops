@@ -56,6 +56,11 @@ header p{margin:0; color:var(--sub); font-size:.9rem;}
 button.approve{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:7px 14px; font-size:.8rem; cursor:pointer;}
 button.approve.done{background:var(--ok-bg); color:var(--ok); cursor:default;}
 .note{color:var(--sub); font-size:.75rem; margin-top:22px; line-height:1.5; border-top:1px solid var(--line); padding-top:14px;}
+.vr-vitals{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0;}
+.vr-chip{font-size:.74rem; padding:3px 8px; border-radius:999px; background:var(--bg); border:1px solid var(--line);}
+.vr-chip.bad{background:var(--high-bg); color:var(--high); border-color:transparent;}
+.vr-chip.good{background:var(--ok-bg); color:var(--ok); border-color:transparent;}
+.vr-quote{font-size:.86rem; padding:8px 10px; border-left:3px solid var(--line); background:var(--bg); border-radius:6px; margin:6px 0;}
 .empty{color:var(--sub); font-size:.85rem; text-align:center; padding:30px 0;}
 .cascade-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:14px;}
 .cascade-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
@@ -89,6 +94,7 @@ button.approve.done{background:var(--ok-bg); color:var(--ok); cursor:default;}
     <div class="tab active" data-v="risk">Risk dashboard</div>
     <div class="tab" data-v="cascade">Delay &amp; cascade</div>
     <div class="tab" data-v="live">Resolve a visit</div>
+    <div class="tab" data-v="vr">Visit reports</div>
   </div>
 
   <div id="risk-view">
@@ -107,6 +113,22 @@ button.approve.done{background:var(--ok-bg); color:var(--ok); cursor:default;}
   </div>
 
   <div id="cascade-view" style="display:none"></div>
+
+  <div id="vr-view" style="display:none">
+    <div class="card">
+      <div style="font-weight:700; font-size:1rem; margin-bottom:5px;">Voice visit reports</div>
+      <div class="meta">A caregiver's voice note becomes a structured report and a family update. Deterministic checks after the model decide what is trusted: a vital must actually appear in the note, red flags force a coordinator review, and the family update is held until then.</div>
+      <div class="meta" id="vr-provenance" style="margin-top:8px;"></div>
+    </div>
+    <div id="vr-list"></div>
+    <div class="card">
+      <div style="font-weight:700; margin-bottom:6px;">Try your own note</div>
+      <textarea id="vr-input" rows="3" maxlength="4000" placeholder="e.g. BP 130/85, sugar 140. Papa ne dawai le li." style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--ink); font:inherit; font-size:.9rem;"></textarea>
+      <button class="approve" onclick="tryVisitReport()" style="width:100%; padding:11px 14px; margin-top:8px;">Structure this note</button>
+      <div id="vr-result" aria-live="polite" style="margin-top:12px;"></div>
+    </div>
+    <div class="note">Synthetic notes · not clinical guidance · red-flag thresholds are illustrative routing rules that only decide whether a human looks first. The public demo has live model calls switched off, so "Try your own note" will ask for coordinator review; run locally with a free Groq key to see the full pipeline.</div>
+  </div>
 
   <div id="live-view" style="display:none">
     <div class="card">
@@ -306,6 +328,61 @@ function renderCascade(){
   `;
 }
 
+const VR_EXAMPLES = {"model": "openai/gpt-oss-120b", "recorded_at": "2026-10-31T00:31:47+00:00", "safety_version": "1.1", "examples": [{"id": "VR01", "point": "Routine visit: every vital verified, family update sent.", "transcript": "Visit done. BP 128/82, sugar fasting 112, oxygen 97, pulse 76. Uncle ne nashta kar liya tha, morning ki dawai le li. Sab normal laga.", "model_vitals": {"BP sys": 128, "BP dia": 82, "Sugar": 112, "SpO2": 97, "Pulse": 76}, "verified_vitals": {"BP sys": 128, "BP dia": 82, "Sugar": 112, "SpO2": 97, "Pulse": 76}, "unverified": {}, "needs_review": false, "reasons": [], "family_summary": "Your uncle had his breakfast and took his morning medicines. His blood pressure, sugar, oxygen level and pulse were all within normal range. He seemed well during the visit.", "draft_family_summary": "Your uncle had his breakfast and took his morning medicines. His blood pressure, sugar, oxygen level and pulse were all within normal range. He seemed well during the visit."}, {"id": "VR07", "point": "No vitals mentioned: the model invented none.", "transcript": "Aaj sirf companion visit tha. Bank gaye, passbook update karwayi, phir chai pi aur ghar chhod diya. Aunty khush thi.", "model_vitals": {}, "verified_vitals": {}, "unverified": {}, "needs_review": false, "reasons": [], "family_summary": "Today we had a companion visit. We went to the bank, updated the passbook, had tea and then left. Aunty was happy.", "draft_family_summary": "Today we had a companion visit. We went to the bank, updated the passbook, had tea and then left. Aunty was happy."}, {"id": "VR14", "point": "Spoken Hindi numbers: the model misread 'sattanve' (97) as 100; grounding held it for review.", "transcript": "BP ek sau bees by assi tha, oxygen sattanve. Mummy ne lunch achhe se kiya.", "model_vitals": {"BP sys": 120, "BP dia": 80, "SpO2": 100}, "verified_vitals": {}, "unverified": {"BP sys": 120.0, "BP dia": 80.0, "SpO2": 100.0}, "needs_review": true, "reasons": ["vital value not found as a number in the note: bp_diastolic, bp_systolic, spo2_pct"], "family_summary": null, "draft_family_summary": "Your loved one had a blood pressure of 120 over 80 and good oxygen saturation. They enjoyed a proper lunch. No concerns were noted at this time."}, {"id": "VR20", "point": "Two readings: the model kept the normal 88; the reading scan caught the earlier low 62.", "transcript": "Sugar 62 tha, haath kaanp rahe the. Turant juice diya, 15 min baad 88 aaya.", "model_vitals": {"Sugar": 88}, "verified_vitals": {"Sugar": 88}, "unverified": {}, "needs_review": true, "reasons": ["red flag: note mentions blood_sugar_mg_dl=62.0"], "family_summary": null, "draft_family_summary": "We checked her blood sugar, which was low at 62 mg/dL. She was given juice and after 15 minutes it rose to 88 mg/dL. Her hands were shaking initially but improved."}, {"id": "VR22", "point": "A fall mentioned: escalated on the keyword, even though the vitals are normal.", "transcript": "Papa kal raat bathroom mein gir gaye the, mathe pe halki chot hai. BP 136/86.", "model_vitals": {"BP sys": 136, "BP dia": 86}, "verified_vitals": {"BP sys": 136, "BP dia": 86}, "unverified": {}, "needs_review": true, "reasons": ["red flag: keyword:gir gaye"], "family_summary": null, "draft_family_summary": "Your father had a fall in the bathroom last night and sustained a minor head injury. His blood pressure was measured at 136 over 86. We are monitoring him and will keep you updated."}]};
+
+function vrChips(obj, cls){
+  return Object.entries(obj || {}).map(([k, v]) => `<span class="vr-chip ${cls}">${escapeHtml(k)} ${escapeHtml(String(v))}</span>`).join('');
+}
+
+function vrCard(r, title, point){
+  const status = r.needs_review
+    ? '<span class="badge High">Coordinator review</span>'
+    : '<span class="badge" style="background:var(--ok-bg);color:var(--ok);">Released to family</span>';
+  const summary = r.family_summary
+    ? `<div class="meta" style="margin-top:6px;"><b>Family update sent:</b> ${escapeHtml(r.family_summary)}</div>`
+    : (r.draft_family_summary ? `<div class="meta" style="margin-top:6px;"><b>Family update held</b> (draft kept for the coordinator): ${escapeHtml(r.draft_family_summary)}</div>` : '');
+  return `<div class="card">
+    <div style="display:flex; justify-content:space-between; gap:8px; align-items:center;">
+      <div style="font-weight:700;">${escapeHtml(title)}</div>${status}
+    </div>
+    ${point ? `<div class="meta" style="margin-top:3px;">${escapeHtml(point)}</div>` : ''}
+    <div class="vr-quote">${escapeHtml(r.transcript || '')}</div>
+    ${r.model_vitals ? `<div class="meta">Model reported</div><div class="vr-vitals">${vrChips(r.model_vitals, '') || '<span class="meta">no vitals</span>'}</div>` : ''}
+    <div class="meta">Verified in the note</div><div class="vr-vitals">${vrChips(r.verified_vitals, 'good') || '<span class="meta">none</span>'}</div>
+    ${Object.keys(r.unverified || {}).length ? `<div class="meta">Not found in the note, held back</div><div class="vr-vitals">${vrChips(r.unverified, 'bad')}</div>` : ''}
+    ${(r.reasons || []).map(x => `<div class="meta">• ${escapeHtml(x)}</div>`).join('')}
+    ${summary}
+  </div>`;
+}
+
+function renderVisitReports(){
+  const list = document.getElementById('vr-list');
+  if(!VR_EXAMPLES){ list.innerHTML = '<div class="empty">No recorded examples in this build.</div>'; return; }
+  document.getElementById('vr-provenance').textContent =
+    `Recorded examples from a real ${VR_EXAMPLES.model} run on ${VR_EXAMPLES.recorded_at.slice(0,10)}, with safety checks v${VR_EXAMPLES.safety_version} re-applied offline.`;
+  list.innerHTML = VR_EXAMPLES.examples.map(e => vrCard(e, e.id, e.point)).join('');
+}
+
+async function tryVisitReport(){
+  const text = document.getElementById('vr-input').value.trim();
+  const el = document.getElementById('vr-result');
+  if(!text){ el.innerHTML = '<div class="empty">Type a visit note first.</div>'; return; }
+  el.innerHTML = '<div class="empty">Structuring… (first request after inactivity can take up to a minute)</div>';
+  try {
+    const res = await fetch('/api/visit-report', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({transcript: text})});
+    const data = await res.json().catch(() => null);
+    if(!res.ok || !data){ el.innerHTML = '<div class="empty">CareOps could not structure that note. Please try again.</div>'; return; }
+    const v = data.vitals || {};
+    const labels = {bp_systolic:'BP sys', bp_diastolic:'BP dia', blood_sugar_mg_dl:'Sugar', spo2_pct:'SpO2', pulse_bpm:'Pulse', temperature_f:'Temp'};
+    const pick = o => Object.fromEntries(Object.entries(o || {}).filter(([,x]) => x !== null).map(([k,x]) => [labels[k] || k, x]));
+    el.innerHTML = vrCard({transcript: text, verified_vitals: pick(v), unverified: pick(data.unverified_vitals),
+      needs_review: data.needs_coordinator_review, reasons: data.review_reasons,
+      family_summary: data.family_summary, draft_family_summary: data.draft_family_summary}, 'Your note', null);
+  } catch(e){
+    el.innerHTML = `<div class="empty">Could not reach the backend (${escapeHtml(e.message)}). It may still be starting up.</div>`;
+  }
+}
+
 document.querySelectorAll('#view-tabs .tab').forEach(t=>{
   t.addEventListener('click', ()=>{
     document.querySelectorAll('#view-tabs .tab').forEach(x=>x.classList.remove('active'));
@@ -314,7 +391,9 @@ document.querySelectorAll('#view-tabs .tab').forEach(t=>{
     document.getElementById('risk-view').style.display = v==='risk' ? '' : 'none';
     document.getElementById('cascade-view').style.display = v==='cascade' ? '' : 'none';
     document.getElementById('live-view').style.display = v==='live' ? '' : 'none';
+    document.getElementById('vr-view').style.display = v==='vr' ? '' : 'none';
     if(v==='cascade') renderCascade();
+    if(v==='vr') renderVisitReports();
     if(v==='live') liveInit();
   });
 });

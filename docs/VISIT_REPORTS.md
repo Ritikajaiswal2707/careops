@@ -70,4 +70,4 @@ Saved run: `data/evaluation/visit_report_openai_gpt-oss-120b_v1_eval.json` (reco
 ## Not yet measured
 
 - **Speech-to-text accuracy.** The eval uses text notes, so Whisper's errors on real Hinglish audio are not represented. A small set of self-recorded synthetic voice notes is the next step. Never use real patient audio.
-- **Family summary quality.** Only checked mechanically (no unstated numbers); tone and helpfulness need human rating.
+- **Family summary quality.** Only checked mechanically (no unstated numbers); tone and helpfulness need human rating. One observed issue: a released routine summary said the vitals were "all within normal range", a mild clinical judgement the prompt asks the model not to make. Not unsafe on a routine note, but it is the first thing a summary-quality rubric should check.
