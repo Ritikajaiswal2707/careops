@@ -18,7 +18,7 @@ The intent work showed that a prompt is not a safety guarantee, so the same patt
 | Check | What it does | Failure it prevents |
 |---|---|---|
 | **Grounding** | A vital value counts only if that number appears in the note. Anything else moves to `unverified_vitals` and the report goes to review. | The model "filling in" a normal-looking BP or SpO₂ that was never measured |
-| **Red flags** | Configurable thresholds (e.g. SpO₂ below 92, systolic 180+) and keywords (a fall, chest pain, breathlessness, confusion) force review, whatever the model says. Unverified values are checked too. | A worrying visit reaching the family as a cheerful update |
+| **Red flags** | Configurable thresholds (e.g. SpO₂ below 92, systolic 180+) and keywords (a fall, chest pain, breathlessness, confusion) force review, whatever the model says. Unverified values are checked too, and so is every reading stated in the note, not just the one the model reported. | A worrying visit reaching the family as a cheerful update |
 | **Summary hold** | `family_summary` is released only when no review is needed; the draft is kept for the coordinator. | Unchecked text going to a family |
 | **Fail closed** | No LLM configured, invalid JSON, or external calls disabled → the report asks for review. | Silent failures |
 
@@ -48,9 +48,24 @@ Feeding the safety layer the gold answers isolates its own behaviour:
 
 The cost is specific and known: "ek sau bees" contains no digits, so grounding cannot verify the model's 120 and plays safe. The next iteration, after measuring the real model, is to let the grounding check read spoken Hindi and English numbers.
 
-### Real model results
+### Real model: gpt-oss-120b on Groq (free tier)
 
-Pending: run `python model/visit_report_eval.py` with Groq and commit the result file.
+| | Raw model | Safety v1.0 | Safety v1.1 |
+|---|---|---|---|
+| Vital field accuracy | 97.2% | 92.2% | 92.2% |
+| Invented vitals (value where the note gave none) | **0** | 0 | 0 |
+| Notes needing review that were flagged | — | 87.5% (7/8) | **100% (8/8)** |
+| Routine notes sent to review anyway | — | 18% | 18% |
+| Wrong or invented vitals reaching a family | — | **1** | **0** |
+
+Saved run: `data/evaluation/visit_report_openai_gpt-oss-120b_v1_eval.json` (recorded with safety v1.0). The v1.1 column is reproduced offline from the same raw outputs with `python model/visit_report_eval.py --rescore <file>`.
+
+**What the real run showed**
+
+1. **A missed red flag.** "Sugar 62 tha … 15 min baad 88 aaya": the model reported only the later, normal reading, so v1.0 checked 88, found nothing, and would have released a cheerful family update after a low-sugar episode. **Fix (v1.1):** a deterministic scan of every reading stated next to a vital keyword, within a plausible range (so "15 min" or "room 120" never count). Any out-of-range reading escalates, whichever value the model reports. Same principle as the Confirm guardrail: do not let one model answer decide a safety outcome.
+2. **The model misreads spoken Hindi numbers, and grounding caught it.** "oxygen sattanve" (97) came back as 100; "pulse bahattar" (72) as 78. Neither was released. The 18% routine review rate, which the perfect-model baseline made look like pure cost, is catching real errors, so it should not be relaxed by trusting the model's conversion. The right next step is a deterministic Hindi/English number parser that checks the model's conversion, not one that replaces the check.
+3. **Repeated readings.** "186/104, dobara liya toh 182/100": the model kept the second reading where the labels hold the first. Both are red flags and the note was escalated, so this is a labelling convention (like `cancel_current`), not a safety error.
+4. **No invented vitals at all.** On the four notes with no vitals, and among the distractor numbers (age, room number, last week's BP, day counts), the model never made up a value.
 
 ## Not yet measured
 

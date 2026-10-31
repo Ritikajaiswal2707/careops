@@ -13,7 +13,9 @@ Pipeline
                           transcript; anything else is moved to `unverified_vitals`
                           and the report goes to a coordinator
                         - red flags: configurable thresholds and keywords force a
-                          coordinator review regardless of what the model says
+                          coordinator review regardless of what the model says;
+                          every reading in the note is scanned, not only the one
+                          value the model reported
                         - the family summary is released only when no review is needed
 
 The red-flag thresholds are illustrative routing rules for a portfolio demo, not
@@ -29,6 +31,9 @@ import requests
 
 import openai_compat_llm
 from llm_prompt import strip_json_fence
+
+# 1.0: grounding + red flags on the reported values. 1.1: also scans every reading in the note.
+SAFETY_VERSION = "1.1"
 
 VITAL_FIELDS = ["bp_systolic", "bp_diastolic", "blood_sugar_mg_dl", "spo2_pct", "pulse_bpm", "temperature_f"]
 
@@ -61,6 +66,19 @@ RED_FLAG_RULES = {
     "pulse_bpm": lambda v: v < 50 or v > 120,
     "temperature_f": lambda v: v >= 102.2,
 }
+# Every reading mentioned in the note is scanned, not only the one value the
+# model chose to report: "sugar 62 ... 15 min baad 88" must escalate on 62 even
+# if the model reports the later, normal 88. A number counts as a reading of a
+# vital if it follows that vital's keyword (before the next vital keyword) and
+# lies in a physiologically plausible range, which excludes things like "15 min".
+READING_KEYWORDS = {
+    "blood_sugar_mg_dl": (r"sugar|glucose|shugar|शुगर", (20, 700)),
+    "spo2_pct": (r"spo2|oxygen|o2|saturation|ऑक्सीजन", (50, 100)),
+    "pulse_bpm": (r"pulse|heart rate|nabz|नब्ज़|पल्स", (20, 250)),
+    "temperature_f": (r"temperature|temp|bukhar|fever|बुखार|तापमान", (90, 110)),
+    "bp": (r"bp|blood pressure|बीपी", None),
+}
+
 RED_FLAG_WORDS = (
     r"chest pain|seene mein dard|seene me dard|breathless|saans (?:lene mein|me|mein) (?:dikkat|taklif|problem)|"
     r"saans phool|fell|fall|gir gay[ae]|gir gai|behosh|unconscious|fainted|confus|bleeding|khoon|"
@@ -134,6 +152,27 @@ def _as_number(v):
     return None
 
 
+def scan_readings(transcript):
+    """All plausible readings per vital stated as digits anywhere in the note."""
+    text = (transcript or "").lower()
+    marks = sorted((m.start(), m.end(), field) for field, (pat, _) in READING_KEYWORDS.items()
+                   for m in re.finditer(rf"(?<![a-z])(?:{pat})(?![a-z])", text))
+    readings = {}
+    for i, (_, end, field) in enumerate(marks):
+        window = text[end: marks[i + 1][0] if i + 1 < len(marks) else len(text)]
+        if field == "bp":
+            for sys_, dia in re.findall(r"(\d{2,3})\s*(?:/|by|on)\s*(\d{2,3})", window):
+                if 50 <= int(sys_) <= 260 and 30 <= int(dia) <= 160:
+                    readings.setdefault("bp_systolic", []).append(float(sys_))
+                    readings.setdefault("bp_diastolic", []).append(float(dia))
+            continue
+        low, high = READING_KEYWORDS[field][1]
+        for n in re.findall(r"\d+(?:\.\d+)?", window):
+            if low <= float(n) <= high:
+                readings.setdefault(field, []).append(float(n))
+    return readings
+
+
 def apply_safety(transcript, report):
     """Deterministic post-checks. Only ever makes the report more cautious."""
     spoken = _numbers_in(transcript)
@@ -156,6 +195,12 @@ def apply_safety(transcript, report):
     for field, value in {**{k: v for k, v in verified.items() if v is not None}, **unverified}.items():
         if RED_FLAG_RULES[field](float(value)):
             red_flags.append(f"{field}={value}")
+    # Readings the model did not report (e.g. an earlier low value) still escalate.
+    for field, values in scan_readings(transcript).items():
+        for value in values:
+            flag = f"{field}={value}"
+            if RED_FLAG_RULES[field](value) and flag not in red_flags and f"{field}={int(value)}" not in red_flags:
+                red_flags.append(f"note mentions {flag}")
     words = sorted({m.group(0) for m in re.finditer(RED_FLAG_WORDS, (transcript or "").lower())})
     red_flags += [f"keyword:{w}" for w in words]
 

@@ -158,3 +158,33 @@ def test_eval_does_not_write_a_run_where_every_call_failed(monkeypatch):
     writes = []
     monkeypatch.setattr(visit_report_eval.json, "dump", lambda *a, **k: writes.append(1))
     assert visit_report_eval.main([]) == 1 and writes == []
+
+
+@pytest.mark.parametrize("note,expected", [
+    ("Sugar 62 tha, 15 min baad 88 aaya.", {"blood_sugar_mg_dl": [62.0, 88.0]}),
+    ("BP 186/104, dobara 182/100.", {"bp_systolic": [186.0, 182.0], "bp_diastolic": [104.0, 100.0]}),
+    ("Room number 120. BP 124/80.", {"bp_systolic": [124.0], "bp_diastolic": [80.0]}),
+    ("Age 78 hai. Pulse 70, oxygen 98.", {"pulse_bpm": [70.0], "spo2_pct": [98.0]}),
+    ("10 din ka course. Temperature 99.1.", {"temperature_f": [99.1]}),
+])
+def test_scan_readings_finds_every_reading_and_ignores_distractors(note, expected):
+    assert visit_report.scan_readings(note) == expected
+
+
+def test_earlier_low_reading_escalates_even_if_model_reports_the_later_one():
+    note = "Sugar 62 tha, haath kaanp rahe the. Juice diya, 15 min baad 88 aaya."
+    out = visit_report.apply_safety(note, _report(blood_sugar_mg_dl=88))
+    assert out["needs_coordinator_review"] and out["family_summary"] is None
+    assert "note mentions blood_sugar_mg_dl=62.0" in out["red_flags"]
+
+
+def test_rescore_reapplies_current_safety_offline(tmp_path):
+    case = next(c for c in visit_report_eval.load_cases() if c["id"] == "VR20")
+    raw = {"vitals": {**{f: None for f in visit_report.VITAL_FIELDS}, "blood_sugar_mg_dl": 88},
+           "family_summary": "All good today."}
+    path = tmp_path / "run.json"
+    path.write_text(json.dumps({"model": "m", "cases": [{"id": "VR20", "raw": raw}]}))
+    out = visit_report_eval.rescore(str(path))
+    a = out["metrics"]["after_safety"]
+    assert out["recorded_safety_version"] == "1.0" and out["rescored_with_safety_version"] == visit_report.SAFETY_VERSION
+    assert a["review_recall"] == 1.0 and a["wrong_or_invented_vitals_reaching_family"] == 0

@@ -42,7 +42,11 @@ Family message ──► Understand ──► Find recovery options ──► Pr
 
 ¹ The guardrail's rules were motivated by errors on this set, so its 100% is optimistic until measured on a new holdout.
 
-**Voice visit reports** ([write-up](docs/VISIT_REPORTS.md)): a caregiver's voice note becomes a structured report and a family update, via free Whisper and an LLM. Deterministic checks after the model move any vital not actually stated in the note out of the report, force review on red flags, and hold the family update until a coordinator has looked. On a 30-note Hinglish eval with a perfect model, the checks release 0 invented vitals and flag 100% of notes that need review; the measured cost is that spoken numbers ("ek sau bees") always go to review. Real-model run pending.
+**Voice visit reports** ([write-up](docs/VISIT_REPORTS.md)): a caregiver's voice note becomes a structured report and a family update, via free Whisper and an LLM, with deterministic checks after the model. On 30 Hinglish notes with gpt-oss-120b:
+
+- **0 invented vitals** and **0 wrong or invented vitals reaching a family**; 100% of notes that need a coordinator are flagged.
+- **The real run found a gap the perfect-model test could not:** "Sugar 62 … later 88": the model reported only the normal reading, so the first version would have released a cheerful update after a low-sugar episode. Now every reading in the note is scanned, whatever value the model picked.
+- **The model misread spoken Hindi numbers** ("sattanve", 97, became 100). Grounding held both such notes for review, which turned an apparent cost (18% of routine notes reviewed) into a measured benefit.
 
 **Rest of the system**
 

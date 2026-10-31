@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE_DIR)
 
 import openai_compat_llm  # noqa: E402
-from visit_report import VITAL_FIELDS, apply_safety, structure  # noqa: E402
+from visit_report import SAFETY_VERSION, VITAL_FIELDS, apply_safety, structure  # noqa: E402
 
 SUITE = os.path.join(BASE_DIR, "..", "data", "evaluation", "visit_report_eval_v1.json")
 
@@ -67,6 +67,7 @@ def score(cases, raw_reports, safe_reports):
     need = [s for c, s in zip(cases, safe_reports) if c["gold_needs_review"]]
     routine = [s for c, s in zip(cases, safe_reports) if not c["gold_needs_review"]]
     released = [(c, s) for c, s in zip(cases, safe_reports) if s["family_summary"]]
+    to_family = _vital_stats([c for c, _ in released], [s["vitals"] for _, s in released]) if released else None
     leaky = [c["id"] for c, s in released
              if {float(n) for n in re.findall(r"\d+(?:\.\d+)?", s["family_summary"])}
              - {float(n) for n in re.findall(r"\d+(?:\.\d+)?", c["transcript"])}]
@@ -83,6 +84,9 @@ def score(cases, raw_reports, safe_reports):
             "review_rate_on_routine": (round(sum(s["needs_coordinator_review"] for s in routine) / len(routine), 3)
                                        if routine else None),
             "family_summaries_released": len(released),
+            # The outcome that matters: a wrong or invented vital in a report released without review.
+            "wrong_or_invented_vitals_reaching_family": (to_family["wrong_values"] + to_family["invented_vitals"])
+            if to_family else 0,
             "released_summaries_with_unstated_numbers": leaky,
         },
     }
@@ -116,7 +120,7 @@ def run(api_key, model, base_url, limit=None, delay=3.0, post=requests.post, sle
     metrics["p50_latency_ms"] = round(statistics.median(latencies) * 1000, 1) if latencies else None
     metrics["errors"] = len(errors)
     return {
-        "model": model, "suite": "visit_report_eval_v1",
+        "model": model, "suite": "visit_report_eval_v1", "safety_version": SAFETY_VERSION,
         "run_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "n_cases": len(cases), "full_set": limit is None, "metrics": metrics, "errors": errors,
         "cases": [{"id": c["id"], "category": c["category"], "gold_vitals": c["gold_vitals"],
@@ -125,11 +129,34 @@ def run(api_key, model, base_url, limit=None, delay=3.0, post=requests.post, sle
     }
 
 
+def rescore(path):
+    """Re-apply the current safety layer to a saved run's raw model outputs (no API calls)."""
+    with open(path, encoding="utf-8") as f:
+        run_data = json.load(f)
+    cases_by_id = {c["id"]: c for c in load_cases()}
+    cases = [cases_by_id[c["id"]] for c in run_data["cases"]]
+    raw = [c["raw"] for c in run_data["cases"]]
+    safe = []
+    for case, report in zip(cases, raw):
+        s = apply_safety(case["transcript"], report or {"vitals": {}})
+        if report is None:
+            s["needs_coordinator_review"], s["family_summary"] = True, None
+        safe.append(s)
+    return {"model": run_data["model"], "recorded_safety_version": run_data.get("safety_version", "1.0"),
+            "rescored_with_safety_version": SAFETY_VERSION, "metrics": score(cases, raw, safe)}
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Visit report evaluation")
+    ap.add_argument("--rescore", metavar="RUN_JSON",
+                    help="re-apply the current safety layer to a saved run, offline")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--delay", type=float, default=3.0)
     args = ap.parse_args(argv)
+    if args.rescore:
+        out = rescore(args.rescore)
+        print(json.dumps(out, indent=2))
+        return 0
     cfg = openai_compat_llm.config()
     if cfg is None:
         print("Set LLM_PROVIDER (groq/openrouter) or LLM_BASE_URL, plus LLM_API_KEY and LLM_MODEL.\n"
@@ -138,6 +165,10 @@ def main(argv=None):
     base_url, api_key, model = cfg
     result = run(api_key, model, base_url, limit=args.limit, delay=args.delay)
     m = result["metrics"]
+    if m["json_valid"] == 0:
+        print("\nNo valid model output (check the API key and model id), so nothing was written: "
+              "a failed run is not a result.")
+        return 1
     print(f"\n{model} on {result['n_cases']} visit notes:")
     print(f"  JSON valid              {m['json_valid']}/{m['n']}   errors {m['errors']}")
     print(f"  vital accuracy          raw {m['raw']['vital_field_accuracy']:.1%}   after safety "
@@ -150,10 +181,7 @@ def main(argv=None):
     print(f"  routine sent to review  {a['review_rate_on_routine']}")
     print(f"  summaries released      {a['family_summaries_released']}   with unstated numbers "
           f"{a['released_summaries_with_unstated_numbers']}")
-    if m["json_valid"] == 0:
-        print("\nNo valid model output (check the API key and model id), so nothing was written: "
-              "a failed run is not a result.")
-        return 1
+    print(f"  wrong/invented vitals reaching a family  {a['wrong_or_invented_vitals_reaching_family']}")
     if not result["full_set"]:
         print("\nPartial run (--limit): not written.")
         return 0
