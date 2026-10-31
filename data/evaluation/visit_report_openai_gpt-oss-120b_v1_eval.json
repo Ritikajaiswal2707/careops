@@ -1,0 +1,1664 @@
+{
+  "model": "openai/gpt-oss-120b",
+  "suite": "visit_report_eval_v1",
+  "run_at_utc": "2026-10-31T00:31:47+00:00",
+  "n_cases": 30,
+  "full_set": true,
+  "metrics": {
+    "n": 30,
+    "json_valid": 30,
+    "raw": {
+      "vital_field_accuracy": 0.972,
+      "invented_vitals": 0,
+      "wrong_values": 5
+    },
+    "after_safety": {
+      "vital_field_accuracy": 0.922,
+      "invented_vitals": 0,
+      "wrong_values_released": 3,
+      "review_recall": 0.875,
+      "missed_reviews": [
+        "VR20"
+      ],
+      "review_rate_on_routine": 0.182,
+      "family_summaries_released": 18,
+      "released_summaries_with_unstated_numbers": []
+    },
+    "p50_latency_ms": 1956.7,
+    "errors": 0
+  },
+  "errors": [],
+  "cases": [
+    {
+      "id": "VR01",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 128,
+        "bp_diastolic": 82,
+        "blood_sugar_mg_dl": 112,
+        "spo2_pct": 97,
+        "pulse_bpm": 76,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 128,
+          "bp_diastolic": 82,
+          "blood_sugar_mg_dl": 112,
+          "spo2_pct": 97,
+          "pulse_bpm": 76,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Patient had breakfast and took his morning medication.",
+          "All measured vitals appeared normal."
+        ],
+        "concerns": [],
+        "family_summary": "Your uncle had his breakfast and took his morning medicines. His blood pressure, sugar, oxygen level and pulse were all within normal range. He seemed well during the visit."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 128,
+          "bp_diastolic": 82,
+          "blood_sugar_mg_dl": 112,
+          "spo2_pct": 97,
+          "pulse_bpm": 76,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Patient had breakfast and took his morning medication.",
+          "All measured vitals appeared normal."
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "Your uncle had his breakfast and took his morning medicines. His blood pressure, sugar, oxygen level and pulse were all within normal range. He seemed well during the visit.",
+        "draft_family_summary": "Your uncle had his breakfast and took his morning medicines. His blood pressure, sugar, oxygen level and pulse were all within normal range. He seemed well during the visit."
+      }
+    },
+    {
+      "id": "VR02",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 134,
+        "bp_diastolic": 86,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 98,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 134,
+          "bp_diastolic": 86,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 98,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "BP 134/86",
+          "SpO2 98%",
+          "Short walk performed"
+        ],
+        "concerns": [
+          "Blood sugar not checked due to lack of test strips"
+        ],
+        "family_summary": "We measured her blood pressure at 134 over 86 and her oxygen saturation was 98%. She was taken for a short walk. We could not check her blood sugar today because the test strips were finished."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 134,
+          "bp_diastolic": 86,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 98,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "BP 134/86",
+          "SpO2 98%",
+          "Short walk performed"
+        ],
+        "concerns": [
+          "Blood sugar not checked due to lack of test strips"
+        ],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We measured her blood pressure at 134 over 86 and her oxygen saturation was 98%. She was taken for a short walk. We could not check her blood sugar today because the test strips were finished.",
+        "draft_family_summary": "We measured her blood pressure at 134 over 86 and her oxygen saturation was 98%. She was taken for a short walk. We could not check her blood sugar today because the test strips were finished."
+      }
+    },
+    {
+      "id": "VR03",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 122,
+        "bp_diastolic": 78,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": 72,
+        "temperature_f": 98.4
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 122,
+          "bp_diastolic": 78,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": 72,
+          "temperature_f": 98.4
+        },
+        "medications": [],
+        "observations": [
+          "Papa was cheerful and reading the newspaper."
+        ],
+        "concerns": [],
+        "family_summary": "Your father was cheerful today and spent time reading the newspaper. His vitals were stable with a pulse of 72, blood pressure of 122 over 78, and temperature of 98.4°F."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 122,
+          "bp_diastolic": 78,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": 72,
+          "temperature_f": 98.4
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Papa was cheerful and reading the newspaper."
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "Your father was cheerful today and spent time reading the newspaper. His vitals were stable with a pulse of 72, blood pressure of 122 over 78, and temperature of 98.4°F.",
+        "draft_family_summary": "Your father was cheerful today and spent time reading the newspaper. His vitals were stable with a pulse of 72, blood pressure of 122 over 78, and temperature of 98.4°F."
+      }
+    },
+    {
+      "id": "VR04",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 138,
+        "bp_diastolic": 88,
+        "blood_sugar_mg_dl": 168,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 138,
+          "bp_diastolic": 88,
+          "blood_sugar_mg_dl": 168,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Patient reported good sleep last night."
+        ],
+        "concerns": [],
+        "family_summary": "We checked the blood sugar, which was 168 mg/dL, and the blood pressure, which was 138/88 mmHg. The patient said they slept well last night. We also refilled the medication box."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 138,
+          "bp_diastolic": 88,
+          "blood_sugar_mg_dl": 168,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Patient reported good sleep last night."
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We checked the blood sugar, which was 168 mg/dL, and the blood pressure, which was 138/88 mmHg. The patient said they slept well last night. We also refilled the medication box.",
+        "draft_family_summary": "We checked the blood sugar, which was 168 mg/dL, and the blood pressure, which was 138/88 mmHg. The patient said they slept well last night. We also refilled the medication box."
+      }
+    },
+    {
+      "id": "VR05",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 126,
+        "bp_diastolic": 80,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 96,
+        "pulse_bpm": 80,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 126,
+          "bp_diastolic": 80,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 96,
+          "pulse_bpm": 80,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Mummy has mild knee pain, an old problem, and an ice pack was applied."
+        ],
+        "concerns": [
+          "Mummy ko thoda ghutne mein dard hai"
+        ],
+        "family_summary": "We checked her vitals and they are stable. She mentioned mild knee pain, an old issue, and we applied an ice pack for comfort."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 126,
+          "bp_diastolic": 80,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 96,
+          "pulse_bpm": 80,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Mummy has mild knee pain, an old problem, and an ice pack was applied."
+        ],
+        "concerns": [
+          "Mummy ko thoda ghutne mein dard hai"
+        ],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We checked her vitals and they are stable. She mentioned mild knee pain, an old issue, and we applied an ice pack for comfort.",
+        "draft_family_summary": "We checked her vitals and they are stable. She mentioned mild knee pain, an old issue, and we applied an ice pack for comfort."
+      }
+    },
+    {
+      "id": "VR06",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 140,
+        "bp_diastolic": 90,
+        "blood_sugar_mg_dl": 145,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 140,
+          "bp_diastolic": 90,
+          "blood_sugar_mg_dl": 145,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Mild cough for two days, no fever"
+        ],
+        "concerns": [
+          "Mild cough for two days"
+        ],
+        "family_summary": "We noted a mild cough lasting two days but no fever. Blood pressure was 140/90 and blood sugar was 145 mg/dL. We advised her to drink plenty of water."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 140,
+          "bp_diastolic": 90,
+          "blood_sugar_mg_dl": 145,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Mild cough for two days, no fever"
+        ],
+        "concerns": [
+          "Mild cough for two days"
+        ],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We noted a mild cough lasting two days but no fever. Blood pressure was 140/90 and blood sugar was 145 mg/dL. We advised her to drink plenty of water.",
+        "draft_family_summary": "We noted a mild cough lasting two days but no fever. Blood pressure was 140/90 and blood sugar was 145 mg/dL. We advised her to drink plenty of water."
+      }
+    },
+    {
+      "id": "VR07",
+      "category": "no_vitals",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Aunty was happy."
+        ],
+        "concerns": [],
+        "family_summary": "Today we had a companion visit. We went to the bank, updated the passbook, had tea and then left. Aunty was happy."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Aunty was happy."
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "Today we had a companion visit. We went to the bank, updated the passbook, had tea and then left. Aunty was happy.",
+        "draft_family_summary": "Today we had a companion visit. We went to the bank, updated the passbook, had tea and then left. Aunty was happy."
+      }
+    },
+    {
+      "id": "VR08",
+      "category": "no_vitals",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Vitals were not taken today because the device battery was dead.",
+          "Medication routine was checked and is being taken on time."
+        ],
+        "concerns": [],
+        "family_summary": "We could not take vitals today as the device battery was dead. The medication schedule was reviewed and is being followed as prescribed."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Vitals were not taken today because the device battery was dead.",
+          "Medication routine was checked and is being taken on time."
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We could not take vitals today as the device battery was dead. The medication schedule was reviewed and is being followed as prescribed.",
+        "draft_family_summary": "We could not take vitals today as the device battery was dead. The medication schedule was reviewed and is being followed as prescribed."
+      }
+    },
+    {
+      "id": "VR09",
+      "category": "no_vitals",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Walked for 20 minutes in the park",
+          "Talked about his former office friend",
+          "Mood was good"
+        ],
+        "concerns": [],
+        "family_summary": "Your father enjoyed a pleasant 20‑minute walk in the park and shared stories about an old office friend. He seemed to be in a good mood throughout the visit."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Walked for 20 minutes in the park",
+          "Talked about his former office friend",
+          "Mood was good"
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "Your father enjoyed a pleasant 20‑minute walk in the park and shared stories about an old office friend. He seemed to be in a good mood throughout the visit.",
+        "draft_family_summary": "Your father enjoyed a pleasant 20‑minute walk in the park and shared stories about an old office friend. He seemed to be in a good mood throughout the visit."
+      }
+    },
+    {
+      "id": "VR10",
+      "category": "no_vitals",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "family_summary": ""
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR11",
+      "category": "partial",
+      "gold_vitals": {
+        "bp_systolic": 132,
+        "bp_diastolic": 84,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 132,
+          "bp_diastolic": 84,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Blood pressure measured: 132/84"
+        ],
+        "concerns": [],
+        "family_summary": "We measured the blood pressure today, which was 132 over 84. No other measurements were taken yet, and we will bring the other equipment tomorrow."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 132,
+          "bp_diastolic": 84,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Blood pressure measured: 132/84"
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We measured the blood pressure today, which was 132 over 84. No other measurements were taken yet, and we will bring the other equipment tomorrow.",
+        "draft_family_summary": "We measured the blood pressure today, which was 132 over 84. No other measurements were taken yet, and we will bring the other equipment tomorrow."
+      }
+    },
+    {
+      "id": "VR12",
+      "category": "partial",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": 190,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": 190,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Post‑meal blood sugar measured at 190 mg/dL.",
+          "Patient declined blood pressure measurement and reported feeling tired."
+        ],
+        "concerns": [
+          "Refused blood pressure measurement.",
+          "Feeling tired."
+        ],
+        "family_summary": "We noted a post‑meal blood sugar of 190 mg/dL. The patient declined to have blood pressure taken and mentioned feeling tired. No other measurements were taken today."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": 190,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Post‑meal blood sugar measured at 190 mg/dL.",
+          "Patient declined blood pressure measurement and reported feeling tired."
+        ],
+        "concerns": [
+          "Refused blood pressure measurement.",
+          "Feeling tired."
+        ],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We noted a post‑meal blood sugar of 190 mg/dL. The patient declined to have blood pressure taken and mentioned feeling tired. No other measurements were taken today.",
+        "draft_family_summary": "We noted a post‑meal blood sugar of 190 mg/dL. The patient declined to have blood pressure taken and mentioned feeling tired. No other measurements were taken today."
+      }
+    },
+    {
+      "id": "VR13",
+      "category": "partial",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 95,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 95,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Patient was sleeping peacefully during the visit."
+        ],
+        "concerns": [],
+        "family_summary": "We checked the oxygen level and it was 95%. The patient was sleeping peacefully, so we did not disturb them. Everything was stable during the visit."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 95,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Patient was sleeping peacefully during the visit."
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We checked the oxygen level and it was 95%. The patient was sleeping peacefully, so we did not disturb them. Everything was stable during the visit.",
+        "draft_family_summary": "We checked the oxygen level and it was 95%. The patient was sleeping peacefully, so we did not disturb them. Everything was stable during the visit."
+      }
+    },
+    {
+      "id": "VR14",
+      "category": "spoken_numbers",
+      "gold_vitals": {
+        "bp_systolic": 120,
+        "bp_diastolic": 80,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 97,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 120,
+          "bp_diastolic": 80,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 100,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Patient ate lunch well."
+        ],
+        "concerns": [],
+        "family_summary": "Your loved one had a blood pressure of 120 over 80 and good oxygen saturation. They enjoyed a proper lunch. No concerns were noted at this time."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {
+          "bp_systolic": 120.0,
+          "bp_diastolic": 80.0,
+          "spo2_pct": 100.0
+        },
+        "medications": [],
+        "observations": [
+          "Patient ate lunch well."
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "vital value not found as a number in the note: bp_diastolic, bp_systolic, spo2_pct"
+        ],
+        "family_summary": null,
+        "draft_family_summary": "Your loved one had a blood pressure of 120 over 80 and good oxygen saturation. They enjoyed a proper lunch. No concerns were noted at this time."
+      }
+    },
+    {
+      "id": "VR15",
+      "category": "spoken_numbers",
+      "gold_vitals": {
+        "bp_systolic": 130,
+        "bp_diastolic": 85,
+        "blood_sugar_mg_dl": 210,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 130,
+          "bp_diastolic": 85,
+          "blood_sugar_mg_dl": 210,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Blood sugar 210 mg/dL, slightly high after sweets.",
+          "Blood pressure 130/85 mmHg."
+        ],
+        "concerns": [
+          "Blood sugar is a bit high."
+        ],
+        "family_summary": "We checked her blood sugar and it was 210 mg/dL, which is a little high after she ate sweets. Her blood pressure was 130 over 85. We will keep monitoring and advise her to watch her diet."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {
+          "bp_systolic": 130.0,
+          "bp_diastolic": 85.0,
+          "blood_sugar_mg_dl": 210.0
+        },
+        "medications": [],
+        "observations": [
+          "Blood sugar 210 mg/dL, slightly high after sweets.",
+          "Blood pressure 130/85 mmHg."
+        ],
+        "concerns": [
+          "Blood sugar is a bit high."
+        ],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "vital value not found as a number in the note: blood_sugar_mg_dl, bp_diastolic, bp_systolic"
+        ],
+        "family_summary": null,
+        "draft_family_summary": "We checked her blood sugar and it was 210 mg/dL, which is a little high after she ate sweets. Her blood pressure was 130 over 85. We will keep monitoring and advise her to watch her diet."
+      }
+    },
+    {
+      "id": "VR16",
+      "category": "spoken_numbers",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": 72,
+        "temperature_f": 98.6
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": 78,
+          "temperature_f": 98.6
+        },
+        "medications": [],
+        "observations": [
+          "All fine"
+        ],
+        "concerns": [],
+        "family_summary": "Your loved one’s pulse was 78 beats per minute and temperature was 98.6°F. Everything else appeared normal. No concerns at this time."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {
+          "pulse_bpm": 78.0,
+          "temperature_f": 98.6
+        },
+        "medications": [],
+        "observations": [
+          "All fine"
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "vital value not found as a number in the note: pulse_bpm, temperature_f"
+        ],
+        "family_summary": null,
+        "draft_family_summary": "Your loved one’s pulse was 78 beats per minute and temperature was 98.6°F. Everything else appeared normal. No concerns at this time."
+      }
+    },
+    {
+      "id": "VR17",
+      "category": "spoken_numbers",
+      "gold_vitals": {
+        "bp_systolic": 140,
+        "bp_diastolic": 90,
+        "blood_sugar_mg_dl": 150,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 140,
+          "bp_diastolic": 90,
+          "blood_sugar_mg_dl": 150,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "family_summary": ""
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {
+          "bp_systolic": 140.0,
+          "bp_diastolic": 90.0,
+          "blood_sugar_mg_dl": 150.0
+        },
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "vital value not found as a number in the note: blood_sugar_mg_dl, bp_diastolic, bp_systolic"
+        ],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR18",
+      "category": "red_flag_vitals",
+      "gold_vitals": {
+        "bp_systolic": 130,
+        "bp_diastolic": 80,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 89,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 130,
+          "bp_diastolic": 80,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 89,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Oxygen saturation was 89% on two checks.",
+          "Uncle appeared a bit tired."
+        ],
+        "concerns": [
+          "Low oxygen saturation (89%).",
+          "Feeling a bit tired."
+        ],
+        "family_summary": "We checked his oxygen level twice and it was 89%. His blood pressure was 130 over 80. He seemed a little tired, and we are monitoring him closely."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 130,
+          "bp_diastolic": 80,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 89,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Oxygen saturation was 89% on two checks.",
+          "Uncle appeared a bit tired."
+        ],
+        "concerns": [
+          "Low oxygen saturation (89%).",
+          "Feeling a bit tired."
+        ],
+        "red_flags": [
+          "spo2_pct=89"
+        ],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "red flag: spo2_pct=89"
+        ],
+        "family_summary": null,
+        "draft_family_summary": "We checked his oxygen level twice and it was 89%. His blood pressure was 130 over 80. He seemed a little tired, and we are monitoring him closely."
+      }
+    },
+    {
+      "id": "VR19",
+      "category": "red_flag_vitals",
+      "gold_vitals": {
+        "bp_systolic": 186,
+        "bp_diastolic": 104,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 182,
+          "bp_diastolic": 100,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Initial BP reading was 186/104, repeat reading 182/100."
+        ],
+        "concerns": [
+          "High blood pressure readings",
+          "Missed morning medication"
+        ],
+        "family_summary": "We checked the blood pressure and it was high at 182/100. The patient missed the morning medicine, which may have contributed. We will keep monitoring and help ensure medicines are taken on time."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 182,
+          "bp_diastolic": 100,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Initial BP reading was 186/104, repeat reading 182/100."
+        ],
+        "concerns": [
+          "High blood pressure readings",
+          "Missed morning medication"
+        ],
+        "red_flags": [
+          "bp_systolic=182"
+        ],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "red flag: bp_systolic=182"
+        ],
+        "family_summary": null,
+        "draft_family_summary": "We checked the blood pressure and it was high at 182/100. The patient missed the morning medicine, which may have contributed. We will keep monitoring and help ensure medicines are taken on time."
+      }
+    },
+    {
+      "id": "VR20",
+      "category": "red_flag_vitals",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": 62,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": 88,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "hands were shaking",
+          "blood sugar rose from 62 to 88 after juice"
+        ],
+        "concerns": [
+          "hands shaking due to low blood sugar"
+        ],
+        "family_summary": "We checked her blood sugar, which was low at 62 mg/dL. She was given juice and after 15 minutes it rose to 88 mg/dL. Her hands were shaking initially but improved."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": 88,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "hands were shaking",
+          "blood sugar rose from 62 to 88 after juice"
+        ],
+        "concerns": [
+          "hands shaking due to low blood sugar"
+        ],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We checked her blood sugar, which was low at 62 mg/dL. She was given juice and after 15 minutes it rose to 88 mg/dL. Her hands were shaking initially but improved.",
+        "draft_family_summary": "We checked her blood sugar, which was low at 62 mg/dL. She was given juice and after 15 minutes it rose to 88 mg/dL. Her hands were shaking initially but improved."
+      }
+    },
+    {
+      "id": "VR21",
+      "category": "red_flag_vitals",
+      "gold_vitals": {
+        "bp_systolic": 118,
+        "bp_diastolic": 76,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": 103
+      },
+      "gold_needs_review": true,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 118,
+          "bp_diastolic": 76,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": 103
+        },
+        "medications": [],
+        "observations": [
+          "Patient feels very weak."
+        ],
+        "concerns": [
+          "Patient feels very weak."
+        ],
+        "family_summary": "We checked her temperature, which was 103°F, and her blood pressure was 118 over 76. She reported feeling very weak today. We are monitoring her and will keep you updated."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 118,
+          "bp_diastolic": 76,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": 103.0
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Patient feels very weak."
+        ],
+        "concerns": [
+          "Patient feels very weak."
+        ],
+        "red_flags": [
+          "temperature_f=103.0"
+        ],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "red flag: temperature_f=103.0"
+        ],
+        "family_summary": null,
+        "draft_family_summary": "We checked her temperature, which was 103°F, and her blood pressure was 118 over 76. She reported feeling very weak today. We are monitoring her and will keep you updated."
+      }
+    },
+    {
+      "id": "VR22",
+      "category": "red_flag_words",
+      "gold_vitals": {
+        "bp_systolic": 136,
+        "bp_diastolic": 86,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 136,
+          "bp_diastolic": 86,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Patient fell in the bathroom last night and has a minor head injury."
+        ],
+        "concerns": [
+          "Fall in bathroom with head injury"
+        ],
+        "family_summary": "Your father had a fall in the bathroom last night and sustained a minor head injury. His blood pressure was measured at 136 over 86. We are monitoring him and will keep you updated."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 136,
+          "bp_diastolic": 86,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Patient fell in the bathroom last night and has a minor head injury."
+        ],
+        "concerns": [
+          "Fall in bathroom with head injury"
+        ],
+        "red_flags": [
+          "keyword:gir gaye"
+        ],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "red flag: keyword:gir gaye"
+        ],
+        "family_summary": null,
+        "draft_family_summary": "Your father had a fall in the bathroom last night and sustained a minor head injury. His blood pressure was measured at 136 over 86. We are monitoring him and will keep you updated."
+      }
+    },
+    {
+      "id": "VR23",
+      "category": "red_flag_words",
+      "gold_vitals": {
+        "bp_systolic": 150,
+        "bp_diastolic": 92,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": 98,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 150,
+          "bp_diastolic": 92,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": 98,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Patient reports chest pain since this morning"
+        ],
+        "concerns": [
+          "Chest pain since morning"
+        ],
+        "family_summary": "We noted that Aunty has been experiencing chest pain since this morning and her blood pressure is elevated at 150/92 with a pulse of 98. We have recorded these findings and will continue to monitor her condition."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 150,
+          "bp_diastolic": 92,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": 98,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Patient reports chest pain since this morning"
+        ],
+        "concerns": [
+          "Chest pain since morning"
+        ],
+        "red_flags": [
+          "keyword:seene mein dard"
+        ],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "red flag: keyword:seene mein dard"
+        ],
+        "family_summary": null,
+        "draft_family_summary": "We noted that Aunty has been experiencing chest pain since this morning and her blood pressure is elevated at 150/92 with a pulse of 98. We have recorded these findings and will continue to monitor her condition."
+      }
+    },
+    {
+      "id": "VR24",
+      "category": "red_flag_words",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 93,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 93,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Saans lene mein dikkat ho rahi thi chadhte waqt."
+        ],
+        "concerns": [
+          "Saans lene mein dikkat ho rahi thi chadhte waqt."
+        ],
+        "family_summary": "We noticed the patient had difficulty breathing while climbing stairs and her oxygen level was 93%. We are keeping a close watch and will let you know of any changes."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 93,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Saans lene mein dikkat ho rahi thi chadhte waqt."
+        ],
+        "concerns": [
+          "Saans lene mein dikkat ho rahi thi chadhte waqt."
+        ],
+        "red_flags": [
+          "keyword:saans lene mein dikkat"
+        ],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "red flag: keyword:saans lene mein dikkat"
+        ],
+        "family_summary": null,
+        "draft_family_summary": "We noticed the patient had difficulty breathing while climbing stairs and her oxygen level was 93%. We are keeping a close watch and will let you know of any changes."
+      }
+    },
+    {
+      "id": "VR25",
+      "category": "red_flag_words",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Patient was confused and did not recognize caregiver initially, but improved later."
+        ],
+        "concerns": [
+          "confusion"
+        ],
+        "family_summary": "We noticed your mother was a bit confused this morning and did not recognize you at first. She became clearer later in the visit. No other issues were observed."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Patient was confused and did not recognize caregiver initially, but improved later."
+        ],
+        "concerns": [
+          "confusion"
+        ],
+        "red_flags": [
+          "keyword:confus"
+        ],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "red flag: keyword:confus"
+        ],
+        "family_summary": null,
+        "draft_family_summary": "We noticed your mother was a bit confused this morning and did not recognize you at first. She became clearer later in the visit. No other issues were observed."
+      }
+    },
+    {
+      "id": "VR26",
+      "category": "distractor",
+      "gold_vitals": {
+        "bp_systolic": 124,
+        "bp_diastolic": 80,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 124,
+          "bp_diastolic": 80,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [
+          "2 tablets subah wali"
+        ],
+        "observations": [
+          "Room number 120 mein shift ho gaye hain."
+        ],
+        "concerns": [],
+        "family_summary": "We have moved the patient to room 120. Their blood pressure was measured at 124 over 80. They were given their two morning tablets."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 124,
+          "bp_diastolic": 80,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [
+          "2 tablets subah wali"
+        ],
+        "observations": [
+          "Room number 120 mein shift ho gaye hain."
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We have moved the patient to room 120. Their blood pressure was measured at 124 over 80. They were given their two morning tablets.",
+        "draft_family_summary": "We have moved the patient to room 120. Their blood pressure was measured at 124 over 80. They were given their two morning tablets."
+      }
+    },
+    {
+      "id": "VR27",
+      "category": "distractor",
+      "gold_vitals": {
+        "bp_systolic": 130,
+        "bp_diastolic": 84,
+        "blood_sugar_mg_dl": 118,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 130,
+          "bp_diastolic": 84,
+          "blood_sugar_mg_dl": 118,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "BP improved, medication effect noted"
+        ],
+        "concerns": [],
+        "family_summary": "Your loved one’s blood pressure today was 130 over 84, lower than last week’s 160. Blood sugar was 118 mg/dL. The medication appears to be helping."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 130,
+          "bp_diastolic": 84,
+          "blood_sugar_mg_dl": 118,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "BP improved, medication effect noted"
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "Your loved one’s blood pressure today was 130 over 84, lower than last week’s 160. Blood sugar was 118 mg/dL. The medication appears to be helping.",
+        "draft_family_summary": "Your loved one’s blood pressure today was 130 over 84, lower than last week’s 160. Blood sugar was 118 mg/dL. The medication appears to be helping."
+      }
+    },
+    {
+      "id": "VR28",
+      "category": "distractor",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 98,
+        "pulse_bpm": 70,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 98,
+          "pulse_bpm": 70,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Age 78 years, weight 64 kg",
+          "Pulse 70 beats per minute",
+          "Oxygen saturation 98%"
+        ],
+        "concerns": [],
+        "family_summary": "We saw that the patient is 78 years old and weighs 64 kg. Her pulse was 70 beats per minute and her oxygen saturation was 98%. She appears stable."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": 98,
+          "pulse_bpm": 70,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Age 78 years, weight 64 kg",
+          "Pulse 70 beats per minute",
+          "Oxygen saturation 98%"
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We saw that the patient is 78 years old and weighs 64 kg. Her pulse was 70 beats per minute and her oxygen saturation was 98%. She appears stable.",
+        "draft_family_summary": "We saw that the patient is 78 years old and weighs 64 kg. Her pulse was 70 beats per minute and her oxygen saturation was 98%. She appears stable."
+      }
+    },
+    {
+      "id": "VR29",
+      "category": "distractor",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": 99.1
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": 99.1
+        },
+        "medications": [],
+        "observations": [
+          "Temperature 99.1, bukhar utar raha hai."
+        ],
+        "concerns": [],
+        "family_summary": "We noted the patient’s temperature is 99.1°F and the fever is going down. The doctor’s 10‑day course is now on day 4. Everything looks stable for now."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": 99.1
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Temperature 99.1, bukhar utar raha hai."
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We noted the patient’s temperature is 99.1°F and the fever is going down. The doctor’s 10‑day course is now on day 4. Everything looks stable for now.",
+        "draft_family_summary": "We noted the patient’s temperature is 99.1°F and the fever is going down. The doctor’s 10‑day course is now on day 4. Everything looks stable for now."
+      }
+    },
+    {
+      "id": "VR30",
+      "category": "distractor",
+      "gold_vitals": {
+        "bp_systolic": 128,
+        "bp_diastolic": 86,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": {
+        "vitals": {
+          "bp_systolic": 128,
+          "bp_diastolic": 86,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "medications": [],
+        "observations": [
+          "Beti ne 3 baar call kiya.",
+          "Lunch was at 1 pm."
+        ],
+        "concerns": [],
+        "family_summary": "We noted the blood pressure was 128 over 86. Lunch was taken at 1 pm. Please let us know if anything else is needed."
+      },
+      "safe": {
+        "vitals": {
+          "bp_systolic": 128,
+          "bp_diastolic": 86,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [
+          "Beti ne 3 baar call kiya.",
+          "Lunch was at 1 pm."
+        ],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": false,
+        "review_reasons": [],
+        "family_summary": "We noted the blood pressure was 128 over 86. Lunch was taken at 1 pm. Please let us know if anything else is needed.",
+        "draft_family_summary": "We noted the blood pressure was 128 over 86. Lunch was taken at 1 pm. Please let us know if anything else is needed."
+      }
+    }
+  ]
+}
