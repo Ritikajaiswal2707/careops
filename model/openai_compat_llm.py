@@ -40,6 +40,14 @@ def config():
     return base_url.rstrip("/"), api_key, model
 
 
+def config_base():
+    """(base_url, api_key) without requiring a chat model -- used for speech-to-text."""
+    provider = os.environ.get("LLM_PROVIDER", "").strip().lower()
+    base_url = os.environ.get("LLM_BASE_URL") or PRESETS.get(provider)
+    api_key = os.environ.get("LLM_API_KEY")
+    return (base_url.rstrip("/"), api_key) if base_url and api_key else None
+
+
 def chat_extract(message, base_url, api_key, model, timeout=30, post=requests.post,
                  system=EXTRACTION_PROMPT):
     """One raw call. Returns (response_or_None, http_status). Never logs the key or bodies."""

@@ -42,6 +42,8 @@ Family message ──► Understand ──► Find recovery options ──► Pr
 
 ¹ The guardrail's rules were motivated by errors on this set, so its 100% is optimistic until measured on a new holdout.
 
+**Voice visit reports** ([write-up](docs/VISIT_REPORTS.md)): a caregiver's voice note becomes a structured report and a family update, via free Whisper and an LLM. Deterministic checks after the model move any vital not actually stated in the note out of the report, force review on red flags, and hold the family update until a coordinator has looked. On a 30-note Hinglish eval with a perfect model, the checks release 0 invented vitals and flag 100% of notes that need review; the measured cost is that spoken numbers ("ek sau bees") always go to review. Real-model run pending.
+
 **Rest of the system**
 
 | What was measured | Result |
