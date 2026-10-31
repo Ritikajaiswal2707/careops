@@ -141,3 +141,20 @@ def test_api_visit_report_endpoints(monkeypatch):
     assert r.status_code == 503
     monkeypatch.setenv("CAREOPS_DISABLE_EXTERNAL_LLM", "false")
     assert client.post("/api/visit-report/audio", files={"file": ("n.exe", b"x")}).status_code == 422
+
+
+def test_eval_does_not_write_a_run_where_every_call_failed(monkeypatch):
+    monkeypatch.setenv("LLM_PROVIDER", "groq")
+    monkeypatch.setenv("LLM_API_KEY", "placeholder")
+    monkeypatch.setenv("LLM_MODEL", "m")
+    monkeypatch.setattr(visit_report_eval, "run", lambda *a, **k: {
+        "n_cases": 30, "full_set": True, "errors": [],
+        "metrics": {"n": 30, "json_valid": 0, "errors": 30,
+                    "raw": {"vital_field_accuracy": 0.6, "invented_vitals": 0, "wrong_values": 0},
+                    "after_safety": {"vital_field_accuracy": 0.6, "invented_vitals": 0,
+                                     "wrong_values_released": 0, "review_recall": 1.0, "missed_reviews": [],
+                                     "review_rate_on_routine": 1.0, "family_summaries_released": 0,
+                                     "released_summaries_with_unstated_numbers": []}}})
+    writes = []
+    monkeypatch.setattr(visit_report_eval.json, "dump", lambda *a, **k: writes.append(1))
+    assert visit_report_eval.main([]) == 1 and writes == []

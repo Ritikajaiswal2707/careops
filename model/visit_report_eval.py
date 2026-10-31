@@ -150,6 +150,10 @@ def main(argv=None):
     print(f"  routine sent to review  {a['review_rate_on_routine']}")
     print(f"  summaries released      {a['family_summaries_released']}   with unstated numbers "
           f"{a['released_summaries_with_unstated_numbers']}")
+    if m["json_valid"] == 0:
+        print("\nNo valid model output (check the API key and model id), so nothing was written: "
+              "a failed run is not a result.")
+        return 1
     if not result["full_set"]:
         print("\nPartial run (--limit): not written.")
         return 0
