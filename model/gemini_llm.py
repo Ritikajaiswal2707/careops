@@ -18,6 +18,8 @@ import logging
 
 import requests
 
+from llm_prompt import runtime_prompt
+
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 
@@ -45,7 +47,7 @@ def gemini_llm_call(message: str, timeout: int = 15):
         return None
 
     payload = {
-        "system_instruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+        "system_instruction": {"parts": [{"text": runtime_prompt()}]},
         "contents": [{"role": "user", "parts": [{"text": message or "(empty message)"}]}],
         "generationConfig": {"temperature": 0, "maxOutputTokens": 200},
     }

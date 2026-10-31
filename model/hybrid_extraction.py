@@ -74,7 +74,8 @@ def _valid_schema(pred: dict) -> bool:
 
 def default_llm_call(message: str):
     """
-    Try Gemini first, then Anthropic if configured.
+    Try Gemini first, then an OpenAI-compatible provider (Groq/OpenRouter),
+    then Anthropic -- whichever are configured.
 
     Invalid provider responses are rejected. None is returned if neither
     provider produces a valid extraction.
@@ -89,6 +90,13 @@ def default_llm_call(message: str):
     gemini_result = gemini_llm_call(message)
     if gemini_result is not None and _valid_schema(gemini_result):
         return gemini_result
+
+    # Free, no-credit-card OpenAI-compatible providers (Groq, OpenRouter, ...).
+    from openai_compat_llm import openai_compat_llm_call
+
+    compat_result = openai_compat_llm_call(message)
+    if compat_result is not None and _valid_schema(compat_result):
+        return compat_result
 
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
@@ -151,11 +159,11 @@ def extract_intent_hybrid(message: str, llm_call=default_llm_call) -> dict:
     rule_pred = extract_intent(message)
 
     if rule_pred["intent"] != "Unclear":
-        return {
+        return _apply_confirm_guardrail(message, {
             **rule_pred,
             "source": "rule",
             "escalate_to_human": False,
-        }
+        })
 
     llm_pred = llm_call(message) if llm_call else None
 
@@ -181,10 +189,27 @@ def extract_intent_hybrid(message: str, llm_call=default_llm_call) -> dict:
         "offset_days": llm_pred.get("offset_days"),
     }
 
-    return {
+    return _apply_confirm_guardrail(message, {
         **merged,
         "source": "llm",
         "escalate_to_human": False,
+    })
+
+
+def _apply_confirm_guardrail(message: str, pred: dict) -> dict:
+    """Defence in depth: a deterministic check may downgrade Confirm to a human review.
+    It never creates a confirmation or changes any other label (see confirm_guardrail.py)."""
+    from confirm_guardrail import check
+
+    final_intent, reason = check(message, pred.get("intent"))
+    if reason is None:
+        return pred
+    return {
+        **pred,
+        "intent": final_intent,
+        "source": "guardrail",
+        "guardrail_reason": reason,
+        "escalate_to_human": True,
     }
 
 

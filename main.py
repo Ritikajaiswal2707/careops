@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Literal, Optional
 import os
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -33,6 +33,7 @@ from capacity_recovery import (  # noqa: E402
     validate_target_date,
 )
 from reschedule_agent import propose_reschedule  # noqa: E402
+from visit_report import build_report, transcribe  # noqa: E402
 from recovery_agent import run_recovery_agent  # noqa: E402
 from approval_store import (  # noqa: E402
     CaseConflictError, CaseNotFoundError, create_case, decide_case, get_case,
@@ -102,6 +103,22 @@ class RecoverRequest(RequestModel):
         return value
 
 
+MAX_VISIT_NOTE_LENGTH = 4000
+MAX_AUDIO_BYTES = 10 * 1024 * 1024
+AUDIO_SUFFIXES = {".mp3", ".m4a", ".wav", ".ogg", ".opus", ".webm", ".mp4", ".mpeg", ".mpga", ".flac"}
+
+
+class VisitReportRequest(RequestModel):
+    transcript: str = Field(strict=True, min_length=1, max_length=MAX_VISIT_NOTE_LENGTH)
+
+    @field_validator("transcript")
+    @classmethod
+    def transcript_not_blank(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("transcript must not be blank")
+        return value
+
+
 class AgentDecisionRequest(RequestModel):
     decision: Literal["approve", "reject"]
     note: Optional[str] = Field(default=None, max_length=500)
@@ -168,6 +185,39 @@ def get_operations():
 def analyze(req: AnalyzeRequest):
     """Parse one supplied message, escalating if no safe structured result exists."""
     return extract_intent_hybrid(req.message)
+
+
+@app.post("/api/visit-report")
+def visit_report(req: VisitReportRequest):
+    """Structure a caregiver's visit note. Deterministic checks run after the model:
+    unverifiable vitals and red flags send the report to a coordinator, and the family
+    summary is withheld until then. Fails closed when no LLM is configured."""
+    return build_report(req.transcript)
+
+
+@app.post("/api/visit-report/audio")
+async def visit_report_audio(file: UploadFile = File(...)):
+    """Voice note -> transcript (Whisper) -> structured, safety-checked report."""
+    if os.getenv("CAREOPS_DISABLE_EXTERNAL_LLM", "false").strip().lower() in {"1", "true", "yes", "on"}:
+        raise HTTPException(status_code=503, detail="Speech-to-text is disabled in this public demo.")
+    suffix = Path(file.filename or "").suffix.lower()
+    if suffix not in AUDIO_SUFFIXES:
+        raise HTTPException(status_code=422, detail="Unsupported audio type.")
+    data = await file.read(MAX_AUDIO_BYTES + 1)
+    if len(data) > MAX_AUDIO_BYTES:
+        raise HTTPException(status_code=413, detail="Audio file is larger than 10 MB.")
+    import tempfile
+
+    with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+        tmp.write(data)
+        tmp_path = tmp.name
+    try:
+        text, err = transcribe(tmp_path)
+    finally:
+        os.unlink(tmp_path)
+    if text is None:
+        raise HTTPException(status_code=502, detail=err or "Transcription failed.")
+    return build_report(text)
 
 
 @app.post("/api/recover")
