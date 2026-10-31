@@ -1,0 +1,1158 @@
+{
+  "model": "openai/gpt-oss-120b",
+  "suite": "visit_report_eval_v1",
+  "run_at_utc": "2026-10-31T00:22:52+00:00",
+  "n_cases": 30,
+  "full_set": true,
+  "metrics": {
+    "n": 30,
+    "json_valid": 0,
+    "raw": {
+      "vital_field_accuracy": 0.656,
+      "invented_vitals": 0,
+      "wrong_values": 0
+    },
+    "after_safety": {
+      "vital_field_accuracy": 0.656,
+      "invented_vitals": 0,
+      "wrong_values_released": 0,
+      "review_recall": 1.0,
+      "missed_reviews": [],
+      "review_rate_on_routine": 1.0,
+      "family_summaries_released": 0,
+      "released_summaries_with_unstated_numbers": []
+    },
+    "p50_latency_ms": 761.7,
+    "errors": 30
+  },
+  "errors": [
+    {
+      "case": "VR01",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR02",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR03",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR04",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR05",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR06",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR07",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR08",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR09",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR10",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR11",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR12",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR13",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR14",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR15",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR16",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR17",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR18",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR19",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR20",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR21",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR22",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR23",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR24",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR25",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR26",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR27",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR28",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR29",
+      "error": "HTTP 401"
+    },
+    {
+      "case": "VR30",
+      "error": "HTTP 401"
+    }
+  ],
+  "cases": [
+    {
+      "id": "VR01",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 128,
+        "bp_diastolic": 82,
+        "blood_sugar_mg_dl": 112,
+        "spo2_pct": 97,
+        "pulse_bpm": 76,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR02",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 134,
+        "bp_diastolic": 86,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 98,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR03",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 122,
+        "bp_diastolic": 78,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": 72,
+        "temperature_f": 98.4
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR04",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 138,
+        "bp_diastolic": 88,
+        "blood_sugar_mg_dl": 168,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR05",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 126,
+        "bp_diastolic": 80,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 96,
+        "pulse_bpm": 80,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR06",
+      "category": "digits_routine",
+      "gold_vitals": {
+        "bp_systolic": 140,
+        "bp_diastolic": 90,
+        "blood_sugar_mg_dl": 145,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR07",
+      "category": "no_vitals",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR08",
+      "category": "no_vitals",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR09",
+      "category": "no_vitals",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR10",
+      "category": "no_vitals",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR11",
+      "category": "partial",
+      "gold_vitals": {
+        "bp_systolic": 132,
+        "bp_diastolic": 84,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR12",
+      "category": "partial",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": 190,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR13",
+      "category": "partial",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 95,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR14",
+      "category": "spoken_numbers",
+      "gold_vitals": {
+        "bp_systolic": 120,
+        "bp_diastolic": 80,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 97,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR15",
+      "category": "spoken_numbers",
+      "gold_vitals": {
+        "bp_systolic": 130,
+        "bp_diastolic": 85,
+        "blood_sugar_mg_dl": 210,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR16",
+      "category": "spoken_numbers",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": 72,
+        "temperature_f": 98.6
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR17",
+      "category": "spoken_numbers",
+      "gold_vitals": {
+        "bp_systolic": 140,
+        "bp_diastolic": 90,
+        "blood_sugar_mg_dl": 150,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR18",
+      "category": "red_flag_vitals",
+      "gold_vitals": {
+        "bp_systolic": 130,
+        "bp_diastolic": 80,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 89,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR19",
+      "category": "red_flag_vitals",
+      "gold_vitals": {
+        "bp_systolic": 186,
+        "bp_diastolic": 104,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR20",
+      "category": "red_flag_vitals",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": 62,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR21",
+      "category": "red_flag_vitals",
+      "gold_vitals": {
+        "bp_systolic": 118,
+        "bp_diastolic": 76,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": 103
+      },
+      "gold_needs_review": true,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR22",
+      "category": "red_flag_words",
+      "gold_vitals": {
+        "bp_systolic": 136,
+        "bp_diastolic": 86,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [
+          "keyword:gir gaye"
+        ],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "red flag: keyword:gir gaye"
+        ],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR23",
+      "category": "red_flag_words",
+      "gold_vitals": {
+        "bp_systolic": 150,
+        "bp_diastolic": 92,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": 98,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [
+          "keyword:seene mein dard"
+        ],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "red flag: keyword:seene mein dard"
+        ],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR24",
+      "category": "red_flag_words",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 93,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [
+          "keyword:saans lene mein dikkat"
+        ],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "red flag: keyword:saans lene mein dikkat"
+        ],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR25",
+      "category": "red_flag_words",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": true,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [
+          "keyword:confus"
+        ],
+        "needs_coordinator_review": true,
+        "review_reasons": [
+          "red flag: keyword:confus"
+        ],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR26",
+      "category": "distractor",
+      "gold_vitals": {
+        "bp_systolic": 124,
+        "bp_diastolic": 80,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR27",
+      "category": "distractor",
+      "gold_vitals": {
+        "bp_systolic": 130,
+        "bp_diastolic": 84,
+        "blood_sugar_mg_dl": 118,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR28",
+      "category": "distractor",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": 98,
+        "pulse_bpm": 70,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR29",
+      "category": "distractor",
+      "gold_vitals": {
+        "bp_systolic": null,
+        "bp_diastolic": null,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": 99.1
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    },
+    {
+      "id": "VR30",
+      "category": "distractor",
+      "gold_vitals": {
+        "bp_systolic": 128,
+        "bp_diastolic": 86,
+        "blood_sugar_mg_dl": null,
+        "spo2_pct": null,
+        "pulse_bpm": null,
+        "temperature_f": null
+      },
+      "gold_needs_review": false,
+      "raw": null,
+      "safe": {
+        "vitals": {
+          "bp_systolic": null,
+          "bp_diastolic": null,
+          "blood_sugar_mg_dl": null,
+          "spo2_pct": null,
+          "pulse_bpm": null,
+          "temperature_f": null
+        },
+        "unverified_vitals": {},
+        "medications": [],
+        "observations": [],
+        "concerns": [],
+        "red_flags": [],
+        "needs_coordinator_review": true,
+        "review_reasons": [],
+        "family_summary": null,
+        "draft_family_summary": null
+      }
+    }
+  ]
+}
