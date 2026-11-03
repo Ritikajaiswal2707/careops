@@ -413,6 +413,11 @@ function liveInit(){
   liveInitialized = true;
   const sel = document.getElementById('live-appt');
   sel.innerHTML = DATA.flagged.map(v => `<option value="${escapeHtml(v.id)}">${escapeHtml(v.id)} — ${escapeHtml(v.service)} (${escapeHtml(v.tier)}, ${escapeHtml(v.time)})</option>`).join('');
+  // Open on a visit the snapshot already knows has a backup provider, so the first
+  // click shows a recovery; visits without one remain selectable.
+  const withBackup = (DATA.cascades || []).find(c => (c.recovery || '').startsWith('Backup available')
+    && DATA.flagged.some(v => v.id === c.id));
+  if(withBackup) sel.value = withBackup.id;
   renderIncidentSummary();
 }
 

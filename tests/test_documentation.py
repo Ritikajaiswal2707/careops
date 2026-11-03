@@ -27,7 +27,7 @@ def test_readme_clearly_separates_snapshot_api_and_simulation():
     text = (ROOT / "README.md").read_text(encoding="utf-8").lower()
     assert "precomputed synthetic snapshot" in text
     assert "browser-side simulation" in text
-    assert "hosted url was not verified" in text
+    assert "read-only deployment" in text and "onrender.com" in text
 
 
 def test_pipeline_snapshot_generation_explicitly_disables_llm_calls():

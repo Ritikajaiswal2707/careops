@@ -242,11 +242,16 @@ def build_report(transcript, post=requests.post):
 
 
 def _fail_closed(transcript, reason):
+    """No usable model output: still run the deterministic red-flag checks
+    (keywords and every stated reading), and ask for coordinator review."""
     words = sorted({m.group(0) for m in re.finditer(RED_FLAG_WORDS, (transcript or "").lower())})
+    flags = [f"note mentions {f}={v}" for f, vals in scan_readings(transcript).items()
+             for v in vals if RED_FLAG_RULES[f](v)]
+    flags += [f"keyword:{w}" for w in words]
     return {
         "vitals": {f: None for f in VITAL_FIELDS}, "unverified_vitals": {}, "medications": [],
-        "observations": [], "concerns": [], "red_flags": [f"keyword:{w}" for w in words],
+        "observations": [], "concerns": [], "red_flags": flags,
         "needs_coordinator_review": True,
-        "review_reasons": [reason] + ([f"red flag: {', '.join('keyword:' + w for w in words)}"] if words else []),
+        "review_reasons": [reason] + ([f"red flag: {', '.join(flags)}"] if flags else []),
         "family_summary": None, "draft_family_summary": None, "transcript": transcript, "model": None,
     }

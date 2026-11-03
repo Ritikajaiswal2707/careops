@@ -202,3 +202,9 @@ def test_dashboard_examples_match_the_saved_run():
     assert any("gir gaye" in r for r in by_id["VR22"]["reasons"])
     html = open(gen.DASHBOARD, encoding="utf-8").read()
     assert "const VR_EXAMPLES = {" in html  # examples are baked into the page
+
+
+def test_fail_closed_still_scans_readings(monkeypatch):
+    monkeypatch.setenv("CAREOPS_DISABLE_EXTERNAL_LLM", "true")
+    out = visit_report.build_report("Sugar 62 tha, 15 min baad 88. Oxygen 97.")
+    assert out["needs_coordinator_review"] and out["red_flags"] == ["note mentions blood_sugar_mg_dl=62.0"]
