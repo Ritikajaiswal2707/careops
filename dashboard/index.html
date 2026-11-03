@@ -3,105 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CareOps Daily Simulation</title>
+<title>CareOps</title>
 <style>
+@font-face{font-family:"Bricolage Grotesque"; src:url("fonts/bricolage-grotesque.woff2") format("woff2"); font-weight:200 800; font-display:swap;}
+@font-face{font-family:"Figtree"; src:url("fonts/figtree.woff2") format("woff2"); font-weight:300 900; font-display:swap;}
 :root{
-  --bg:#f6f7f5; --card:#ffffff; --ink:#1c2521; --sub:#5b665f; --line:#e1e6e0;
-  --high:#c0392b; --high-bg:#fdecea; --med:#b8860b; --med-bg:#fff8e6; --ok:#1f7a4d; --ok-bg:#e9f7ef;
-  --accent:#2f6b4f;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f1f5f4; --card:#ffffff; --ink:#14302e; --sub:#56706b; --line:#d8e2df;
+  --accent:#1e6b63; --accent-ink:#ffffff;
+  --high:#b5402e; --high-bg:#fbe9e5; --med:#a8700f; --med-bg:#fcf2dc; --ok:#2f7d52; --ok-bg:#e4f3ea;
+  --display:"Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#12140f; --card:#1b1f19; --ink:#eef1ea; --sub:#a3aca0; --line:#2b322b;
-    --high:#ff6b5e; --high-bg:#33201d; --med:#e0b23d; --med-bg:#332c15; --ok:#5fcf95; --ok-bg:#16261e;
-    --accent:#6fce9d;
+    --bg:#0f1a19; --card:#152422; --ink:#e4eeeb; --sub:#9db2ad; --line:#24403b;
+    --accent:#5fc1b3; --accent-ink:#0f1a19;
+    --high:#f07a66; --high-bg:#3a1f1a; --med:#e2b04f; --med-bg:#33280f; --ok:#6ccb95; --ok-bg:#15291e;
+    color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#12140f; --card:#1b1f19; --ink:#eef1ea; --sub:#a3aca0; --line:#2b322b;
-  --high:#ff6b5e; --high-bg:#33201d; --med:#e0b23d; --med-bg:#332c15; --ok:#5fcf95; --ok-bg:#16261e;
-  --accent:#6fce9d;
+  --bg:#0f1a19; --card:#152422; --ink:#e4eeeb; --sub:#9db2ad; --line:#24403b;
+  --accent:#5fc1b3; --accent-ink:#0f1a19;
+  --high:#f07a66; --high-bg:#3a1f1a; --med:#e2b04f; --med-bg:#33280f; --ok:#6ccb95; --ok-bg:#15291e;
+  color-scheme:dark;
 }
-html{scroll-padding-top:env(safe-area-inset-top,0px);}
 *{box-sizing:border-box;}
-body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  min-height:100%;
-}
-.wrap{max-width:760px; margin:0 auto; padding:24px 16px 60px;}
-header h1{font-size:1.4rem; margin:0 0 2px;}
-header p{margin:0; color:var(--sub); font-size:.9rem;}
-.summary{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:20px 0 24px;}
-.pill{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 8px; text-align:center;}
-.pill .num{font-size:1.4rem; font-weight:700;}
-.pill .lbl{font-size:.72rem; color:var(--sub); margin-top:2px;}
-.pill.high .num{color:var(--high);} .pill.med .num{color:var(--med);} .pill.ok .num{color:var(--ok);}
-.tabs{display:flex; gap:8px; margin-bottom:14px; overflow-x:auto;}
-.tab{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:7px 14px; border-radius:999px; font-size:.82rem; cursor:pointer; white-space:nowrap;}
-.tab.active{background:var(--accent); color:#fff; border-color:var(--accent);}
-.card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-bottom:10px;}
-.card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
-.meta{font-size:.78rem; color:var(--sub);}
-.badge{font-size:.7rem; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--body); font-size:15px; line-height:1.5;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);}
+.wrap{max-width:840px; margin:0 auto; padding:28px 16px 64px;}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+button, select, input, textarea{font-family:inherit;}
+
+/* Header and day board */
+.brand{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:28px;}
+.wordmark{font-family:var(--display); font-weight:700; font-size:1.15rem; letter-spacing:-.01em; display:flex; align-items:center; gap:8px;}
+.wordmark .cross{width:18px; height:18px; color:var(--accent);}
+.brand a{color:var(--sub); font-size:.85rem; text-decoration:none; border-bottom:1px solid var(--line);}
+.brand a:hover{color:var(--ink); border-color:var(--ink);}
+.hero h1{font-family:var(--display); font-weight:700; font-size:clamp(1.7rem, 4.6vw, 2.6rem); line-height:1.08; letter-spacing:-.02em; margin:0 0 12px; max-width:22ch;}
+.hero p{margin:0; color:var(--sub); font-size:1rem; max-width:60ch;}
+.board{margin:24px 0 8px; display:grid; grid-template-columns:repeat(auto-fill, minmax(18px, 1fr)); gap:5px; max-width:840px;}
+.board i{display:block; aspect-ratio:1; border-radius:4px; background:var(--line);}
+.board i.ok{background:color-mix(in srgb, var(--ok) 35%, var(--card));}
+.board i.med{background:var(--med);}
+.board i.high{background:var(--high);}
+.board.animate i{animation:pop .35s ease-out both;}
+@keyframes pop{from{transform:scale(.3); opacity:0;} to{transform:scale(1); opacity:1;}}
+@media (prefers-reduced-motion: reduce){ .board.animate i{animation:none;} }
+.legend{display:flex; flex-wrap:wrap; gap:6px 20px; margin:12px 0 30px; font-size:.88rem; color:var(--sub);}
+.legend span{display:inline-flex; align-items:center; gap:7px;}
+.legend b{color:var(--ink); font-weight:700;}
+.legend i{width:12px; height:12px; border-radius:3px; display:inline-block;}
+
+/* Views */
+.tabs{display:flex; gap:22px; margin-bottom:18px; overflow-x:auto; border-bottom:1px solid var(--line); scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{background:none; border:none; border-bottom:2px solid transparent; color:var(--sub); padding:10px 0 9px; font-size:.95rem; font-weight:600; cursor:pointer; white-space:nowrap; margin-bottom:-1px;}
+.tab:hover{color:var(--ink);}
+.tab.active{color:var(--ink); border-bottom-color:var(--accent);}
+#risk-view > .tabs{border-bottom:none; gap:8px; margin-bottom:14px;}
+#risk-view > .tabs .tab{border:1px solid var(--line); border-radius:6px; padding:5px 12px; font-size:.84rem; margin:0;}
+#risk-view > .tabs .tab.active{background:var(--ink); color:var(--bg); border-color:var(--ink);}
+
+.card{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin-bottom:10px;}
+.card.visit{border-left:4px solid var(--line);}
+.card.visit.High{border-left-color:var(--high);}
+.card.visit.Medium{border-left-color:var(--med);}
+.card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+.visit-title{font-family:var(--display); font-weight:700; font-size:1.05rem; letter-spacing:-.01em;}
+.meta{font-size:.82rem; color:var(--sub);}
+.badge{font-size:.74rem; font-weight:700; padding:3px 9px; border-radius:6px; white-space:nowrap; background:var(--bg); color:var(--sub);}
 .badge.High{background:var(--high-bg); color:var(--high);}
 .badge.Medium{background:var(--med-bg); color:var(--med);}
-.reasons{margin:8px 0 10px; font-size:.83rem; color:var(--ink);}
-.reasons span{display:inline-block; background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:3px 8px; margin:2px 4px 0 0; font-size:.76rem; color:var(--sub);}
-.action-row{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:6px;}
-.action{font-size:.83rem;}
-.action b{color:var(--ink);}
-button.approve{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:7px 14px; font-size:.8rem; cursor:pointer;}
-button.approve.done{background:var(--ok-bg); color:var(--ok); cursor:default;}
-.note{color:var(--sub); font-size:.75rem; margin-top:22px; line-height:1.5; border-top:1px solid var(--line); padding-top:14px;}
-.vr-vitals{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0;}
-.vr-chip{font-size:.74rem; padding:3px 8px; border-radius:999px; background:var(--bg); border:1px solid var(--line);}
-.vr-chip.bad{background:var(--high-bg); color:var(--high); border-color:transparent;}
-.vr-chip.good{background:var(--ok-bg); color:var(--ok); border-color:transparent;}
-.vr-quote{font-size:.86rem; padding:8px 10px; border-left:3px solid var(--line); background:var(--bg); border-radius:6px; margin:6px 0;}
-.empty{color:var(--sub); font-size:.85rem; text-align:center; padding:30px 0;}
-.cascade-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:14px;}
-.cascade-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
-.cascade-head b{font-size:.95rem;}
-.chip{font-size:.7rem; padding:3px 9px; border-radius:999px; font-weight:700;}
+.badge.Low{background:var(--ok-bg); color:var(--ok);}
+.reasons{margin:10px 0; display:flex; flex-wrap:wrap; gap:6px;}
+.reasons span{background:var(--bg); border-radius:6px; padding:3px 9px; font-size:.8rem; color:var(--sub);}
+.action-row{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:8px; padding-top:10px; border-top:1px dashed var(--line);}
+.action{font-size:.88rem;}
+.action b{color:var(--ink); font-weight:600;}
+button.approve{background:var(--accent); color:var(--accent-ink); border:none; border-radius:8px; padding:9px 16px; font-size:.86rem; font-weight:600; cursor:pointer;}
+button.approve:hover{filter:brightness(1.08);}
+button.approve:disabled{opacity:.7; cursor:default;}
+button.approve.done{background:var(--ok-bg); color:var(--ok);}
+.signal{margin:10px 0 !important; padding:10px 12px !important; background:var(--bg) !important; border:none !important; border-radius:8px !important; font-size:.86rem !important;}
+select, input[type="date"], textarea{font-size:.95rem !important;}
+.note{color:var(--sub); font-size:.8rem; margin-top:24px; line-height:1.6; border-top:1px solid var(--line); padding-top:14px; max-width:72ch;}
+.empty{color:var(--sub); font-size:.9rem; text-align:center; padding:28px 0;}
+
+/* Visit reports */
+.vr-vitals{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 10px;}
+.vr-chip{font-size:.8rem; padding:3px 9px; border-radius:6px; background:var(--bg);}
+.vr-chip.bad{background:var(--high-bg); color:var(--high);}
+.vr-chip.good{background:var(--ok-bg); color:var(--ok);}
+.vr-quote{font-size:.95rem; padding:10px 14px; border-left:3px solid var(--accent); background:var(--bg); border-radius:0 8px 8px 0; margin:10px 0 12px;}
+
+/* Delay and cascade */
+.cascade-card{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin-bottom:12px;}
+.cascade-head{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px;}
+.cascade-head b{font-family:var(--display); font-size:1rem;}
+.chip{font-size:.74rem; padding:3px 9px; border-radius:6px; font-weight:700; white-space:nowrap;}
 .chip.ok{background:var(--ok-bg); color:var(--ok);}
 .chip.gap{background:var(--high-bg); color:var(--high);}
-.flow{display:flex; flex-direction:column; gap:6px; font-size:.85rem; margin:8px 0;}
-.flow .step{display:flex; gap:8px; align-items:flex-start;}
-.flow .dot{width:8px; height:8px; border-radius:50%; background:var(--sub); margin-top:6px; flex-shrink:0;}
+.flow{display:flex; flex-direction:column; gap:8px; font-size:.9rem; margin:8px 0; position:relative;}
+.flow .step{display:flex; gap:10px; align-items:flex-start;}
+.flow .dot{width:9px; height:9px; border-radius:50%; background:var(--sub); margin-top:7px; flex-shrink:0;}
 .flow .step.problem .dot{background:var(--high);}
 .flow .step.fix .dot{background:var(--ok);}
-.tag-inline{font-size:.72rem; background:var(--bg); border:1px solid var(--line); padding:2px 7px; border-radius:7px; color:var(--sub); margin-left:4px;}
+.tag-inline{font-size:.74rem; background:var(--bg); padding:2px 7px; border-radius:6px; color:var(--sub); margin-left:4px;}
+.footer{margin-top:40px; color:var(--sub); font-size:.8rem;}
+@media (max-width:560px){
+  .wrap{padding:20px 16px 48px;}
+  .board{grid-template-columns:repeat(auto-fill, minmax(14px, 1fr)); gap:4px;}
+  .action-row{flex-direction:column; align-items:stretch;}
+  #view-tabs{flex-wrap:wrap; gap:2px 18px;}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <h1>CareOps Daily Simulation</h1>
-    <p id="dateline"></p>
-  </header>
-
-  <div class="summary">
-    <div class="pill"><div class="num" id="s-total">-</div><div class="lbl">Total visits</div></div>
-    <div class="pill ok"><div class="num" id="s-ok">-</div><div class="lbl">On track</div></div>
-    <div class="pill med"><div class="num" id="s-med">-</div><div class="lbl">Need attention</div></div>
-    <div class="pill high"><div class="num" id="s-high">-</div><div class="lbl">High risk</div></div>
+  <div class="brand">
+    <div class="wordmark"><svg class="cross" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg>CareOps</div>
+    <a href="https://github.com/Ritikajaiswal2707/careops">How it was built</a>
   </div>
 
-  <div class="tabs" id="view-tabs">
-    <div class="tab active" data-v="risk">Risk dashboard</div>
-    <div class="tab" data-v="cascade">Delay &amp; cascade</div>
-    <div class="tab" data-v="live">Resolve a visit</div>
-    <div class="tab" data-v="vr">Visit reports</div>
+  <section class="hero" aria-labelledby="hero-title">
+    <h1 id="hero-title">Today's home visits</h1>
+    <p>CareOps flags the visits likely to go wrong, reads family messages in English and Hinglish, and proposes a fix for a coordinator to approve.</p>
+    <div class="board" id="board" role="img" aria-label="Today's visits by risk"></div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <div class="tabs" id="view-tabs" role="tablist" aria-label="Views">
+    <button type="button" class="tab active" data-v="risk">Risk dashboard</button>
+    <button type="button" class="tab" data-v="cascade">Delay &amp; cascade</button>
+    <button type="button" class="tab" data-v="live">Resolve a visit</button>
+    <button type="button" class="tab" data-v="vr">Visit reports</button>
   </div>
 
   <div id="risk-view">
     <div class="tabs">
-      <div class="tab active" data-f="all">All flagged</div>
-      <div class="tab" data-f="High">High risk</div>
-      <div class="tab" data-f="Medium">Medium</div>
+      <button type="button" class="tab active" data-f="all">All flagged</button>
+      <button type="button" class="tab" data-f="High">High risk</button>
+      <button type="button" class="tab" data-f="Medium">Needs attention</button>
     </div>
 
     <div id="list"></div>
@@ -158,6 +204,7 @@ button.approve.done{background:var(--ok-bg); color:var(--ok); cursor:default;}
       Synthetic data · simulated healthcare environment · not for clinical use. Recommendations are for review only; this public demo does not change schedules or contact patients/providers.
     </div>
   </div>
+  <div class="footer">Synthetic data from a simulated home-care operation, built as a product portfolio demo. Not for clinical use.</div>
 </div>
 <script>
 const DATA = {"today":"2026-08-29","summary":{"total":95,"high":10,"medium":9,"low":76},"flagged":[{"id":"APT004512","time":"Evening","service":"Wound Dressing","risk":0.45,"tier":"High","reasons":["3 prior no-shows before this visit","14.6km from clinician","Evening slot"],"action":"Call to confirm 24h ahead"},{"id":"APT006955","time":"Evening","service":"Post-Op Care","risk":0.43,"tier":"High","reasons":["2 prior no-shows before this visit","21.9km from clinician","Evening slot"],"action":"Reassign needed — no covering provider with spare capacity today"},{"id":"APT002040","time":"Afternoon","service":"Wound Dressing","risk":0.41,"tier":"High","reasons":["2 prior no-shows before this visit","Low message response rate so far","23.8km from clinician"],"action":"Reassign needed — no covering provider with spare capacity today"},{"id":"APT007922","time":"Evening","service":"Diabetic Care Visit","risk":0.39,"tier":"High","reasons":["2 prior no-shows before this visit","15.1km from clinician","Evening slot"],"action":"Reassign needed — no covering provider with spare capacity today"},{"id":"APT009386","time":"Evening","service":"Nursing Visit","risk":0.38,"tier":"High","reasons":["23.3km from clinician","Evening slot"],"action":"Patient confirmed — no action needed","patientSignal":{"channel":"WhatsApp","message":"Ok confirmed","intent":"Confirm","cancel_current":false,"preferred_day":null,"urgency":"Low","reason":null,"next_week":false,"relative_day":null,"offset_days":null,"source":"rule","escalate_to_human":false}},{"id":"APT004397","time":"Evening","service":"Nursing Visit","risk":0.37,"tier":"High","reasons":["2 prior no-shows before this visit","13.3km from clinician","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT007368","time":"Afternoon","service":"Post-Op Care","risk":0.37,"tier":"High","reasons":["3 prior no-shows before this visit"],"action":"Call to confirm 24h ahead"},{"id":"APT009378","time":"Afternoon","service":"Diabetic Care Visit","risk":0.36,"tier":"High","reasons":["2 prior no-shows before this visit","16.7km from clinician"],"action":"Reassign needed — no covering provider with spare capacity today"},{"id":"APT002495","time":"Evening","service":"Wound Dressing","risk":0.35,"tier":"High","reasons":["17.3km from clinician","Evening slot"],"action":"Reassign needed — no covering provider with spare capacity today"},{"id":"APT004846","time":"Evening","service":"Post-Op Care","risk":0.35,"tier":"High","reasons":["Low message response rate so far","24.8km from clinician"],"action":"Reassign needed — no covering provider with spare capacity today"},{"id":"APT007653","time":"Morning","service":"Wound Dressing","risk":0.34,"tier":"Medium","reasons":["2 prior no-shows before this visit","16.3km from clinician"],"action":"Send confirmation + backup contact request"},{"id":"APT001903","time":"Evening","service":"Nursing Visit","risk":0.34,"tier":"Medium","reasons":["17.7km from clinician","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT007546","time":"Afternoon","service":"Physiotherapy Session","risk":0.34,"tier":"Medium","reasons":["24.8km from clinician"],"action":"Send confirmation + backup contact request"},{"id":"APT009737","time":"Morning","service":"Wound Dressing","risk":0.34,"tier":"Medium","reasons":["24.4km from clinician"],"action":"Agent proposed: move to 2026-09-01 with PR010 — awaiting confirmation","patientSignal":{"channel":"WhatsApp","message":"Doctor visit hai usi din, reschedule possible?","intent":"Reschedule","cancel_current":false,"preferred_day":null,"urgency":"Medium","reason":"Conflicting doctor visit","next_week":false,"relative_day":null,"offset_days":null,"source":"rule","escalate_to_human":false},"agentTrace":["Patient (PT00275, Mumbai): \"Doctor visit hai usi din, reschedule possible?\"","Extracted (rule): intent=Reschedule, cancel_current=False, preferred_day=None, next_week=False, relative_day=None, offset_days=None, urgency=Medium, reason=Conflicting doctor visit","Checked 2026-08-30 via the unified Recovery Score engine: no eligible candidate found in Mumbai.","Checked 2026-08-31 via the unified Recovery Score engine: no eligible candidate found in Mumbai.","Checked 2026-09-01 via the unified Recovery Score engine: 1 eligible candidate(s) in Mumbai.","Proposed: move to 2026-09-01 with PR010 (Recovery Score 68.9: this is the patient's current provider, free on this date; 7 slot(s) free today; room in the same morning slot; General Nursing — primary fit for Wound Dressing).","State: PENDING -> PROPOSED (PR010). Case is now PROPOSED and stops here honestly — there is no live reply channel in this environment to actually receive PATIENT_CONFIRMED or DECLINED; advancing further needs a real channel to get the patient's answer from, not something to simulate as if it were live."],"rescheduleProposal":{"new_date":"2026-09-01","provider_id":"PR010","area":"Mumbai","remaining_capacity":7,"recovery_score":68.9,"reasons":["this is the patient's current provider, free on this date","7 slot(s) free today","room in the same morning slot","General Nursing — primary fit for Wound Dressing"],"state":"PROPOSED"}},{"id":"APT000881","time":"Morning","service":"Nursing Visit","risk":0.34,"tier":"Medium","reasons":["22.5km from clinician"],"action":"Patient confirmed — no action needed","patientSignal":{"channel":"Call","message":"Haan theek hai, confirm kar do","intent":"Confirm","cancel_current":false,"preferred_day":null,"urgency":"Low","reason":null,"next_week":false,"relative_day":null,"offset_days":null,"source":"rule","escalate_to_human":false}},{"id":"APT006706","time":"Evening","service":"Physiotherapy Session","risk":0.34,"tier":"Medium","reasons":["15.4km from clinician","Evening slot"],"action":"Send confirmation + backup contact request"},{"id":"APT006709","time":"Afternoon","service":"Wound Dressing","risk":0.34,"tier":"Medium","reasons":["2 prior no-shows before this visit","13.7km from clinician"],"action":"Agent proposed: move to 2026-08-31 with PR007 — awaiting confirmation","patientSignal":{"channel":"WhatsApp","message":"Can we move to next week?","intent":"Reschedule","cancel_current":false,"preferred_day":null,"urgency":"Medium","reason":null,"next_week":true,"relative_day":null,"offset_days":null,"source":"rule","escalate_to_human":false},"agentTrace":["Patient (PT01801, Hyderabad): \"Can we move to next week?\"","Extracted (rule): intent=Reschedule, cancel_current=False, preferred_day=None, next_week=True, relative_day=None, offset_days=None, urgency=Medium, reason=None","Checked 2026-08-31 via the unified Recovery Score engine: 1 eligible candidate(s) in Hyderabad.","Proposed: move to 2026-08-31 with PR007 (Recovery Score 73.4: 11.6 km from patient (inferred); 5 slot(s) free today; room in the same afternoon slot; has treated this patient before; General Nursing — primary fit for Wound Dressing).","State: PENDING -> PROPOSED (PR007). Case is now PROPOSED and stops here honestly — there is no live reply channel in this environment to actually receive PATIENT_CONFIRMED or DECLINED; advancing further needs a real channel to get the patient's answer from, not something to simulate as if it were live."],"rescheduleProposal":{"new_date":"2026-08-31","provider_id":"PR007","area":"Hyderabad","remaining_capacity":5,"recovery_score":73.4,"reasons":["11.6 km from patient (inferred)","5 slot(s) free today","room in the same afternoon slot","has treated this patient before","General Nursing — primary fit for Wound Dressing"],"state":"PROPOSED"}},{"id":"APT005092","time":"Afternoon","service":"Post-Op Care","risk":0.33,"tier":"Medium","reasons":["2 prior no-shows before this visit","15.0km from clinician"],"action":"Patient confirmed — no action needed","patientSignal":{"channel":"WhatsApp","message":"Yes that works, see you then","intent":"Confirm","cancel_current":false,"preferred_day":null,"urgency":"Low","reason":null,"next_week":false,"relative_day":null,"offset_days":null,"source":"rule","escalate_to_human":false}},{"id":"APT003376","time":"Morning","service":"Physiotherapy Session","risk":0.33,"tier":"Medium","reasons":["22.9km from clinician"],"action":"Send confirmation + backup contact request"}],"cascades":[{"id":"APT000022","service":"Post-Op Care","slot":"Afternoon","provider":"PR008 (Contractual)","delay":17,"buffer":19,"usedPct":89,"notified":false,"locGap":false,"recovery":"No backup provider with spare capacity today — needs manual coordinator call"},{"id":"APT003376","service":"Physiotherapy Session","slot":"Morning","provider":"PR016 (Contractual)","delay":13,"buffer":15,"usedPct":87,"notified":false,"locGap":true,"recovery":"Backup available: PR019 — 8.6 km from patient (inferred), 3 slot(s) free today, room in the same morning slot, has treated this patient before, Physiotherapy — primary fit for Physiotherapy Session"},{"id":"APT008100","service":"Nursing Visit","slot":"Evening","provider":"PR020 (Contractual)","delay":14,"buffer":16,"usedPct":88,"notified":false,"locGap":false,"recovery":"No backup provider with spare capacity today — needs manual coordinator call"}]};
@@ -169,8 +216,6 @@ function escapeHtml(value){
   })[ch]);
 }
 
-document.getElementById('dateline').textContent =
-  `Synthetic snapshot · ${DATA.today} · not live operations data`;
 
 let currentFilter = 'all';
 
@@ -179,12 +224,13 @@ function render(){
   const items = DATA.flagged.filter(v => currentFilter==='all' || v.tier===currentFilter);
   if(items.length===0){ list.innerHTML = '<div class="empty">Nothing in this view.</div>'; return; }
   list.innerHTML = items.map(v => `
-    <div class="card">
+    <div class="card visit ${escapeHtml(v.tier)}">
       <div class="card-top">
         <div>
-          <div class="meta">${escapeHtml(v.time)} · ${escapeHtml(v.service)} · ${escapeHtml(v.id)}</div>
+          <div class="visit-title">${escapeHtml(v.service)}</div>
+          <div class="meta">${escapeHtml(v.time)} visit, ${escapeHtml(v.id)}</div>
         </div>
-        <span class="badge ${escapeHtml(v.tier)}">${escapeHtml(v.tier)} · ${Math.round(v.risk*100)}%</span>
+        <span class="badge ${escapeHtml(v.tier)}">${v.tier === 'High' ? 'High risk' : 'Needs attention'} ${Math.round(v.risk*100)}%</span>
       </div>
       <div class="reasons">${v.reasons.map(r=>`<span>${escapeHtml(r)}</span>`).join('')}</div>
       ${v.patientSignal ? `
@@ -599,13 +645,23 @@ async function findRecovery(){
   `).join('');
 }
 
-// Fill the four summary pills from DATA.summary.
+// Day board: one mark per visit in today's snapshot, coloured by risk tier.
 function renderSummary(){
   const s = DATA.summary || {};
-  document.getElementById('s-total').textContent = s.total ?? '-';
-  document.getElementById('s-ok').textContent = s.low ?? '-';
-  document.getElementById('s-med').textContent = s.medium ?? '-';
-  document.getElementById('s-high').textContent = s.high ?? '-';
+  const total = Number(s.total) || 0, high = Number(s.high) || 0, med = Number(s.medium) || 0;
+  const ok = Math.max(0, total - high - med);
+  const need = high + med;
+  document.getElementById('hero-title').textContent =
+    `${need} of today's ${total} home visits need a coordinator`;
+  const board = document.getElementById('board');
+  const marks = [...Array(high).fill('high'), ...Array(med).fill('med'), ...Array(ok).fill('ok')];
+  board.innerHTML = marks.map((c, i) => `<i class="${c}" style="animation-delay:${Math.min(i * 12, 900)}ms"></i>`).join('');
+  board.classList.add('animate');
+  board.setAttribute('aria-label', `${high} high risk, ${med} need attention, ${ok} on track, out of ${total} visits`);
+  document.getElementById('legend').innerHTML = `
+    <span><i style="background:var(--high)"></i><b>${high}</b> high risk</span>
+    <span><i style="background:var(--med)"></i><b>${med}</b> need attention</span>
+    <span><i style="background:color-mix(in srgb, var(--ok) 35%, var(--card))"></i><b>${ok}</b> on track</span>`;
 }
 
 renderSummary();
