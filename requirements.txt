@@ -9,6 +9,8 @@ fastapi>=0.110,<1.0
 pydantic>=2.6,<3.0
 uvicorn[standard]>=0.29,<1.0
 requests>=2.31,<3.0
+# Audio uploads for /api/visit-report/audio.
+python-multipart>=0.0.9,<1.0
 
 # Optional: only needed for the LLM half of model/llm_vs_baseline_eval.py,
 # and as main.py's fallback if GEMINI_API_KEY isn't set (see

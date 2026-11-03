@@ -1,0 +1,440 @@
+{
+ "suite_name": "CareOps Visit Report Eval v1",
+ "version": "1.0.0",
+ "frozen_on": "2026-10-31",
+ "sha256_of_cases": "8f41481d67d3f491a7d16f81cbfd0ec7c6d35299320c35b749d33bf8ba1b72b3",
+ "purpose": "Measure structured extraction from caregiver visit notes: correct vitals, no invented vitals, and that every case a coordinator should see first is flagged.",
+ "labelling_conventions": [
+  "gold_vitals holds TODAY's stated value for each vital, else null; spoken numbers are converted to digits.",
+  "When a reading is repeated, gold holds the first stated value.",
+  "gold_needs_review is a human judgement: would a coordinator want to see this before the family gets an update? Routine notes with normal-range values are False.",
+  "Red-flag cases are illustrative routing examples, not clinical guidance."
+ ],
+ "limitations": [
+  "Synthetic text notes written by the project developer; real speech-to-text errors are not represented.",
+  "30 cases; small.",
+  "Written with the safety layer's design in mind, so it tests the intended behaviours rather than sampling real visits."
+ ],
+ "cases": [
+  {
+   "id": "VR01",
+   "category": "digits_routine",
+   "transcript": "Visit done. BP 128/82, sugar fasting 112, oxygen 97, pulse 76. Uncle ne nashta kar liya tha, morning ki dawai le li. Sab normal laga.",
+   "gold_vitals": {
+    "bp_systolic": 128,
+    "bp_diastolic": 82,
+    "blood_sugar_mg_dl": 112,
+    "spo2_pct": 97,
+    "pulse_bpm": 76,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR02",
+   "category": "digits_routine",
+   "transcript": "Aunty ka BP 134 by 86 aaya, SpO2 98 percent. Sugar check nahi kiya kyunki strips khatam thi. Thoda walk karwaya.",
+   "gold_vitals": {
+    "bp_systolic": 134,
+    "bp_diastolic": 86,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": 98,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR03",
+   "category": "digits_routine",
+   "transcript": "Pulse 72, temperature 98.4. BP 122/78. Papa cheerful the, newspaper padh rahe the.",
+   "gold_vitals": {
+    "bp_systolic": 122,
+    "bp_diastolic": 78,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": 72,
+    "temperature_f": 98.4
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR04",
+   "category": "digits_routine",
+   "transcript": "Random sugar 168, BP 138/88. Unhone bataya raat ko neend theek aayi. Medicine box refill kiya.",
+   "gold_vitals": {
+    "bp_systolic": 138,
+    "bp_diastolic": 88,
+    "blood_sugar_mg_dl": 168,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR05",
+   "category": "digits_routine",
+   "transcript": "Oxygen 96, pulse 80, BP 126 by 80. Mummy ko thoda ghutne mein dard hai, purani problem hai, ice pack lagaya.",
+   "gold_vitals": {
+    "bp_systolic": 126,
+    "bp_diastolic": 80,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": 96,
+    "pulse_bpm": 80,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR06",
+   "category": "digits_routine",
+   "transcript": "BP 140/90, sugar 145. Halki khansi hai do din se, bukhar nahi hai. Paani zyada peene ko bola.",
+   "gold_vitals": {
+    "bp_systolic": 140,
+    "bp_diastolic": 90,
+    "blood_sugar_mg_dl": 145,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR07",
+   "category": "no_vitals",
+   "transcript": "Aaj sirf companion visit tha. Bank gaye, passbook update karwayi, phir chai pi aur ghar chhod diya. Aunty khush thi.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR08",
+   "category": "no_vitals",
+   "transcript": "Machine ki battery dead thi isliye aaj vitals nahi le paayi. Dawai ka routine check kiya, sab time pe le rahe hain.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR09",
+   "category": "no_vitals",
+   "transcript": "Papa ke saath park mein 20 minute walk kiya. Unhone apne purane office ke dost ke baare mein baatein ki. Mood achha tha.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR10",
+   "category": "no_vitals",
+   "transcript": "Grocery delivery set up karwa di unke phone pe. Video call pe beti se baat karwayi.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR11",
+   "category": "partial",
+   "transcript": "Sirf BP liya, 132/84. Baaki machine kal laungi.",
+   "gold_vitals": {
+    "bp_systolic": 132,
+    "bp_diastolic": 84,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR12",
+   "category": "partial",
+   "transcript": "Sugar 190 aaya khana khane ke baad. BP lene se mana kar diya, bol rahe the thak gaye hain.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": 190,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR13",
+   "category": "partial",
+   "transcript": "SpO2 95 tha. Uncle so rahe the toh zyada disturb nahi kiya.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": 95,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR14",
+   "category": "spoken_numbers",
+   "transcript": "BP ek sau bees by assi tha, oxygen sattanve. Mummy ne lunch achhe se kiya.",
+   "gold_vitals": {
+    "bp_systolic": 120,
+    "bp_diastolic": 80,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": 97,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR15",
+   "category": "spoken_numbers",
+   "transcript": "Sugar do sau das aaya, thoda high hai, unhone mithai khayi thi. BP one thirty by eighty five.",
+   "gold_vitals": {
+    "bp_systolic": 130,
+    "bp_diastolic": 85,
+    "blood_sugar_mg_dl": 210,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR16",
+   "category": "spoken_numbers",
+   "transcript": "Pulse bahattar, temperature ninety eight point six. Sab theek.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": 72,
+    "temperature_f": 98.6
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR17",
+   "category": "spoken_numbers",
+   "transcript": "Blood pressure one forty by ninety, sugar one fifty.",
+   "gold_vitals": {
+    "bp_systolic": 140,
+    "bp_diastolic": 90,
+    "blood_sugar_mg_dl": 150,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR18",
+   "category": "red_flag_vitals",
+   "transcript": "Oxygen sirf 89 aa raha tha, do baar check kiya. BP 130/80. Uncle thode thake hue lag rahe the.",
+   "gold_vitals": {
+    "bp_systolic": 130,
+    "bp_diastolic": 80,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": 89,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": true
+  },
+  {
+   "id": "VR19",
+   "category": "red_flag_vitals",
+   "transcript": "BP 186/104 aaya, dobara liya toh 182/100. Unhone subah ki dawai miss kar di thi.",
+   "gold_vitals": {
+    "bp_systolic": 186,
+    "bp_diastolic": 104,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": true
+  },
+  {
+   "id": "VR20",
+   "category": "red_flag_vitals",
+   "transcript": "Sugar 62 tha, haath kaanp rahe the. Turant juice diya, 15 min baad 88 aaya.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": 62,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": true
+  },
+  {
+   "id": "VR21",
+   "category": "red_flag_vitals",
+   "transcript": "Temperature 103 hai, BP 118/76. Bahut weak feel kar rahi hain.",
+   "gold_vitals": {
+    "bp_systolic": 118,
+    "bp_diastolic": 76,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": 103
+   },
+   "gold_needs_review": true
+  },
+  {
+   "id": "VR22",
+   "category": "red_flag_words",
+   "transcript": "Papa kal raat bathroom mein gir gaye the, mathe pe halki chot hai. BP 136/86.",
+   "gold_vitals": {
+    "bp_systolic": 136,
+    "bp_diastolic": 86,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": true
+  },
+  {
+   "id": "VR23",
+   "category": "red_flag_words",
+   "transcript": "Aunty bol rahi thi seene mein dard ho raha hai subah se. BP 150/92, pulse 98.",
+   "gold_vitals": {
+    "bp_systolic": 150,
+    "bp_diastolic": 92,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": 98,
+    "temperature_f": null
+   },
+   "gold_needs_review": true
+  },
+  {
+   "id": "VR24",
+   "category": "red_flag_words",
+   "transcript": "Saans lene mein dikkat ho rahi thi chadhte waqt. Oxygen 93.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": 93,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": true
+  },
+  {
+   "id": "VR25",
+   "category": "red_flag_words",
+   "transcript": "Mummy aaj thoda confused thi, mujhe pehchan nahi paayi pehle. Baad mein theek ho gayi.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": true
+  },
+  {
+   "id": "VR26",
+   "category": "distractor",
+   "transcript": "Room number 120 mein shift ho gaye hain. BP 124/80 aaya. 2 tablets subah wali di.",
+   "gold_vitals": {
+    "bp_systolic": 124,
+    "bp_diastolic": 80,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR27",
+   "category": "distractor",
+   "transcript": "Pichle hafte BP 160 tha, aaj 130/84 aaya, dawai ka asar hai. Sugar 118.",
+   "gold_vitals": {
+    "bp_systolic": 130,
+    "bp_diastolic": 84,
+    "blood_sugar_mg_dl": 118,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR28",
+   "category": "distractor",
+   "transcript": "Unki age 78 hai, weight 64 kg. Pulse 70, oxygen 98.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": 98,
+    "pulse_bpm": 70,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR29",
+   "category": "distractor",
+   "transcript": "Doctor ne 10 din ka course diya hai, aaj 4th din hai. Temperature 99.1, bukhar utar raha hai.",
+   "gold_vitals": {
+    "bp_systolic": null,
+    "bp_diastolic": null,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": 99.1
+   },
+   "gold_needs_review": false
+  },
+  {
+   "id": "VR30",
+   "category": "distractor",
+   "transcript": "Beti ne 3 baar call kiya. BP 128/86. Lunch 1 baje kiya.",
+   "gold_vitals": {
+    "bp_systolic": 128,
+    "bp_diastolic": 86,
+    "blood_sugar_mg_dl": null,
+    "spo2_pct": null,
+    "pulse_bpm": null,
+    "temperature_f": null
+   },
+   "gold_needs_review": false
+  }
+ ]
+}

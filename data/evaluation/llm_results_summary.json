@@ -1,0 +1,202 @@
+[
+  {
+    "file": "groq_gpt-oss-120b_eval.json",
+    "model": "openai/gpt-oss-120b",
+    "prompt": "v1",
+    "suite": "heldout",
+    "n": 103,
+    "p50_latency_ms": 1324.9,
+    "raw": {
+      "intent_accuracy": 0.883,
+      "false_confirmations": 0,
+      "false_cancellations": 1
+    },
+    "with_guardrail": {
+      "intent_accuracy": 0.874,
+      "false_confirmations": 0,
+      "false_cancellations": 1,
+      "sent_to_human_by_guardrail": 1,
+      "true_confirms_sent_to_human": 1
+    }
+  },
+  {
+    "file": "groq_openai_gpt-oss-120b_heldout_v2_eval.json",
+    "model": "openai/gpt-oss-120b",
+    "prompt": "v2",
+    "suite": "heldout",
+    "n": 103,
+    "p50_latency_ms": 1222.1,
+    "raw": {
+      "intent_accuracy": 0.981,
+      "false_confirmations": 0,
+      "false_cancellations": 0
+    },
+    "with_guardrail": {
+      "intent_accuracy": 0.971,
+      "false_confirmations": 0,
+      "false_cancellations": 0,
+      "sent_to_human_by_guardrail": 1,
+      "true_confirms_sent_to_human": 1
+    }
+  },
+  {
+    "file": "groq_openai_gpt-oss-20b_heldout_v2_eval.json",
+    "model": "openai/gpt-oss-20b",
+    "prompt": "v2",
+    "suite": "heldout",
+    "n": 103,
+    "p50_latency_ms": 1321.7,
+    "raw": {
+      "intent_accuracy": 0.971,
+      "false_confirmations": 0,
+      "false_cancellations": 0
+    },
+    "with_guardrail": {
+      "intent_accuracy": 0.961,
+      "false_confirmations": 0,
+      "false_cancellations": 0,
+      "sent_to_human_by_guardrail": 1,
+      "true_confirms_sent_to_human": 1
+    }
+  },
+  {
+    "file": "groq_openai_gpt-oss-120b_holdout_v1_eval.json",
+    "model": "openai/gpt-oss-120b",
+    "prompt": "v1",
+    "suite": "holdout",
+    "n": 30,
+    "p50_latency_ms": 1223.4,
+    "raw": {
+      "intent_accuracy": 0.8,
+      "false_confirmations": 0,
+      "false_cancellations": 0
+    },
+    "with_guardrail": {
+      "intent_accuracy": 0.8,
+      "false_confirmations": 0,
+      "false_cancellations": 0,
+      "sent_to_human_by_guardrail": 0,
+      "true_confirms_sent_to_human": 0
+    }
+  },
+  {
+    "file": "groq_openai_gpt-oss-120b_holdout_v2_eval.json",
+    "model": "openai/gpt-oss-120b",
+    "prompt": "v2",
+    "suite": "holdout",
+    "n": 30,
+    "p50_latency_ms": 1220.0,
+    "raw": {
+      "intent_accuracy": 0.933,
+      "false_confirmations": 2,
+      "false_cancellations": 0
+    },
+    "with_guardrail": {
+      "intent_accuracy": 1.0,
+      "false_confirmations": 0,
+      "false_cancellations": 0,
+      "sent_to_human_by_guardrail": 2,
+      "true_confirms_sent_to_human": 0
+    }
+  },
+  {
+    "file": "groq_openai_gpt-oss-20b_holdout_v2_eval.json",
+    "model": "openai/gpt-oss-20b",
+    "prompt": "v2",
+    "suite": "holdout",
+    "n": 30,
+    "p50_latency_ms": 1119.4,
+    "raw": {
+      "intent_accuracy": 0.967,
+      "false_confirmations": 1,
+      "false_cancellations": 0
+    },
+    "with_guardrail": {
+      "intent_accuracy": 1.0,
+      "false_confirmations": 0,
+      "false_cancellations": 0,
+      "sent_to_human_by_guardrail": 1,
+      "true_confirms_sent_to_human": 0
+    }
+  },
+  {
+    "file": "groq_openai_gpt-oss-120b_holdout2_v1_eval.json",
+    "model": "openai/gpt-oss-120b",
+    "prompt": "v1",
+    "suite": "holdout2",
+    "n": 39,
+    "p50_latency_ms": 1315.5,
+    "raw": {
+      "intent_accuracy": 0.769,
+      "false_confirmations": 0,
+      "false_cancellations": 0
+    },
+    "with_guardrail": {
+      "intent_accuracy": 0.769,
+      "false_confirmations": 0,
+      "false_cancellations": 0,
+      "sent_to_human_by_guardrail": 0,
+      "true_confirms_sent_to_human": 0
+    }
+  },
+  {
+    "file": "groq_openai_gpt-oss-120b_holdout2_v2_eval.json",
+    "model": "openai/gpt-oss-120b",
+    "prompt": "v2",
+    "suite": "holdout2",
+    "n": 39,
+    "p50_latency_ms": 1321.3,
+    "raw": {
+      "intent_accuracy": 0.949,
+      "false_confirmations": 2,
+      "false_cancellations": 0
+    },
+    "with_guardrail": {
+      "intent_accuracy": 1.0,
+      "false_confirmations": 0,
+      "false_cancellations": 0,
+      "sent_to_human_by_guardrail": 2,
+      "true_confirms_sent_to_human": 0
+    }
+  },
+  {
+    "file": "groq_openai_gpt-oss-120b_holdout2_v3_eval.json",
+    "model": "openai/gpt-oss-120b",
+    "prompt": "v3",
+    "suite": "holdout2",
+    "n": 39,
+    "p50_latency_ms": 1219.7,
+    "raw": {
+      "intent_accuracy": 0.974,
+      "false_confirmations": 1,
+      "false_cancellations": 0
+    },
+    "with_guardrail": {
+      "intent_accuracy": 1.0,
+      "false_confirmations": 0,
+      "false_cancellations": 0,
+      "sent_to_human_by_guardrail": 1,
+      "true_confirms_sent_to_human": 0
+    }
+  },
+  {
+    "file": "groq_openai_gpt-oss-20b_holdout2_v3_eval.json",
+    "model": "openai/gpt-oss-20b",
+    "prompt": "v3",
+    "suite": "holdout2",
+    "n": 39,
+    "p50_latency_ms": 1222.6,
+    "raw": {
+      "intent_accuracy": 0.923,
+      "false_confirmations": 2,
+      "false_cancellations": 0
+    },
+    "with_guardrail": {
+      "intent_accuracy": 0.949,
+      "false_confirmations": 0,
+      "false_cancellations": 0,
+      "sent_to_human_by_guardrail": 2,
+      "true_confirms_sent_to_human": 0
+    }
+  }
+]

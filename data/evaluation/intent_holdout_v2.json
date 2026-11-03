@@ -1,0 +1,254 @@
+{
+ "suite_name": "CareOps Intent Holdout v2",
+ "version": "1.0.0",
+ "frozen_on": "2026-10-31",
+ "sha256_of_cases": "64d00a7656141a57416a3c1042399b0376bcd38debaccf35130fa1845a73b34d",
+ "purpose": "Fresh frozen holdout written after the v1/v2 prompt error analysis on holdout v1, and BEFORE prompt v3 was ever run. Holdout v1 has now informed prompt design, so this set replaces it as the clean test for prompt v3 and later. Do not tune prompts on it.",
+ "labelling_conventions": [
+  "Confirm requires the sender to agree the visit goes ahead; a bare agreement ('yes', a thumbs-up) counts.",
+  "A thank-you alone, or news about someone else's delay (provider, driver), is Unclear: it does not say whether the visit is on.",
+  "Questions, complaints, requests for information and non-committal replies are Unclear.",
+  "No Response only for empty or whitespace-only messages."
+ ],
+ "limitations": [
+  "Synthetic messages authored by the project developer, not sampled from real families.",
+  "39 cases: small; differences of 1-2 cases are not statistically meaningful.",
+  "Written with knowledge of earlier failure modes, so it over-represents boundary cases by design."
+ ],
+ "cases": [
+  {
+   "id": "H2-01",
+   "category": "confirm_minimal",
+   "message": "yes",
+   "expected_intent": "Confirm"
+  },
+  {
+   "id": "H2-02",
+   "category": "confirm_minimal",
+   "message": "👍",
+   "expected_intent": "Confirm"
+  },
+  {
+   "id": "H2-03",
+   "category": "confirm_hinglish",
+   "message": "ji haan, kal milte hain",
+   "expected_intent": "Confirm"
+  },
+  {
+   "id": "H2-04",
+   "category": "confirm_hinglish",
+   "message": "theek hai, 11 baje aa jaiye",
+   "expected_intent": "Confirm"
+  },
+  {
+   "id": "H2-05",
+   "category": "confirm_hinglish",
+   "message": "perfect, mummy ghar pe hi rahengi",
+   "expected_intent": "Confirm"
+  },
+  {
+   "id": "H2-06",
+   "category": "confirm_explicit",
+   "message": "confirmed for tomorrow morning",
+   "expected_intent": "Confirm"
+  },
+  {
+   "id": "H2-07",
+   "category": "confirm_devanagari",
+   "message": "हाँ ठीक है, आ जाइए",
+   "expected_intent": "Confirm"
+  },
+  {
+   "id": "H2-08",
+   "category": "confirm_with_instruction",
+   "message": "we'll be home, door bell kharab hai so call karna",
+   "expected_intent": "Confirm"
+  },
+  {
+   "id": "H2-09",
+   "category": "reschedule_relative",
+   "message": "aaj mushkil hai, parso aa sakte ho?",
+   "expected_intent": "Reschedule"
+  },
+  {
+   "id": "H2-10",
+   "category": "reschedule_time_only",
+   "message": "can it be evening instead of morning same day?",
+   "expected_intent": "Reschedule"
+  },
+  {
+   "id": "H2-11",
+   "category": "reschedule_reason",
+   "message": "papa ki dialysis hai us din, Monday rakh lo",
+   "expected_intent": "Reschedule"
+  },
+  {
+   "id": "H2-12",
+   "category": "reschedule_far",
+   "message": "please make it next month, we are in Pune till then",
+   "expected_intent": "Reschedule"
+  },
+  {
+   "id": "H2-13",
+   "category": "reschedule_no_date",
+   "message": "shift kar do, date baad mein batayenge",
+   "expected_intent": "Reschedule"
+  },
+  {
+   "id": "H2-14",
+   "category": "reschedule_devanagari",
+   "message": "उस दिन हम बाहर हैं, कोई और दिन बताइए",
+   "expected_intent": "Reschedule"
+  },
+  {
+   "id": "H2-15",
+   "category": "reschedule_time_only",
+   "message": "can the sister come a bit later, around 4?",
+   "expected_intent": "Reschedule"
+  },
+  {
+   "id": "H2-16",
+   "category": "reschedule_typo",
+   "message": "not tmrw pls, any day after diwali",
+   "expected_intent": "Reschedule"
+  },
+  {
+   "id": "H2-17",
+   "category": "reschedule_indirect",
+   "message": "yaar sunday better rahega humare liye",
+   "expected_intent": "Reschedule"
+  },
+  {
+   "id": "H2-18",
+   "category": "reschedule_no_date",
+   "message": "we need to postpone, will share a date soon",
+   "expected_intent": "Reschedule"
+  },
+  {
+   "id": "H2-19",
+   "category": "cancel_explicit",
+   "message": "please cancel, we don't need it anymore",
+   "expected_intent": "Cancel"
+  },
+  {
+   "id": "H2-20",
+   "category": "cancel_reason",
+   "message": "mummy hospital mein admit hain, visit cancel kar dijiye",
+   "expected_intent": "Cancel"
+  },
+  {
+   "id": "H2-21",
+   "category": "cancel_indirect",
+   "message": "band kar do ye visits, ab zarurat nahi",
+   "expected_intent": "Cancel"
+  },
+  {
+   "id": "H2-22",
+   "category": "cancel_explicit",
+   "message": "cancel tomorrow's visit",
+   "expected_intent": "Cancel"
+  },
+  {
+   "id": "H2-23",
+   "category": "cancel_devanagari",
+   "message": "रद्द कर दीजिए, धन्यवाद",
+   "expected_intent": "Cancel"
+  },
+  {
+   "id": "H2-24",
+   "category": "cancel_reason",
+   "message": "we've hired a full time attendant, so cancel this one",
+   "expected_intent": "Cancel"
+  },
+  {
+   "id": "H2-25",
+   "category": "cancel_hinglish",
+   "message": "nahi chahiye kal wala visit",
+   "expected_intent": "Cancel"
+  },
+  {
+   "id": "H2-26",
+   "category": "unclear_thanks_only",
+   "message": "Thank you so much",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-27",
+   "category": "unclear_third_party_delay",
+   "message": "the sister said she will be 30 mins late",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-28",
+   "category": "unclear_question",
+   "message": "what time is she coming?",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-29",
+   "category": "unclear_noncommittal",
+   "message": "maybe, let me check with my brother",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-30",
+   "category": "unclear_complaint",
+   "message": "last baar BP machine kharab thi",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-31",
+   "category": "unclear_question",
+   "message": "is the doctor visit included in this?",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-32",
+   "category": "unclear_noncommittal",
+   "message": "dekhte hain",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-33",
+   "category": "unclear_thanks_only",
+   "message": "🙏",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-34",
+   "category": "unclear_request",
+   "message": "can you send the bill on whatsapp",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-35",
+   "category": "unclear_third_party_delay",
+   "message": "driver is stuck in traffic",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-36",
+   "category": "unclear_question",
+   "message": "who is coming this time?",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-37",
+   "category": "unclear_noncommittal",
+   "message": "depends on the weather, will tell you",
+   "expected_intent": "Unclear"
+  },
+  {
+   "id": "H2-38",
+   "category": "empty",
+   "message": "",
+   "expected_intent": "No Response"
+  },
+  {
+   "id": "H2-39",
+   "category": "empty",
+   "message": "   ",
+   "expected_intent": "No Response"
+  }
+ ]
+}

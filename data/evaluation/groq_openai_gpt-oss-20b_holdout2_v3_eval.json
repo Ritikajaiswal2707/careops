@@ -1,0 +1,339 @@
+{
+  "provider": "groq",
+  "model": "openai/gpt-oss-20b",
+  "prompt_version": "v3",
+  "suite": "holdout2",
+  "run_at_utc": "2026-10-30T23:41:01+00:00",
+  "n_cases": 39,
+  "full_set": true,
+  "metrics": {
+    "n": 39,
+    "intent_accuracy": 0.923,
+    "intent_macro_f1": 0.936,
+    "intent_f1_by_class": {
+      "Cancel": 1.0,
+      "Confirm": 0.824,
+      "No Response": 1.0,
+      "Reschedule": 0.9,
+      "Unclear": 0.957
+    },
+    "temporal_extraction_accuracy": null,
+    "reason_extraction_accuracy": null,
+    "cancel_current_accuracy": null,
+    "abstention_rate": 0.282,
+    "json_validity_rate": 1.0,
+    "false_confirmations": 2,
+    "false_cancellations": 0,
+    "real_message_marked_no_response": 0,
+    "avg_latency_ms": 1519.8,
+    "p50_latency_ms": 1222.6,
+    "p95_latency_ms": 3750.6,
+    "input_tokens_total": 19848,
+    "output_tokens_total": 8979,
+    "errors": 0,
+    "infra_errors": 0,
+    "intent_accuracy_excluding_infra_errors": 0.923,
+    "actual_spend_inr": 0.0,
+    "paid_tier_cost_per_message_inr": null
+  },
+  "errors": [],
+  "misclassified": [
+    {
+      "case": "H2-03",
+      "message": "ji haan, kal milte hain",
+      "true_intent": "Confirm",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "H2-11",
+      "message": "papa ki dialysis hai us din, Monday rakh lo",
+      "true_intent": "Reschedule",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "H2-27",
+      "message": "the sister said she will be 30 mins late",
+      "true_intent": "Unclear",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    }
+  ],
+  "predictions": [
+    {
+      "case": "H2-01",
+      "message": "yes",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "H2-02",
+      "message": "👍",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "H2-03",
+      "message": "ji haan, kal milte hain",
+      "true_intent": "Confirm",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "H2-04",
+      "message": "theek hai, 11 baje aa jaiye",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "H2-05",
+      "message": "perfect, mummy ghar pe hi rahengi",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "H2-06",
+      "message": "confirmed for tomorrow morning",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "H2-07",
+      "message": "हाँ ठीक है, आ जाइए",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "H2-08",
+      "message": "we'll be home, door bell kharab hai so call karna",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "H2-09",
+      "message": "aaj mushkil hai, parso aa sakte ho?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "H2-10",
+      "message": "can it be evening instead of morning same day?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "H2-11",
+      "message": "papa ki dialysis hai us din, Monday rakh lo",
+      "true_intent": "Reschedule",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "H2-12",
+      "message": "please make it next month, we are in Pune till then",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "H2-13",
+      "message": "shift kar do, date baad mein batayenge",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "H2-14",
+      "message": "उस दिन हम बाहर हैं, कोई और दिन बताइए",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "H2-15",
+      "message": "can the sister come a bit later, around 4?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "H2-16",
+      "message": "not tmrw pls, any day after diwali",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "H2-17",
+      "message": "yaar sunday better rahega humare liye",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "H2-18",
+      "message": "we need to postpone, will share a date soon",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "H2-19",
+      "message": "please cancel, we don't need it anymore",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "json_valid": true
+    },
+    {
+      "case": "H2-20",
+      "message": "mummy hospital mein admit hain, visit cancel kar dijiye",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "json_valid": true
+    },
+    {
+      "case": "H2-21",
+      "message": "band kar do ye visits, ab zarurat nahi",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "json_valid": true
+    },
+    {
+      "case": "H2-22",
+      "message": "cancel tomorrow's visit",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "json_valid": true
+    },
+    {
+      "case": "H2-23",
+      "message": "रद्द कर दीजिए, धन्यवाद",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "json_valid": true
+    },
+    {
+      "case": "H2-24",
+      "message": "we've hired a full time attendant, so cancel this one",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "json_valid": true
+    },
+    {
+      "case": "H2-25",
+      "message": "nahi chahiye kal wala visit",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "json_valid": true
+    },
+    {
+      "case": "H2-26",
+      "message": "Thank you so much",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "H2-27",
+      "message": "the sister said she will be 30 mins late",
+      "true_intent": "Unclear",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "H2-28",
+      "message": "what time is she coming?",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "H2-29",
+      "message": "maybe, let me check with my brother",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "H2-30",
+      "message": "last baar BP machine kharab thi",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "H2-31",
+      "message": "is the doctor visit included in this?",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "H2-32",
+      "message": "dekhte hain",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "H2-33",
+      "message": "🙏",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "H2-34",
+      "message": "can you send the bill on whatsapp",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "H2-35",
+      "message": "driver is stuck in traffic",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "H2-36",
+      "message": "who is coming this time?",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "H2-37",
+      "message": "depends on the weather, will tell you",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "H2-38",
+      "message": "",
+      "true_intent": "No Response",
+      "pred_intent": "No Response",
+      "json_valid": true
+    },
+    {
+      "case": "H2-39",
+      "message": "   ",
+      "true_intent": "No Response",
+      "pred_intent": "No Response",
+      "json_valid": true
+    }
+  ],
+  "notes": "Synthetic, author-labelled held-out set. Latency includes network time from the machine that ran this script. Paid-tier cost is only computed from prices supplied via environment variables at run time."
+}

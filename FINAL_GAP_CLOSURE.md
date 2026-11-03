@@ -3,7 +3,7 @@
 ## Changes made in this pass
 
 1. **Evidence hygiene:** corrected the README's stale frozen-holdout headline from 23/30 to the current locally reproduced 25/30 result. The old result is retained only as historical context. The holdout remains author-created and synthetic.
-2. **Customer discovery attribution:** the README now explicitly records that the project was informed by real conversations and observed workflow/app interactions with PeakAge city coordinators, nurses, and care-operations stakeholders. It describes the documented qualitative insights without inventing a participant count, measured handling-time baseline, quotes, or quantified frequency.
+2. **Customer discovery attribution:** the README now explicitly records that the project was informed by real conversations and observed workflow/app interactions with city coordinators, nurses, and care-operations stakeholders at an elder-care startup in India. It describes the documented qualitative insights without inventing a participant count, measured handling-time baseline, quotes, or quantified frequency.
 3. **Public demo guardrails:** Render is configured with `CAREOPS_PUBLIC_DEMO_READ_ONLY=true` and `CAREOPS_DISABLE_EXTERNAL_LLM=true`. Agent case creation/retrieval/decision/execution endpoints return 403 in public read-only mode. The external LLM fallback returns no result when disabled, allowing the parser to escalate rather than make a network call.
 4. **Regression coverage:** added tests for public read-only mode and external-LLM disabling.
 

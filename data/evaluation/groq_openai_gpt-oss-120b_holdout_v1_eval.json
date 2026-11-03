@@ -1,0 +1,295 @@
+{
+  "provider": "groq",
+  "model": "openai/gpt-oss-120b",
+  "prompt_version": "v1",
+  "suite": "holdout",
+  "run_at_utc": "2026-10-30T22:41:47+00:00",
+  "n_cases": 30,
+  "full_set": true,
+  "metrics": {
+    "n": 30,
+    "intent_accuracy": 0.8,
+    "intent_macro_f1": 0.749,
+    "intent_f1_by_class": {
+      "Cancel": 1.0,
+      "Confirm": 1.0,
+      "No Response": 0.286,
+      "Reschedule": 0.96,
+      "Unclear": 0.5
+    },
+    "temporal_extraction_accuracy": null,
+    "reason_extraction_accuracy": null,
+    "cancel_current_accuracy": null,
+    "abstention_rate": 0.1,
+    "json_validity_rate": 1.0,
+    "false_confirmations": 0,
+    "false_cancellations": 0,
+    "real_message_marked_no_response": 5,
+    "avg_latency_ms": 1279.3,
+    "p50_latency_ms": 1223.4,
+    "p95_latency_ms": 1832.8,
+    "input_tokens_total": 15282,
+    "output_tokens_total": 6581,
+    "errors": 0,
+    "actual_spend_inr": 0.0,
+    "paid_tier_cost_per_message_inr": null
+  },
+  "errors": [],
+  "misclassified": [
+    {
+      "case": "HO20",
+      "message": "Maybe Friday could work, I need to check.",
+      "true_intent": "Unclear",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO23",
+      "message": "Don't cancel the appointment yet; I will confirm later.",
+      "true_intent": "Unclear",
+      "pred_intent": "No Response",
+      "json_valid": true
+    },
+    {
+      "case": "HO24",
+      "message": "We are not cancelling; can you tell us the current time?",
+      "true_intent": "Unclear",
+      "pred_intent": "No Response",
+      "json_valid": true
+    },
+    {
+      "case": "HO27",
+      "message": "Can you tell me the nurse's phone number?",
+      "true_intent": "Unclear",
+      "pred_intent": "No Response",
+      "json_valid": true
+    },
+    {
+      "case": "HO28",
+      "message": "What are the doctor's instructions for my medication?",
+      "true_intent": "Unclear",
+      "pred_intent": "No Response",
+      "json_valid": true
+    },
+    {
+      "case": "HO30",
+      "message": "Thanks.",
+      "true_intent": "Unclear",
+      "pred_intent": "No Response",
+      "json_valid": true
+    }
+  ],
+  "predictions": [
+    {
+      "case": "HO01",
+      "message": "Please reschedule my visit to Friday.",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO02",
+      "message": "Could the nurse come on Saturday instead?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO03",
+      "message": "I need to move this appointment to another day.",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO04",
+      "message": "Can we push the visit to next week?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO05",
+      "message": "Visit ko Monday shift karna hai.",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO06",
+      "message": "I have a work conflict; can we move it to Thursday?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO07",
+      "message": "Please make the appointment later in the day.",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO08",
+      "message": "Can you arrange the visit three days from now?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO09",
+      "message": "Aaj possible nahi hai, kal kar do.",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO10",
+      "message": "Could you change the visit to the weekend?",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO11",
+      "message": "Please call off the appointment.",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "json_valid": true
+    },
+    {
+      "case": "HO12",
+      "message": "We won't need the nurse anymore.",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "json_valid": true
+    },
+    {
+      "case": "HO13",
+      "message": "Booking withdraw karni hai.",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "json_valid": true
+    },
+    {
+      "case": "HO14",
+      "message": "Don't send anyone for this appointment.",
+      "true_intent": "Cancel",
+      "pred_intent": "Cancel",
+      "json_valid": true
+    },
+    {
+      "case": "HO15",
+      "message": "Confirmed, we'll be home at the scheduled time.",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "HO16",
+      "message": "The original slot works for me.",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "HO17",
+      "message": "Haan, hum available rahenge.",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "HO18",
+      "message": "Okay, please keep it as planned.",
+      "true_intent": "Confirm",
+      "pred_intent": "Confirm",
+      "json_valid": true
+    },
+    {
+      "case": "HO19",
+      "message": "I might be out for a while that afternoon.",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "HO20",
+      "message": "Maybe Friday could work, I need to check.",
+      "true_intent": "Unclear",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO21",
+      "message": "Can somebody call me about the visit?",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "HO22",
+      "message": "The nurse is running late.",
+      "true_intent": "Unclear",
+      "pred_intent": "Unclear",
+      "json_valid": true
+    },
+    {
+      "case": "HO23",
+      "message": "Don't cancel the appointment yet; I will confirm later.",
+      "true_intent": "Unclear",
+      "pred_intent": "No Response",
+      "json_valid": true
+    },
+    {
+      "case": "HO24",
+      "message": "We are not cancelling; can you tell us the current time?",
+      "true_intent": "Unclear",
+      "pred_intent": "No Response",
+      "json_valid": true
+    },
+    {
+      "case": "HO25",
+      "message": "Cancel today's visit and move it to Wednesday.",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO26",
+      "message": "I cannot attend tomorrow, please find another slot next week.",
+      "true_intent": "Reschedule",
+      "pred_intent": "Reschedule",
+      "json_valid": true
+    },
+    {
+      "case": "HO27",
+      "message": "Can you tell me the nurse's phone number?",
+      "true_intent": "Unclear",
+      "pred_intent": "No Response",
+      "json_valid": true
+    },
+    {
+      "case": "HO28",
+      "message": "What are the doctor's instructions for my medication?",
+      "true_intent": "Unclear",
+      "pred_intent": "No Response",
+      "json_valid": true
+    },
+    {
+      "case": "HO29",
+      "message": "",
+      "true_intent": "No Response",
+      "pred_intent": "No Response",
+      "json_valid": true
+    },
+    {
+      "case": "HO30",
+      "message": "Thanks.",
+      "true_intent": "Unclear",
+      "pred_intent": "No Response",
+      "json_valid": true
+    }
+  ],
+  "notes": "Synthetic, author-labelled held-out set. Latency includes network time from the machine that ran this script. Paid-tier cost is only computed from prices supplied via environment variables at run time."
+}
