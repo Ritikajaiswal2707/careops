@@ -4,6 +4,8 @@
 
 Built for the realities of India's home-care market: contractual providers with day-to-day availability, families who message in English, Hindi and Hinglish, and elderly patients who can't afford a missed visit.
 
+**Live demo: [https://careops-live-demo-18xj.onrender.com/](https://careops-live-demo-18xj.onrender.com/)** (free hosting, so the first load can take up to a minute)
+
 > All data is synthetic. This is a product portfolio project: it shows problem framing, evaluation and AI-product judgment, not production outcomes.
 
 ---
@@ -71,7 +73,7 @@ uvicorn main:app --reload          # open http://127.0.0.1:8000
 python -m pytest -q                # full test suite
 ```
 
-The dashboard's main views show a **precomputed synthetic snapshot**; the "Try the AI" tab calls the live FastAPI backend. The approval animation is a **browser-side simulation**: nothing is booked or sent. A Render config (`render.yaml`) deploys a read-only public demo with external LLM calls disabled; the hosted URL was not verified for this update.
+The dashboard's main views show a **precomputed synthetic snapshot**; the "Resolve a visit" and "Visit reports" tabs call the live FastAPI backend. The approval animation is a **browser-side simulation**: nothing is booked or sent. The [live demo](https://careops-live-demo-18xj.onrender.com/) is a read-only deployment (`render.yaml`) with external LLM calls disabled: approvals cannot be recorded, and visit reports fail closed to coordinator review while still running the deterministic red-flag checks. Verified on 4 November 2026: all tabs load without errors, and the API, read-only guard and visit-report endpoints respond as described.
 
 ## Go deeper
 
