@@ -17,11 +17,13 @@ def test_health_endpoint():
     assert response.json()["mode"] == "synthetic-demo"
 
 
-def test_root_serves_dashboard_and_simulation_label():
+def test_root_serves_dashboard_and_synthetic_data_disclosure():
     response = client.get("/")
     assert response.status_code == 200
-    assert "CareOps Daily Simulation" in response.text
-    assert "not live operations data" in response.text
+    assert "<title>CareOps</title>" in response.text
+    # The header line was removed in the redesign; the page must still disclose synthetic data.
+    assert "Synthetic data from a simulated home-care operation" in response.text
+    assert "Not for clinical use" in response.text
 
 
 def test_operations_endpoint_returns_fixed_snapshot():

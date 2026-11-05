@@ -8,6 +8,17 @@ Built for the realities of India's home-care market: contractual providers with 
 
 > All data is synthetic. This is a product portfolio project: it shows problem framing, evaluation and AI-product judgment, not production outcomes.
 
+![CareOps day board: 19 of 95 home visits flagged for a coordinator](docs/media/dashboard.png)
+
+**[Watch the 73-second walkthrough](docs/media/careops-demo.mp4)**: risk ranking, a Hinglish reschedule, provider recovery, and voice visit reports that hold unsafe updates for review.
+
+<details>
+<summary>Example: the safety layer catching what the model missed</summary>
+
+![Visit report VR20: the model kept only the normal sugar reading; the reading scan caught the earlier low of 62 and held the family update](docs/media/visit-reports.png)
+
+</details>
+
 ---
 
 ## How it works
@@ -79,4 +90,4 @@ The dashboard's main views show a **precomputed synthetic snapshot**; the "Resol
 
 - [Technical deep dive](docs/DEEP_DIVE.md) — every module, evaluation, bug found and limitation
 - [PRD](docs/PRD.md) · [Product decisions](docs/PRODUCT_DECISIONS.md) · [Roadmap](docs/PRODUCT_ROADMAP.md) · [Experiment design](EXPERIMENT_DESIGN.md)
-- [Agent evaluation](docs/AGENT_EVALUATION.md) · [Parser safety audit](PHASE13_EVALUATION.md) · [Approval lifecycle](docs/APPROVAL_LIFECYCLE.md)
+- [Agent evaluation](docs/AGENT_EVALUATION.md) · [Parser safety audit](docs/PHASE13_EVALUATION.md) · [Approval lifecycle](docs/APPROVAL_LIFECYCLE.md)
