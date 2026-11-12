@@ -39,7 +39,9 @@ Before real user sessions, I used the product as five coordinator personas: a fi
 2. **Order of operations is a safety issue.** A reschedule told the nurse before the family agreed. Now the family is asked first.
 3. **The AI was not the bottleneck; the last step was.** Every suggestion still needed a hand-typed WhatsApp message, so each action now comes with an editable Hinglish or English draft.
 
-I also learned that a disruption usually arrives per nurse ("Sunita is sick today"), not per visit. That is the next flow to build, after real coordinators confirm it.
+I also learned that a disruption usually arrives per nurse ("Sunita is sick today"), not per visit, so I added a first version of that flow: pick the nurse who is out and CareOps suggests cover for all her visits without overloading anyone. It also exposed a real capacity problem in the data: for most nurses, fewer than half of their visits can be covered the same day.
+
+A second round with ten reviewers (a recruiter, a senior PM, an AI PM interviewer, an engineer, a data scientist, a designer, an agency founder, an NRI son, a nurse and a doctor) led to clearer framing (a portfolio banner, "where AI is used"), an accessibility pass (no automated WCAG 2 AA violations), cited thresholds, a check that family updates never add medical words the caregiver did not use, confidence intervals on every headline number, and a calibration plot for the risk model.
 
 ## Results (synthetic data, real model runs)
 
@@ -60,7 +62,7 @@ I also learned that a disruption usually arrives per nurse ("Sunita is sick toda
 ## What's next
 
 1. Test with 3 to 5 real coordinators ([testing kit](USER_TESTING.md)) and measure time to resolve a disrupted visit.
-2. Build the nurse drop-out flow (one nurse out, all her visits fixed together) if they confirm it.
+2. Ask them whether the "nurse is out today" flow matches how sick calls really arrive.
 3. Measure the guardrail on a third holdout frozen before any further change.
 4. Turn on live road ETAs and check whether they change the recommended provider.
 5. Calibrate the risk model for first-time patients.

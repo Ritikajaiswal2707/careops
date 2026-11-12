@@ -33,7 +33,7 @@ import openai_compat_llm
 from llm_prompt import strip_json_fence
 
 # 1.0: grounding + red flags on the reported values. 1.1: also scans every reading in the note.
-SAFETY_VERSION = "1.1"
+SAFETY_VERSION = "1.2"
 
 VITAL_FIELDS = ["bp_systolic", "bp_diastolic", "blood_sugar_mg_dl", "spo2_pct", "pulse_bpm", "temperature_f"]
 
@@ -103,6 +103,34 @@ def readings_found(transcript):
                       else "outside usual range" if not (low <= v <= high) else "usual")
             out.append({"vital": field, "value": int(v) if float(v).is_integer() else v, "status": status})
     return out
+
+
+# Medical words a family update may only use when the note itself says them (in
+# English or a common Hindi/Hinglish equivalent). A summary that adds one, e.g.
+# "fracture" or "infection" for a note that never mentioned it, is held for the
+# coordinator: the family should never receive a diagnosis the caregiver did not make.
+SUMMARY_MEDICAL_TERMS = {
+    "fracture": r"fracture|haddi tut|haddi toot|हड्डी",
+    "infection": r"infection|infect|sankraman|संक्रमण",
+    "stroke": r"stroke|lakwa|paralys|लकवा",
+    "injury": r"injur|chot|चोट|ghaav|ghav|wound",
+    "hypoglycemia": r"hypoglyc",
+    "hypertension": r"hypertens",
+    "dehydration": r"dehydrat|paani ki kami",
+    "pneumonia": r"pneumonia",
+    "heart attack": r"heart attack|dil ka daura",
+    "diabetes": r"diabet|sugar ki bimari|madhumeh",
+    "fever": r"fever|bukhar|बुखार|temperature|temp",
+    "concussion": r"concuss",
+    "seizure": r"seizure|daura|दौरा",
+}
+
+
+def added_medical_terms(summary, transcript):
+    """Medical words the summary uses that the note never mentions."""
+    summ, note = (summary or "").lower(), (transcript or "").lower()
+    return sorted(term for term, note_pat in SUMMARY_MEDICAL_TERMS.items()
+                  if re.search(rf"\b{term}", summ) and not re.search(note_pat, note))
 
 
 RED_FLAG_WORDS = (
@@ -230,12 +258,15 @@ def apply_safety(transcript, report):
     words = sorted({m.group(0) for m in re.finditer(RED_FLAG_WORDS, (transcript or "").lower())})
     red_flags += [f"keyword:{w}" for w in words]
 
-    needs_review = bool(unverified or red_flags)
+    added_terms = added_medical_terms(report.get("family_summary"), transcript)
+    needs_review = bool(unverified or red_flags or added_terms)
     review_reasons = []
     if unverified:
         review_reasons.append("vital value not found as a number in the note: " + ", ".join(sorted(unverified)))
     if red_flags:
         review_reasons.append("red flag: " + ", ".join(red_flags))
+    if added_terms:
+        review_reasons.append("family update adds medical words not in the note: " + ", ".join(added_terms))
 
     return {
         "vitals": verified,

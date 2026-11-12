@@ -138,3 +138,15 @@ def test_uncertain_future_change_does_not_become_cancellation():
         result = extract_intent(message)
         assert result["intent"] == "Unclear"
         assert result["cancel_current"] is False
+
+
+def test_confidence_interval_and_kappa_helpers():
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "model"))
+    from confidence_intervals import wilson
+    from labeller_agreement import cohens_kappa
+    lo, hi = wilson(38, 39)
+    assert 0.86 < lo < 0.88 and 0.99 < hi <= 1.0
+    assert cohens_kappa(["a", "b", "a", "a"], ["a", "b", "b", "a"]) == 0.5
+    assert cohens_kappa(["a", "b"], ["a", "b"]) == 1.0

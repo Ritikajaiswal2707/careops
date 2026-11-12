@@ -135,8 +135,14 @@ def test_reschedule_rejects_blank_and_long_messages():
     assert "x" * 200 not in long.text
 
 
+def _dashboard_source():
+    """The page is split into index.html (markup and generated data) and app.js (behaviour)."""
+    root = Path(__file__).resolve().parents[1] / "dashboard"
+    return "\n".join((root / name).read_text(encoding="utf-8") for name in ("index.html", "app.js", "styles.css"))
+
+
 def test_dashboard_escapes_untrusted_trace_strings():
-    html = (Path(__file__).resolve().parents[1] / "dashboard" / "index.html").read_text(encoding="utf-8")
+    html = _dashboard_source()
     assert "function escapeHtml(value)" in html
     assert "${escapeHtml(e.message)}" in html
     assert "This public demo can recommend a fix, but cannot record an approval or change a schedule." in html
@@ -166,10 +172,21 @@ def test_external_llm_can_be_disabled_for_public_demo(monkeypatch):
 
 
 def test_dashboard_never_marks_unassigned_visit_as_handled():
-    html = client.get("/").text
+    html = client.get("/").text + client.get("/app.js").text
+    assert client.get("/app.js").status_code == 200 and client.get("/styles.css").status_code == 200
     # Trust rules from coordinator walkthroughs: an escalated visit stays unassigned,
     # and a nurse is told only after the family agrees.
     assert "Marked as handled" not in html
     assert "Escalated · unassigned" in html
     assert "She is not told yet" in html
     assert "Already confirmed by the family" in html
+
+
+def test_nurse_day_lists_one_nurses_visits_read_only():
+    response = client.get("/api/nurse-day/PR016")
+    assert response.status_code == 200
+    body = response.json()
+    assert body["provider_id"] == "PR016" and body["visits"]
+    assert all(v["appointment_id"].startswith("APT") for v in body["visits"])
+    assert client.get("/api/nurse-day/PR999").status_code == 404
+    assert client.get("/api/nurse-day/../x").status_code in (404, 422)

@@ -15,6 +15,6 @@ python-multipart>=0.0.9,<1.0
 # Optional: only needed for the LLM half of model/llm_vs_baseline_eval.py,
 # and as main.py's fallback if GEMINI_API_KEY isn't set (see
 # model/hybrid_extraction.py's default_llm_call()). Neither the offline
-# pipeline nor the live demo's default (Gemini) path requires this --
+# pipeline nor the live demo (Groq or another OpenAI-compatible provider) requires this --
 # install separately, and set ANTHROPIC_API_KEY, only if you want it:
 #   pip install anthropic

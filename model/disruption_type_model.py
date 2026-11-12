@@ -40,10 +40,9 @@ distinction — worth being precise about, since a real deployment can only
 condition on Stage 1's predicted flag, not the true outcome it's still
 trying to predict.
 """
-import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score
-from disruption_model import df, train_df, test_df, FEATURES_FIXED
+from disruption_model import train_df, test_df, FEATURES_FIXED
 
 # ---- Stage 2: among ACTUAL disruptions, No-Show vs. Cancelled ----
 train_disrupted = train_df[train_df["status"].isin(["No-Show", "Cancelled"])].copy()
