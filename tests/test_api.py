@@ -51,8 +51,8 @@ def test_script_like_reschedule_message_is_safe_for_dashboard_rendering(monkeypa
     assert response.status_code == 200
     assert message in response.text
     html = (Path(__file__).resolve().parents[1] / "dashboard" / "index.html").read_text(encoding="utf-8")
-    assert "Resolve a visit" in html
-    assert "Find replacement option" in html
+    assert "Fix a visit" in html
+    assert "Find a replacement" in html
     assert "Run recovery agent" not in html
     assert "Legacy reschedule flow" not in html
     assert "data.trace.map(l => `· ${l}`)" not in html
@@ -139,7 +139,7 @@ def test_dashboard_escapes_untrusted_trace_strings():
     html = (Path(__file__).resolve().parents[1] / "dashboard" / "index.html").read_text(encoding="utf-8")
     assert "function escapeHtml(value)" in html
     assert "${escapeHtml(e.message)}" in html
-    assert "This public demo can recommend a recovery, but cannot record an approval or change a schedule." in html
+    assert "This public demo can recommend a fix, but cannot record an approval or change a schedule." in html
     assert "CareOps could not complete that request." in html
 
 
@@ -163,3 +163,13 @@ def test_external_llm_can_be_disabled_for_public_demo(monkeypatch):
     monkeypatch.setenv("GEMINI_API_KEY", "test-key-must-not-be-used")
     monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key-must-not-be-used")
     assert default_llm_call("please reschedule") is None
+
+
+def test_dashboard_never_marks_unassigned_visit_as_handled():
+    html = client.get("/").text
+    # Trust rules from coordinator walkthroughs: an escalated visit stays unassigned,
+    # and a nurse is told only after the family agrees.
+    assert "Marked as handled" not in html
+    assert "Escalated · unassigned" in html
+    assert "She is not told yet" in html
+    assert "Already confirmed by the family" in html

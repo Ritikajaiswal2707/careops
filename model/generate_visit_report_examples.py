@@ -55,6 +55,7 @@ def build():
             "unverified": {LABELS[f]: v for f, v in safe["unverified_vitals"].items()},
             "needs_review": safe["needs_coordinator_review"],
             "reasons": safe["review_reasons"],
+            "readings": safe["readings"],
             "family_summary": safe["family_summary"],
             "draft_family_summary": safe["draft_family_summary"],
         })

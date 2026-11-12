@@ -10,9 +10,16 @@ Built for the realities of India's home-care market: contractual providers with 
 
 **Short on time? Read the [one-page case study](docs/CASE_STUDY.md)**: the problem, key product decisions, results and what I learned.
 
-![CareOps day board: 19 of 95 home visits flagged for a coordinator](docs/media/dashboard.png)
+![CareOps: 16 of 95 home visits need the coordinator today](docs/media/dashboard.png)
 
-**[Watch the 73-second walkthrough](docs/media/careops-demo.mp4)**: risk ranking, a Hinglish reschedule, provider recovery, and voice visit reports that hold unsafe updates for review.
+**[Watch the walkthrough](docs/media/careops-demo.mp4)**: a Hinglish reschedule with a ready-to-send reply, a nurse running late, a replacement nurse, and visit reports that hold unsafe updates for review.
+
+<details>
+<summary>Example: a Hinglish message becomes a proposed fix and a reply ready to send</summary>
+
+![A family asks to reschedule in Hinglish; CareOps proposes a day with the usual nurse, explains why, and drafts the WhatsApp reply](docs/media/reschedule-draft.png)
+
+</details>
 
 <details>
 <summary>Example: the safety layer catching what the model missed</summary>
@@ -38,6 +45,22 @@ Family message ──► Understand ──► Find recovery options ──► Pr
 | **Understand** | Extracts intent, requested day, reason and whether the current visit is being dropped | Rules are free and instant, so the LLM is called only when they abstain. A deterministic guardrail can send any Confirm to a human; anything unclear escalates instead of guessing |
 | **Recover** | Ranks eligible replacement providers with a plain-language "why", using road travel time when routing is on | Service fit is a hard filter, not a score, so an ineligible provider can never win on proximity; a straight-line estimate is never shown as a road ETA |
 | **Approve** | Persists every proposal and decision with an audit trail | High-stakes actions stay human; the agent fails closed on errors |
+
+## What changed after coordinator walkthroughs
+
+I walked through the product as five coordinator personas (field coordinator, elder-companionship coordinator, hospital clinical lead, night-shift coordinator, agency owner). It surfaced three trust-breaking issues and a mismatch with how coordinators work. All are fixed:
+
+| Found | Fix |
+|---|---|
+| Approving a visit with no backup nurse said "Marked as handled" | It now says "Escalated · unassigned" and stays on the list |
+| A reschedule told the nurse about the booking before the family agreed | The slot is held quietly; the nurse is told only after the family says yes |
+| Visits the family had already confirmed still sat in "needs attention" | Moved to a separate "Already confirmed" group; the headline counts only open visits |
+| IDs (APT004512, PR019) and "Evening slot" instead of people and times | Synthetic patient and nurse names, exact times, masked phone numbers |
+| Every suggestion still needed a hand-typed WhatsApp message | An editable Hinglish/English message is drafted for each action (templates, never sent automatically) |
+| "No suitable replacement found. Contact the operations lead." | Next-best options: find the next day with a free nurse, a message asking the family to move |
+| BP 170/100 was not called out; system text such as "external LLM calls are disabled" reached the coordinator | Every reading in the note is shown as usual, outside the usual range, or red flag; reasons are in plain words |
+
+These are simulated personas, so they are hypotheses to test with real coordinators ([testing kit](docs/USER_TESTING.md)), not evidence.
 
 ## Results (synthetic, author-labelled data)
 
@@ -87,7 +110,7 @@ uvicorn main:app --reload          # open http://127.0.0.1:8000
 python -m pytest -q                # full test suite
 ```
 
-The dashboard's main views show a **precomputed synthetic snapshot**; the "Resolve a visit" and "Visit reports" tabs call the live FastAPI backend. The approval animation is a **browser-side simulation**: nothing is booked or sent. The [live demo](https://careops-live-demo-18xj.onrender.com/) is a read-only deployment (`render.yaml`) with external LLM calls disabled: approvals cannot be recorded, and visit reports fail closed to coordinator review while still running the deterministic red-flag checks. Verified on 4 November 2026: all tabs load without errors, and the API, read-only guard and visit-report endpoints respond as described.
+The dashboard's main views show a **precomputed synthetic snapshot**; the "Fix a visit" and "Visit reports" tabs call the live FastAPI backend. Patient and nurse names, visit times and phone numbers are synthetic, derived from the IDs. The approval animation is a **browser-side simulation**: nothing is booked or sent. The [live demo](https://careops-live-demo-18xj.onrender.com/) is a read-only deployment (`render.yaml`) with external LLM calls disabled: approvals cannot be recorded, and visit reports fail closed to coordinator review while still running the deterministic red-flag checks. Verified on 4 November 2026: all tabs load without errors, and the API, read-only guard and visit-report endpoints respond as described.
 
 ## How this was built
 

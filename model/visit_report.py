@@ -79,6 +79,32 @@ READING_KEYWORDS = {
     "bp": (r"bp|blood pressure|बीपी", None),
 }
 
+# Illustrative "outside the usual range" bands (not clinical guidance). They never
+# change routing on their own; they make a reading like BP 170/100 visible to the
+# coordinator even when it is below the red-flag line.
+USUAL_RANGES = {
+    "bp_systolic": (100, 139),
+    "bp_diastolic": (60, 89),
+    "blood_sugar_mg_dl": (80, 180),
+    "spo2_pct": (95, 100),
+    "pulse_bpm": (60, 100),
+    "temperature_f": (97.0, 99.4),
+}
+
+
+def readings_found(transcript):
+    """Every reading stated as digits in the note, with a plain status:
+    'red flag' (forces review), 'outside usual range' (shown, does not force review) or 'usual'."""
+    out = []
+    for field, values in scan_readings(transcript).items():
+        low, high = USUAL_RANGES[field]
+        for v in values:
+            status = ("red flag" if RED_FLAG_RULES[field](v)
+                      else "outside usual range" if not (low <= v <= high) else "usual")
+            out.append({"vital": field, "value": int(v) if float(v).is_integer() else v, "status": status})
+    return out
+
+
 RED_FLAG_WORDS = (
     r"chest pain|seene mein dard|seene me dard|breathless|saans (?:lene mein|me|mein) (?:dikkat|taklif|problem)|"
     r"saans phool|fell|fall|gir gay[ae]|gir gai|behosh|unconscious|fainted|confus|bleeding|khoon|"
@@ -218,6 +244,7 @@ def apply_safety(transcript, report):
         "observations": [str(x) for x in report.get("observations") or []],
         "concerns": [str(x) for x in report.get("concerns") or []],
         "red_flags": red_flags,
+        "readings": readings_found(transcript),
         "needs_coordinator_review": needs_review,
         "review_reasons": review_reasons,
         # The family update is held whenever a human needs to look first.
@@ -250,7 +277,7 @@ def _fail_closed(transcript, reason):
     flags += [f"keyword:{w}" for w in words]
     return {
         "vitals": {f: None for f in VITAL_FIELDS}, "unverified_vitals": {}, "medications": [],
-        "observations": [], "concerns": [], "red_flags": flags,
+        "observations": [], "concerns": [], "red_flags": flags, "readings": readings_found(transcript),
         "needs_coordinator_review": True,
         "review_reasons": [reason] + ([f"red flag: {', '.join(flags)}"] if flags else []),
         "family_summary": None, "draft_family_summary": None, "transcript": transcript, "model": None,
