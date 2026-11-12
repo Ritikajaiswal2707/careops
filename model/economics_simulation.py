@@ -23,7 +23,7 @@ EXPERIMENT_DESIGN.md RCT could go test, not a claimed return.
 """
 import json
 import os
-from disruption_model import df, X_test, y_test, model, features
+from disruption_model import X_test, y_test, model, features
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 

@@ -21,7 +21,7 @@ import os
 
 import requests
 
-from llm_prompt import EXTRACTION_PROMPT, PROMPTS, runtime_prompt, strip_json_fence
+from llm_prompt import EXTRACTION_PROMPT, runtime_prompt, strip_json_fence
 
 PRESETS = {
     "groq": "https://api.groq.com/openai/v1",

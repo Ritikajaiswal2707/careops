@@ -9,7 +9,6 @@ from typing import Callable
 
 from approval_store import (
     CaseConflictError,
-    CaseNotFoundError,
     get_case,
     record_simulated_execution,
 )

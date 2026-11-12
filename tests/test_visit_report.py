@@ -228,3 +228,13 @@ def test_fail_closed_report_lists_readings(monkeypatch):
     out = visit_report.build_report("BP 170/100, chakkar aa raha tha.")
     assert out["needs_coordinator_review"]
     assert [r["value"] for r in out["readings"]] == [170, 100]
+
+
+def test_family_update_that_adds_medical_words_is_held():
+    note = "Mummy thaki hui thi, khana kam khaya."
+    out = visit_report.apply_safety(note, {**_report(), "family_summary": "She may have an infection and a fever."})
+    assert out["needs_coordinator_review"] and out["family_summary"] is None
+    assert any("infection" in r and "fever" in r for r in out["review_reasons"])
+    # A plain translation of what the note says is allowed ("chot" -> injury).
+    ok = visit_report.apply_safety("Papa ko halki chot lagi.", {**_report(), "family_summary": "He had a minor injury."})
+    assert not any("medical words" in r for r in ok["review_reasons"])

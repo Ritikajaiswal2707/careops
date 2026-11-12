@@ -82,9 +82,8 @@ import os
 from collections import Counter
 
 import numpy as np
-import pandas as pd
 
-from disruption_model import test_df, y_test, y_proba, features
+from disruption_model import test_df, y_test, y_proba
 from capacity_recovery import build_candidates, recommend, commit_recommendation
 from agent_state_machine import RescheduleCase
 

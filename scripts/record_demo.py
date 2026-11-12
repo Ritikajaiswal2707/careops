@@ -17,6 +17,7 @@ from playwright.async_api import async_playwright
 
 URL = sys.argv[1]
 OUT = sys.argv[2]
+SHORT = len(sys.argv) > 3 and sys.argv[3] == "short"
 
 OVERLAY = """
 (() => {
@@ -84,54 +85,43 @@ async def main():
         await pg.add_script_tag(content=OVERLAY)
         await pg.wait_for_timeout(1600)
 
-        await caption(pg, "A home-care coordinator's day: 95 visits. CareOps shows the 16 that need her.", 3200)
-        await caption(pg, "Each one is a person and a time, with a plain reason it might go wrong.", 600)
-        await scroll_to(pg, pg.locator("#list .card").first, 90)
-        await pg.wait_for_timeout(2400)
-
-        card = pg.locator("#list .card", has_text="Doctor visit hai usi din")
+        await caption(pg, "A home-care coordinator's day: 95 visits. CareOps shows the 16 that need her.", 3000)
+        card = pg.locator("#list .card.start")
         await scroll_to(pg, card, 70)
         await caption(pg, "A family writes in Hinglish: “Doctor visit hai usi din, reschedule possible?”", 2600)
-        await caption(pg, "CareOps finds a day with the usual nurse and drafts the reply to send.", 300)
-        await click(pg, card.locator("details.trace > summary").first, 2600)
-        await click(pg, card.locator("details.trace > summary").first, 300)
-        await scroll_to(pg, card.locator("details.draft"), 160)
-        await pg.wait_for_timeout(1800)
+        await caption(pg, "CareOps finds a day with the usual nurse and drafts the reply, ready to send.", 300)
+        await scroll_to(pg, card.locator("details.draft"), 200)
+        await pg.wait_for_timeout(2600)
         await caption(pg, "Approving holds the slot. The nurse is told only after the family says yes.", 300)
-        await click(pg, card.locator("button.approve"), 3400)
+        await click(pg, card.locator("button.approve"), 3000)
+        await click(pg, card.locator("button", has_text="Family said yes"), 2400)
 
-        nb = pg.locator("#list .card", has_text="none is free today").first
-        await scroll_to(pg, nb, 120)
-        await caption(pg, "No backup nurse free? It is escalated and stays unassigned, never “handled”.", 300)
-        await click(pg, nb.locator("button.approve"), 2800)
+        if not SHORT:
+            nb = pg.locator("#list .card", has_text="none is free today").first
+            await scroll_to(pg, nb, 120)
+            await caption(pg, "No backup nurse free? It is escalated and stays unassigned, never “handled”.", 300)
+            await click(pg, nb.locator("button.approve"), 2600)
 
-        await caption(pg, "A nurse is running late, and the next family has not been told. The message is ready.", 300)
-        await click(pg, pg.locator('#view-tabs .tab[data-v="cascade"]'), 300)
-        await pg.evaluate("window.scrollTo({top: 330, behavior: 'smooth'})")
-        await pg.wait_for_timeout(3800)
+            await caption(pg, "A nurse is running late, and the next family has not been told. The message is ready.", 300)
+            await click(pg, pg.locator('#view-tabs .tab[data-v="cascade"]'), 300)
+            await pg.evaluate("window.scrollTo({top: 380, behavior: 'smooth'})")
+            await pg.wait_for_timeout(3400)
 
-        await caption(pg, "A nurse drops out: the best replacement, with its reasons, and the family message.", 300)
-        await click(pg, pg.locator('#view-tabs .tab[data-v="live"]'), 600)
-        await click(pg, pg.locator("#find-recovery-button"), 1800)
-        await scroll_to(pg, pg.locator("#live-result"), 90)
-        await pg.wait_for_timeout(3600)
+            await caption(pg, "A nurse calls in sick: CareOps suggests cover for all her visits, without overloading anyone.", 300)
+            await click(pg, pg.locator('#view-tabs .tab[data-v="live"]'), 600)
+            await click(pg, pg.locator("#mode-nurse"), 300)
+            await click(pg, pg.locator("#nurse-button"), 6500)
+            await scroll_to(pg, pg.locator("#nurse-result"), 90)
+            await pg.wait_for_timeout(3600)
 
         await caption(pg, "After each visit, the caregiver's voice note becomes a report for the family.", 300)
         await click(pg, pg.locator('#view-tabs .tab[data-v="vr"]'), 600)
-        await scroll_to(pg, pg.locator("#vr-list .card", has_text="VR14"), 60)
-        await caption(pg, "The model misheard “sattanve” (97) as 100. Checks after the model held it for a human.", 4000)
+        if not SHORT:
+            await scroll_to(pg, pg.locator("#vr-list .card", has_text="VR14"), 60)
+            await caption(pg, "The AI misheard “sattanve” (97) as 100. Checks after the AI held it for a human.", 4000)
         await scroll_to(pg, pg.locator("#vr-list .card", has_text="VR20"), 60)
-        await caption(pg, "Sugar was 62, then 88. The model kept only 88; a second check caught the 62.", 4000)
-        await caption(pg, "So the cheerful family update waits until the coordinator has looked.", 2600)
-
-        box = pg.locator("#vr-input")
-        await caption(pg, "On the public demo the AI is off, so every note fails safe to review, with readings still checked.", 300)
-        await move_to(pg, box)
-        await box.click()
-        await box.press_sequentially("Amma ka BP 170/100 tha, chakkar aa raha tha.", delay=55)
-        await click(pg, pg.locator("button", has_text="Structure this note"), 1200)
-        await scroll_to(pg, pg.locator("#vr-result"), 160)
-        await pg.wait_for_timeout(3400)
+        await caption(pg, "Sugar was 62, then 88. The AI kept only 88; a second check caught the 62.", 4000)
+        await caption(pg, "So the family gets a holding message, and the full update waits for the coordinator.", 2600)
 
         await pg.evaluate("""() => { const e = document.createElement('div'); e.id = 'demo-end';
           e.innerHTML = '<h2>CareOps</h2><p>An AI operations copilot for home healthcare</p><p>careops-live-demo-18xj.onrender.com</p>';

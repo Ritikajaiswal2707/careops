@@ -50,7 +50,6 @@ not simulate or assume an LLM result.
 import json
 import os
 import time
-from collections import defaultdict
 from communication_intelligence import extract_intent
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

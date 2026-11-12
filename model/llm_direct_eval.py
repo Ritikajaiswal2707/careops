@@ -94,7 +94,7 @@ if __name__ == "__main__":
     print(f"  temporal accuracy    {llm_metrics['temporal_extraction_accuracy']:.1%}")
     print(f"  reason accuracy      {llm_metrics['reason_extraction_accuracy']:.1%}")
     print(f"  abstention rate      {llm_metrics['abstention_rate']:.1%}")
-    print(f"  cost / latency       not measured (no metered API call was made)")
+    print("  cost / latency       not measured (no metered API call was made)")
 
     print(f"\nintent misclassifications: {len(llm_misclassified)} / {llm_metrics['n']}")
     for p in llm_misclassified:
