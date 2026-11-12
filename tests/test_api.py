@@ -200,3 +200,12 @@ def test_dashboard_separates_operator_view_from_demo_notes():
     assert "See the coordinator's view" in html and "Show demo notes" in html
     # The operator's first line is today's work, not a product description.
     assert 'id="today-line"' in html and "families wrote in" in html
+
+
+def test_dashboard_keeps_progress_and_finishes_reminders():
+    js = client.get("/app.js").text
+    # A refresh must not wipe a coordinator's morning.
+    assert "careops-progress-v1" in js and "function loadProgress" in js and "function clearProgress" in js
+    # Reminders can be finished, and acted-on visits are grouped apart from the to-do list.
+    assert "Family confirmed" in js and "No reply" in js
+    assert "Waiting on someone else" in js

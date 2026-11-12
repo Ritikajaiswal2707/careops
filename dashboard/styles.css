@@ -215,3 +215,8 @@ body.operator .operator-only{display:inline;}
 .meta.facts span{white-space:nowrap;}
 .meta.facts span:not(:last-child)::after{content:"·"; margin-left:6px; color:var(--sub);}
 .done-group summary{color:var(--ok);}
+
+/* To-do vs waiting */
+.group-head{font-weight:700; font-size:.86rem; color:var(--sub); margin:22px 0 10px; padding-top:14px; border-top:1px solid var(--line);}
+.today-wait{color:var(--med);}
+.today-wait::after{content:"·"; margin-left:8px; color:var(--sub);}

@@ -94,7 +94,10 @@ async def main():
         await pg.wait_for_timeout(2600)
         await caption(pg, "Approving holds the slot. The nurse is told only after the family says yes.", 300)
         await click(pg, card.locator("button.approve"), 3000)
-        await click(pg, card.locator("button", has_text="Family said yes"), 2400)
+        # Once approved, the visit moves to "Waiting on someone else", so find it by its message.
+        waiting = pg.locator("#list .card", has_text="Doctor visit hai usi din")
+        await click(pg, waiting.locator("button", has_text="Family said yes"), 600)
+        await caption(pg, "The family says yes: the nurse is told, the visit moves to Done, and the count drops.", 2600)
 
         if not SHORT:
             nb = pg.locator("#list .card", has_text="none is free today").first

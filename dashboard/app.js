@@ -66,6 +66,9 @@ function timeMinutes(t){
 const isConfirmed = v => !!(v.patientSignal && v.patientSignal.intent === 'Confirm' && !v.patientSignal.escalate_to_human);
 const isDoneToday = v => !!(execState[v.id] && execState[v.id].reply === 'yes');
 const hasMessage = v => !!v.patientSignal && !isConfirmed(v);
+const isReminder = v => /^(Call to confirm|Send confirmation)/.test(v.action || '');
+// Acted on and now waiting for someone else (a family reply, the operations head).
+const isWaiting = v => { const st = execState[v.id]; return !!(st && !st.running && !isDoneToday(v) && st.reply !== 'no'); };
 const noBackup = v => (v.action || '').startsWith('Reassign needed');
 
 // ---- Plain language -------------------------------------------------------
@@ -195,11 +198,42 @@ function draftForVisit(v){
   return null;
 }
 
-// ---- Action history (this browser session only) ----------------------------------
+// ---- Action history and saved progress (this browser only) -------------------------
+// A refresh must not wipe a coordinator's morning, so finished steps and the action
+// history are kept in this browser's storage for the simulated day.
+const STORE_KEY = 'careops-progress-v1';
 const actionLog = [];
+function saveProgress(){
+  try {
+    const done = {};
+    Object.entries(execState).forEach(([id, st]) => { if(!st.running) done[id] = {reply: st.reply || null}; });
+    localStorage.setItem(STORE_KEY, JSON.stringify({day: DATA.today, done, log: actionLog.slice(0, 60)}));
+  } catch(e) {}
+}
+function loadProgress(){
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
+    if(!saved || saved.day !== DATA.today) return;
+    Object.entries(saved.done || {}).forEach(([id, st]) => {
+      const item = DATA.flagged.find(f => f.id === id)
+        || DATA.cascades.map(c => ({...c, id: 'late-' + c.id})).find(c => c.id === id);
+      if(!item) return;
+      const steps = flowFor(item).steps;
+      execState[id] = {running: false, stepIndex: steps.length - 1, steps, reply: st.reply || undefined};
+    });
+    (saved.log || []).forEach(a => actionLog.push(a));
+  } catch(e) {}
+}
+function clearProgress(){
+  Object.keys(execState).forEach(k => delete execState[k]);
+  actionLog.length = 0;
+  try { localStorage.removeItem(STORE_KEY); } catch(e) {}
+  rerenderAll();
+}
 function logAction(text){
   const t = new Date();
   actionLog.unshift({time: t.toLocaleTimeString('en-IN', {hour: 'numeric', minute: '2-digit'}), text});
+  saveProgress();
   renderHistory();
 }
 function renderHistory(){
@@ -207,7 +241,7 @@ function renderHistory(){
   if(!el) return;
   el.innerHTML = actionLog.length ? `<div class="panel"><div class="panel-title">Your actions this session</div>
     ${actionLog.map(a => `<div class="hist-row"><span class="meta">${escapeHtml(a.time)}</span> ${escapeHtml(a.text)}</div>`).join('')}
-    <div class="meta" style="margin-top:6px;">Kept in this browser tab only. A real deployment stores an audit trail of who approved what, and when.</div></div>` : '';
+    <div class="meta" style="margin-top:6px;">Saved in this browser, so a refresh keeps your progress. A real deployment stores an audit trail of who approved what, and when. <button type="button" class="link-btn" onclick="clearProgress()">Start the day again</button></div></div>` : '';
 }
 
 // ---- For the operations head: staffing gaps -----------------------------------------
@@ -247,7 +281,9 @@ function renderTodayLine(){
   const gaps = open.filter(noBackup).length;
   const late = DATA.cascades.length;
   const part = (n, one, many, action) => `<button type="button" class="today-chip" onclick="${action}"><b>${n}</b> ${n === 1 ? one : many}</button>`;
+  const waitingN = open.filter(isWaiting).length;
   document.getElementById('today-line').innerHTML = [
+    ...(waitingN ? [`<span class="today-wait"><b>${waitingN}</b> waiting on someone else</span>`] : []),
     part(msgs, 'family wrote in', 'families wrote in', "applyFilter('msg')"),
     part(gaps, 'visit has no backup nurse', 'visits have no backup nurse', "applyFilter('gap')"),
     part(late, 'nurse running late', 'nurses running late', "showView('cascade')"),
@@ -310,12 +346,17 @@ function render(){
   const operator = document.body.classList.contains('operator');
   const pinned = !operator && currentFilter === 'all' && currentSort === 'risk' ? items.find(v => v.rescheduleProposal) : null;
   if(pinned) items = [pinned, ...items.filter(v => v !== pinned)];
-  list.innerHTML = items.length ? items.map(v => visitCard(v, v === pinned)).join('') : '<div class="empty">Nothing in this view.</div>';
+  const todo = items.filter(v => !isWaiting(v)), waiting = items.filter(isWaiting);
+  list.innerHTML = (todo.length ? todo.map(v => visitCard(v, v === pinned)).join('')
+      : `<div class="empty">${waiting.length ? 'Nothing left to act on in this view. The visits below are waiting on someone else.' : 'Nothing in this view.'}</div>`)
+    + (waiting.length ? `<div class="group-head">Waiting on someone else (${waiting.length})</div>` + waiting.map(v => visitCard(v, false)).join('') : '');
   const doneItems = DATA.flagged.filter(isDoneToday);
   document.getElementById('done').innerHTML = doneItems.length ? `
     <details class="confirmed-group done-group" open>
       <summary>Done today (${doneItems.length})</summary>
-      ${doneItems.map(v => `<div class="conf-row"><div><b>${escapeHtml(patientName(v.id))}</b> · ${escapeHtml(v.service)}<div class="meta">Moved to ${escapeHtml(fmtDate(v.rescheduleProposal.new_date))}, ${escapeHtml(visitTime(v.id, v.time))} with ${escapeHtml(provName(v.rescheduleProposal.provider_id))}. Family and nurse both confirmed.</div></div><span class="badge Low">Done</span></div>`).join('')}
+      ${doneItems.map(v => `<div class="conf-row"><div><b>${escapeHtml(patientName(v.id))}</b> · ${escapeHtml(v.service)}<div class="meta">${v.rescheduleProposal
+        ? `Moved to ${escapeHtml(fmtDate(v.rescheduleProposal.new_date))}, ${escapeHtml(visitTime(v.id, v.time))} with ${escapeHtml(provName(v.rescheduleProposal.provider_id))}. Family and nurse both confirmed.`
+        : `Family confirmed today's ${escapeHtml(visitTime(v.id, v.time))} visit.`}</div></div><span class="badge Low">Done</span></div>`).join('')}
     </details>` : '';
   const conf = DATA.flagged.filter(isConfirmed);
   document.getElementById('confirmed').innerHTML = conf.length ? `
@@ -379,6 +420,15 @@ function renderActionRow(v){
   }
   const isDone = st && st.stepIndex >= flow.steps.length - 1 && !st.running;
   let replyHtml = '';
+  if(isDone && isReminder(v)){
+    if(!st.reply){
+      replyHtml = `<div class="reply-row"><span class="meta">When you hear back:</span>
+        <button class="ghost" onclick="familyReplied('${escapeHtml(v.id)}','yes')">Family confirmed</button>
+        <button class="ghost" onclick="familyReplied('${escapeHtml(v.id)}','no')">No reply</button></div>`;
+    } else if(st.reply === 'no'){
+      replyHtml = `<div class="exec-steps"><div><span class="mk">!</span>No reply to the reminder. Call ${escapeHtml(phoneFor(v.id))} now; if nobody answers, line up a backup contact before the nurse leaves.</div></div>`;
+    }
+  }
   if(isDone && v.rescheduleProposal){
     const p = v.rescheduleProposal, nurse = provName(p.provider_id);
     if(!st.reply){
@@ -393,7 +443,8 @@ function renderActionRow(v){
     }
   }
   const replyDone = st && st.reply;
-  const flowDone = replyDone ? (st.reply === 'yes' ? 'Rescheduled' : 'Asking for another day') : flow.done;
+  const flowDone = replyDone ? (st.reply === 'yes' ? (v.rescheduleProposal ? 'Rescheduled' : 'Confirmed')
+    : (v.rescheduleProposal ? 'Asking for another day' : 'Call the family')) : flow.done;
   const flowDoneClass = replyDone ? (st.reply === 'yes' ? 'done' : 'warn') : flow.doneClass;
   const btnLabel = !st ? flow.button : (st.running ? 'Working…' : (isDone ? flowDone : flow.button));
   const disabled = st && (st.running || isDone);
@@ -416,12 +467,15 @@ function rerenderAll(){
 }
 function familyReplied(id, answer){
   execState[id].reply = answer;
+  saveProgress();
   if(answer === 'yes') setTimeout(() => {
     const el = document.getElementById('done');
     if(el) el.scrollIntoView({behavior: 'smooth', block: 'center'});
   }, 60);
   const v = DATA.flagged.find(f => f.id === id);
-  logAction(`${patientName(id)}: family said ${answer}${answer === 'yes' ? `, visit moved to ${fmtDate(v.rescheduleProposal.new_date)}` : ', asking for another day'}`);
+  logAction(v.rescheduleProposal
+    ? `${patientName(id)}: family said ${answer}${answer === 'yes' ? `, visit moved to ${fmtDate(v.rescheduleProposal.new_date)}` : ', asking for another day'}`
+    : `${patientName(id)}: ${answer === 'yes' ? 'family confirmed the visit' : 'no reply to the reminder, call needed'}`);
   rerenderAll();
 }
 function approveItem(id){
@@ -439,7 +493,7 @@ function runStep(id){
   if(!st) return;
   setTimeout(() => {
     if(st.stepIndex < st.steps.length - 1){ st.stepIndex += 1; rerenderAll(); runStep(id); }
-    else { st.running = false; rerenderAll(); }
+    else { st.running = false; saveProgress(); rerenderAll(); }
   }, 550);
 }
 
@@ -543,9 +597,11 @@ function caregiverNote(r){
   if(!r.needs_review) return null;
   const unver = reasons.find(x => x.startsWith('vital value not found'));
   if(unver){
-    const vitals = [...new Set(unver.split(':')[1].split(',').map(s => (VITAL_LABEL[s.trim()] || s.trim()).toLowerCase()))].join(' and ');
+    const names = [...new Set(unver.split(':')[1].split(',').map(s => VITAL_LABEL[s.trim()] || s.trim()))]
+      .map(n => n === 'BP' ? 'BP' : n.toLowerCase());
+    const vitals = names.join(' and ');
     return {hi: `Shukriya! Kripya ${vitals} ki reading number mein boliye, jaise "oxygen 97", aur note dobara bhej dijiye.`,
-            en: `Thank you! Please say the ${vitals} reading as a number, like "oxygen 97", and send the note again.`};
+            en: `Thank you! Please say the ${vitals} ${names.length > 1 ? 'readings as numbers' : 'reading as a number'}, like "oxygen 97", and send the note again.`};
   }
   if(reasons.some(x => x.startsWith('red flag'))) return {
     hi: 'Shukriya, aapne sahi samay par bataya. Coordinator aapko 15 minute mein call karenge. Tab tak marij ke saath rahiye.',
@@ -920,7 +976,8 @@ function renderSummary(){
   const med = open.filter(v => v.tier === 'Medium').length;
   const conf = DATA.flagged.length - open.length;
   const ok = Math.max(0, total - high - med - conf - done) + done;
-  document.getElementById('hero-title').textContent = `${high + med} of today's ${total} visits need you`;
+  const todoN = open.filter(v => !isWaiting(v)).length;
+  document.getElementById('hero-title').textContent = `${todoN} of today's ${total} visits need you`;
   const board = document.getElementById('board');
   const marks = [...Array(high).fill('high'), ...Array(med).fill('med'), ...Array(conf).fill('conf'), ...Array(ok).fill('ok')];
   board.innerHTML = marks.map((c, i) => `<i class="${c}" style="animation-delay:${Math.min(i * 12, 900)}ms"></i>`).join('');
@@ -934,4 +991,5 @@ function renderSummary(){
 }
 
 initOperatorView();
+loadProgress();
 render();
