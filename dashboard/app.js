@@ -69,7 +69,9 @@ const hasMessage = v => !!v.patientSignal && !isConfirmed(v);
 const isReminder = v => /^(Call to confirm|Send confirmation)/.test(v.action || '');
 // Acted on and now waiting for someone else (a family reply, the operations head).
 const isWaiting = v => { const st = execState[v.id]; return !!(st && !st.running && !isDoneToday(v) && st.reply !== 'no'); };
-const noBackup = v => (v.action || '').startsWith('Reassign needed');
+const needsBackup = v => (v.action || '').startsWith('Reassign needed');
+// Once "Find another day" has found a free nurse, the visit has a proposed fix and is no longer a gap.
+const noBackup = v => needsBackup(v) && !v.rescheduleProposal;
 
 // ---- Plain language -------------------------------------------------------
 function plainWhy(r, sameDay = true){
@@ -190,6 +192,8 @@ function draftForVisit(v){
   const ctx = visitCtx(v);
   if(v.rescheduleProposal){
     const p = v.rescheduleProposal;
+    // A day the coordinator found: the family has not asked to move, so ask them rather than confirm.
+    if(p.found) return draftFor('move', {...ctx, date: fmtDate(p.new_date)});
     return draftFor('reschedule', {...ctx, date: fmtDate(p.new_date), nurse: provName(p.provider_id)});
   }
   const a = v.action || '';
@@ -207,13 +211,19 @@ function saveProgress(){
   try {
     const done = {};
     Object.entries(execState).forEach(([id, st]) => { if(!st.running) done[id] = {reply: st.reply || null}; });
-    localStorage.setItem(STORE_KEY, JSON.stringify({day: DATA.today, done, log: actionLog.slice(0, 60)}));
+    const found = {};
+    Object.entries(foundDays).forEach(([id, f]) => { if(f.date || f.none) found[id] = f; });
+    localStorage.setItem(STORE_KEY, JSON.stringify({day: DATA.today, done, found, log: actionLog.slice(0, 60)}));
   } catch(e) {}
 }
 function loadProgress(){
   try {
     const saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
     if(!saved || saved.day !== DATA.today) return;
+    Object.entries(saved.found || {}).forEach(([id, f]) => {
+      const v = DATA.flagged.find(x => x.id === id);
+      if(v){ foundDays[id] = f; applyFoundDay(v); }
+    });
     Object.entries(saved.done || {}).forEach(([id, st]) => {
       const item = DATA.flagged.find(f => f.id === id)
         || DATA.cascades.map(c => ({...c, id: 'late-' + c.id})).find(c => c.id === id);
@@ -226,6 +236,8 @@ function loadProgress(){
 }
 function clearProgress(){
   Object.keys(execState).forEach(k => delete execState[k]);
+  Object.keys(foundDays).forEach(k => delete foundDays[k]);
+  DATA.flagged.forEach(v => { if(v.rescheduleProposal && v.rescheduleProposal.found) delete v.rescheduleProposal; });
   actionLog.length = 0;
   try { localStorage.removeItem(STORE_KEY); } catch(e) {}
   rerenderAll();
@@ -344,7 +356,7 @@ function render(){
   if(currentSort === 'time') items = [...items].sort((a, b) => timeMinutes(visitTime(a.id, a.time)) - timeMinutes(visitTime(b.id, b.time)));
   // Pin the clearest example first so a new visitor sees the core loop straight away.
   const operator = document.body.classList.contains('operator');
-  const pinned = !operator && currentFilter === 'all' && currentSort === 'risk' ? items.find(v => v.rescheduleProposal) : null;
+  const pinned = !operator && currentFilter === 'all' && currentSort === 'risk' ? items.find(v => v.rescheduleProposal && !v.rescheduleProposal.found) : null;
   if(pinned) items = [pinned, ...items.filter(v => v !== pinned)];
   const todo = items.filter(v => !isWaiting(v)), waiting = items.filter(isWaiting);
   list.innerHTML = (todo.length ? todo.map(v => visitCard(v, v === pinned)).join('')
@@ -449,13 +461,19 @@ function renderActionRow(v){
   const btnLabel = !st ? flow.button : (st.running ? 'Working…' : (isDone ? flowDone : flow.button));
   const disabled = st && (st.running || isDone);
   const canAct = !v.recovery || v.recovery.startsWith('Backup available');
-  const secondary = noBackup(v) ? `<button class="ghost" onclick="findAnotherDay('${escapeHtml(v.id)}')">Find another day</button>` : '';
+  const fd = foundDays[v.id] || {};
+  const secondary = !noBackup(v) || fd.none || isDone ? ''
+    : `<button class="ghost" ${fd.checking ? 'disabled' : ''} onclick="findAnotherDay('${escapeHtml(v.id)}')">${fd.checking ? 'Checking the next 7 days…' : 'Find another day'}</button>`;
+  const fdNote = !noBackup(v) ? '' : fd.none
+    ? `<div class="exec-steps"><div><span class="mk">!</span>No nurse is free in the next 7 days. Escalate to the operations head or a partner agency.</div></div>`
+    : (fd.error ? `<div class="exec-steps"><div><span class="mk">!</span>Could not check other days just now. Try again in a moment.</div></div>` : '');
   return `
     <div class="action-row">
       <div class="action-main">
         <div class="action">Suggested: <b>${escapeHtml(label)}</b></div>
         <div class="btns">${secondary}${canAct ? `<button class="approve ${isDone ? flowDoneClass : ''}" ${disabled ? 'disabled' : ''} onclick="approveItem('${escapeHtml(v.id)}')">${escapeHtml(btnLabel)}</button>` : ''}</div>
       </div>
+      ${fdNote}
       ${stepsHtml}
       ${replyHtml}
     </div>`;
@@ -957,13 +975,37 @@ async function findNextFreeDay(id){
   }
   el.innerHTML = `<div class="card result warn"><div style="font-weight:700;">No nurse is free in the next 7 days</div><div class="meta">Escalate to the operations head or a partner agency. The visit stays on your list.</div></div>`;
 }
-function findAnotherDay(id){
-  showView('live');
-  setFixMode('visit');
-  document.getElementById('live-appt').value = id;
-  renderIncidentSummary();
-  window.scrollTo({top: document.getElementById('live-view').offsetTop - 20, behavior: 'smooth'});
-  findNextFreeDay(id);
+// "Find another day" works in place on the visit's card: the coordinator keeps her place in the
+// list, and a found day turns the visit into a proposed move that follows the usual approval steps.
+const foundDays = {};
+function applyFoundDay(v){
+  const f = foundDays[v.id];
+  if(f && f.date) v.rescheduleProposal = {new_date: f.date, provider_id: f.pid, reasons: f.reasons || [], found: true};
+}
+async function findAnotherDay(id){
+  const v = DATA.flagged.find(f => f.id === id);
+  if(!v || (foundDays[id] && foundDays[id].checking)) return;
+  foundDays[id] = {checking: true};
+  rerenderAll();
+  let result = {none: true};
+  for(let i = 1; i <= 7; i++){
+    const date = addDays(DATA.today, i);
+    let data = null;
+    try {
+      const res = await fetch('/api/recover', {method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({appointment_id: id, target_date: date})});
+      data = res.ok ? await res.json() : null;
+    } catch(e) { data = null; }
+    if(!data){ result = {error: true}; break; }
+    const top = (data.candidates || [])[0];
+    if(top){ result = {date, pid: top.provider_id, reasons: top.reasons || []}; break; }
+  }
+  foundDays[id] = result;
+  applyFoundDay(v);
+  if(result.date) logAction(`${patientName(id)}: found ${fmtDate(result.date)} with ${provName(result.pid)}, not yet agreed with the family`);
+  else if(result.none) logAction(`${patientName(id)}: no nurse free in the next 7 days`);
+  saveProgress();
+  rerenderAll();
 }
 
 // ---- Day board ------------------------------------------------------------------
