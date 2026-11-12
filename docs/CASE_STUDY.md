@@ -16,9 +16,10 @@ I saw this while working in Indian home care. A coordinator runs dozens of visit
 
 | Capability | What it does |
 |---|---|
-| Risk ranking | Flags the ~20% of visits most likely to go wrong, with plain-language reasons, sized to what one coordinator can review |
+| Needs you | The visits that need the coordinator today, by person and time, with a plain reason and a suggested action |
 | Message understanding | Reads English, Hindi and Hinglish messages: confirm, reschedule, cancel, or unclear |
-| Recovery | Proposes a replacement provider or a new date, with the reasons, using hard eligibility rules first |
+| Ready-to-send replies | Drafts the WhatsApp message to the family in Hinglish or English for every suggested action; the coordinator edits and sends it |
+| Recovery | Proposes a replacement nurse or a new date, with the reasons, using hard eligibility rules first, and never dead-ends |
 | Voice visit reports | Turns a caregiver's voice note into a structured report and a family update, and holds risky updates for review |
 | Human approval | Nothing is booked or sent without the coordinator |
 
@@ -29,6 +30,16 @@ I saw this while working in Indian home care. A coordinator runs dozens of visit
 3. **Checks after the model.** A vital sign must actually appear in the caregiver's note; red flags (a fall, low sugar) always go to a human. The model can propose, never release.
 4. **Fail closed.** If the model is unavailable or its output is invalid, the case goes to a coordinator instead of guessing.
 5. **Size the flagged list to coordinator capacity,** not to a probability cutoff, so the list stays reviewable in a day.
+
+## Testing it as five coordinators
+
+Before real user sessions, I used the product as five coordinator personas: a field coordinator at a nursing agency, an elder-companionship coordinator, a hospital clinical lead, a night-shift coordinator and an agency owner. Average usefulness was about 5 out of 10, well below the quality of the AI underneath. Three findings mattered most:
+
+1. **Trust breaks on small words.** Approving a visit with no backup nurse said "handled". A coordinator would assume the visit was covered. It now says "Escalated · unassigned".
+2. **Order of operations is a safety issue.** A reschedule told the nurse before the family agreed. Now the family is asked first.
+3. **The AI was not the bottleneck; the last step was.** Every suggestion still needed a hand-typed WhatsApp message, so each action now comes with an editable Hinglish or English draft.
+
+I also learned that a disruption usually arrives per nurse ("Sunita is sick today"), not per visit. That is the next flow to build, after real coordinators confirm it.
 
 ## Results (synthetic data, real model runs)
 
@@ -49,9 +60,10 @@ I saw this while working in Indian home care. A coordinator runs dozens of visit
 ## What's next
 
 1. Test with 3 to 5 real coordinators ([testing kit](USER_TESTING.md)) and measure time to resolve a disrupted visit.
-2. Measure the guardrail on a third holdout frozen before any further change.
-3. Turn on live road ETAs and check whether they change the recommended provider.
-4. Calibrate the risk model for first-time patients.
+2. Build the nurse drop-out flow (one nurse out, all her visits fixed together) if they confirm it.
+3. Measure the guardrail on a third holdout frozen before any further change.
+4. Turn on live road ETAs and check whether they change the recommended provider.
+5. Calibrate the risk model for first-time patients.
 
 ## How this was built
 

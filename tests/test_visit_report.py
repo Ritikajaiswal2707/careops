@@ -208,3 +208,23 @@ def test_fail_closed_still_scans_readings(monkeypatch):
     monkeypatch.setenv("CAREOPS_DISABLE_EXTERNAL_LLM", "true")
     out = visit_report.build_report("Sugar 62 tha, 15 min baad 88. Oxygen 97.")
     assert out["needs_coordinator_review"] and out["red_flags"] == ["note mentions blood_sugar_mg_dl=62.0"]
+
+
+def test_readings_found_marks_status_without_changing_routing():
+    found = visit_report.readings_found("Amma ka BP 170/100 tha. Sugar 62, phir 88.")
+    by = {(r["vital"], r["value"]): r["status"] for r in found}
+    assert by[("bp_systolic", 170)] == "outside usual range"
+    assert by[("bp_diastolic", 100)] == "outside usual range"
+    assert by[("blood_sugar_mg_dl", 62)] == "red flag"
+    assert by[("blood_sugar_mg_dl", 88)] == "usual"
+    # Outside the usual range alone never forces review; only red flags and unverified values do.
+    out = visit_report.apply_safety("BP 150/95.", _report(bp_systolic=150, bp_diastolic=95))
+    assert out["needs_coordinator_review"] is False
+    assert {r["status"] for r in out["readings"]} == {"outside usual range"}
+
+
+def test_fail_closed_report_lists_readings(monkeypatch):
+    monkeypatch.setenv("CAREOPS_DISABLE_EXTERNAL_LLM", "1")
+    out = visit_report.build_report("BP 170/100, chakkar aa raha tha.")
+    assert out["needs_coordinator_review"]
+    assert [r["value"] for r in out["readings"]] == [170, 100]

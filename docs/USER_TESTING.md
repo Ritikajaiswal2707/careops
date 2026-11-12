@@ -21,11 +21,19 @@ Ask them to think aloud. Don't help unless they are stuck for more than a minute
 
 | # | Task | Watch for |
 |---|---|---|
-| 1 | "Open the page. Which visits would you look at first, and why?" | Do they understand the risk tiers and reasons? |
-| 2 | "Find the family who wants to reschedule. What would you do?" | Do they trust the proposed slot? Do they open "How CareOps decided"? |
-| 3 | "A provider is running late. What does this screen tell you?" | Is the delay view useful or confusing? |
-| 4 | "A nurse has dropped out. Find a replacement." | Do the replacement reasons match how they choose? |
+| 1 | "Open the page. Which visits would you look at first, and why?" | Do they understand "Likely to go wrong" and the reasons? |
+| 2 | "Find the family who wants to reschedule. What would you do?" | Do they trust the proposed day? Would they send the drafted message as is? |
+| 3 | "Open Running late. What would you do first?" | Is "Family not told yet" the right alarm? |
+| 4 | "Open Fix a visit. A nurse has dropped out. Find a replacement." | Do the reasons match how they choose? Do they ask to fix all of one nurse's visits at once? |
 | 5 | "Look at the visit reports. Would you send these updates to families?" | Do they agree with what was held for review? |
+
+## Hypotheses from the persona walkthrough (confirm or reject)
+
+- Disruptions arrive per nurse, not per visit, so a "nurse is out today" flow would save the most time.
+- A ready-to-send Hinglish message is worth more than the risk score.
+- "Escalated · unassigned" is clearer than any colour or icon.
+- Coordinators want exact times and names; IDs are noise.
+- Elder-companionship coordinators value the family update far more than risk ranking.
 
 ## 3. Wrap-up (10 minutes)
 
