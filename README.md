@@ -8,6 +8,8 @@ Built for the realities of India's home-care market: contractual providers with 
 
 > All data is synthetic. This is a product portfolio project: it shows problem framing, evaluation and AI-product judgment, not production outcomes.
 
+**Short on time? Read the [one-page case study](docs/CASE_STUDY.md)**: the problem, key product decisions, results and what I learned.
+
 ![CareOps day board: 19 of 95 home visits flagged for a coordinator](docs/media/dashboard.png)
 
 **[Watch the 73-second walkthrough](docs/media/careops-demo.mp4)**: risk ranking, a Hinglish reschedule, provider recovery, and voice visit reports that hold unsafe updates for review.
@@ -70,6 +72,7 @@ Family message ──► Understand ──► Find recovery options ──► Pr
 
 ## What I'd change next
 
+- Test with 3 to 5 real coordinators and measure time to resolve a disrupted visit ([testing kit](docs/USER_TESTING.md)).
 - Define `cancel_current` operationally: most of the model's "errors" on it are a labelling ambiguity, not model mistakes.
 - Measure the guardrail on a third holdout frozen before any further change.
 - Run the road-ETA comparison live: routing is built in (`CAREOPS_ROUTING_MODE=live`, Ola Maps), but whether real roads change the recommended provider is not yet measured.
@@ -85,6 +88,10 @@ python -m pytest -q                # full test suite
 ```
 
 The dashboard's main views show a **precomputed synthetic snapshot**; the "Resolve a visit" and "Visit reports" tabs call the live FastAPI backend. The approval animation is a **browser-side simulation**: nothing is booked or sent. The [live demo](https://careops-live-demo-18xj.onrender.com/) is a read-only deployment (`render.yaml`) with external LLM calls disabled: approvals cannot be recorded, and visit reports fail closed to coordinator review while still running the deterministic red-flag checks. Verified on 4 November 2026: all tabs load without errors, and the API, read-only guard and visit-report endpoints respond as described.
+
+## How this was built
+
+I defined the problem, users, product decisions, evaluation design and safety rules, and reviewed every change. The code was written with Claude as an AI pair programmer.
 
 ## Go deeper
 

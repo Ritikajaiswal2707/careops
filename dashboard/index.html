@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CareOps</title>
+<title>CareOps · AI operations copilot for home healthcare</title>
+<meta name="description" content="CareOps flags home-care visits likely to go wrong, reads family messages in English and Hinglish, and proposes a fix for a coordinator to approve. Portfolio demo on synthetic data.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CareOps · AI operations copilot for home healthcare">
+<meta property="og:description" content="Risk-ranked visits, Hinglish message understanding, provider recovery and voice visit reports with safety checks. Built with evals; synthetic data.">
+<meta property="og:image" content="https://raw.githubusercontent.com/Ritikajaiswal2707/careops/main/docs/media/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <style>
 @font-face{font-family:"Bricolage Grotesque"; src:url("fonts/bricolage-grotesque.woff2") format("woff2"); font-weight:200 800; font-display:swap;}
 @font-face{font-family:"Figtree"; src:url("fonts/figtree.woff2") format("woff2"); font-weight:300 900; font-display:swap;}
@@ -91,6 +99,8 @@ button.approve.done{background:var(--ok-bg); color:var(--ok);}
 .signal{margin:10px 0 !important; padding:10px 12px !important; background:var(--bg) !important; border:none !important; border-radius:8px !important; font-size:.86rem !important;}
 select, input[type="date"], textarea{font-size:.95rem !important;}
 .trace{margin-top:8px; font-size:.82rem; color:var(--sub);}
+.about summary{cursor:pointer; color:var(--accent); font-weight:600; margin-bottom:8px;}
+.about[open] summary{margin-bottom:10px;}
 .trace summary{cursor:pointer; color:var(--accent); font-weight:600; width:max-content;}
 .trace ol{margin:8px 0 0; padding-left:20px; line-height:1.55;}
 .trace li{margin-bottom:4px; overflow-wrap:anywhere;}
@@ -156,10 +166,11 @@ select, input[type="date"], textarea{font-size:.95rem !important;}
 
     <div id="list"></div>
 
-    <div class="note">
+    <details class="note about">
+      <summary>About the risk model and its known limitation</summary>
       Risk tiers are capacity-aware, not a fixed probability cutoff: top ~10% of today's visits by predicted disruption risk are flagged High, next ~10% Medium — 20% flagged in total, the same coordinator-bandwidth assumption used throughout this project's economics, fairness, and intervention-simulation modules — so the list stays reviewable in a coordinator's day rather than growing with the model's raw sensitivity. Predictions and reasons are model output (logistic regression on 6 features); recommended actions are rule-based, not yet AI-generated. This is one representative simulated day, not a cherry-picked best case — tier accuracy is directionally reliable in aggregate but noisy on any single day given current model strength.<br><br>
       <b>Known limitation:</b> first-time-patient predictions are overconfident relative to observed disruption in this small subgroup — mean predicted risk 25.6% against an actual disruption rate of 17.0% (a +8.6-point calibration gap, vs. +1.3 points for returning patients), on a subgroup 66x smaller than the returning-patient one. This is a calibration issue, not a flagging-rate issue: the subgroup check in <code>fairness_subgroup_analysis.py</code> found first-time patients are actually flagged <i>less</i> often than returning patients (10.6% vs 20.1%) and have a <i>lower</i> false-positive rate (10.3% vs 18.0%). Calibration should be reviewed before any production use. All data is simulated for portfolio purposes.
-    </div>
+    </details>
   </div>
 
   <div id="cascade-view" style="display:none"></div>
@@ -175,9 +186,10 @@ select, input[type="date"], textarea{font-size:.95rem !important;}
       <div style="font-weight:700; margin-bottom:6px;">Try your own note</div>
       <textarea id="vr-input" rows="3" maxlength="4000" placeholder="e.g. BP 130/85, sugar 140. Papa ne dawai le li." style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--ink); font:inherit; font-size:.9rem;"></textarea>
       <button class="approve" onclick="tryVisitReport()" style="width:100%; padding:11px 14px; margin-top:8px;">Structure this note</button>
+      <div class="meta" style="margin-top:6px;">On this public demo the AI model is switched off, so every note goes to coordinator review. That is the fail-safe path; the recorded examples above show the full pipeline.</div>
       <div id="vr-result" aria-live="polite" style="margin-top:12px;"></div>
     </div>
-    <div class="note">Synthetic notes · not clinical guidance · red-flag thresholds are illustrative routing rules that only decide whether a human looks first. The public demo has live model calls switched off, so "Try your own note" will ask for coordinator review; run locally with a free Groq key to see the full pipeline.</div>
+    <div class="note">Synthetic notes · not clinical guidance · red-flag thresholds are illustrative routing rules that only decide whether a human looks first. To see live model calls, run it locally with a free Groq key.</div>
   </div>
 
   <div id="live-view" style="display:none">
@@ -193,13 +205,13 @@ select, input[type="date"], textarea{font-size:.95rem !important;}
       </div>
       <label for="recovery-mode" style="display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;">How would you like to recover this visit?</label>
       <select id="recovery-mode" onchange="updateRecoveryDate()" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);margin-bottom:12px;">
-        <option value="today">Find a replacement for the snapshot day</option>
+        <option value="today">Find a replacement on the same day</option>
         <option value="future">Reschedule to another date</option>
       </select>
       <div id="recovery-date-wrap" style="display:none;margin-bottom:12px;">
         <label for="recovery-date" style="display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;">New visit date</label>
         <input id="recovery-date" type="date" min="2026-08-30" max="2026-10-28" value="2026-08-30" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);">
-        <div class="meta" style="margin-top:5px;">Demo availability is available from 30 August to 28 October 2026. Dates are relative to the 29 August 2026 synthetic snapshot.</div>
+        <div class="meta" style="margin-top:5px;">Demo availability covers the 60 days after the simulated day.</div>
       </div>
       <button class="approve" id="find-recovery-button" onclick="askCareOps()" style="width:100%; padding:11px 14px;">Find replacement option</button>
       <div id="live-result" aria-live="polite" style="margin-top:12px;"></div>

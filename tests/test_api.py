@@ -20,7 +20,8 @@ def test_health_endpoint():
 def test_root_serves_dashboard_and_synthetic_data_disclosure():
     response = client.get("/")
     assert response.status_code == 200
-    assert "<title>CareOps</title>" in response.text
+    assert "<title>CareOps · AI operations copilot for home healthcare</title>" in response.text
+    assert "og:image" in response.text  # link previews on LinkedIn and in email
     # The header line was removed in the redesign; the page must still disclose synthetic data.
     assert "Synthetic data from a simulated home-care operation" in response.text
     assert "Not for clinical use" in response.text
