@@ -190,3 +190,13 @@ def test_nurse_day_lists_one_nurses_visits_read_only():
     assert all(v["appointment_id"].startswith("APT") for v in body["visits"])
     assert client.get("/api/nurse-day/PR999").status_code == 404
     assert client.get("/api/nurse-day/../x").status_code in (404, 422)
+
+
+def test_dashboard_separates_operator_view_from_demo_notes():
+    html = client.get("/").text + client.get("/app.js").text + client.get("/styles.css").text
+    # Visitor-only framing is marked so the coordinator's view can hide it.
+    assert 'class="demo-banner visitor"' in html and 'class="visitor pitch"' in html
+    assert "body.operator .visitor{display:none" in html
+    assert "See the coordinator's view" in html and "Show demo notes" in html
+    # The operator's first line is today's work, not a product description.
+    assert 'id="today-line"' in html and "families wrote in" in html

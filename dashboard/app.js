@@ -32,10 +32,19 @@ const patientIndex = {};
 // pool, so they never share a name with a flagged visit.
 const OTHER_PATIENT_NAMES = ['Vasanthi Rao','Om Prakash Yadav','Gurpreet Kaur','Sushila Bhat','Francis D\'Souza',
   'Kamal Nath Tiwari','Radha Krishnan','Zarina Sheikh','Balbir Sandhu','Indira Joshi','Anand Kamath','Parvati Das',
-  'Rafiq Ahmed','Sudha Murthy','Hemant Desai','Nirmala Rao'];
-function patientName(id){
+  'Rafiq Ahmed','Sudha Murthy','Hemant Desai','Nirmala Rao','Jagdish Patel','Mariamma George','Satish Kulkarni',
+  'Shobha Iyengar','Harish Malhotra','Rukmini Bose','Yusuf Qureshi','Chandrika Menon','Prem Saxena','Kalpana Reddy',
+  'Bhupinder Gill','Shakuntala Pandey','Edwin Lobo','Vimala Natarajan'];
+const otherPatients = {};   // patient_id -> name, assigned in order so names never clash
+function patientName(id, patientId){
   if(id in patientIndex) return PATIENT_NAMES[patientIndex[id] % PATIENT_NAMES.length];
-  return OTHER_PATIENT_NAMES[hashId(id) % OTHER_PATIENT_NAMES.length];
+  const key = patientId || id;
+  if(!(key in otherPatients)){
+    const n = Object.keys(otherPatients).length;
+    otherPatients[key] = OTHER_PATIENT_NAMES[n % OTHER_PATIENT_NAMES.length]
+      + (n >= OTHER_PATIENT_NAMES.length ? ` ${Math.floor(n / OTHER_PATIENT_NAMES.length) + 1}` : '');
+  }
+  return otherPatients[key];
 }
 function firstName(id){ return patientName(id).split(' ')[0]; }
 function provName(pid){
@@ -55,6 +64,8 @@ function timeMinutes(t){
   let h = Number(m[1]) % 12; if(m[3] === 'pm') h += 12; return h * 60 + Number(m[2]);
 }
 const isConfirmed = v => !!(v.patientSignal && v.patientSignal.intent === 'Confirm' && !v.patientSignal.escalate_to_human);
+const isDoneToday = v => !!(execState[v.id] && execState[v.id].reply === 'yes');
+const hasMessage = v => !!v.patientSignal && !isConfirmed(v);
 const noBackup = v => (v.action || '').startsWith('Reassign needed');
 
 // ---- Plain language -------------------------------------------------------
@@ -216,6 +227,43 @@ function renderOwner(){
   </details>`;
 }
 
+// ---- Operator view vs demo notes -------------------------------------------------
+// A real coordinator sees today's work first. The portfolio framing (banner, pitch,
+// "where AI is used") is for visitors and can be hidden; the choice is remembered.
+function setOperatorView(on){
+  document.body.classList.toggle('operator', on);
+  try { localStorage.setItem('careops-operator-view', on ? '1' : '0'); } catch(e) {}
+  render();
+  if(on) window.scrollTo({top: 0, behavior: 'smooth'});
+}
+function initOperatorView(){
+  let on = false;
+  try { on = localStorage.getItem('careops-operator-view') === '1'; } catch(e) {}
+  document.body.classList.toggle('operator', on);
+}
+function renderTodayLine(){
+  const open = DATA.flagged.filter(v => !isConfirmed(v) && !isDoneToday(v));
+  const msgs = open.filter(hasMessage).length;
+  const gaps = open.filter(noBackup).length;
+  const late = DATA.cascades.length;
+  const part = (n, one, many, action) => `<button type="button" class="today-chip" onclick="${action}"><b>${n}</b> ${n === 1 ? one : many}</button>`;
+  document.getElementById('today-line').innerHTML = [
+    part(msgs, 'family wrote in', 'families wrote in', "applyFilter('msg')"),
+    part(gaps, 'visit has no backup nurse', 'visits have no backup nurse', "applyFilter('gap')"),
+    part(late, 'nurse running late', 'nurses running late', "showView('cascade')"),
+  ].join('<span class="dot-sep" aria-hidden="true">·</span>');
+}
+const SPECIAL_FILTERS = {msg: ['with a family message', hasMessage], gap: ['with no backup nurse', noBackup]};
+function applyFilter(f){
+  showView('risk');
+  currentFilter = f;
+  document.querySelectorAll('#risk-view .tab[data-f]').forEach(x => {
+    const on = x.dataset.f === f; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on);
+  });
+  render();
+  document.getElementById('risk-view').scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
 // ---- "Needs you" list --------------------------------------------------------
 let currentFilter = 'all';
 let currentSort = 'risk';
@@ -227,11 +275,11 @@ function visitCard(v, startHere){
   const sig = v.patientSignal;
   return `
     <div class="card visit ${escapeHtml(v.tier)}${startHere ? ' start' : ''}">
-      ${startHere ? '<div class="start-here">Start here: a family\'s Hinglish message, turned into a fix and a reply ready to send</div>' : ''}
+      ${startHere ? '<div class="start-here visitor">Start here: a family\'s Hinglish message, turned into a fix and a reply ready to send</div>' : ''}
       <div class="card-top">
         <div>
           <div class="visit-title">${escapeHtml(patientName(v.id))}</div>
-          <div class="meta">${escapeHtml(v.service)} · <b>${escapeHtml(time)}</b> · <span class="nowrap">${escapeHtml(phoneFor(v.id))}</span></div>
+          <div class="meta facts"><span>${escapeHtml(v.service)}</span><span><b>${escapeHtml(time)}</b></span><span>${escapeHtml(phoneFor(v.id))}</span></div>
         </div>
         <span class="badge ${escapeHtml(v.tier)}" title="Model score ${pct}%">${label}</span>
       </div>
@@ -252,12 +300,23 @@ function visitCard(v, startHere){
 
 function render(){
   const list = document.getElementById('list');
-  let items = DATA.flagged.filter(v => !isConfirmed(v) && (currentFilter === 'all' || v.tier === currentFilter));
+  const special = SPECIAL_FILTERS[currentFilter];
+  let items = DATA.flagged.filter(v => !isConfirmed(v) && !isDoneToday(v)
+    && (currentFilter === 'all' || (special ? special[1](v) : v.tier === currentFilter)));
+  document.getElementById('filter-note').innerHTML = special
+    ? `<div class="filter-note">Showing ${items.length} visit${items.length === 1 ? '' : 's'} ${special[0]} · <button type="button" class="link-btn" onclick="applyFilter('all')">Show all</button></div>` : '';
   if(currentSort === 'time') items = [...items].sort((a, b) => timeMinutes(visitTime(a.id, a.time)) - timeMinutes(visitTime(b.id, b.time)));
   // Pin the clearest example first so a new visitor sees the core loop straight away.
-  const pinned = currentFilter === 'all' && currentSort === 'risk' ? items.find(v => v.rescheduleProposal) : null;
+  const operator = document.body.classList.contains('operator');
+  const pinned = !operator && currentFilter === 'all' && currentSort === 'risk' ? items.find(v => v.rescheduleProposal) : null;
   if(pinned) items = [pinned, ...items.filter(v => v !== pinned)];
   list.innerHTML = items.length ? items.map(v => visitCard(v, v === pinned)).join('') : '<div class="empty">Nothing in this view.</div>';
+  const doneItems = DATA.flagged.filter(isDoneToday);
+  document.getElementById('done').innerHTML = doneItems.length ? `
+    <details class="confirmed-group done-group" open>
+      <summary>Done today (${doneItems.length})</summary>
+      ${doneItems.map(v => `<div class="conf-row"><div><b>${escapeHtml(patientName(v.id))}</b> · ${escapeHtml(v.service)}<div class="meta">Moved to ${escapeHtml(fmtDate(v.rescheduleProposal.new_date))}, ${escapeHtml(visitTime(v.id, v.time))} with ${escapeHtml(provName(v.rescheduleProposal.provider_id))}. Family and nurse both confirmed.</div></div><span class="badge Low">Done</span></div>`).join('')}
+    </details>` : '';
   const conf = DATA.flagged.filter(isConfirmed);
   document.getElementById('confirmed').innerHTML = conf.length ? `
     <details class="confirmed-group">
@@ -266,6 +325,8 @@ function render(){
     </details>` : '';
   renderOwner();
   renderHistory();
+  renderTodayLine();
+  renderSummary();
 }
 
 // ---- What approving does ------------------------------------------------------
@@ -355,6 +416,10 @@ function rerenderAll(){
 }
 function familyReplied(id, answer){
   execState[id].reply = answer;
+  if(answer === 'yes') setTimeout(() => {
+    const el = document.getElementById('done');
+    if(el) el.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }, 60);
   const v = DATA.flagged.find(f => f.id === id);
   logAction(`${patientName(id)}: family said ${answer}${answer === 'yes' ? `, visit moved to ${fmtDate(v.rescheduleProposal.new_date)}` : ', asking for another day'}`);
   rerenderAll();
@@ -665,14 +730,15 @@ async function coverNurseDay(){
       <div class="card result ${covered === rows.length ? 'ok' : 'warn'}">
         <div style="font-weight:700;">${covered} of ${rows.length} of ${escapeHtml(nurseOut)}'s visits can be covered today</div>
         <div class="meta" style="margin-bottom:8px;">${rows.length - covered ? `${rows.length - covered} need another day. They stay on your list until a nurse is confirmed.` : 'Confirm each cover nurse first, then message the families.'}</div>
+        ${rows.length - covered > 1 ? `<button class="ghost" style="margin-bottom:6px;" onclick="coverAllLater(this)">Find days for all ${rows.length - covered}</button>` : ''}
         ${rows.map(({v, pick}) => {
-          const name = patientName(v.appointment_id), time = visitTime(v.appointment_id, v.time_slot);
+          const name = patientName(v.appointment_id, v.patient_id), time = visitTime(v.appointment_id, v.time_slot);
           const msg = pick ? draftFor('replacement', {name, service: v.service_type, time, slot: v.time_slot, nurse: provName(pick.provider_id)}) : null;
           return `<div class="cover-row">
             <div><b>${escapeHtml(name)}</b> · ${escapeHtml(v.service_type)} · ${escapeHtml(time)}
               <div class="meta">${pick ? `Cover: <b>${escapeHtml(provName(pick.provider_id))}</b> · ${(pick.reasons || []).slice(0, 2).map(x => escapeHtml(plainWhy(x))).join(' · ')}` : 'No nurse with room today'}</div></div>
             ${pick ? `<button class="ghost" onclick="copyText(this, ${escapeHtml(JSON.stringify(msg.hi))})">Copy message</button>`
-                   : `<button class="ghost" onclick="coverLater(this, '${escapeHtml(v.appointment_id)}')">Find another day</button>`}
+                   : `<button class="ghost later-btn" data-appt="${escapeHtml(v.appointment_id)}" onclick="coverLater(this, this.dataset.appt)">Find another day</button>`}
           </div>`;
         }).join('')}
         <div class="meta" style="margin-top:8px;">Recommendation only. Nothing is booked and no one is contacted from this demo.</div>
@@ -683,15 +749,31 @@ async function coverNurseDay(){
   }
   btn.disabled = false; btn.textContent = 'Find cover for all her visits';
 }
+async function coverAllLater(btn){
+  btn.disabled = true; btn.textContent = 'Checking the next 7 days…';
+  const pending = [...document.querySelectorAll('#nurse-result .later-btn')].filter(b => !b.disabled);
+  for(const b of pending) await coverLater(b, b.dataset.appt);
+  btn.textContent = 'Days found. Ask each family';
+}
+// Later-day offers made in this session, so one nurse is not offered for more
+// visits on a day than she has room for. Keyed by date + nurse.
+const laterUsed = {};
 async function coverLater(btn, apptId){
   btn.disabled = true; btn.textContent = 'Checking…';
+  const nurseOut = document.getElementById('nurse-select').value;
   for(let i = 1; i <= 7; i++){
     const date = addDays(DATA.today, i);
     const r = await fetch('/api/recover', {method: 'POST', headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({appointment_id: apptId, target_date: date})}).catch(() => null);
     const data = r && r.ok ? await r.json() : null;
-    const c = data && (data.candidates || [])[0];
+    // Skip the nurse who is out (she may still be unwell) and anyone already offered up to her room that day.
+    const c = data && (data.candidates || []).find(x => {
+      if(x.provider_id === nurseOut) return false;
+      const m = /(\d+) slot\(s\) free/.exec((x.reasons || []).join(' '));
+      return (laterUsed[date + x.provider_id] || 0) < (m ? Number(m[1]) : 1);
+    });
     if(c){
+      laterUsed[date + c.provider_id] = (laterUsed[date + c.provider_id] || 0) + 1;
       btn.outerHTML = `<span class="meta">${escapeHtml(fmtDate(date))} with <b>${escapeHtml(provName(c.provider_id))}</b>. Ask the family</span>`;
       return;
     }
@@ -821,6 +903,7 @@ async function findNextFreeDay(id){
 }
 function findAnotherDay(id){
   showView('live');
+  setFixMode('visit');
   document.getElementById('live-appt').value = id;
   renderIncidentSummary();
   window.scrollTo({top: document.getElementById('live-view').offsetTop - 20, behavior: 'smooth'});
@@ -831,16 +914,17 @@ function findAnotherDay(id){
 function renderSummary(){
   const s = DATA.summary || {};
   const total = Number(s.total) || 0;
-  const open = DATA.flagged.filter(v => !isConfirmed(v));
+  const open = DATA.flagged.filter(v => !isConfirmed(v) && !isDoneToday(v));
+  const done = DATA.flagged.filter(isDoneToday).length;
   const high = open.filter(v => v.tier === 'High').length;
   const med = open.filter(v => v.tier === 'Medium').length;
   const conf = DATA.flagged.length - open.length;
-  const ok = Math.max(0, total - high - med - conf);
+  const ok = Math.max(0, total - high - med - conf - done) + done;
   document.getElementById('hero-title').textContent = `${high + med} of today's ${total} visits need you`;
   const board = document.getElementById('board');
   const marks = [...Array(high).fill('high'), ...Array(med).fill('med'), ...Array(conf).fill('conf'), ...Array(ok).fill('ok')];
   board.innerHTML = marks.map((c, i) => `<i class="${c}" style="animation-delay:${Math.min(i * 12, 900)}ms"></i>`).join('');
-  board.classList.add('animate');
+  if(!board.dataset.drawn){ board.classList.add('animate'); board.dataset.drawn = '1'; } else board.classList.remove('animate');
   board.setAttribute('aria-label', `${high} likely to go wrong, ${med} worth a check, ${conf} already confirmed, ${ok} on track, out of ${total} visits`);
   document.getElementById('legend').innerHTML = `
     <span><i style="background:var(--high)"></i><b>${high}</b> likely to go wrong</span>
@@ -849,5 +933,5 @@ function renderSummary(){
     <span><i style="background:color-mix(in srgb, var(--ok) 35%, var(--card))"></i><b>${ok}</b> on track</span>`;
 }
 
-renderSummary();
+initOperatorView();
 render();
