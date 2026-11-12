@@ -43,6 +43,8 @@ I also learned that a disruption usually arrives per nurse ("Sunita is sick toda
 
 A second round with ten reviewers (a recruiter, a senior PM, an AI PM interviewer, an engineer, a data scientist, a designer, an agency founder, an NRI son, a nurse and a doctor) led to clearer framing (a portfolio banner, "where AI is used"), an accessibility pass (no automated WCAG 2 AA violations), cited thresholds, a check that family updates never add medical words the caregiver did not use, confidence intervals on every headline number, and a calibration plot for the risk model.
 
+A third pass caught a framing problem: the page's first line described the product ("CareOps reads family messages…"). That is a pitch for visitors, not information for an operator who already knows the tool. The page now has a coordinator's view whose first line is today's work: how many families wrote in, how many visits have no backup nurse, how many nurses are running late.
+
 ## Results (synthetic data, real model runs)
 
 | Metric | Result |

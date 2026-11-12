@@ -15,22 +15,24 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="demo-banner" role="note">
+<div class="demo-banner visitor" role="note">
   <span><b>Portfolio demo</b> by Ritika Jaiswal · synthetic data · You are a home-care coordinator starting your day.</span>
   <a href="https://github.com/Ritikajaiswal2707/careops/blob/main/docs/CASE_STUDY.md">1-page case study</a>
+  <button type="button" class="banner-btn" onclick="setOperatorView(true)">See the coordinator's view</button>
 </div>
 <div class="wrap">
   <div class="brand">
     <div class="wordmark"><svg class="cross" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg>CareOps</div>
-    <a href="https://github.com/Ritikajaiswal2707/careops">How it was built</a>
+    <span class="brand-links"><button type="button" class="link-btn operator-only" onclick="setOperatorView(false)">Show demo notes</button><a href="https://github.com/Ritikajaiswal2707/careops">How it was built</a></span>
   </div>
 
   <section class="hero" aria-labelledby="hero-title">
     <h1 id="hero-title">Today's home visits</h1>
-    <p>CareOps reads family messages in English and Hinglish, drafts the reply, and suggests a fix. You approve; nothing is booked or sent on its own.</p>
+    <p class="today-line" id="today-line"></p>
+    <p class="visitor pitch">CareOps reads family messages in English and Hinglish, drafts the reply, and suggests a fix. You approve; nothing is booked or sent on its own.</p>
     <div class="board" id="board" role="img" aria-label="Today's visits"></div>
     <div class="legend" id="legend"></div>
-    <details class="ai-box">
+    <details class="ai-box visitor">
       <summary>Where AI is used, and why it is off here</summary>
       <ul>
         <li><span class="tag ai">AI</span> <b>Visit reports:</b> an LLM (gpt-oss-120b) turns a caregiver's note into a report and a family update. Checks after the AI decide what is trusted.</li>
@@ -62,9 +64,11 @@
         <button type="button" class="tab" aria-pressed="false" data-s="time">By time</button>
       </div>
     </div>
-    <div class="meta demo-line">Approving shows what would happen next. In this demo nothing is sent or booked.</div>
+    <div class="meta demo-line visitor">Approving shows what would happen next. In this demo nothing is sent or booked.</div>
+    <div id="filter-note"></div>
 
     <div id="list"></div>
+    <div id="done"></div>
     <div id="confirmed"></div>
     <div id="owner"></div>
     <div id="history"></div>
