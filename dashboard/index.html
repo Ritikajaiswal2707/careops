@@ -75,8 +75,8 @@
 
     <details class="note about">
       <summary>About the risk model and its known limitation</summary>
-      The list is sized to what one coordinator can review: the top ~10% of today's visits by predicted disruption risk are "Likely to go wrong", the next ~10% "Worth a check", the same capacity assumption used in this project's economics, fairness and intervention-simulation modules. Predictions come from a logistic regression on 6 features (ROC-AUC 0.58 after a data-leakage fix), so treat it as a "look here first" helper, not a verdict. Suggested actions are rule-based. This is one representative simulated day, not a cherry-picked best case.<br><br>
-      <b>Known limitation:</b> first-time-patient predictions are overconfident relative to observed disruption in this small subgroup — mean predicted risk 25.6% against an actual disruption rate of 17.0% (a +8.6-point calibration gap, vs. +1.3 points for returning patients), on a subgroup 66x smaller than the returning-patient one. This is a calibration issue, not a flagging-rate issue: the subgroup check in <code>fairness_subgroup_analysis.py</code> found first-time patients are actually flagged <i>less</i> often than returning patients (10.6% vs 20.1%) and have a <i>lower</i> false-positive rate (10.3% vs 18.0%). Calibration should be reviewed before any production use. Names, times and phone numbers are synthetic.
+      The list is sized to what one coordinator can review in a day: the riskiest 10% of visits are "Likely to go wrong" and the next 10% "Worth a check". The risk score is a simple statistical model (ROC-AUC 0.58), so it is a "look here first" helper, not a verdict.<br><br>
+      <b>Known limitation:</b> for first-time patients the model predicts more risk than actually happens (25.6% predicted, 17.0% observed), so its scores for them should be recalibrated before any real use.
     </details>
   </div>
 
@@ -105,10 +105,10 @@
         <button class="ghost" id="record-btn" type="button" onclick="toggleRecording()" hidden>Record a voice note</button>
         <button class="approve" onclick="tryVisitReport()" style="flex:1; padding:11px 14px;">Structure this note</button>
       </div>
-      <div class="meta" style="margin-top:6px;">The live AI is off on this free public demo (no paid API key, and no text leaves this page for an outside model), so every note goes to you for review. The readings, red-flag and medical-word checks still run. The examples above are real AI runs.</div>
+      <div class="meta" style="margin-top:6px;">The live AI is off on this public demo, so your note goes to a person for review. The readings and red-flag checks still run.</div>
       <div id="vr-result" aria-live="polite" style="margin-top:12px;"></div>
     </div>
-    <div class="note">Synthetic notes · not clinical guidance · thresholds only decide whether a person looks first; they follow ACC/AHA, ADA and NEWS2 lines but are not clinically validated (<a href="https://github.com/Ritikajaiswal2707/careops/blob/main/docs/THRESHOLDS.md">sources</a>). To see live AI calls, run it locally with a free Groq key.</div>
+    <div class="note">Thresholds only decide whether a person looks first. They follow ACC/AHA, ADA and NEWS2 lines and are not clinically validated (<a href="https://github.com/Ritikajaiswal2707/careops/blob/main/docs/THRESHOLDS.md">sources</a>).</div>
   </div>
 
   <div id="live-view" role="tabpanel" aria-labelledby="tab-live" style="display:none">
@@ -142,9 +142,6 @@
       </div>
       <button class="approve" id="find-recovery-button" onclick="askCareOps()" style="width:100%; padding:11px 14px;">Find a replacement</button>
       <div id="live-result" aria-live="polite" style="margin-top:12px;"></div>
-    </div>
-    <div class="note">
-      Synthetic data · simulated healthcare environment · not for clinical use. Recommendations are for review only; this public demo does not change schedules or contact anyone.
     </div>
   </div>
   <div class="footer">Synthetic data from a simulated home-care operation, built as a product portfolio demo. Not for clinical use. Out of scope: emergency response, night-time alerts and billing.</div>

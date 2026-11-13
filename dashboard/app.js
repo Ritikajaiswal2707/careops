@@ -160,22 +160,50 @@ function renderDraft(id, draft, opts = {}){
   st.draft = draft;
   const text = st.edits[st.lang] ?? draft[st.lang];
   return `<details class="draft" ${st.open ? 'open' : ''} ontoggle="draftState['${escapeHtml(id)}'].open=this.open">
-    <summary>${escapeHtml(opts.title || 'Message to family')} <span class="meta">ready to send</span> <span class="tag rules">Template</span></summary>
+    <summary>${escapeHtml(opts.title || 'Message to family')} <span class="meta">ready to edit and send</span> <span class="tag rules">Template</span></summary>
     <div class="draft-body">
       <div class="seg" role="group" aria-label="Language">
         <button type="button" class="${st.lang === 'hi' ? 'on' : ''}" onclick="setDraftLang('${escapeHtml(id)}','hi')">Hinglish</button>
         <button type="button" class="${st.lang === 'en' ? 'on' : ''}" onclick="setDraftLang('${escapeHtml(id)}','en')">English</button>
       </div>
-      <textarea id="draft-${escapeHtml(id)}" aria-label="${escapeHtml(opts.title || 'Message to family')}" rows="4" oninput="draftState['${escapeHtml(id)}'].edits[draftState['${escapeHtml(id)}'].lang]=this.value">${escapeHtml(text)}</textarea>
-      <div class="draft-actions"><button type="button" class="ghost" onclick="copyDraft('${escapeHtml(id)}', this)">Copy</button><span class="meta">Not sent. Edit it, then paste into WhatsApp.</span></div>
+      <textarea id="draft-${escapeHtml(id)}" aria-label="${escapeHtml(opts.title || 'Message to family')}" rows="4" oninput="draftEdited('${escapeHtml(id)}', this.value)">${escapeHtml(text)}</textarea>
+      <div class="draft-actions">
+        <button type="button" class="ghost" onclick="editDraft('${escapeHtml(id)}')">Edit message</button>
+        <button type="button" class="ghost" onclick="copyDraft('${escapeHtml(id)}', this)">Copy</button>
+        <button type="button" class="link-btn" id="reset-${escapeHtml(id)}" ${st.edits[st.lang] === undefined ? 'hidden' : ''} onclick="resetDraft('${escapeHtml(id)}')">Edited · undo changes</button>
+        <span class="meta">Not sent. Change anything you like, then copy it into WhatsApp.</span>
+      </div>
     </div>
   </details>`;
+}
+// The draft was always editable, but a coordinator did not notice: make it an explicit action.
+function editDraft(id){
+  const ta = document.getElementById('draft-' + id);
+  if(!ta) return;
+  ta.focus();
+  ta.setSelectionRange(ta.value.length, ta.value.length);
+}
+function draftEdited(id, value){
+  const st = draftState[id];
+  st.edits[st.lang] = value;
+  const r = document.getElementById('reset-' + id);
+  if(r) r.hidden = false;
+}
+function resetDraft(id){
+  const st = draftState[id];
+  delete st.edits[st.lang];
+  const ta = document.getElementById('draft-' + id);
+  if(ta) ta.value = st.draft[st.lang];
+  const r = document.getElementById('reset-' + id);
+  if(r) r.hidden = true;
 }
 function setDraftLang(id, lang){
   const st = draftState[id]; st.lang = lang;
   const ta = document.getElementById('draft-' + id);
   if(!ta) return;
   ta.value = st.edits[lang] ?? st.draft[lang];
+  const r = document.getElementById('reset-' + id);
+  if(r) r.hidden = st.edits[lang] === undefined;
   ta.closest('.draft').querySelectorAll('.seg button').forEach(b => b.classList.toggle('on', b.textContent === (lang === 'hi' ? 'Hinglish' : 'English')));
 }
 function copyDraft(id, btn){
@@ -542,7 +570,7 @@ function renderCascade(){
         </div>
         ${renderDraft('late-' + c.id, draft, {open: true})}
         ${hasBackup ? renderActionRow({...c, id: 'late-' + c.id}) : ''}
-        <div class="id-line">Visit ${escapeHtml(c.id)} · ${escapeHtml(c.provider)}</div>
+        <div class="id-line">Visit ${escapeHtml(c.id)}</div>
       </div>`;
     }).join('')}`;
 }
@@ -640,7 +668,7 @@ function vrCard(r, title, point, kind){
     ${point ? `<div class="meta" style="margin-top:3px;">${escapeHtml(point)}</div>` : ''}
     <div class="vr-quote">${escapeHtml(r.transcript || '')}</div>
     ${(r.readings || []).length ? `<div class="meta">Readings in the note</div><div class="vr-vitals">${readingChips(r.readings)}</div>` : ''}
-    ${r.model_vitals && Object.keys(r.model_vitals).length ? `<div class="meta">AI reported <span class="tag ai">AI</span></div><div class="vr-vitals">${vrChips(r.model_vitals, '')}</div>` : ''}
+    ${r.model_vitals && Object.keys(r.model_vitals).length ? `<div class="meta">What the AI reported</div><div class="vr-vitals">${vrChips(r.model_vitals, '')}</div>` : ''}
     ${Object.keys(r.unverified || {}).length ? `<div class="meta">Not written in the note, held back</div><div class="vr-vitals">${vrChips(r.unverified, 'bad')}</div>` : ''}
     ${(r.reasons || []).length ? `<ul class="why">${r.reasons.map(x => `<li>${escapeHtml(humanReason(x))}</li>`).join('')}</ul>` : ''}
     ${summary}
@@ -653,7 +681,7 @@ function renderVisitReports(){
   const list = document.getElementById('vr-list');
   if(!VR_EXAMPLES){ list.innerHTML = '<div class="empty">No recorded examples in this build.</div>'; return; }
   document.getElementById('vr-provenance').textContent =
-    `Recorded examples from a real ${VR_EXAMPLES.model} run on ${VR_EXAMPLES.recorded_at.slice(0, 10)}, with safety checks v${VR_EXAMPLES.safety_version} re-applied offline.`;
+    `Examples recorded from a real AI run (${VR_EXAMPLES.model}, ${fmtDate(VR_EXAMPLES.recorded_at.slice(0, 10))}).`;
   list.innerHTML = VR_EXAMPLES.examples.map(e => vrCard({...e, readings: e.readings}, e.id, e.point,
     /companion visit/i.test(e.transcript) ? 'Companion visit' : 'Nursing visit')).join('');
 }
