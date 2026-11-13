@@ -111,6 +111,9 @@ button.ghost:hover{border-color:var(--ink);}
 .exec-steps{margin-top:8px; font-size:.82rem; line-height:1.7;}
 .exec-steps .mk{display:inline-block; width:16px; font-weight:700; color:var(--sub);}
 .exec-steps .ok .mk{color:var(--ok);}
+.exec-steps.elsewhere{margin:0 0 8px; padding:6px 10px; border-radius:8px; background:#fdf3d7; color:var(--med);}
+.exec-steps.elsewhere .mk{color:var(--med);}
+.cover-row .btns{display:flex; gap:8px; flex-wrap:wrap;}
 button.approve.wait:disabled, button.approve.warn:disabled{opacity:1;}
 .nowrap{white-space:nowrap;}
 button.approve.wait{background:var(--med-bg); color:var(--med);}

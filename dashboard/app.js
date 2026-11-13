@@ -64,6 +64,8 @@ function timeMinutes(t){
   let h = Number(m[1]) % 12; if(m[3] === 'pm') h += 12; return h * 60 + Number(m[2]);
 }
 const isConfirmed = v => !!(v.patientSignal && v.patientSignal.intent === 'Confirm' && !v.patientSignal.escalate_to_human);
+// The family turned down the proposed day: the visit is back with the coordinator.
+const saidNo = v => !!(v.rescheduleProposal && execState[v.id] && execState[v.id].reply === 'no');
 const isDoneToday = v => !!(execState[v.id] && execState[v.id].reply === 'yes');
 const hasMessage = v => !!v.patientSignal && !isConfirmed(v);
 const isReminder = v => /^(Call to confirm|Send confirmation)/.test(v.action || '');
@@ -157,6 +159,9 @@ function draftFor(kind, ctx){
     case 'replacement': return {
       hi: `Namaste! Aaj ${n} ki ${service} visit ke liye ${nurse} aayengi. Samay wahi rahega: ${time}.`,
       en: `Hello! ${nurse} will do ${name}'s ${service} visit today. The time stays the same: ${time}.`};
+    case 'askday': return {
+      hi: `Theek hai, koi baat nahi. ${n} ki ${service} visit ke liye aapko kaun sa din aur samay theek rahega? Hum us din nurse ki availability dekh kar confirm karenge.`,
+      en: `No problem. Which day and time would suit you for ${name}'s ${service} visit? We will check a nurse is free then and confirm.`};
     case 'move': return {
       hi: `Namaste! Aaj ${n} ki visit ke liye koi nurse uplabdh nahi hai. Kya hum ${date} ko ${time} baje visit rakh sakte hain? Kripya batayein.`,
       en: `Hello! No nurse is free for ${name}'s visit today. Could we move it to ${date} at ${time}? Please let us know.`};
@@ -228,6 +233,7 @@ function visitCtx(v){
 }
 function draftForVisit(v){
   const ctx = visitCtx(v);
+  if(saidNo(v)) return draftFor('askday', ctx);
   if(v.rescheduleProposal){
     const p = v.rescheduleProposal;
     // A day the coordinator found: the family has not asked to move, so ask them rather than confirm.
@@ -251,7 +257,9 @@ function saveProgress(){
     Object.entries(execState).forEach(([id, st]) => { if(!st.running) done[id] = {reply: st.reply || null}; });
     const found = {};
     Object.entries(foundDays).forEach(([id, f]) => { if(f.date || f.none) found[id] = f; });
-    localStorage.setItem(STORE_KEY, JSON.stringify({day: DATA.today, done, found, log: actionLog.slice(0, 60)}));
+    const retry = {};
+    DATA.flagged.forEach(v => { if(v.rescheduleProposal && v.rescheduleProposal.retry) retry[v.id] = {p: v.rescheduleProposal, declined: declinedDays[v.id] || []}; });
+    localStorage.setItem(STORE_KEY, JSON.stringify({day: DATA.today, done, found, retry, cover: coverAsked, log: actionLog.slice(0, 60)}));
   } catch(e) {}
 }
 function loadProgress(){
@@ -262,6 +270,11 @@ function loadProgress(){
       const v = DATA.flagged.find(x => x.id === id);
       if(v){ foundDays[id] = f; applyFoundDay(v); }
     });
+    Object.entries(saved.retry || {}).forEach(([id, r]) => {
+      const v = DATA.flagged.find(x => x.id === id);
+      if(v && r && r.p){ if(!v.origProposal) v.origProposal = v.rescheduleProposal; v.rescheduleProposal = r.p; declinedDays[id] = r.declined || []; }
+    });
+    Object.assign(coverAsked, saved.cover || {});
     Object.entries(saved.done || {}).forEach(([id, st]) => {
       const item = DATA.flagged.find(f => f.id === id)
         || DATA.cascades.map(c => ({...c, id: 'late-' + c.id})).find(c => c.id === id);
@@ -275,7 +288,13 @@ function loadProgress(){
 function clearProgress(){
   Object.keys(execState).forEach(k => delete execState[k]);
   Object.keys(foundDays).forEach(k => delete foundDays[k]);
-  DATA.flagged.forEach(v => { if(v.rescheduleProposal && v.rescheduleProposal.found) delete v.rescheduleProposal; });
+  Object.keys(nextAfterNo).forEach(k => delete nextAfterNo[k]);
+  Object.keys(declinedDays).forEach(k => delete declinedDays[k]);
+  Object.keys(coverAsked).forEach(k => delete coverAsked[k]);
+  DATA.flagged.forEach(v => {
+    if(v.origProposal){ v.rescheduleProposal = v.origProposal; delete v.origProposal; }
+    else if(v.rescheduleProposal && v.rescheduleProposal.found) delete v.rescheduleProposal;
+  });
   actionLog.length = 0;
   try { localStorage.removeItem(STORE_KEY); } catch(e) {}
   rerenderAll();
@@ -327,7 +346,7 @@ function initOperatorView(){
 }
 function renderTodayLine(){
   const open = DATA.flagged.filter(v => !isConfirmed(v) && !isDoneToday(v));
-  const msgs = open.filter(hasMessage).length;
+  const msgs = open.filter(v => hasMessage(v) && !isWaiting(v)).length;
   const gaps = open.filter(noBackup).length;
   const late = DATA.cascades.length;
   const part = (n, one, many, action) => `<button type="button" class="today-chip" onclick="${action}"><b>${n}</b> ${n === 1 ? one : many}</button>`;
@@ -456,11 +475,13 @@ function flowFor(v){
 }
 
 function renderActionRow(v){
-  const label = v.recovery ? (v.recovery.startsWith('Backup available') ? `Send ${provName(v.recovery)} instead` : 'No backup nurse free. Agree a later time with the family') : plainAction(v);
+  const declined = saidNo(v);
+  const label = declined ? 'Ask the family which day suits them, or offer the next free day'
+    : (v.recovery ? (v.recovery.startsWith('Backup available') ? `Send ${provName(v.recovery)} instead` : 'No backup nurse free. Agree a later time with the family') : plainAction(v));
   const flow = flowFor(v);
   const st = execState[v.id];
   let stepsHtml = '';
-  if(st){
+  if(st && !declined){
     stepsHtml = `<div class="exec-steps">` + flow.steps.map((s, i) => {
       const done = i < st.stepIndex || (i === st.stepIndex && !st.running);
       const active = i === st.stepIndex && st.running;
@@ -488,8 +509,10 @@ function renderActionRow(v){
     } else if(st.reply === 'yes'){
       replyHtml = `<div class="exec-steps"><div class="ok"><span class="mk">✓</span>${escapeHtml(nurse)} told about the new visit</div><div class="ok"><span class="mk">✓</span>Visit moved to ${escapeHtml(fmtDate(p.new_date))}, ${escapeHtml(visitTime(v.id, v.time))}. Done</div></div>`;
     } else {
-      replyHtml = `<div class="exec-steps"><div><span class="mk">!</span>Family said no. The slot is released and ${escapeHtml(nurse)} was never told. Ask for a day that suits them:</div></div>
-        ${renderDraft('ask-' + v.id, draftFor('move', {...visitCtx(v), date: fmtDate(addDays(p.new_date, 1))}), {open: true, title: 'Ask the family for another day'})}`;
+      const nx = nextAfterNo[v.id] || {};
+      replyHtml = `<div class="exec-steps"><div><span class="mk">!</span>Family said no to ${escapeHtml(fmtDate(p.new_date))}. The slot is released and ${escapeHtml(nurse)} was never told. The message above now asks which day suits them.</div>
+        ${nx.none ? `<div><span class="mk">!</span>No suitable nurse is free in the 7 days after that either. Call the family to agree a day, then use Fix a visit.</div>` : ''}
+        ${nx.error ? `<div><span class="mk">!</span>Could not check other days just now. Try again in a moment.</div>` : ''}</div>`;
     }
   }
   const replyDone = st && st.reply;
@@ -500,16 +523,20 @@ function renderActionRow(v){
   const disabled = st && (st.running || isDone);
   const canAct = !v.recovery || v.recovery.startsWith('Backup available');
   const fd = foundDays[v.id] || {};
-  const secondary = !noBackup(v) || fd.none || isDone ? ''
+  const nxs = nextAfterNo[v.id] || {};
+  const secondary = declined ? (nxs.none ? '' : `<button class="approve" ${nxs.checking ? 'disabled' : ''} onclick="findNextAfterNo('${escapeHtml(v.id)}')">${nxs.checking ? 'Checking the next 7 days…' : 'Offer the next free day'}</button>`)
+    : !noBackup(v) || fd.none || isDone ? ''
     : `<button class="ghost" ${fd.checking ? 'disabled' : ''} onclick="findAnotherDay('${escapeHtml(v.id)}')">${fd.checking ? 'Checking the next 7 days…' : 'Find another day'}</button>`;
   const fdNote = !noBackup(v) ? '' : fd.none
     ? `<div class="exec-steps"><div><span class="mk">!</span>No nurse is free in the next 7 days. Escalate to the operations head or a partner agency.</div></div>`
     : (fd.error ? `<div class="exec-steps"><div><span class="mk">!</span>Could not check other days just now. Try again in a moment.</div></div>` : '');
   return `
     <div class="action-row">
+      ${elsewhereNote(v.id, 'needs')}
+      ${(declinedDays[v.id] || []).length ? `<div class="exec-steps"><div><span class="mk">i</span>Family already said no to ${declinedDays[v.id].map(d => escapeHtml(fmtDate(d))).join(', ')}.</div></div>` : ''}
       <div class="action-main">
         <div class="action">Suggested: <b>${escapeHtml(label)}</b></div>
-        <div class="btns">${secondary}${canAct ? `<button class="approve ${isDone ? flowDoneClass : ''}" ${disabled ? 'disabled' : ''} onclick="approveItem('${escapeHtml(v.id)}')">${escapeHtml(btnLabel)}</button>` : ''}</div>
+        <div class="btns">${secondary}${canAct && !declined ? `<button class="approve ${isDone ? flowDoneClass : ''}" ${disabled ? 'disabled' : ''} onclick="approveItem('${escapeHtml(v.id)}')">${escapeHtml(btnLabel)}</button>` : ''}</div>
       </div>
       ${fdNote}
       ${stepsHtml}
@@ -523,6 +550,7 @@ function rerenderAll(){
 }
 function familyReplied(id, answer){
   execState[id].reply = answer;
+  if(draftState[id]) draftState[id].edits = {};
   saveProgress();
   if(answer === 'yes') setTimeout(() => {
     const el = document.getElementById('done');
@@ -580,6 +608,7 @@ function renderCascade(){
         </div>
         ${renderDraft('late-' + c.id, draft, {open: true})}
         ${hasBackup ? renderActionRow({...c, id: 'late-' + c.id}) : ''}
+        ${elsewhereNote(c.id, 'late')}
         <div class="id-line">Visit ${escapeHtml(c.id)}</div>
       </div>`;
     }).join('')}`;
@@ -850,11 +879,11 @@ async function coverNurseDay(){
           return `<div class="cover-row">
             <div><b>${escapeHtml(name)}</b> · ${escapeHtml(v.service_type)} · ${escapeHtml(time)}
               <div class="meta">${pick ? `Cover: <b>${escapeHtml(provName(pick.provider_id))}</b> · ${(pick.reasons || []).slice(0, 2).map(x => escapeHtml(plainWhy(x))).join(' · ')}` : 'No nurse with room today'}</div></div>
-            ${pick ? `<button class="ghost" onclick="copyText(this, ${escapeHtml(JSON.stringify(msg.hi))})">Copy message</button>`
+            ${pick ? `<span class="btns"><button class="approve" data-appt="${escapeHtml(v.appointment_id)}" data-nurse="${escapeHtml(provName(pick.provider_id))}" ${coverAsked[v.appointment_id] ? 'disabled' : ''} onclick="askCover(this, this.dataset.appt, this.dataset.nurse)">${coverAsked[v.appointment_id] ? `Waiting for ${escapeHtml(coverAsked[v.appointment_id])}` : `Ask ${escapeHtml(provName(pick.provider_id).split(' ')[0])} to cover`}</button><button class="ghost" onclick="copyText(this, ${escapeHtml(JSON.stringify(msg.hi))})">Copy message</button></span>`
                    : `<button class="ghost later-btn" data-appt="${escapeHtml(v.appointment_id)}" onclick="coverLater(this, this.dataset.appt)">Find another day</button>`}
           </div>`;
         }).join('')}
-        <div class="meta" style="margin-top:8px;">Recommendation only. Nothing is booked and no one is contacted from this demo.</div>
+        <div class="meta" style="margin-top:8px;">Ask each cover nurse first, then send the family message. In this demo nothing is booked and no one is contacted.</div>
       </div>`;
     logAction(`${nurseOut} out: cover found for ${covered} of ${rows.length} visits`);
   } catch(e){
@@ -975,7 +1004,7 @@ function showResult(visit, date, candidates){
       ${reasons.length ? `<div class="reasons">${reasons.map(r => `<span>${escapeHtml(plainWhy(r, sameDay))}</span>`).join('')}</div>` : ''}
       ${candidates.length > 1 ? `<details class="trace"><summary>${candidates.length - 1} other option(s)</summary>${candidates.slice(1).map(alt => `<div class="alt"><b>${escapeHtml(provName(alt.provider_id))}</b> <span class="meta">${escapeHtml(alt.provider_id || '')}</span><div class="meta">${(Array.isArray(alt.reasons) ? alt.reasons : []).map(r => escapeHtml(plainWhy(r, sameDay))).join(' · ')}</div></div>`).join('')}</details>` : ''}
       ${renderDraft('fix-' + visit.id + date, draft, {open: true})}
-      <div class="meta" style="margin-top:8px;">Next: confirm with ${escapeHtml(nurse)} first, then send the family message. Nothing has been booked. <span class="id-line">${escapeHtml(c.provider_id || '')}</span></div>
+      <div class="meta" style="margin-top:8px;">Next: confirm with ${escapeHtml(nurse)} first, then send the family message. Nothing has been booked.</div>
     </div>`;
 }
 async function askCareOps(){
@@ -1014,6 +1043,62 @@ async function findNextFreeDay(id){
   }
   el.innerHTML = `<div class="card result warn"><div style="font-weight:700;">No nurse is free in the next 7 days</div><div class="meta">Escalate to the operations head or a partner agency. The visit stays on your list.</div></div>`;
 }
+// After a "no": look for the next free day after the one the family declined, and start a fresh proposal.
+const nextAfterNo = {};
+const declinedDays = {};   // visit id -> dates the family has turned down
+async function findNextAfterNo(id){
+  const v = DATA.flagged.find(f => f.id === id);
+  if(!v || !v.rescheduleProposal || (nextAfterNo[id] && nextAfterNo[id].checking)) return;
+  const from = v.rescheduleProposal.new_date;
+  nextAfterNo[id] = {checking: true};
+  rerenderAll();
+  let result = {none: true};
+  for(let i = 1; i <= 7; i++){
+    const date = addDays(from, i);
+    let data = null;
+    try {
+      const res = await fetch('/api/recover', {method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({appointment_id: id, target_date: date})});
+      data = res.ok ? await res.json() : null;
+    } catch(e) { data = null; }
+    if(!data){ result = {error: true}; break; }
+    const top = (data.candidates || [])[0];
+    if(top){ result = {date, pid: top.provider_id, reasons: top.reasons || []}; break; }
+  }
+  if(result.date){
+    if(!v.origProposal) v.origProposal = v.rescheduleProposal;
+    (declinedDays[id] = declinedDays[id] || []).push(from);
+    v.rescheduleProposal = {new_date: result.date, provider_id: result.pid, reasons: result.reasons, retry: true};
+    delete execState[id];
+    delete nextAfterNo[id];
+    if(draftState[id]) draftState[id].edits = {};
+    logAction(`${patientName(id)}: next free day is ${fmtDate(result.date)} with ${provName(result.pid)}, to offer the family`);
+  } else {
+    nextAfterNo[id] = result;
+    if(result.none) logAction(`${patientName(id)}: no nurse free in the 7 days after ${fmtDate(from)}`);
+  }
+  saveProgress();
+  rerenderAll();
+}
+
+// One visit can show up under Needs you, Running late and A nurse is out today. Say so on the card,
+// so the coordinator does not handle the same visit twice.
+const coverAsked = {};   // appointment id -> nurse asked to cover (from "A nurse is out today")
+function elsewhereNote(id, here){
+  const notes = [];
+  const late = execState['late-' + id];
+  if(here !== 'late' && late && !late.running) notes.push('Already in progress under Running late');
+  if(here !== 'needs' && execState[id] && !execState[id].running && DATA.flagged.some(f => f.id === id)) notes.push('Already in progress under Needs you');
+  if(coverAsked[id]) notes.push(`${coverAsked[id]} was asked to cover this visit under "A nurse is out today"`);
+  return notes.length ? `<div class="exec-steps elsewhere">${notes.map(n => `<div><span class="mk">i</span>${escapeHtml(n)}. Check before acting again.</div>`).join('')}</div>` : '';
+}
+function askCover(btn, appt, nurse){
+  coverAsked[appt] = nurse;
+  btn.disabled = true; btn.textContent = `Waiting for ${nurse}`;
+  logAction(`${patientName(appt)}: ${nurse} asked to cover`);
+  rerenderAll();
+}
+
 // "Find another day" works in place on the visit's card: the coordinator keeps her place in the
 // list, and a found day turns the visit into a proposed move that follows the usual approval steps.
 const foundDays = {};
