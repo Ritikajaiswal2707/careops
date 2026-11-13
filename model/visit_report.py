@@ -33,7 +33,7 @@ import openai_compat_llm
 from llm_prompt import strip_json_fence
 
 # 1.0: grounding + red flags on the reported values. 1.1: also scans every reading in the note.
-SAFETY_VERSION = "1.2"
+SAFETY_VERSION = "1.3"
 
 VITAL_FIELDS = ["bp_systolic", "bp_diastolic", "blood_sugar_mg_dl", "spo2_pct", "pulse_bpm", "temperature_f"]
 
@@ -131,6 +131,26 @@ def added_medical_terms(summary, transcript):
     summ, note = (summary or "").lower(), (transcript or "").lower()
     return sorted(term for term, note_pat in SUMMARY_MEDICAL_TERMS.items()
                   if re.search(rf"\b{term}", summ) and not re.search(note_pat, note))
+
+
+# Promises a family update may only make when the note itself supports them. A
+# model asked to sound reassuring tends to add "we are monitoring him and will
+# keep you updated": a commitment nobody made. Each entry is (pattern in the
+# summary, pattern that must appear in the note).
+SUMMARY_PROMISES = {
+    "monitoring": (r"\bmonitor", r"monitor|nazar|dhyan|observ"),
+    "keep you updated": (r"keep you (updated|informed|posted)|will update you", r"update|bata d|inform"),
+    "doctor informed": (r"(doctor|physician) (has been|was|is being|will be) (informed|notified|consulted)|(informed|notified) the doctor",
+                        r"doctor|dr\b|daktar"),
+    "follow-up": (r"follow[- ]?up|will (check|visit|come) again", r"follow|dobara|phir se|kal aa"),
+}
+
+
+def added_promises(summary, transcript):
+    """Commitments the summary makes that the note never mentions."""
+    summ, note = (summary or "").lower(), (transcript or "").lower()
+    return sorted(name for name, (summ_pat, note_pat) in SUMMARY_PROMISES.items()
+                  if re.search(summ_pat, summ) and not re.search(note_pat, note))
 
 
 RED_FLAG_WORDS = (
@@ -259,7 +279,8 @@ def apply_safety(transcript, report):
     red_flags += [f"keyword:{w}" for w in words]
 
     added_terms = added_medical_terms(report.get("family_summary"), transcript)
-    needs_review = bool(unverified or red_flags or added_terms)
+    promises = added_promises(report.get("family_summary"), transcript)
+    needs_review = bool(unverified or red_flags or added_terms or promises)
     review_reasons = []
     if unverified:
         review_reasons.append("vital value not found as a number in the note: " + ", ".join(sorted(unverified)))
@@ -267,6 +288,8 @@ def apply_safety(transcript, report):
         review_reasons.append("red flag: " + ", ".join(red_flags))
     if added_terms:
         review_reasons.append("family update adds medical words not in the note: " + ", ".join(added_terms))
+    if promises:
+        review_reasons.append("family update makes promises not in the note: " + ", ".join(promises))
 
     return {
         "vitals": verified,
