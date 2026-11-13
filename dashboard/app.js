@@ -570,7 +570,7 @@ function renderCascade(){
         </div>
         ${renderDraft('late-' + c.id, draft, {open: true})}
         ${hasBackup ? renderActionRow({...c, id: 'late-' + c.id}) : ''}
-        <div class="id-line">Visit ${escapeHtml(c.id)} · ${escapeHtml(c.provider)}</div>
+        <div class="id-line">Visit ${escapeHtml(c.id)}</div>
       </div>`;
     }).join('')}`;
 }
@@ -668,7 +668,7 @@ function vrCard(r, title, point, kind){
     ${point ? `<div class="meta" style="margin-top:3px;">${escapeHtml(point)}</div>` : ''}
     <div class="vr-quote">${escapeHtml(r.transcript || '')}</div>
     ${(r.readings || []).length ? `<div class="meta">Readings in the note</div><div class="vr-vitals">${readingChips(r.readings)}</div>` : ''}
-    ${r.model_vitals && Object.keys(r.model_vitals).length ? `<div class="meta">AI reported <span class="tag ai">AI</span></div><div class="vr-vitals">${vrChips(r.model_vitals, '')}</div>` : ''}
+    ${r.model_vitals && Object.keys(r.model_vitals).length ? `<div class="meta">What the AI reported</div><div class="vr-vitals">${vrChips(r.model_vitals, '')}</div>` : ''}
     ${Object.keys(r.unverified || {}).length ? `<div class="meta">Not written in the note, held back</div><div class="vr-vitals">${vrChips(r.unverified, 'bad')}</div>` : ''}
     ${(r.reasons || []).length ? `<ul class="why">${r.reasons.map(x => `<li>${escapeHtml(humanReason(x))}</li>`).join('')}</ul>` : ''}
     ${summary}
@@ -681,7 +681,7 @@ function renderVisitReports(){
   const list = document.getElementById('vr-list');
   if(!VR_EXAMPLES){ list.innerHTML = '<div class="empty">No recorded examples in this build.</div>'; return; }
   document.getElementById('vr-provenance').textContent =
-    `Recorded examples from a real ${VR_EXAMPLES.model} run on ${VR_EXAMPLES.recorded_at.slice(0, 10)}, with safety checks v${VR_EXAMPLES.safety_version} re-applied offline.`;
+    `Examples recorded from a real AI run (${VR_EXAMPLES.model}, ${fmtDate(VR_EXAMPLES.recorded_at.slice(0, 10))}).`;
   list.innerHTML = VR_EXAMPLES.examples.map(e => vrCard({...e, readings: e.readings}, e.id, e.point,
     /companion visit/i.test(e.transcript) ? 'Companion visit' : 'Nursing visit')).join('');
 }
