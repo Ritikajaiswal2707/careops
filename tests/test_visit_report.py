@@ -238,3 +238,20 @@ def test_family_update_that_adds_medical_words_is_held():
     # A plain translation of what the note says is allowed ("chot" -> injury).
     ok = visit_report.apply_safety("Papa ko halki chot lagi.", {**_report(), "family_summary": "He had a minor injury."})
     assert not any("medical words" in r for r in ok["review_reasons"])
+
+
+def test_family_update_with_an_unsupported_promise_is_held():
+    note = "Visit done. BP 128/82. Uncle ne nashta kar liya."
+    report = {"vitals": {"bp_systolic": 128, "bp_diastolic": 82},
+              "family_summary": "His blood pressure was 128 over 82. We are monitoring him and will keep you updated."}
+    out = visit_report.apply_safety(note, report)
+    assert out["needs_coordinator_review"] is True
+    assert out["family_summary"] is None
+    assert any("promises not in the note" in r for r in out["review_reasons"])
+
+
+def test_promise_supported_by_the_note_is_allowed():
+    note = "Visit done. BP 128/82. Doctor ko bata diya hai, kal dobara aaungi."
+    summary = "His blood pressure was 128 over 82. The doctor has been informed and the nurse will visit again tomorrow."
+    assert visit_report.added_promises(summary, note) == []
+    assert visit_report.added_promises("He ate well and seemed cheerful.", "Khana kha liya.") == []

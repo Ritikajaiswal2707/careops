@@ -84,10 +84,14 @@ function plainWhy(r, sameDay = true){
   if(r === 'has treated this patient before') return 'Has treated this patient before';
   return r.charAt(0).toUpperCase() + r.slice(1);
 }
+const FAR_KM = 20;
+const reasonHas = (v, re) => (v.reasons || []).some(r => re.test(r));
+const isFar = v => (v.reasons || []).some(r => { const m = /^([\d.]+)km from clinician/.exec(r); return m && +m[1] >= FAR_KM; });
 function plainReason(r){
   let m;
   if((m = /^(\d+) prior no-shows? before this visit/.exec(r))) return `Missed ${m[1]} visits before`;
-  if((m = /^([\d.]+)km from clinician/.exec(r))) return `${m[1]} km between nurse and patient`;
+  // Distance is on nearly every visit, so it is only a reason when the nurse is far away.
+  if((m = /^([\d.]+)km from clinician/.exec(r))) return +m[1] >= FAR_KM ? `Nurse is far away: ${Math.round(+m[1])} km` : null;
   if(r === 'Evening slot') return 'Evening visit';
   if(r === 'Low message response rate so far') return 'Family rarely replies';
   return r;
@@ -100,7 +104,13 @@ function plainAction(v){
     return `Move to ${fmtDate(p.new_date)} with ${provName(p.provider_id)}${usual ? ', the usual nurse' : ''}`;
   }
   if(a.startsWith('Call to confirm')) return 'Call the family to confirm';
-  if(a.startsWith('Send confirmation')) return 'Send a reminder and ask for a backup contact';
+  if(a.startsWith('Send confirmation')){
+    // Same action underneath; the wording names the reason this visit is on the list.
+    if(reasonHas(v, /prior no-show/)) return 'Send a reminder and ask for a second contact number';
+    if(reasonHas(v, /^Evening slot/)) return 'Send a reminder this afternoon, before the evening visit';
+    if(isFar(v)) return 'Send a reminder and check the nurse can reach on time';
+    return 'Send a reminder and ask for a backup contact';
+  }
   if(a.startsWith('Reassign needed')) return 'Needs a backup nurse, but none is free today';
   if(a.startsWith('Patient confirmed')) return 'Family confirmed. Nothing to do';
   return a;
@@ -359,7 +369,7 @@ function visitCard(v, startHere){
         </div>
         <span class="badge ${escapeHtml(v.tier)}" title="Model score ${pct}%">${label}</span>
       </div>
-      <div class="reasons">${v.reasons.map(r => `<span>${escapeHtml(plainReason(r))}</span>`).join('')}</div>
+      <div class="reasons">${v.reasons.map(plainReason).filter(Boolean).map(r => `<span>${escapeHtml(r)}</span>`).join('')}</div>
       ${sig ? `
       <div class="signal">
         <div class="meta">${escapeHtml(sig.channel)} from the family · <span class="tag ${sig.source === 'rule' ? 'rules' : 'ai'}">${sig.source === 'rule' ? 'Read by rules' : 'Read by AI'}</span></div>
@@ -565,7 +575,7 @@ function renderCascade(){
         </div>
         <div class="meta">Next: <b>${escapeHtml(name)}</b> · ${escapeHtml(c.service)} · ${escapeHtml(time)}</div>
         <div class="flow">
-          <div class="step problem"><div class="dot"></div><div>Only <b>${slack} min</b> of spare time left before ${escapeHtml(firstName(c.id))}'s visit starts late.${c.locGap ? ' The previous address was hard to find, which added to the delay.' : ''}</div></div>
+          <div class="step problem"><div class="dot"></div><div>There was a <b>${c.buffer} min</b> gap before ${escapeHtml(firstName(c.id))}'s visit, so only ${slack} min is left to spare.${c.locGap ? ' The previous address was hard to find, which added to the delay.' : ''}</div></div>
           <div class="step ${hasBackup ? 'fix' : 'problem'}"><div class="dot"></div><div>${hasBackup ? `Backup: <b>${escapeHtml(backup)}</b> · ${escapeHtml(why)}` : 'No backup nurse is free. Tell the family now and agree a later start.'}</div></div>
         </div>
         ${renderDraft('late-' + c.id, draft, {open: true})}
@@ -582,6 +592,7 @@ const VR_TITLES = {VR01: 'Routine visit, all clear', VR07: 'Companion visit, no 
   VR20: 'Low sugar the AI missed', VR22: 'A fall, with normal readings'};
 function humanReason(r){
   if(/external LLM calls are disabled|LLM is not configured/.test(r)) return 'The live AI is off on this free public demo, so a person reviews every note.';
+  if(r.startsWith('family update makes promises')) return `The AI's family update promises something the caregiver never said (${r.split(':')[1].trim()}). Check before sharing.`;
   if(r.startsWith('family update adds medical words')) return `The AI's family update uses medical words the caregiver never said (${r.split(':')[1].trim()}). Check before sharing.`;
   if(/report could not be generated/.test(r)) return 'The AI could not read this note, so a person reviews it.';
   if(r.startsWith('vital value not found')){

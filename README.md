@@ -96,6 +96,7 @@ These are simulated personas, so they are hypotheses to test with real coordinat
 
 - **0 invented vitals** and **0 wrong or invented vitals reaching a family**; 100% of notes that need a coordinator are flagged.
 - **The real run found a gap the perfect-model test could not:** "Sugar 62 … later 88": the model reported only the normal reading, so the first version would have released a cheerful update after a low-sugar episode. Now every reading in the note is scanned, whatever value the model picked.
+- **The model added promises nobody made.** 7 of 30 drafted family updates ended with a line like "We are monitoring him and will keep you updated". All 7 happened to be held for other reasons; there is now an explicit check for it.
 - **The model misread spoken Hindi numbers** ("sattanve", 97, became 100). Grounding held both such notes for review, which turned an apparent cost (18% of routine notes reviewed) into a measured benefit.
 
 **Rest of the system**
