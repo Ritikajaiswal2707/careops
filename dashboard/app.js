@@ -375,7 +375,7 @@ let currentSort = 'risk';
 
 function visitCard(v, startHere){
   const pct = Math.round(v.risk * 100);
-  const label = v.tier === 'High' ? 'Likely to go wrong' : 'Worth a check';
+  const label = v.tier === 'High' ? 'Act first' : 'Check today';
   const time = visitTime(v.id, v.time);
   const sig = v.patientSignal;
   return `
@@ -963,7 +963,7 @@ function renderIncidentSummary(){
         <div style="font-weight:700;">${escapeHtml(patientName(visit.id))}</div>
         <div class="meta" style="margin-top:3px;">${escapeHtml(visit.service)} · ${escapeHtml(visitTime(visit.id, visit.time))} · ${escapeHtml(phoneFor(visit.id))}</div>
       </div>
-      <span class="badge ${escapeHtml(visit.tier)}">${visit.tier === 'High' ? 'Likely to go wrong' : 'Worth a check'}</span>
+      <span class="badge ${escapeHtml(visit.tier)}">${visit.tier === 'High' ? 'Act first' : 'Check today'}</span>
     </div>
     <div class="meta" style="margin-top:9px;"><b>Reported:</b> the assigned nurse can't make it.</div>`;
 }
@@ -1144,16 +1144,22 @@ function renderSummary(){
   const ok = Math.max(0, total - high - med - conf - done) + done;
   const todoN = open.filter(v => !isWaiting(v)).length;
   document.getElementById('hero-title').textContent = `${todoN} of today's ${total} visits need you`;
-  const board = document.getElementById('board');
-  const marks = [...Array(high).fill('high'), ...Array(med).fill('med'), ...Array(conf).fill('conf'), ...Array(ok).fill('ok')];
-  board.innerHTML = marks.map((c, i) => `<i class="${c}" style="animation-delay:${Math.min(i * 12, 900)}ms"></i>`).join('');
-  if(!board.dataset.drawn){ board.classList.add('animate'); board.dataset.drawn = '1'; } else board.classList.remove('animate');
-  board.setAttribute('aria-label', `${high} likely to go wrong, ${med} worth a check, ${conf} already confirmed, ${ok} on track, out of ${total} visits`);
-  document.getElementById('legend').innerHTML = `
-    <span><i style="background:var(--high)"></i><b>${high}</b> likely to go wrong</span>
-    <span><i style="background:var(--med)"></i><b>${med}</b> worth a check</span>
-    <span><i class="conf-key"></i><b>${conf}</b> family confirmed</span>
-    <span><i style="background:color-mix(in srgb, var(--ok) 35%, var(--card))"></i><b>${ok}</b> on track</span>`;
+  // A coordinator found the grid of squares and its legend confusing, so the day is now four plain
+  // lines in two groups: what needs her, and what does not, each saying what it means.
+  const row = (n, cls, title, text, filter) => filter && n
+    ? `<button type="button" class="sum-row ${cls}" onclick="applyFilter('${filter}')"><b>${n}</b><span><strong>${title}</strong>${text}</span><em>Show</em></button>`
+    : `<div class="sum-row ${cls}"><b>${n}</b><span><strong>${title}</strong>${text}</span></div>`;
+  document.getElementById('summary').innerHTML = `
+    <div class="sum-group">
+      <div class="sum-head">Flagged for you</div>
+      ${row(high, 'high', 'Act first', 'Most likely to be missed today. Open these first.', 'High')}
+      ${row(med, 'med', 'Check today', 'A smaller risk. A reminder is usually enough.', 'Medium')}
+    </div>
+    <div class="sum-group">
+      <div class="sum-head">Nothing needed from you</div>
+      ${row(conf, 'conf', 'Family confirmed', 'The family has already said yes to the visit.')}
+      ${row(ok, 'ok', 'On track', 'No warning signs, or already sorted by you today.')}
+    </div>`;
 }
 
 initOperatorView();

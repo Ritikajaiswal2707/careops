@@ -38,18 +38,19 @@ button, select, input, textarea{font-family:inherit;}
 .brand a:hover{color:var(--ink); border-color:var(--ink);}
 .hero h1{font-family:var(--display); font-weight:700; font-size:clamp(1.7rem, 4.6vw, 2.6rem); line-height:1.08; letter-spacing:-.02em; margin:0 0 12px; max-width:22ch;}
 .hero p{margin:0; color:var(--sub); font-size:1rem; max-width:60ch;}
-.board{margin:24px 0 8px; display:grid; grid-template-columns:repeat(auto-fill, minmax(18px, 1fr)); gap:5px; max-width:840px;}
-.board i{display:block; aspect-ratio:1; border-radius:4px; background:var(--line);}
-.board i.ok{background:color-mix(in srgb, var(--ok) 35%, var(--card));}
-.board i.med{background:var(--med);}
-.board i.high{background:var(--high);}
-.board.animate i{animation:pop .35s ease-out both;}
-@keyframes pop{from{transform:scale(.3); opacity:0;} to{transform:scale(1); opacity:1;}}
-@media (prefers-reduced-motion: reduce){ .board.animate i{animation:none;} }
-.legend{display:flex; flex-wrap:wrap; gap:6px 20px; margin:12px 0 30px; font-size:.88rem; color:var(--sub);}
-.legend span{display:inline-flex; align-items:center; gap:7px;}
-.legend b{color:var(--ink); font-weight:700;}
-.legend i{width:12px; height:12px; border-radius:3px; display:inline-block;}
+.summary{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:22px 0 30px; max-width:900px;}
+.sum-group{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px;}
+.sum-head{font-size:.78rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--sub); margin-bottom:6px;}
+.sum-row{display:flex; align-items:center; gap:14px; width:100%; padding:10px 0; border:0; border-top:1px solid var(--line); background:none; color:var(--ink); font:inherit; text-align:left;}
+.sum-head + .sum-row{border-top:0;}
+.sum-row b{font-family:var(--display); font-size:1.7rem; font-weight:700; min-width:2.2ch; text-align:right; line-height:1;}
+.sum-row.high b{color:var(--high);} .sum-row.med b{color:var(--med);} .sum-row.conf b, .sum-row.ok b{color:var(--ok);}
+.sum-row span{flex:1; font-size:.88rem; color:var(--sub); line-height:1.35;}
+.sum-row strong{display:block; color:var(--ink); font-size:.98rem;}
+.sum-row em{font-style:normal; font-size:.82rem; font-weight:600; color:var(--accent);}
+button.sum-row{cursor:pointer; border-radius:8px;}
+button.sum-row:hover strong{text-decoration:underline;}
+@media (max-width:700px){ .summary{grid-template-columns:1fr;} }
 
 /* Views */
 .tabs{display:flex; gap:22px; margin-bottom:18px; overflow-x:auto; border-bottom:1px solid var(--line); scrollbar-width:none;}
@@ -121,8 +122,6 @@ button.approve.warn{background:var(--high-bg); color:var(--high);}
 .confirmed-group{margin-top:14px; border:1px solid var(--line); border-radius:10px; background:var(--card); padding:4px 16px;}
 .confirmed-group summary{cursor:pointer; padding:10px 0; font-weight:600; font-size:.9rem;}
 .conf-row{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 0; border-top:1px dashed var(--line); font-size:.88rem;}
-.board i.conf{background:var(--card); box-shadow:inset 0 0 0 2px var(--ok);}
-.legend i.conf-key{background:var(--card); box-shadow:inset 0 0 0 2px var(--ok);}
 .result.ok{border-color:var(--ok);}
 .result.warn{border-color:var(--med);}
 .alt{padding:8px 0; border-top:1px solid var(--line);}
@@ -159,7 +158,6 @@ button.approve.warn{background:var(--high-bg); color:var(--high);}
 .footer{margin-top:40px; color:var(--sub); font-size:.8rem;}
 @media (max-width:560px){
   .wrap{padding:20px 16px 48px;}
-  .board{grid-template-columns:repeat(auto-fill, minmax(14px, 1fr)); gap:4px;}
   .action-main{flex-direction:column; align-items:stretch;}
   .btns{justify-content:stretch;} .btns button{flex:1;}
   #view-tabs{flex-wrap:wrap; gap:2px 18px;}
@@ -224,3 +222,5 @@ body.operator .operator-only{display:inline;}
 .group-head{font-weight:700; font-size:.86rem; color:var(--sub); margin:22px 0 10px; padding-top:14px; border-top:1px solid var(--line);}
 .today-wait{color:var(--med);}
 .today-wait::after{content:"·"; margin-left:8px; color:var(--sub);}
+
+@media (max-width:700px){ .today-line .dot-sep{display:none;} .today-line .today-chip{display:block; margin-bottom:6px;} }

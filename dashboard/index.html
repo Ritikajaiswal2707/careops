@@ -30,14 +30,13 @@
     <h1 id="hero-title">Today's home visits</h1>
     <p class="today-line" id="today-line"></p>
     <p class="visitor pitch">CareOps reads family messages in English and Hinglish, drafts the reply, and suggests a fix. You approve; nothing is booked or sent on its own.</p>
-    <div class="board" id="board" role="img" aria-label="Today's visits"></div>
-    <div class="legend" id="legend"></div>
+    <div class="summary" id="summary"></div>
     <details class="ai-box visitor">
       <summary>Where AI is used, and why it is off here</summary>
       <ul>
         <li><span class="tag ai">AI</span> <b>Visit reports:</b> an LLM (gpt-oss-120b) turns a caregiver's note into a report and a family update. Checks after the AI decide what is trusted.</li>
         <li><span class="tag ai">AI</span> <b>Family messages:</b> rules read them first; an LLM is asked only when the rules can't decide. Every message on today's list was read by rules.</li>
-        <li><span class="tag rules">Model</span> <b>"Likely to go wrong":</b> a simple statistical model (logistic regression), not generative AI.</li>
+        <li><span class="tag rules">Model</span> <b>"Act first" and "Check today":</b> a simple statistical model (logistic regression), not generative AI.</li>
         <li><span class="tag rules">Rules</span> <b>Replacement nurse:</b> hard eligibility checks, then a weighted score with reasons.</li>
         <li><span class="tag rules">Template</span> <b>Messages to families:</b> fixed templates you edit, so the wording is predictable.</li>
       </ul>
@@ -56,8 +55,8 @@
     <div class="toolbar">
       <div class="tabs filters" role="group" aria-label="Filter">
         <button type="button" class="tab active" aria-pressed="true" data-f="all">All</button>
-        <button type="button" class="tab" aria-pressed="false" data-f="High">Likely to go wrong</button>
-        <button type="button" class="tab" aria-pressed="false" data-f="Medium">Worth a check</button>
+        <button type="button" class="tab" aria-pressed="false" data-f="High">Act first</button>
+        <button type="button" class="tab" aria-pressed="false" data-f="Medium">Check today</button>
       </div>
       <div class="tabs filters sort" role="group" aria-label="Sort">
         <button type="button" class="tab active" aria-pressed="true" data-s="risk">Most urgent</button>
@@ -75,7 +74,7 @@
 
     <details class="note about">
       <summary>About the risk model and its known limitation</summary>
-      The list is sized to what one coordinator can review in a day: the riskiest 10% of visits are "Likely to go wrong" and the next 10% "Worth a check". The risk score is a simple statistical model (ROC-AUC 0.58), so it is a "look here first" helper, not a verdict.<br><br>
+      The list is sized to what one coordinator can review in a day: the riskiest 10% of visits are marked "Act first" and the next 10% "Check today". The risk score is a simple statistical model (ROC-AUC 0.58), so it is a "look here first" helper, not a verdict.<br><br>
       <b>Known limitation:</b> for first-time patients the model predicts more risk than actually happens (25.6% predicted, 17.0% observed), so its scores for them should be recalibrated before any real use.
     </details>
   </div>
