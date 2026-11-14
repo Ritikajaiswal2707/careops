@@ -49,9 +49,9 @@ A third pass caught a framing problem: the page's first line described the produ
 
 | Metric | Result |
 |---|---|
-| Message understanding on a fresh 39-message holdout (frozen before the final prompt) | 77% → **97.4%** across three prompt versions |
-| False confirmations across all saved runs | **8 → 0** with prompt v3 plus a guardrail that can only escalate |
-| Wrong or invented vitals reaching a family (30 Hinglish voice notes) | **0** |
+| Intent classification accuracy (one of five labels) on a fresh 39-message holdout, frozen before the final prompt | 77% → **97.4%** across three prompt versions |
+| False confirmations summed over all 10 saved runs (555 message reads across three test sets) | **8 → 0** with a guardrail that can only escalate |
+| Wrong or invented vitals reaching a family, on 30 typed Hinglish caregiver notes. The model got 3 values wrong; the checks held all of them | **0** |
 | Cost and speed | ₹0 on free tiers; about 1.2 s per message |
 
 ## What I learned
