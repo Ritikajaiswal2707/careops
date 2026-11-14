@@ -138,8 +138,8 @@ def added_medical_terms(summary, transcript):
 # keep you updated": a commitment nobody made. Each entry is (pattern in the
 # summary, pattern that must appear in the note).
 SUMMARY_PROMISES = {
-    "monitoring": (r"\bmonitor", r"monitor|nazar|dhyan|observ"),
-    "keep you updated": (r"keep you (updated|informed|posted)|will update you", r"update|bata d|inform"),
+    "monitoring": (r"\bmonitor|close watch|keep(ing)? (a |an )?(watch|eye)", r"monitor|nazar|dhyan|observ|watch"),
+    "keep you updated": (r"keep you (updated|informed|posted)|will update you|let you know", r"update|bata d|inform|let .* know"),
     "doctor informed": (r"(doctor|physician) (has been|was|is being|will be) (informed|notified|consulted)|(informed|notified) the doctor",
                         r"doctor|dr\b|daktar"),
     "follow-up": (r"follow[- ]?up|will (check|visit|come) again", r"follow|dobara|phir se|kal aa"),

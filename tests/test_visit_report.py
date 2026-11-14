@@ -255,3 +255,9 @@ def test_promise_supported_by_the_note_is_allowed():
     summary = "His blood pressure was 128 over 82. The doctor has been informed and the nurse will visit again tomorrow."
     assert visit_report.added_promises(summary, note) == []
     assert visit_report.added_promises("He ate well and seemed cheerful.", "Khana kha liya.") == []
+
+
+def test_promise_check_catches_reworded_promises():
+    note = "Seedhi chadhte hue saans phool rahi thi. Oxygen 93 tha."
+    summary = "Her oxygen level was 93%. We are keeping a close watch and will let you know of any changes."
+    assert visit_report.added_promises(summary, note) == ["keep you updated", "monitoring"]
