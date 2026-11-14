@@ -21,7 +21,7 @@ Ask them to think aloud. Don't help unless they are stuck for more than a minute
 
 | # | Task | Watch for |
 |---|---|---|
-| 1 | "Open the page. Which visits would you look at first, and why?" | Do they understand "Likely to go wrong" and the reasons? |
+| 1 | "Open the page. Which visits would you look at first, and why?" | Do they understand "Act first" and the reasons? |
 | 2 | "Find the family who wants to reschedule. What would you do?" | Do they trust the proposed day? Would they send the drafted message as is? |
 | 3 | "Open Running late. What would you do first?" | Is "Family not told yet" the right alarm? |
 | 4 | "Open Fix a visit. A nurse has dropped out. Find a replacement." | Do the reasons match how they choose? Do they ask to fix all of one nurse's visits at once? |
