@@ -75,9 +75,11 @@ These are simulated personas, so they are hypotheses to test with real coordinat
 
 ## Results (synthetic, author-labelled data)
 
-**Message understanding: real API runs on Groq's free tier** ([full write-up](docs/LLM_EVALUATION.md))
+**Reading the family's message: real API runs on Groq's free tier** ([full write-up](docs/LLM_EVALUATION.md))
 
-| On a fresh 39-message holdout, frozen before the final prompt existed | Accuracy | 95% interval ² | False confirmations |
+"Accuracy" below means **intent classification only**: did the system pick the right one of five labels (Confirm, Reschedule, Cancel, Unclear, No Response). It is not date extraction, the recommended action or end-to-end success; those are reported separately further down.
+
+| On a fresh 39-message holdout, frozen before the final prompt existed | Intent accuracy | 95% interval ² | False confirmations |
 |---|---|---|---|
 | Rule-based parser alone (103-message set) | 53.4% | 44–63% | — |
 | gpt-oss-120b, prompt v1 (labels not defined) | 76.9% | 62–87% | 0 |
@@ -92,9 +94,15 @@ These are simulated personas, so they are hypotheses to test with real coordinat
 ¹ The guardrail's rules were motivated by errors on this set, so its 100% is optimistic until measured on a new holdout.
 ² Wilson 95% intervals (`python model/confidence_intervals.py`). With 39 messages, one error moves accuracy by 2.6 points, so the intervals are wide: v3 is clearly better than v1, but v2 and v3 overlap. All labels are by one person; `model/labeller_agreement.py` measures agreement once a second person labels the same messages.
 
-**Voice visit reports** ([write-up](docs/VISIT_REPORTS.md)): a caregiver's voice note becomes a structured report and a family update, via free Whisper and an LLM, with deterministic checks after the model. On 30 Hinglish notes with gpt-oss-120b:
+**What the 39 messages are.** 26 English, 10 Hinglish, 3 Hindi in Devanagari. By label: 12 Unclear, 10 Reschedule, 8 Confirm, 7 Cancel, 2 empty. They deliberately over-represent boundary cases (a thank-you only, someone else's delay, a reschedule with no date, typos), so this is a hard set, not a sample of real traffic. No message is shared with the sets the prompts were developed on. All are synthetic and labelled by one person, so this is evidence the approach works, not proof it generalises.
 
-- **0 invented vitals** and **0 wrong or invented vitals reaching a family**; 100% of notes that need a coordinator are flagged.
+**What "8 → 0" counts.** Eight false confirmations summed over all 10 saved runs: three test sets (103, 30 and 39 messages), two model sizes and three prompt versions, 555 message reads in total. The guardrail sent 11 Confirms to a human: those 8, plus 3 genuine confirmations (one per run on the 103-message set). On the clean 39-message set alone, the final prompt made 1 false confirmation and the guardrail removed it.
+
+**Beyond intent.** On the 103-message set, the final model also extracted the requested day correctly for 94.2% of messages and the reason for 98.1%. Rules alone cost nothing and answer in under a millisecond but reach only 53.4% intent accuracy and abstain on 58% of messages, which is why the model is called only when they abstain.
+
+**Voice visit reports** ([write-up](docs/VISIT_REPORTS.md)): a caregiver's voice note becomes a structured report and a family update, via free Whisper and an LLM, with deterministic checks after the model. On 30 Hinglish notes with gpt-oss-120b (typed in the style of spoken voice notes; speech-to-text accuracy is not measured yet):
+
+- **The model was not always right; the checks were what kept errors from families.** It never invented a vital, but it got some wrong (97.2% of vital fields correct: two misheard spoken numbers and one dropped low reading). With the checks, **0 wrong or invented vitals reached a family**, and 100% of notes that need a coordinator are flagged.
 - **The real run found a gap the perfect-model test could not:** "Sugar 62 … later 88": the model reported only the normal reading, so the first version would have released a cheerful update after a low-sugar episode. Now every reading in the note is scanned, whatever value the model picked.
 - **The model added promises nobody made.** 7 of 30 drafted family updates ended with a line like "We are monitoring him and will keep you updated". All 7 happened to be held for other reasons; there is now an explicit check for it.
 - **The model misread spoken Hindi numbers** ("sattanve", 97, became 100). Grounding held both such notes for review, which turned an apparent cost (18% of routine notes reviewed) into a measured benefit.
