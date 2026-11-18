@@ -1,4 +1,4 @@
-# CareOps — AI operations copilot for home healthcare
+# CareOps — human-in-the-loop AI agent for home-care operations
 
 **When a home-care visit is about to fail, CareOps reads the family's message, finds a safe replacement provider, and drafts the fix — then waits for a human coordinator to approve it.**
 
@@ -53,6 +53,17 @@ Family message ──► Understand ──► Find recovery options ──► Pr
 | **Recover** | Ranks eligible replacement providers with a plain-language "why", using road travel time when routing is on | Service fit is a hard filter, not a score, so an ineligible provider can never win on proximity; a straight-line estimate is never shown as a road ETA |
 | **Approve** | Persists every proposal and decision with an audit trail | High-stakes actions stay human; the agent fails closed on errors |
 
+## What real coordinators said
+
+I interviewed **12 home-care coordinators** about how they fix a disrupted visit, and **8 of them tried the demo** (on synthetic data). Two changes shipped from their feedback:
+
+| They said | Change |
+|---|---|
+| "Message edit karne ka option aana chahiye" (the draft was editable, but nothing said so) | An explicit **Edit message** action on every drafted reply |
+| The grid of coloured squares at the top was confusing, and its labels did not say what they meant | Replaced with **four plain-language lines** that say what needs attention today |
+
+Nobody has used CareOps on real visits yet; a pilot with real data is the next test.
+
 ## What changed after coordinator walkthroughs
 
 I walked through the product as five coordinator personas (field coordinator, elder-companionship coordinator, hospital clinical lead, night-shift coordinator, agency owner). It surfaced three trust-breaking issues and a mismatch with how coordinators work. All are fixed:
@@ -71,7 +82,7 @@ A second round with ten reviewers (recruiter, senior PM, AI PM interviewer, engi
 
 A third pass separated the two audiences on one page. Visitors see the portfolio framing (banner, pitch, "where AI is used"). **"See the coordinator's view"** hides all of it and leaves what an operator needs first: "16 of today's 95 visits need you · 2 families wrote in · 6 visits have no backup nurse · 3 nurses running late", each a shortcut to those visits. Finished work moves to "Done today" and the counts update. Working a full simulated morning end to end added the rest: acted-on visits drop into "Waiting on someone else" so the headline counts only what still needs action, reminders can be closed ("Family confirmed" / "No reply"), and progress survives a page refresh. A later run of all 16 visits found that "Find another day" sent the coordinator to another tab and its result never came back to the list; it now works in place on the visit's card, and a found day becomes a proposed move that follows the usual approval steps.
 
-These are simulated personas, so they are hypotheses to test with real coordinators ([testing kit](docs/USER_TESTING.md)), not evidence.
+The persona walkthroughs above are my own use of the product, not interviews, so they are hypotheses to check with coordinators ([testing kit](docs/USER_TESTING.md)), not evidence.
 
 ## Results (synthetic, author-labelled data)
 
@@ -116,7 +127,7 @@ These are simulated personas, so they are hypotheses to test with real coordinat
 
 ## What I'd change next
 
-- Test with 3 to 5 real coordinators and measure time to resolve a disrupted visit ([testing kit](docs/USER_TESTING.md)).
+- Pilot with real coordinators on real visits and measure time to resolve a disrupted visit (today it takes 10 to 15 minutes by hand) ([testing kit](docs/USER_TESTING.md)).
 - Get a second person to label the holdouts and report agreement (`model/labeller_agreement.py`).
 - Add companion visits to the daily list (today they appear only in visit reports), and a weekly outcomes view for owners.
 - Define `cancel_current` operationally: most of the model's "errors" on it are a labelling ambiguity, not model mistakes.
