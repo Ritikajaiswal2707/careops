@@ -8,6 +8,8 @@ Built for the realities of India's home-care market: contractual providers with 
 
 > All data is synthetic. This is a product portfolio project: it shows problem framing, evaluation and AI-product judgment, not production outcomes.
 
+**Case study deck (21 slides): [View on Google Drive](https://drive.google.com/file/d/1ChWZO8ZQriH5YZJ_xg78Ogsx_1tgq-mA/view?usp=sharing)**: agent design, evals, guardrails, business case and launch plan.
+
 **Short on time? Read the [one-page case study](docs/CASE_STUDY.md)**: the problem, key product decisions, results and what I learned.
 
 ![CareOps: 16 of 95 home visits need the coordinator today](docs/media/dashboard.png)
