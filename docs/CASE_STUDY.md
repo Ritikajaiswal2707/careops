@@ -1,6 +1,6 @@
 # CareOps: one-page case study
 
-**An AI operations copilot that helps a home-care coordinator fix visits before they fail, without letting the AI act unchecked.**
+**A human-in-the-loop AI agent that helps a home-care coordinator fix visits before they fail, without letting the AI act unchecked.**
 [Live demo](https://careops-live-demo-18xj.onrender.com/) · [73-second video](media/careops-demo.mp4) · All data synthetic
 
 ---
@@ -33,6 +33,8 @@ I saw this while working in Indian home care. A coordinator runs dozens of visit
 
 ## Testing it as five coordinators
 
+**Real coordinators.** I interviewed 12 home-care coordinators about how they fix a disrupted visit, and 8 tried the demo on synthetic data. Two changes shipped from their feedback: an explicit "Edit message" action on drafted replies, and four plain-language lines in place of a confusing grid of coloured squares.
+
 Before real user sessions, I used the product as five coordinator personas: a field coordinator at a nursing agency, an elder-companionship coordinator, a hospital clinical lead, a night-shift coordinator and an agency owner. Average usefulness was about 5 out of 10, well below the quality of the AI underneath. Three findings mattered most:
 
 1. **Trust breaks on small words.** Approving a visit with no backup nurse said "handled". A coordinator would assume the visit was covered. It now says "Escalated · unassigned".
@@ -63,7 +65,7 @@ A third pass caught a framing problem: the page's first line described the produ
 
 ## What's next
 
-1. Test with 3 to 5 real coordinators ([testing kit](USER_TESTING.md)) and measure time to resolve a disrupted visit.
+1. Pilot with real coordinators on real visits ([testing kit](USER_TESTING.md)) and measure time to resolve a disrupted visit.
 2. Ask them whether the "nurse is out today" flow matches how sick calls really arrive.
 3. Measure the guardrail on a third holdout frozen before any further change.
 4. Turn on live road ETAs and check whether they change the recommended provider.
